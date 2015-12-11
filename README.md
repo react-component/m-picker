@@ -1,4 +1,4 @@
-# rc-m-cascade-select
+# rmc-cascade-select
 ---
 
 React MCascadeSelect Component
@@ -10,12 +10,12 @@ React MCascadeSelect Component
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
-[![Sauce Test Status](https://saucelabs.com/buildstatus/rc-m-cascade-select)](https://saucelabs.com/u/rc-m-cascade-select)
+[![Sauce Test Status](https://saucelabs.com/buildstatus/rmc-cascade-select)](https://saucelabs.com/u/rmc-cascade-select)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/rc-m-cascade-select.svg)](https://saucelabs.com/u/rc-m-cascade-select)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/rmc-cascade-select.svg)](https://saucelabs.com/u/rmc-cascade-select)
 
-[npm-image]: http://img.shields.io/npm/v/rc-m-cascade-select.svg?style=flat-square
-[npm-url]: http://npmjs.org/package/rc-m-cascade-select
+[npm-image]: http://img.shields.io/npm/v/rmc-cascade-select.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/rmc-cascade-select
 [travis-image]: https://img.shields.io/travis/react-component/m-cascade-select.svg?style=flat-square
 [travis-url]: https://travis-ci.org/react-component/m-cascade-select
 [coveralls-image]: https://img.shields.io/coveralls/react-component/m-cascade-select.svg?style=flat-square
@@ -24,19 +24,12 @@ React MCascadeSelect Component
 [gemnasium-url]: https://gemnasium.com/react-component/m-cascade-select
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
-[download-image]: https://img.shields.io/npm/dm/rc-m-cascade-select.svg?style=flat-square
-[download-url]: https://npmjs.org/package/rc-m-cascade-select
-
-
-## Browser Support
-
-|![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)|
-| --- | --- | --- | --- | --- |
-| IE 8+ ✔ | Chrome 31.0+ ✔ | Firefox 31.0+ ✔ | Opera 30.0+ ✔ | Safari 7.0+ ✔ |
+[download-image]: https://img.shields.io/npm/dm/rmc-cascade-select.svg?style=flat-square
+[download-url]: https://npmjs.org/package/rmc-cascade-select
 
 ## Screenshots
 
-<img src="" width="288"/>
+<img src="https://os.alipayobjects.com/rmsportal/EJtTSrdrAcdTbFm.png" width="288"/>
 
 
 ## Development
@@ -55,7 +48,7 @@ online example: http://react-component.github.io/m-cascade-select/examples/
 
 ## install
 
-[![rc-m-cascade-select](https://nodei.co/npm/rc-m-cascade-select.png)](https://npmjs.org/package/rc-m-cascade-select)
+[![rmc-cascade-select](https://nodei.co/npm/rmc-cascade-select.png)](https://npmjs.org/package/rmc-cascade-select)
 
 
 ## Usage
@@ -70,11 +63,8 @@ online example: http://react-component.github.io/m-cascade-select/examples/
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | '' |
 |onChange | fire when change the selector's item | Function | '' |
-|onSubmit | fire when finish select the selector | Function | '' |
+|onOk | fire when finish select the selector | Function | '' |
 |onCancel | fire when cancel select the selector | Function | '' |
-|onOpen | fire when open the selector | Function | '' |
-|onClose | fire when close the selector | Function | '' |
-
 
 
 ## Test Case
@@ -87,4 +77,4 @@ http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front
 
 ## License
 
-rc-m-cascade-select is released under the MIT license.
+rmc-cascade-select is released under the MIT license.

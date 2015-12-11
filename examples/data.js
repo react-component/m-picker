@@ -13,4 +13,5 @@ export const city = [
 export const region = [
   {name: '西湖区', value: '02-1-1'}, {name: '上城区', value: '02-1-2'},
   {name: '江干区', value: '02-1-3'}, {name: '下城区', value: '02-1-4'},
+  {name: 'xx区', value: '02-2-1'}, {name: 'yy区', value: '02-2-2'},
 ];

@@ -1,7 +1,7 @@
-import 'rc-m-cascade-select/assets/index.less';
+import 'rmc-cascade-select/assets/index.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MCascadeSelect from 'rc-m-cascade-select';
+import MCascadeSelect from 'rmc-cascade-select';
 const data = require('./data');
 
 const remoteData = [data.province, data.city, data.region];
@@ -31,7 +31,7 @@ const CityPicker = React.createClass({
       finalSel: '',
     };
   },
-  onSubmit(info) {
+  onOk(info) {
     console.log(info);
     let finalSel = '';
     info.value.forEach((item, index) => {
@@ -69,7 +69,7 @@ const CityPicker = React.createClass({
         <p>您选择的城市是：{st.finalSel}</p>
         <MCascadeSelect
           data={gData} value={newVal}
-          onSubmit={this.onSubmit} onChange={this.onChange}>
+          onOk={this.onOk} onChange={this.onChange}>
           <button>trigger</button>
         </MCascadeSelect>
       </div>);

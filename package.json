@@ -1,6 +1,6 @@
 {
-  "name": "rc-m-cascade-select",
-  "version": "0.1.0",
+  "name": "rmc-cascade-select",
+  "version": "0.2.0",
   "description": "m-cascade-select ui component for react",
   "keywords": [
     "react",
@@ -18,7 +18,6 @@
     "url": "https://github.com/react-component/m-cascade-select/issues"
   },
   "files": [
-    "vendor",
     "lib",
     "assets/*.css"
   ],
@@ -51,6 +50,7 @@
     "lint"
   ],
   "dependencies": {
-    "classnames": "~2.2.1"
+    "classnames": "~2.2.1",
+    "iscroll": "~5.1.3"
   }
 }
