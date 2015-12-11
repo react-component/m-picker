@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rc-m-cascade-select@0.1.0</title>
+  <title>simple.js - example - rmc-cascade-select@0.2.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-m-cascade-select@0.1.0</h1>
+    <h1>rmc-cascade-select@0.2.0</h1>
 
     <p>m-cascade-select ui component for react</p>
   </div>
@@ -265,14 +265,14 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="common.js?nowrap"></script>
   <script src="simple.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">// use jsx to render html, do not modify simple.html</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rc-m-cascade-select/assets/index.css'</span>;
-<span class="hljs-keyword">import</span> MCascadeSelect <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-m-cascade-select'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-cascade-select/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> MCascadeSelect <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-cascade-select'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
 <span class="hljs-keyword">const</span> createData = (id, tail) =&gt; {
   <span class="hljs-keyword">const</span> arr = [];
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">15</span>; i++) {
     <span class="hljs-keyword">const</span> val = id + <span class="hljs-string">'-'</span> + i;
     arr.push({value: val, name: val + <span class="hljs-string">'-'</span> + tail});
   }
@@ -284,12 +284,11 @@ gData[<span class="hljs-number">0</span>] = createData(<span class="hljs-number"
 gData[<span class="hljs-number">1</span>] = createData(<span class="hljs-number">2</span>, <span class="hljs-string">'市'</span>);
 <span class="hljs-comment">// gData[2] = createData(2, '区');</span>
 
-
 <span class="hljs-keyword">const</span> Demo = React.createClass({
   propTypes: {},
   getInitialState() {
     <span class="hljs-keyword">return</span> {
-      value: [],
+      value: [<span class="hljs-string">'1-2'</span>],
     };
   },
   onOpen(info) {
@@ -298,7 +297,7 @@ gData[<span class="hljs-number">1</span>] = createData(<span class="hljs-number"
   onClose(info) {
     <span class="hljs-built_in">console</span>.log(info);
   },
-  onSubmit(info) {
+  onOk(info) {
     <span class="hljs-built_in">console</span>.log(info);
   },
   onCancel(info) {
@@ -314,8 +313,7 @@ gData[<span class="hljs-number">1</span>] = createData(<span class="hljs-number"
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">MCascadeSelect</span>
           <span class="hljs-attribute">data</span>=<span class="hljs-value">{gData}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
-          <span class="hljs-attribute">onOpen</span>=<span class="hljs-value">{this.onOpen}</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.onClose}</span>
-          <span class="hljs-attribute">onSubmit</span>=<span class="hljs-value">{this.onSubmit}</span> <span class="hljs-attribute">onCancel</span>=<span class="hljs-value">{this.onCancel}</span>
+          <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span> <span class="hljs-attribute">onCancel</span>=<span class="hljs-value">{this.onCancel}</span>
           <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">MCascadeSelect</span>&gt;</span>

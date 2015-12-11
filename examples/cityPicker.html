@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rc-m-cascade-select@0.1.0</title>
+  <title>cityPicker.js - example - rmc-cascade-select@0.2.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,17 +257,17 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-m-cascade-select@0.1.0</h1>
+    <h1>rmc-cascade-select@0.2.0</h1>
 
     <p>m-cascade-select ui component for react</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="cityPicker.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rc-m-cascade-select/assets/index.css'</span>;
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-cascade-select/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-<span class="hljs-keyword">import</span> MCascadeSelect <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-m-cascade-select'</span>;
+<span class="hljs-keyword">import</span> MCascadeSelect <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-cascade-select'</span>;
 <span class="hljs-keyword">const</span> data = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./data'</span>);
 
 <span class="hljs-keyword">const</span> remoteData = [data.province, data.city, data.region];
@@ -297,7 +297,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       finalSel: <span class="hljs-string">''</span>,
     };
   },
-  onSubmit(info) {
+  onOk(info) {
     <span class="hljs-built_in">console</span>.log(info);
     <span class="hljs-keyword">let</span> finalSel = <span class="hljs-string">''</span>;
     info.value.forEach((item, index) =&gt; {
@@ -335,7 +335,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>您选择的城市是：{st.finalSel}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">MCascadeSelect</span>
           <span class="hljs-attribute">data</span>=<span class="hljs-value">{gData}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{newVal}</span>
-          <span class="hljs-attribute">onSubmit</span>=<span class="hljs-value">{this.onSubmit}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>&gt;</span>
+          <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">MCascadeSelect</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;

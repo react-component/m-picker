@@ -27,11 +27,11 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcMCascadeSelect = __webpack_require__(161);
+	var _rmcCascadeSelect = __webpack_require__(161);
 	
-	var _rcMCascadeSelect2 = _interopRequireDefault(_rcMCascadeSelect);
+	var _rmcCascadeSelect2 = _interopRequireDefault(_rmcCascadeSelect);
 	
-	var data = __webpack_require__(166);
+	var data = __webpack_require__(167);
 	
 	var remoteData = [data.province, data.city, data.region];
 	var gData = [[].concat(_toConsumableArray(data.province)), [], []];
@@ -61,7 +61,7 @@ webpackJsonp([0],{
 	      finalSel: ''
 	    };
 	  },
-	  onSubmit: function onSubmit(info) {
+	  onOk: function onOk(info) {
 	    console.log(info);
 	    var finalSel = '';
 	    info.value.forEach(function (item, index) {
@@ -109,10 +109,10 @@ webpackJsonp([0],{
 	        st.finalSel
 	      ),
 	      _react2['default'].createElement(
-	        _rcMCascadeSelect2['default'],
+	        _rmcCascadeSelect2['default'],
 	        {
 	          data: gData, value: newVal,
-	          onSubmit: this.onSubmit, onChange: this.onChange },
+	          onOk: this.onOk, onChange: this.onChange },
 	        _react2['default'].createElement(
 	          'button',
 	          null,
@@ -127,7 +127,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 166:
+/***/ 167:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -139,7 +139,7 @@ webpackJsonp([0],{
 	exports.province = province;
 	var city = [{ name: '东城区', value: '01-1' }, { name: '西城区', value: '01-2' }, { name: '崇文区', value: '01-3' }, { name: '宣武区', value: '01-4' }, { name: '朝阳区"', value: '01-5' }, { name: '丰台区', value: '01-6' }, { name: '杭州', value: '02-1' }, { name: '宁波', value: '02-2' }, { name: '温州', value: '02-3' }, { name: '嘉兴', value: '02-4' }, { name: '湖州', value: '02-5' }, { name: '绍兴', value: '02-6' }];
 	exports.city = city;
-	var region = [{ name: '西湖区', value: '02-1-1' }, { name: '上城区', value: '02-1-2' }, { name: '江干区', value: '02-1-3' }, { name: '下城区', value: '02-1-4' }];
+	var region = [{ name: '西湖区', value: '02-1-1' }, { name: '上城区', value: '02-1-2' }, { name: '江干区', value: '02-1-3' }, { name: '下城区', value: '02-1-4' }, { name: 'xx区', value: '02-2-1' }, { name: 'yy区', value: '02-2-2' }];
 	exports.region = region;
 
 /***/ }

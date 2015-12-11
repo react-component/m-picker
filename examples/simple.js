@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(167);
+	module.exports = __webpack_require__(168);
 
 
 /***/ },
 
-/***/ 167:
+/***/ 168:
 /***/ function(module, exports, __webpack_require__) {
 
 	// use jsx to render html, do not modify simple.html
@@ -18,9 +18,9 @@ webpackJsonp([1],{
 	
 	__webpack_require__(2);
 	
-	var _rcMCascadeSelect = __webpack_require__(161);
+	var _rmcCascadeSelect = __webpack_require__(161);
 	
-	var _rcMCascadeSelect2 = _interopRequireDefault(_rcMCascadeSelect);
+	var _rmcCascadeSelect2 = _interopRequireDefault(_rmcCascadeSelect);
 	
 	var _react = __webpack_require__(3);
 	
@@ -32,7 +32,7 @@ webpackJsonp([1],{
 	
 	var createData = function createData(id, tail) {
 	  var arr = [];
-	  for (var i = 0; i < 2; i++) {
+	  for (var i = 0; i < 15; i++) {
 	    var val = id + '-' + i;
 	    arr.push({ value: val, name: val + '-' + tail });
 	  }
@@ -50,7 +50,7 @@ webpackJsonp([1],{
 	  propTypes: {},
 	  getInitialState: function getInitialState() {
 	    return {
-	      value: []
+	      value: ['1-2']
 	    };
 	  },
 	  onOpen: function onOpen(info) {
@@ -59,7 +59,7 @@ webpackJsonp([1],{
 	  onClose: function onClose(info) {
 	    console.log(info);
 	  },
-	  onSubmit: function onSubmit(info) {
+	  onOk: function onOk(info) {
 	    console.log(info);
 	  },
 	  onCancel: function onCancel(info) {
@@ -76,11 +76,10 @@ webpackJsonp([1],{
 	      'div',
 	      { style: { margin: '10px 30px' } },
 	      _react2['default'].createElement(
-	        _rcMCascadeSelect2['default'],
+	        _rmcCascadeSelect2['default'],
 	        {
 	          data: gData, value: this.state.value,
-	          onOpen: this.onOpen, onClose: this.onClose,
-	          onSubmit: this.onSubmit, onCancel: this.onCancel,
+	          onOk: this.onOk, onCancel: this.onCancel,
 	          onChange: this.onChange },
 	        _react2['default'].createElement(
 	          'button',
