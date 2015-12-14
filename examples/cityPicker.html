@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-picker@0.2.1</title>
+  <title>cityPicker.js - example - rmc-picker@0.2.2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -251,13 +251,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="cityPicker.css" />
 </head>
 
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-picker@0.2.1</h1>
+    <h1>rmc-picker@0.2.2</h1>
 
     <p>m-picker ui component for react</p>
   </div>
@@ -292,7 +292,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   },
   getInitialState() {
     <span class="hljs-keyword">return</span> {
-      changedIndex: <span class="hljs-number">0</span>,
+      indexOfScrollers: <span class="hljs-number">0</span>,
       value: [],
       finalSel: <span class="hljs-string">''</span>,
     };
@@ -311,20 +311,22 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   },
   onChange(value, info) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChang'</span>, value, info);
+    <span class="hljs-keyword">const</span> newVal = [...info.preValue];
+    newVal[info.indexOfScrollers] = value;
     <span class="hljs-keyword">this</span>.setState({
-      changedIndex: info.changedIndex,
-      value: value,
+      indexOfScrollers: info.indexOfScrollers,
+      value: newVal,
     });
   },
   render() {
     <span class="hljs-keyword">const</span> st = <span class="hljs-keyword">this</span>.state;
     <span class="hljs-keyword">const</span> newVal = [...st.value];
 
-    <span class="hljs-comment">// 设置 changedIndex 下一条的默认值</span>
-    <span class="hljs-keyword">let</span> index = st.changedIndex;
+    <span class="hljs-comment">// 设置 indexOfScrollers 下一条的默认值</span>
+    <span class="hljs-keyword">let</span> index = st.indexOfScrollers;
     <span class="hljs-keyword">let</span> next = gData[index];
     <span class="hljs-keyword">while</span> (next &amp;&amp; next.length) {
-      newVal[index] = index === st.changedIndex ? (newVal[index] || next[<span class="hljs-number">0</span>].value) : next[<span class="hljs-number">0</span>].value;
+      newVal[index] = index === st.indexOfScrollers ? (newVal[index] || next[<span class="hljs-number">0</span>].value) : next[next.length - <span class="hljs-number">1</span>].value;
       <span class="hljs-comment">// newVal[index] = newVal[index] || next[0].value;</span>
       setData(newVal[index], index);
       index++;
