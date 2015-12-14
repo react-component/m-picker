@@ -49,22 +49,18 @@ const Scroller = React.createClass({
     if (!this.iscroll) {
       this.initScroller();
     } else {
-      // refresh 和 scrollTo 等方法都会再次触发 scrollEnd，此处并不希望此行为
+      // refresh 和 scrollTo 等方法都会再次触发 scrollEnd
       setTimeout(() => {
         this.iscroll.refresh();
         this.iscroll.scrollTo(0, this.iscroll.pages[0][this.defaultScrollPosition].y);
       }, 0);
     }
-
-    // const y = this.iscroll.pages[0][this.defaultScrollPosition].y;
-    // console.log(y);
   },
   componentWillUnmount() {
     this.iscroll.destroy();
     this.iscroll = null;
   },
   onScrollEnd() {
-    // debugger
     let index = undefined;
     if (this.props.heightOfItem) {
       index = Math.abs(this.iscroll.y / this.props.heightOfItem);

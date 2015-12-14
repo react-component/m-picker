@@ -41,14 +41,6 @@ const Picker = React.createClass({
   onClose() {
     this.setOpenState(false);
   },
-  onOk() {
-    this.setOpenState(false);
-    if (this.props.onOk) {
-      this.props.onOk({
-        value: this.value,
-      });
-    }
-  },
   onCancel() {
     this.setOpenState(false);
     if (this.props.onCancel) {
@@ -57,11 +49,20 @@ const Picker = React.createClass({
       });
     }
   },
+  onOk() {
+    this.setOpenState(false);
+    if (this.props.onOk) {
+      this.props.onOk({
+        value: this.value,
+      });
+    }
+  },
   onSelect(selectNameValue, indexOfScrollers) {
-    const newVal = [...this.value];
-    newVal[indexOfScrollers] = selectNameValue.value;
     if (this.props.onChange) {
-      this.props.onChange(newVal, {changedIndex: indexOfScrollers});
+      this.props.onChange(selectNameValue.value, {
+        indexOfScrollers: indexOfScrollers,
+        preValue: [...this.value],
+      });
     }
   },
   setOpenState(open, callback) {

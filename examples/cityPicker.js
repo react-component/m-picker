@@ -26,7 +26,7 @@ const CityPicker = React.createClass({
   },
   getInitialState() {
     return {
-      changedIndex: 0,
+      indexOfScrollers: 0,
       value: [],
       finalSel: '',
     };
@@ -45,20 +45,22 @@ const CityPicker = React.createClass({
   },
   onChange(value, info) {
     console.log('onChang', value, info);
+    const newVal = [...info.preValue];
+    newVal[info.indexOfScrollers] = value;
     this.setState({
-      changedIndex: info.changedIndex,
-      value: value,
+      indexOfScrollers: info.indexOfScrollers,
+      value: newVal,
     });
   },
   render() {
     const st = this.state;
     const newVal = [...st.value];
 
-    // 设置 changedIndex 下一条的默认值
-    let index = st.changedIndex;
+    // 设置 indexOfScrollers 下一条的默认值
+    let index = st.indexOfScrollers;
     let next = gData[index];
     while (next && next.length) {
-      newVal[index] = index === st.changedIndex ? (newVal[index] || next[0].value) : next[0].value;
+      newVal[index] = index === st.indexOfScrollers ? (newVal[index] || next[0].value) : next[next.length - 1].value;
       // newVal[index] = newVal[index] || next[0].value;
       setData(newVal[index], index);
       index++;
