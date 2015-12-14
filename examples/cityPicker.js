@@ -1,7 +1,7 @@
-import 'rmc-cascade-select/assets/index.less';
+import 'rmc-picker/assets/index.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MCascadeSelect from 'rmc-cascade-select';
+import MCascadeSelect from 'rmc-picker';
 const data = require('./data');
 
 const remoteData = [data.province, data.city, data.region];
@@ -43,11 +43,11 @@ const CityPicker = React.createClass({
     });
     this.setState({finalSel: finalSel});
   },
-  onChange(info) {
-    console.log('value changed', info);
+  onChange(value, info) {
+    console.log('onChang', value, info);
     this.setState({
       changedIndex: info.changedIndex,
-      value: info.value,
+      value: value,
     });
   },
   render() {
@@ -59,6 +59,7 @@ const CityPicker = React.createClass({
     let next = gData[index];
     while (next && next.length) {
       newVal[index] = index === st.changedIndex ? (newVal[index] || next[0].value) : next[0].value;
+      // newVal[index] = newVal[index] || next[0].value;
       setData(newVal[index], index);
       index++;
       next = gData[index];

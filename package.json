@@ -1,21 +1,21 @@
 {
-  "name": "rmc-cascade-select",
-  "version": "0.2.0",
-  "description": "m-cascade-select ui component for react",
+  "name": "rmc-picker",
+  "version": "0.2.1",
+  "description": "m-picker ui component for react",
   "keywords": [
     "react",
     "react-component",
-    "react-m-cascade-select",
-    "m-cascade-select"
+    "react-m-picker",
+    "m-picker"
   ],
-  "homepage": "https://github.com/react-component/m-cascade-select",
+  "homepage": "https://github.com/react-component/m-picker",
   "author": "hualei5280@gmail.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-component/m-cascade-select.git"
+    "url": "https://github.com/react-component/m-picker.git"
   },
   "bugs": {
-    "url": "https://github.com/react-component/m-cascade-select/issues"
+    "url": "https://github.com/react-component/m-picker/issues"
   },
   "files": [
     "lib",

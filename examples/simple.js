@@ -1,6 +1,6 @@
 // use jsx to render html, do not modify simple.html
-import 'rmc-cascade-select/assets/index.less';
-import MCascadeSelect from 'rmc-cascade-select';
+import 'rmc-picker/assets/index.less';
+import MCascadeSelect from 'rmc-picker';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

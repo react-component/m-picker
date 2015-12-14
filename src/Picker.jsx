@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import Scroller from './Scroller';
 
-const MCascadeSelect = React.createClass({
+const Picker = React.createClass({
   propTypes: {
     prefixCls: React.PropTypes.string,
     data: React.PropTypes.array,
@@ -14,7 +14,7 @@ const MCascadeSelect = React.createClass({
   },
   getDefaultProps() {
     return {
-      prefixCls: 'rmc-cascade-select',
+      prefixCls: 'rmc-picker',
       data: [],
       value: [],
     };
@@ -61,7 +61,7 @@ const MCascadeSelect = React.createClass({
     const newVal = [...this.value];
     newVal[indexOfScrollers] = selectNameValue.value;
     if (this.props.onChange) {
-      this.props.onChange({value: newVal, changedIndex: indexOfScrollers});
+      this.props.onChange(newVal, {changedIndex: indexOfScrollers});
     }
   },
   setOpenState(open, callback) {
@@ -82,9 +82,9 @@ const MCascadeSelect = React.createClass({
         </div>
         <div className={props.prefixCls + '-content'}>
           {this.data.map((item, index) => {
-            return (<div key={index} className={`${this.props.prefixCls}-item`} data-index={index}>
+            return item.length ? (<div key={index} className={`${this.props.prefixCls}-item`} data-index={index}>
                 <Scroller data={item} indexOfScrollers={index} defaultValue={this.value[index]} onSelect={this.onSelect} />
-              </div>);
+              </div>) : null;
           })}
         </div>
       </div>);
@@ -108,13 +108,7 @@ const MCascadeSelect = React.createClass({
     }
   },
   processDataValue() {
-    // init data and value：
-    //
-    // props.data = [[{value: '1', name: '1p'}, {value: '2', name: '2p'}], []]
-    // props.value = ['1']
-    // ->
-    // props.data = [[{value: '1', name: '1p'}, {value: '2', name: '2p'}], [{value: '', name: ''}]]
-    // props.value = ['1', '']
+    // make value array lenth equal with data array length
     const value = [...this.props.value];
     this.value = value;
     this.data = [...this.props.data];
@@ -139,4 +133,4 @@ const MCascadeSelect = React.createClass({
     return ele;
   },
 });
-export default MCascadeSelect;
+export default Picker;

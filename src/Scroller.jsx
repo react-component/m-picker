@@ -1,17 +1,35 @@
 import React from 'react';
 import IScroll from 'iscroll';
 
+// compare two object,  props.data with nextProps.data
+// data: [{value: '1', name: '1x'}, {value: '2', name: '2x'}...]
+function isEqual(preData, data) {
+  if (preData.length !== data.length) {
+    return false;
+  }
+  const equal = data.every((item, index) => {
+    return item.value === preData[index].value && item.name === preData[index].name;
+  });
+  if (!equal) {
+    return false;
+  }
+  return true;
+}
+// console.log(isEqual([{value: '1', name: '1x'}, {value: '2', name: '2x'}], [{value: '1', name: '1x'}]));
+
 const Scroller = React.createClass({
   propTypes: {
     data: React.PropTypes.array,
     defaultValue: React.PropTypes.string,
     indexOfScrollers: React.PropTypes.number,
+    heightOfItem: React.PropTypes.number,
     onSelect: React.PropTypes.func,
   },
   getDefaultProps() {
     return {
-      prefixCls: 'rmc-cascade-select',
+      prefixCls: 'rmc-picker',
       defaultValue: '',
+      heightOfItem: 34, // scroller's list item's height, should be a constant value
     };
   },
   getInitialState() {
@@ -21,44 +39,51 @@ const Scroller = React.createClass({
   componentDidMount() {
     this.componentDidUpdate();
   },
-  componentDidUpdate() {
-    // if (!this.iscroll) {
-    //   this.initScroller();
-    // } else {
-    //   this.iscroll.refresh();
-    // }
-    if (this.iscroll) {
-      this.componentWillUnmount();
+  shouldComponentUpdate(nextProps) {
+    if (isEqual(this.props.data, nextProps.data)) {
+      return false;
     }
-    this.initScroller();
-    // scrollTo 会再次触发 scrollEnd 产生 bug
-    const y = this.iscroll.pages[0][this.defaultScrollPosition].y;
-    // this.iscroll.scrollTo(0, this.iscroll.pages[0][this.defaultScrollPosition].y);
-    // console.log(this.refs.iscroll_scroller.style.transform, y);
-    // todo remove
-    this.refs.iscroll_scroller.style.transform = 'translate(0px, ' + y + 'px) translateZ(0px)';
+    return true;
+  },
+  componentDidUpdate() {
+    if (!this.iscroll) {
+      this.initScroller();
+    } else {
+      // refresh 和 scrollTo 等方法都会再次触发 scrollEnd，此处并不希望此行为
+      setTimeout(() => {
+        this.iscroll.refresh();
+        this.iscroll.scrollTo(0, this.iscroll.pages[0][this.defaultScrollPosition].y);
+      }, 0);
+    }
+
+    // const y = this.iscroll.pages[0][this.defaultScrollPosition].y;
+    // console.log(y);
   },
   componentWillUnmount() {
-    this.iscroll.off();
     this.iscroll.destroy();
     this.iscroll = null;
   },
   onScrollEnd() {
-    // console.log(this.iscroll.currentPage);
-    // console.log(this);
     // debugger
-    this.iscroll.pages[0].forEach((item, index) => {
-      if (Math.abs(this.iscroll.y - item.y) < 2) {
-        if (this.props.onSelect) {
-          this.props.onSelect(this.data[index], this.props.indexOfScrollers);
+    let index = undefined;
+    if (this.props.heightOfItem) {
+      index = Math.abs(this.iscroll.y / this.props.heightOfItem);
+    } else {
+      this.iscroll.pages[0].forEach((item, i) => {
+        if (index !== undefined && Math.abs(this.iscroll.y - item.y) < 2) {
+          index = i;
         }
-      }
-    });
+      });
+    }
+    if (this.props.onSelect && index !== undefined) {
+      this.props.onSelect(this.data[index], this.props.indexOfScrollers);
+    }
   },
   initScroller() {
     // debugger
     this.iscroll = new IScroll(this.refs.iscroll_wrapper, {
       snap: 'div',
+      startY: this.startY,
     });
     this.iscroll.on('scrollEnd', this.onScrollEnd);
   },
@@ -85,6 +110,9 @@ const Scroller = React.createClass({
         }
       });
     }
+
+    // get default scroll startY
+    this.startY = -(props.heightOfItem * this.defaultScrollPosition) || 0;
 
     return (<div ref="iscroll_wrapper" className={`${prefixCls}-scroller-wrapper`} data-role="wrapper">
         <div ref="iscroll_scroller" className={`${prefixCls}-scroller`}>{
