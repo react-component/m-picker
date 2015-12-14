@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-cascade-select@0.2.0</title>
+  <title>cityPicker.js - example - rmc-picker@0.2.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,17 +257,17 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-cascade-select@0.2.0</h1>
+    <h1>rmc-picker@0.2.1</h1>
 
-    <p>m-cascade-select ui component for react</p>
+    <p>m-picker ui component for react</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="cityPicker.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-cascade-select/assets/index.css'</span>;
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-<span class="hljs-keyword">import</span> MCascadeSelect <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-cascade-select'</span>;
+<span class="hljs-keyword">import</span> MCascadeSelect <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-picker'</span>;
 <span class="hljs-keyword">const</span> data = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./data'</span>);
 
 <span class="hljs-keyword">const</span> remoteData = [data.province, data.city, data.region];
@@ -309,11 +309,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     });
     <span class="hljs-keyword">this</span>.setState({finalSel: finalSel});
   },
-  onChange(info) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'value changed'</span>, info);
+  onChange(value, info) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChang'</span>, value, info);
     <span class="hljs-keyword">this</span>.setState({
       changedIndex: info.changedIndex,
-      value: info.value,
+      value: value,
     });
   },
   render() {
@@ -325,6 +325,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-keyword">let</span> next = gData[index];
     <span class="hljs-keyword">while</span> (next &amp;&amp; next.length) {
       newVal[index] = index === st.changedIndex ? (newVal[index] || next[<span class="hljs-number">0</span>].value) : next[<span class="hljs-number">0</span>].value;
+      <span class="hljs-comment">// newVal[index] = newVal[index] || next[0].value;</span>
       setData(newVal[index], index);
       index++;
       next = gData[index];
@@ -345,7 +346,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">CityPicker</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
 </div>
-<a href="https://github.com/react-component/m-cascade-select">
+<a href="https://github.com/react-component/m-picker">
   <img style="position: absolute; top: 0; right: 0; border: 0;"
        src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
        alt="Fork me on GitHub"

@@ -19719,11 +19719,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _MCascadeSelect = __webpack_require__(163);
+	var _Picker = __webpack_require__(163);
 	
-	var _MCascadeSelect2 = _interopRequireDefault(_MCascadeSelect);
+	var _Picker2 = _interopRequireDefault(_Picker);
 
-	exports['default'] = _MCascadeSelect2['default'];
+	exports['default'] = _Picker2['default'];
 	module.exports = exports['default'];
 
 /***/ },
@@ -19756,8 +19756,8 @@
 	
 	var _Scroller2 = _interopRequireDefault(_Scroller);
 	
-	var MCascadeSelect = _react2['default'].createClass({
-	  displayName: 'MCascadeSelect',
+	var Picker = _react2['default'].createClass({
+	  displayName: 'Picker',
 	
 	  propTypes: {
 	    prefixCls: _react2['default'].PropTypes.string,
@@ -19769,7 +19769,7 @@
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      prefixCls: 'rmc-cascade-select',
+	      prefixCls: 'rmc-picker',
 	      data: [],
 	      value: []
 	    };
@@ -19816,7 +19816,7 @@
 	    var newVal = [].concat(_toConsumableArray(this.value));
 	    newVal[indexOfScrollers] = selectNameValue.value;
 	    if (this.props.onChange) {
-	      this.props.onChange({ value: newVal, changedIndex: indexOfScrollers });
+	      this.props.onChange(newVal, { changedIndex: indexOfScrollers });
 	    }
 	  },
 	  setOpenState: function setOpenState(open, callback) {
@@ -19853,11 +19853,11 @@
 	        'div',
 	        { className: props.prefixCls + '-content' },
 	        this.data.map(function (item, index) {
-	          return _react2['default'].createElement(
+	          return item.length ? _react2['default'].createElement(
 	            'div',
 	            { key: index, className: _this.props.prefixCls + '-item', 'data-index': index },
 	            _react2['default'].createElement(_Scroller2['default'], { data: item, indexOfScrollers: index, defaultValue: _this.value[index], onSelect: _this.onSelect })
-	          );
+	          ) : null;
 	        })
 	      )
 	    );
@@ -19885,13 +19885,7 @@
 	    }
 	  },
 	  processDataValue: function processDataValue() {
-	    // init data and value：
-	    //
-	    // props.data = [[{value: '1', name: '1p'}, {value: '2', name: '2p'}], []]
-	    // props.value = ['1']
-	    // ->
-	    // props.data = [[{value: '1', name: '1p'}, {value: '2', name: '2p'}], [{value: '', name: ''}]]
-	    // props.value = ['1', '']
+	    // make value array lenth equal with data array length
 	    var value = [].concat(_toConsumableArray(this.props.value));
 	    this.value = value;
 	    this.data = [].concat(_toConsumableArray(this.props.data));
@@ -19920,7 +19914,7 @@
 	    return ele;
 	  }
 	});
-	exports['default'] = MCascadeSelect;
+	exports['default'] = Picker;
 	module.exports = exports['default'];
 
 /***/ },
@@ -19999,6 +19993,22 @@
 	
 	var _iscroll2 = _interopRequireDefault(_iscroll);
 	
+	// compare two object,  props.data with nextProps.data
+	// data: [{value: '1', name: '1x'}, {value: '2', name: '2x'}...]
+	function isEqual(preData, data) {
+	  if (preData.length !== data.length) {
+	    return false;
+	  }
+	  var equal = data.every(function (item, index) {
+	    return item.value === preData[index].value && item.name === preData[index].name;
+	  });
+	  if (!equal) {
+	    return false;
+	  }
+	  return true;
+	}
+	// console.log(isEqual([{value: '1', name: '1x'}, {value: '2', name: '2x'}], [{value: '1', name: '1x'}]));
+	
 	var Scroller = _react2['default'].createClass({
 	  displayName: 'Scroller',
 	
@@ -20006,66 +20016,77 @@
 	    data: _react2['default'].PropTypes.array,
 	    defaultValue: _react2['default'].PropTypes.string,
 	    indexOfScrollers: _react2['default'].PropTypes.number,
+	    heightOfItem: _react2['default'].PropTypes.number,
 	    onSelect: _react2['default'].PropTypes.func
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      prefixCls: 'rmc-cascade-select',
-	      defaultValue: ''
-	    };
+	      prefixCls: 'rmc-picker',
+	      defaultValue: '',
+	      heightOfItem: 34 };
 	  },
+	  // scroller's list item's height, should be a constant value
 	  getInitialState: function getInitialState() {
 	    return {};
 	  },
 	  componentDidMount: function componentDidMount() {
 	    this.componentDidUpdate();
 	  },
-	  componentDidUpdate: function componentDidUpdate() {
-	    // if (!this.iscroll) {
-	    //   this.initScroller();
-	    // } else {
-	    //   this.iscroll.refresh();
-	    // }
-	    if (this.iscroll) {
-	      this.componentWillUnmount();
+	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
+	    if (isEqual(this.props.data, nextProps.data)) {
+	      return false;
 	    }
-	    this.initScroller();
-	    // scrollTo 会再次触发 scrollEnd 产生 bug
-	    var y = this.iscroll.pages[0][this.defaultScrollPosition].y;
-	    // this.iscroll.scrollTo(0, this.iscroll.pages[0][this.defaultScrollPosition].y);
-	    // console.log(this.refs.iscroll_scroller.style.transform, y);
-	    // todo remove
-	    this.refs.iscroll_scroller.style.transform = 'translate(0px, ' + y + 'px) translateZ(0px)';
+	    return true;
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    var _this = this;
+	
+	    if (!this.iscroll) {
+	      this.initScroller();
+	    } else {
+	      // refresh 和 scrollTo 等方法都会再次触发 scrollEnd，此处并不希望此行为
+	      setTimeout(function () {
+	        _this.iscroll.refresh();
+	        _this.iscroll.scrollTo(0, _this.iscroll.pages[0][_this.defaultScrollPosition].y);
+	      }, 0);
+	    }
+	
+	    // const y = this.iscroll.pages[0][this.defaultScrollPosition].y;
+	    // console.log(y);
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    this.iscroll.off();
 	    this.iscroll.destroy();
 	    this.iscroll = null;
 	  },
 	  onScrollEnd: function onScrollEnd() {
-	    var _this = this;
+	    var _this2 = this;
 	
-	    // console.log(this.iscroll.currentPage);
-	    // console.log(this);
 	    // debugger
-	    this.iscroll.pages[0].forEach(function (item, index) {
-	      if (Math.abs(_this.iscroll.y - item.y) < 2) {
-	        if (_this.props.onSelect) {
-	          _this.props.onSelect(_this.data[index], _this.props.indexOfScrollers);
+	    var index = undefined;
+	    if (this.props.heightOfItem) {
+	      index = Math.abs(this.iscroll.y / this.props.heightOfItem);
+	    } else {
+	      this.iscroll.pages[0].forEach(function (item, i) {
+	        if (index !== undefined && Math.abs(_this2.iscroll.y - item.y) < 2) {
+	          index = i;
 	        }
-	      }
-	    });
+	      });
+	    }
+	    if (this.props.onSelect && index !== undefined) {
+	      this.props.onSelect(this.data[index], this.props.indexOfScrollers);
+	    }
 	  },
 	  initScroller: function initScroller() {
 	    // debugger
 	    this.iscroll = new _iscroll2['default'](this.refs.iscroll_wrapper, {
-	      snap: 'div'
+	      snap: 'div',
+	      startY: this.startY
 	    });
 	    this.iscroll.on('scrollEnd', this.onScrollEnd);
 	  },
 	  teardownScroller: function teardownScroller() {},
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 	
 	    var props = this.props;
 	    var prefixCls = props.prefixCls;
@@ -20084,10 +20105,13 @@
 	    if (props.defaultValue) {
 	      data.forEach(function (item, index) {
 	        if (item.value === props.defaultValue) {
-	          _this2.defaultScrollPosition = index - len;
+	          _this3.defaultScrollPosition = index - len;
 	        }
 	      });
 	    }
+	
+	    // get default scroll startY
+	    this.startY = -(props.heightOfItem * this.defaultScrollPosition) || 0;
 	
 	    return _react2['default'].createElement(
 	      'div',

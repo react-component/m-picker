@@ -27,9 +27,9 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rmcCascadeSelect = __webpack_require__(161);
+	var _rmcPicker = __webpack_require__(161);
 	
-	var _rmcCascadeSelect2 = _interopRequireDefault(_rmcCascadeSelect);
+	var _rmcPicker2 = _interopRequireDefault(_rmcPicker);
 	
 	var data = __webpack_require__(167);
 	
@@ -73,11 +73,11 @@ webpackJsonp([0],{
 	    });
 	    this.setState({ finalSel: finalSel });
 	  },
-	  onChange: function onChange(info) {
-	    console.log('value changed', info);
+	  onChange: function onChange(value, info) {
+	    console.log('onChang', value, info);
 	    this.setState({
 	      changedIndex: info.changedIndex,
-	      value: info.value
+	      value: value
 	    });
 	  },
 	  render: function render() {
@@ -89,6 +89,7 @@ webpackJsonp([0],{
 	    var next = gData[index];
 	    while (next && next.length) {
 	      newVal[index] = index === st.changedIndex ? newVal[index] || next[0].value : next[0].value;
+	      // newVal[index] = newVal[index] || next[0].value;
 	      setData(newVal[index], index);
 	      index++;
 	      next = gData[index];
@@ -109,7 +110,7 @@ webpackJsonp([0],{
 	        st.finalSel
 	      ),
 	      _react2['default'].createElement(
-	        _rmcCascadeSelect2['default'],
+	        _rmcPicker2['default'],
 	        {
 	          data: gData, value: newVal,
 	          onOk: this.onOk, onChange: this.onChange },
@@ -137,7 +138,7 @@ webpackJsonp([0],{
 	});
 	var province = [{ name: '北京', value: '01' }, { name: '浙江', value: '02' }];
 	exports.province = province;
-	var city = [{ name: '东城区', value: '01-1' }, { name: '西城区', value: '01-2' }, { name: '崇文区', value: '01-3' }, { name: '宣武区', value: '01-4' }, { name: '朝阳区"', value: '01-5' }, { name: '丰台区', value: '01-6' }, { name: '杭州', value: '02-1' }, { name: '宁波', value: '02-2' }, { name: '温州', value: '02-3' }, { name: '嘉兴', value: '02-4' }, { name: '湖州', value: '02-5' }, { name: '绍兴', value: '02-6' }];
+	var city = [{ name: '东城区', value: '01-1' }, { name: '西城区', value: '01-2' }, { name: '崇文区', value: '01-3' }, { name: '宣武区', value: '01-4' }, { name: '杭州', value: '02-1' }, { name: '宁波', value: '02-2' }, { name: '温州', value: '02-3' }, { name: '嘉兴', value: '02-4' }, { name: '湖州', value: '02-5' }, { name: '绍兴', value: '02-6' }];
 	exports.city = city;
 	var region = [{ name: '西湖区', value: '02-1-1' }, { name: '上城区', value: '02-1-2' }, { name: '江干区', value: '02-1-3' }, { name: '下城区', value: '02-1-4' }, { name: 'xx区', value: '02-2-1' }, { name: 'yy区', value: '02-2-2' }];
 	exports.region = region;

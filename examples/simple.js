@@ -18,9 +18,9 @@ webpackJsonp([1],{
 	
 	__webpack_require__(2);
 	
-	var _rmcCascadeSelect = __webpack_require__(161);
+	var _rmcPicker = __webpack_require__(161);
 	
-	var _rmcCascadeSelect2 = _interopRequireDefault(_rmcCascadeSelect);
+	var _rmcPicker2 = _interopRequireDefault(_rmcPicker);
 	
 	var _react = __webpack_require__(3);
 	
@@ -76,7 +76,7 @@ webpackJsonp([1],{
 	      'div',
 	      { style: { margin: '10px 30px' } },
 	      _react2['default'].createElement(
-	        _rmcCascadeSelect2['default'],
+	        _rmcPicker2['default'],
 	        {
 	          data: gData, value: this.state.value,
 	          onOk: this.onOk, onCancel: this.onCancel,
