@@ -3,7 +3,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 // const TestUtils = require('react-addons-test-utils');
 // const Simulate = TestUtils.Simulate;
-const MCascadeSelect = require('../');
+const Picker = require('../');
 
 describe('simple', function des() {
   let instance;
@@ -19,9 +19,9 @@ describe('simple', function des() {
 
   it('should add css class of root dom node', function() {
     instance = ReactDOM.render(
-      <MCascadeSelect className="forTest">
+      <Picker className="forTest">
         <button>trigger</button>
-      </MCascadeSelect>, div
+      </Picker>, div
     );
     expect(ReactDOM.findDOMNode(instance).className.indexOf('forTest') === -1).to.be(true);
   });

@@ -52,7 +52,7 @@ online example: http://react-component.github.io/m-picker/examples/
 
 
 ## Usage
-见 example
+see example
 
 ## API
 
@@ -63,6 +63,8 @@ online example: http://react-component.github.io/m-picker/examples/
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | '' |
 |open | controlled open state | bool | false |
+|data | input data | array<array{obj}>  | [ [{name, value, selected(option)},...], ... ] |
+|value | default selected values corresponding to the input data above | array | [val1, val2] |
 |onChange | fire when change the selector's item | Function | '' |
 |onOk | fire when finish select the selector | Function | '' |
 |onCancel | fire when cancel select the selector | Function | '' |
