@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-picker@0.2.3</title>
+  <title>cityPicker.js - example - rmc-picker@0.3.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-picker@0.2.3</h1>
+    <h1>rmc-picker@0.3.0</h1>
 
     <p>m-picker ui component for react</p>
   </div>
@@ -267,7 +267,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-<span class="hljs-keyword">import</span> MCascadeSelect <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-picker'</span>;
+<span class="hljs-keyword">import</span> Picker <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-picker'</span>;
 <span class="hljs-keyword">const</span> data = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./data'</span>);
 
 <span class="hljs-keyword">const</span> remoteData = [data.province, data.city, data.region];
@@ -305,7 +305,14 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-keyword">return</span> {
       indexOfScrollers: <span class="hljs-number">0</span>,
       finalSel: <span class="hljs-string">''</span>,
+      open: <span class="hljs-literal">true</span>,
     };
+  },
+  onOpen() {
+    <span class="hljs-keyword">this</span>.setOpenState(<span class="hljs-literal">true</span>);
+  },
+  onCancel() {
+    <span class="hljs-keyword">this</span>.setOpenState(<span class="hljs-literal">false</span>);
   },
   onOk(info) {
     <span class="hljs-comment">// console.log(info);</span>
@@ -318,6 +325,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       });
     });
     <span class="hljs-keyword">this</span>.setState({finalSel: finalSel});
+    <span class="hljs-keyword">this</span>.setOpenState(<span class="hljs-literal">false</span>);
   },
   onChange(value, info) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChang'</span>, value, info);
@@ -326,6 +334,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-keyword">this</span>.value = newVal;
     <span class="hljs-keyword">this</span>.setState({
       indexOfScrollers: info.indexOfScrollers,
+    });
+  },
+  setOpenState(openSt) {
+    <span class="hljs-keyword">this</span>.setState({
+      open: openSt,
     });
   },
   getSelected(arr) {
@@ -378,11 +391,20 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>city picker<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>您选择的城市是：{st.finalSel}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">MCascadeSelect</span>
-          <span class="hljs-attribute">data</span>=<span class="hljs-value">{gData}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{newVal}</span>
-          <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">MCascadeSelect</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span>
+            <span class="hljs-attribute">data</span>=<span class="hljs-value">{gData}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{newVal}</span>
+            <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">open</span>=<span class="hljs-value">{this.state.open}</span> <span class="hljs-attribute">onCancel</span>=<span class="hljs-value">{this.onCancel}</span>
+            <span class="hljs-attribute">data</span>=<span class="hljs-value">{gData}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{newVal}</span>
+            <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOpen}</span>&gt;</span>controlled open<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   },
 });

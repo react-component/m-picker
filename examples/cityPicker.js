@@ -67,8 +67,15 @@ webpackJsonp([0,1],[
 	  getInitialState: function getInitialState() {
 	    return {
 	      indexOfScrollers: 0,
-	      finalSel: ''
+	      finalSel: '',
+	      open: true
 	    };
+	  },
+	  onOpen: function onOpen() {
+	    this.setOpenState(true);
+	  },
+	  onCancel: function onCancel() {
+	    this.setOpenState(false);
 	  },
 	  onOk: function onOk(info) {
 	    // console.log(info);
@@ -81,6 +88,7 @@ webpackJsonp([0,1],[
 	      });
 	    });
 	    this.setState({ finalSel: finalSel });
+	    this.setOpenState(false);
 	  },
 	  onChange: function onChange(value, info) {
 	    console.log('onChang', value, info);
@@ -89,6 +97,11 @@ webpackJsonp([0,1],[
 	    this.value = newVal;
 	    this.setState({
 	      indexOfScrollers: info.indexOfScrollers
+	    });
+	  },
+	  setOpenState: function setOpenState(openSt) {
+	    this.setState({
+	      open: openSt
 	    });
 	  },
 	  getSelected: function getSelected(arr) {
@@ -155,14 +168,33 @@ webpackJsonp([0,1],[
 	        st.finalSel
 	      ),
 	      _react2['default'].createElement(
-	        _rmcPicker2['default'],
-	        {
-	          data: gData, value: newVal,
-	          onOk: this.onOk, onChange: this.onChange },
+	        'p',
+	        null,
 	        _react2['default'].createElement(
-	          'button',
-	          null,
-	          'trigger'
+	          _rmcPicker2['default'],
+	          {
+	            data: gData, value: newVal,
+	            onOk: this.onOk, onChange: this.onChange },
+	          _react2['default'].createElement(
+	            'button',
+	            null,
+	            'trigger'
+	          )
+	        )
+	      ),
+	      _react2['default'].createElement(
+	        'p',
+	        null,
+	        _react2['default'].createElement(
+	          _rmcPicker2['default'],
+	          { open: this.state.open, onCancel: this.onCancel,
+	            data: gData, value: newVal,
+	            onOk: this.onOk, onChange: this.onChange },
+	          _react2['default'].createElement(
+	            'button',
+	            { onClick: this.onOpen },
+	            'controlled open'
+	          )
 	        )
 	      )
 	    );
@@ -19839,6 +19871,7 @@ webpackJsonp([0,1],[
 	
 	  propTypes: {
 	    prefixCls: _react2['default'].PropTypes.string,
+	    open: _react2['default'].PropTypes.bool,
 	    data: _react2['default'].PropTypes.array,
 	    value: _react2['default'].PropTypes.array,
 	    onOk: _react2['default'].PropTypes.func,
@@ -19853,9 +19886,23 @@ webpackJsonp([0,1],[
 	    };
 	  },
 	  getInitialState: function getInitialState() {
-	    return {
+	    var st = {
 	      open: false
 	    };
+	    if ('open' in this.props) {
+	      st.open = this.props.open || false;
+	    }
+	    return st;
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.componentDidUpdate();
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var props = {};
+	    if ('open' in nextProps) {
+	      props.open = nextProps.open;
+	    }
+	    this.setState(props);
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    if (this.state.open) {
@@ -19900,9 +19947,15 @@ webpackJsonp([0,1],[
 	  },
 	  setOpenState: function setOpenState(open, callback) {
 	    if (this.state.open !== open) {
-	      this.setState({
-	        open: open
-	      }, callback);
+	      if (!('open' in this.props)) {
+	        this.setState({
+	          open: open
+	        }, callback);
+	      } else {
+	        this.setState({
+	          open: this.props.open
+	        });
+	      }
 	    }
 	  },
 	  createSelector: function createSelector() {
@@ -19986,7 +20039,7 @@ webpackJsonp([0,1],[
 	      );
 	    }
 	
-	    ele = _react2['default'].cloneElement(ele, {
+	    ele = _react2['default'].cloneElement(ele, 'open' in this.props ? {} : {
 	      onClick: this.onOpen
 	    });
 	
