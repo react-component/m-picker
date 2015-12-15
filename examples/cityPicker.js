@@ -1,7 +1,7 @@
 import 'rmc-picker/assets/index.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MCascadeSelect from 'rmc-picker';
+import Picker from 'rmc-picker';
 const data = require('./data');
 
 const remoteData = [data.province, data.city, data.region];
@@ -39,7 +39,14 @@ const CityPicker = React.createClass({
     return {
       indexOfScrollers: 0,
       finalSel: '',
+      open: true,
     };
+  },
+  onOpen() {
+    this.setOpenState(true);
+  },
+  onCancel() {
+    this.setOpenState(false);
   },
   onOk(info) {
     // console.log(info);
@@ -52,6 +59,7 @@ const CityPicker = React.createClass({
       });
     });
     this.setState({finalSel: finalSel});
+    this.setOpenState(false);
   },
   onChange(value, info) {
     console.log('onChang', value, info);
@@ -60,6 +68,11 @@ const CityPicker = React.createClass({
     this.value = newVal;
     this.setState({
       indexOfScrollers: info.indexOfScrollers,
+    });
+  },
+  setOpenState(openSt) {
+    this.setState({
+      open: openSt,
     });
   },
   getSelected(arr) {
@@ -112,11 +125,20 @@ const CityPicker = React.createClass({
     return (<div style={{margin: '10px 30px'}}>
         <h3>city picker</h3>
         <p>您选择的城市是：{st.finalSel}</p>
-        <MCascadeSelect
-          data={gData} value={newVal}
-          onOk={this.onOk} onChange={this.onChange}>
-          <button>trigger</button>
-        </MCascadeSelect>
+        <p>
+          <Picker
+            data={gData} value={newVal}
+            onOk={this.onOk} onChange={this.onChange}>
+            <button>trigger</button>
+          </Picker>
+        </p>
+        <p>
+          <Picker open={this.state.open} onCancel={this.onCancel}
+            data={gData} value={newVal}
+            onOk={this.onOk} onChange={this.onChange}>
+            <button onClick={this.onOpen}>controlled open</button>
+          </Picker>
+        </p>
       </div>);
   },
 });

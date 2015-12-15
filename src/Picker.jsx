@@ -6,6 +6,7 @@ import Scroller from './Scroller';
 const Picker = React.createClass({
   propTypes: {
     prefixCls: React.PropTypes.string,
+    open: React.PropTypes.bool,
     data: React.PropTypes.array,
     value: React.PropTypes.array,
     onOk: React.PropTypes.func,
@@ -20,9 +21,23 @@ const Picker = React.createClass({
     };
   },
   getInitialState() {
-    return {
+    const st = {
       open: false,
     };
+    if ('open' in this.props) {
+      st.open = this.props.open || false;
+    }
+    return st;
+  },
+  componentDidMount() {
+    this.componentDidUpdate();
+  },
+  componentWillReceiveProps(nextProps) {
+    const props = {};
+    if ('open' in nextProps) {
+      props.open = nextProps.open;
+    }
+    this.setState(props);
   },
   componentDidUpdate() {
     if (this.state.open) {
@@ -67,9 +82,15 @@ const Picker = React.createClass({
   },
   setOpenState(open, callback) {
     if (this.state.open !== open) {
-      this.setState({
-        open: open,
-      }, callback);
+      if (!('open' in this.props)) {
+        this.setState({
+          open: open,
+        }, callback);
+      } else {
+        this.setState({
+          open: this.props.open,
+        });
+      }
     }
   },
   createSelector() {
@@ -127,7 +148,7 @@ const Picker = React.createClass({
       ele = <span>{props.children}</span>;
     }
 
-    ele = React.cloneElement(ele, {
+    ele = React.cloneElement(ele, ('open' in this.props) ? {} : {
       onClick: this.onOpen,
     });
 
