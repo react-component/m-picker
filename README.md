@@ -62,6 +62,7 @@ online example: http://react-component.github.io/m-picker/examples/
 |----------|----------------|----------|--------------|
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | '' |
+|open | controlled open state | bool | false |
 |onChange | fire when change the selector's item | Function | '' |
 |onOk | fire when finish select the selector | Function | '' |
 |onCancel | fire when cancel select the selector | Function | '' |
