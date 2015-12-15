@@ -51,16 +51,27 @@ webpackJsonp([0,1],[
 	var CityPicker = _react2['default'].createClass({
 	  displayName: 'CityPicker',
 	
-	  propTypes: {},
+	  propTypes: {
+	    defaultSelectedValues: _react2['default'].PropTypes.array,
+	    forceColumnAmount: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string])
+	  },
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      prefixCls: 'rmc-picker',
+	      defaultSelectedValues: [],
+	      // defaultSelectedValues: ['01', '01-2'],
+	      // forceColumnAmount: 'auto',
+	      forceColumnAmount: 3
+	    };
+	  },
 	  getInitialState: function getInitialState() {
 	    return {
 	      indexOfScrollers: 0,
-	      value: [],
 	      finalSel: ''
 	    };
 	  },
 	  onOk: function onOk(info) {
-	    console.log(info);
+	    // console.log(info);
 	    var finalSel = '';
 	    info.value.forEach(function (item, index) {
 	      gData[index].forEach(function (ii) {
@@ -75,24 +86,58 @@ webpackJsonp([0,1],[
 	    console.log('onChang', value, info);
 	    var newVal = [].concat(_toConsumableArray(info.preValue));
 	    newVal[info.indexOfScrollers] = value;
+	    this.value = newVal;
 	    this.setState({
-	      indexOfScrollers: info.indexOfScrollers,
-	      value: newVal
+	      indexOfScrollers: info.indexOfScrollers
 	    });
+	  },
+	  getSelected: function getSelected(arr) {
+	    var _this = this;
+	
+	    // 默认选中第一项
+	    var sel = arr[0].value || '';
+	    // 如果数据项中有 selected: true 标记，默认选中第一个标记
+	    arr.forEach(function (item) {
+	      if (item.selected) {
+	        sel = item.value;
+	      }
+	    });
+	    // 如果设置了 defaultSelectedValues 属性，从中设置默认值
+	    arr.forEach(function (item) {
+	      if (_this.props.defaultSelectedValues.indexOf(item.value) !== -1) {
+	        sel = item.value;
+	      }
+	    });
+	    return sel;
 	  },
 	  render: function render() {
 	    var st = this.state;
-	    var newVal = [].concat(_toConsumableArray(st.value));
+	    var newVal = this.value ? [].concat(_toConsumableArray(this.value)) : [];
 	
 	    // 设置 indexOfScrollers 下一条的默认值
 	    var index = st.indexOfScrollers;
 	    var next = gData[index];
 	    while (next && next.length) {
-	      newVal[index] = index === st.indexOfScrollers ? newVal[index] || next[0].value : next[next.length - 1].value;
-	      // newVal[index] = newVal[index] || next[0].value;
+	      if (index === st.indexOfScrollers) {
+	        newVal[index] = newVal[index] || this.getSelected(next);
+	      } else {
+	        newVal[index] = this.getSelected(next);
+	      }
 	      setData(newVal[index], index);
 	      index++;
 	      next = gData[index];
+	    }
+	
+	    // 限制列数，即 scroller 数量
+	    var forceColumnAmount = this.props.forceColumnAmount;
+	    if (typeof forceColumnAmount === 'number') {
+	      for (var i = 0; i < forceColumnAmount; i++) {
+	        gData[i] = gData[i] && gData[i].length ? gData[i] : [{ name: '', value: '' }];
+	      }
+	      if (gData.length > forceColumnAmount) {
+	        gData.length = forceColumnAmount;
+	        newVal.length = forceColumnAmount;
+	      }
 	    }
 	
 	    return _react2['default'].createElement(
@@ -22192,9 +22237,9 @@ webpackJsonp([0,1],[
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var province = [{ name: '北京', value: '01' }, { name: '浙江', value: '02' }];
+	var province = [{ name: '北京', value: '01', selected: true }, { name: '浙江', value: '02' }];
 	exports.province = province;
-	var city = [{ name: '东城区', value: '01-1' }, { name: '西城区', value: '01-2' }, { name: '崇文区', value: '01-3' }, { name: '宣武区', value: '01-4' }, { name: '杭州', value: '02-1' }, { name: '宁波', value: '02-2' }, { name: '温州', value: '02-3' }, { name: '嘉兴', value: '02-4' }, { name: '湖州', value: '02-5' }, { name: '绍兴', value: '02-6' }];
+	var city = [{ name: '东城区', value: '01-1' }, { name: '西城区', value: '01-2' }, { name: '崇文区', value: '01-3', selected: true }, { name: '宣武区', value: '01-4' }, { name: '杭州', value: '02-1' }, { name: '宁波', value: '02-2' }, { name: '温州', value: '02-3' }, { name: '嘉兴', value: '02-4' }, { name: '湖州', value: '02-5' }, { name: '绍兴', value: '02-6' }];
 	exports.city = city;
 	var region = [{ name: '西湖区', value: '02-1-1' }, { name: '上城区', value: '02-1-2' }, { name: '江干区', value: '02-1-3' }, { name: '下城区', value: '02-1-4' }, { name: 'xx区', value: '02-2-1' }, { name: 'yy区', value: '02-2-2' }];
 	exports.region = region;

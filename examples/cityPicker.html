@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-picker@0.2.2</title>
+  <title>cityPicker.js - example - rmc-picker@0.2.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-picker@0.2.2</h1>
+    <h1>rmc-picker@0.2.3</h1>
 
     <p>m-picker ui component for react</p>
   </div>
@@ -289,16 +289,26 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
 <span class="hljs-keyword">const</span> CityPicker = React.createClass({
   propTypes: {
+    defaultSelectedValues: React.PropTypes.array,
+    forceColumnAmount: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+  },
+  getDefaultProps() {
+    <span class="hljs-keyword">return</span> {
+      prefixCls: <span class="hljs-string">'rmc-picker'</span>,
+      defaultSelectedValues: [],
+      <span class="hljs-comment">// defaultSelectedValues: ['01', '01-2'],</span>
+      <span class="hljs-comment">// forceColumnAmount: 'auto',</span>
+      forceColumnAmount: <span class="hljs-number">3</span>,
+    };
   },
   getInitialState() {
     <span class="hljs-keyword">return</span> {
       indexOfScrollers: <span class="hljs-number">0</span>,
-      value: [],
       finalSel: <span class="hljs-string">''</span>,
     };
   },
   onOk(info) {
-    <span class="hljs-built_in">console</span>.log(info);
+    <span class="hljs-comment">// console.log(info);</span>
     <span class="hljs-keyword">let</span> finalSel = <span class="hljs-string">''</span>;
     info.value.forEach((item, index) =&gt; {
       gData[index].forEach((ii) =&gt; {
@@ -313,24 +323,56 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChang'</span>, value, info);
     <span class="hljs-keyword">const</span> newVal = [...info.preValue];
     newVal[info.indexOfScrollers] = value;
+    <span class="hljs-keyword">this</span>.value = newVal;
     <span class="hljs-keyword">this</span>.setState({
       indexOfScrollers: info.indexOfScrollers,
-      value: newVal,
     });
+  },
+  getSelected(arr) {
+    <span class="hljs-comment">// 默认选中第一项</span>
+    <span class="hljs-keyword">let</span> sel = arr[<span class="hljs-number">0</span>].value || <span class="hljs-string">''</span>;
+    <span class="hljs-comment">// 如果数据项中有 selected: true 标记，默认选中第一个标记</span>
+    arr.forEach((item) =&gt; {
+      <span class="hljs-keyword">if</span> (item.selected) {
+        sel = item.value;
+      }
+    });
+    <span class="hljs-comment">// 如果设置了 defaultSelectedValues 属性，从中设置默认值</span>
+    arr.forEach((item) =&gt; {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.props.defaultSelectedValues.indexOf(item.value) !== -<span class="hljs-number">1</span>) {
+        sel = item.value;
+      }
+    });
+    <span class="hljs-keyword">return</span> sel;
   },
   render() {
     <span class="hljs-keyword">const</span> st = <span class="hljs-keyword">this</span>.state;
-    <span class="hljs-keyword">const</span> newVal = [...st.value];
+    <span class="hljs-keyword">const</span> newVal = <span class="hljs-keyword">this</span>.value ? [...this.value] : [];
 
     <span class="hljs-comment">// 设置 indexOfScrollers 下一条的默认值</span>
     <span class="hljs-keyword">let</span> index = st.indexOfScrollers;
     <span class="hljs-keyword">let</span> next = gData[index];
     <span class="hljs-keyword">while</span> (next &amp;&amp; next.length) {
-      newVal[index] = index === st.indexOfScrollers ? (newVal[index] || next[<span class="hljs-number">0</span>].value) : next[next.length - <span class="hljs-number">1</span>].value;
-      <span class="hljs-comment">// newVal[index] = newVal[index] || next[0].value;</span>
+      <span class="hljs-keyword">if</span> (index === st.indexOfScrollers) {
+        newVal[index] = newVal[index] || <span class="hljs-keyword">this</span>.getSelected(next);
+      } <span class="hljs-keyword">else</span> {
+        newVal[index] = <span class="hljs-keyword">this</span>.getSelected(next);
+      }
       setData(newVal[index], index);
       index++;
       next = gData[index];
+    }
+
+    <span class="hljs-comment">// 限制列数，即 scroller 数量</span>
+    <span class="hljs-keyword">const</span> forceColumnAmount = <span class="hljs-keyword">this</span>.props.forceColumnAmount;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> forceColumnAmount === <span class="hljs-string">'number'</span>) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; forceColumnAmount; i++) {
+        gData[i] = (gData[i] &amp;&amp; gData[i].length) ? gData[i] : [{name: <span class="hljs-string">''</span>, value: <span class="hljs-string">''</span>}];
+      }
+      <span class="hljs-keyword">if</span> (gData.length &gt; forceColumnAmount) {
+        gData.length = forceColumnAmount;
+        newVal.length = forceColumnAmount;
+      }
     }
 
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
