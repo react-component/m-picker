@@ -1,10 +1,10 @@
 
 export const province = [
-  {name: '北京', value: '01'}, {name: '浙江', value: '02'},
+  {name: '北京', value: '01', selected: true}, {name: '浙江', value: '02'},
 ];
 export const city = [
   {name: '东城区', value: '01-1'}, {name: '西城区', value: '01-2'},
-  {name: '崇文区', value: '01-3'}, {name: '宣武区', value: '01-4'},
+  {name: '崇文区', value: '01-3', selected: true}, {name: '宣武区', value: '01-4'},
   {name: '杭州', value: '02-1'}, {name: '宁波', value: '02-2'},
   {name: '温州', value: '02-3'}, {name: '嘉兴', value: '02-4'},
   {name: '湖州', value: '02-5'}, {name: '绍兴', value: '02-6'},

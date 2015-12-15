@@ -23,16 +23,26 @@ function setData(val, index) {
 
 const CityPicker = React.createClass({
   propTypes: {
+    defaultSelectedValues: React.PropTypes.array,
+    forceColumnAmount: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+  },
+  getDefaultProps() {
+    return {
+      prefixCls: 'rmc-picker',
+      defaultSelectedValues: [],
+      // defaultSelectedValues: ['01', '01-2'],
+      // forceColumnAmount: 'auto',
+      forceColumnAmount: 3,
+    };
   },
   getInitialState() {
     return {
       indexOfScrollers: 0,
-      value: [],
       finalSel: '',
     };
   },
   onOk(info) {
-    console.log(info);
+    // console.log(info);
     let finalSel = '';
     info.value.forEach((item, index) => {
       gData[index].forEach((ii) => {
@@ -47,24 +57,56 @@ const CityPicker = React.createClass({
     console.log('onChang', value, info);
     const newVal = [...info.preValue];
     newVal[info.indexOfScrollers] = value;
+    this.value = newVal;
     this.setState({
       indexOfScrollers: info.indexOfScrollers,
-      value: newVal,
     });
+  },
+  getSelected(arr) {
+    // 默认选中第一项
+    let sel = arr[0].value || '';
+    // 如果数据项中有 selected: true 标记，默认选中第一个标记
+    arr.forEach((item) => {
+      if (item.selected) {
+        sel = item.value;
+      }
+    });
+    // 如果设置了 defaultSelectedValues 属性，从中设置默认值
+    arr.forEach((item) => {
+      if (this.props.defaultSelectedValues.indexOf(item.value) !== -1) {
+        sel = item.value;
+      }
+    });
+    return sel;
   },
   render() {
     const st = this.state;
-    const newVal = [...st.value];
+    const newVal = this.value ? [...this.value] : [];
 
     // 设置 indexOfScrollers 下一条的默认值
     let index = st.indexOfScrollers;
     let next = gData[index];
     while (next && next.length) {
-      newVal[index] = index === st.indexOfScrollers ? (newVal[index] || next[0].value) : next[next.length - 1].value;
-      // newVal[index] = newVal[index] || next[0].value;
+      if (index === st.indexOfScrollers) {
+        newVal[index] = newVal[index] || this.getSelected(next);
+      } else {
+        newVal[index] = this.getSelected(next);
+      }
       setData(newVal[index], index);
       index++;
       next = gData[index];
+    }
+
+    // 限制列数，即 scroller 数量
+    const forceColumnAmount = this.props.forceColumnAmount;
+    if (typeof forceColumnAmount === 'number') {
+      for (let i = 0; i < forceColumnAmount; i++) {
+        gData[i] = (gData[i] && gData[i].length) ? gData[i] : [{name: '', value: ''}];
+      }
+      if (gData.length > forceColumnAmount) {
+        gData.length = forceColumnAmount;
+        newVal.length = forceColumnAmount;
+      }
     }
 
     return (<div style={{margin: '10px 30px'}}>
