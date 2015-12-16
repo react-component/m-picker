@@ -10,7 +10,6 @@ const Picker = React.createClass({
     data: React.PropTypes.array,
     value: React.PropTypes.array,
     onOk: React.PropTypes.func,
-    onCancel: React.PropTypes.func,
     onChange: React.PropTypes.func,
   },
   getDefaultProps() {
@@ -50,20 +49,6 @@ const Picker = React.createClass({
   componentWillUnmount() {
     this.destroySelector();
   },
-  onOpen() {
-    this.setOpenState(true);
-  },
-  onClose() {
-    this.setOpenState(false);
-  },
-  onCancel() {
-    this.setOpenState(false);
-    if (this.props.onCancel) {
-      this.props.onCancel({
-        event: 'cancel',
-      });
-    }
-  },
   onOk() {
     this.setOpenState(false);
     if (this.props.onOk) {
@@ -98,7 +83,7 @@ const Picker = React.createClass({
 
     const container = (<div className={classNames(props.className, props.prefixCls + '-container')}>
         <div className={props.prefixCls + '-header'}>
-          <div className={props.prefixCls + '-item'} onClick={this.onCancel}>取消</div>
+          <div className={props.prefixCls + '-item'}></div>
           <div className={props.prefixCls + '-item'}></div>
           <div className={props.prefixCls + '-item'} onClick={this.onOk}>完成</div>
         </div>
@@ -113,7 +98,7 @@ const Picker = React.createClass({
 
     const mask = (<div className={classNames(`${props.prefixCls}-mask`,
         this.state.open ? `${props.prefixCls}-mask-open` : '')}
-      onClick={this.onClose}></div>);
+      onClick={() => { this.setOpenState(false); }}></div>);
 
     if (!this.selectorContainer) {
       this.selectorContainer = document.createElement('div');
@@ -149,7 +134,9 @@ const Picker = React.createClass({
     }
 
     ele = React.cloneElement(ele, ('open' in this.props) ? {} : {
-      onClick: this.onOpen,
+      onClick: () => {
+        this.setOpenState(true);
+      },
     });
 
     return ele;

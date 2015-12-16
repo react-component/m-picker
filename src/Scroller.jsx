@@ -20,7 +20,7 @@ function isEqual(preData, data) {
 const Scroller = React.createClass({
   propTypes: {
     data: React.PropTypes.array,
-    defaultValue: React.PropTypes.string,
+    defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     indexOfScrollers: React.PropTypes.number,
     heightOfItem: React.PropTypes.number,
     onSelect: React.PropTypes.func,

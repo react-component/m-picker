@@ -45,9 +45,6 @@ const CityPicker = React.createClass({
   onOpen() {
     this.setOpenState(true);
   },
-  onCancel() {
-    this.setOpenState(false);
-  },
   onOk(info) {
     // console.log(info);
     let finalSel = '';
@@ -133,7 +130,7 @@ const CityPicker = React.createClass({
           </Picker>
         </p>
         <p>
-          <Picker open={this.state.open} onCancel={this.onCancel}
+          <Picker open={this.state.open}
             data={gData} value={newVal}
             onOk={this.onOk} onChange={this.onChange}>
             <button onClick={this.onOpen}>controlled open</button>

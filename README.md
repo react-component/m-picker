@@ -67,7 +67,6 @@ see example
 |value | default selected values corresponding to the input data above | array | [val1, val2] |
 |onChange | fire when change the selector's item | Function | '' |
 |onOk | fire when finish select the selector | Function | '' |
-|onCancel | fire when cancel select the selector | Function | '' |
 
 
 ## Test Case
