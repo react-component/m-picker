@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-picker@0.3.1</title>
+  <title>cityPicker.js - example - rmc-picker@0.3.2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-picker@0.3.1</h1>
+    <h1>rmc-picker@0.3.2</h1>
 
     <p>m-picker ui component for react</p>
   </div>
@@ -310,9 +310,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   },
   onOpen() {
     <span class="hljs-keyword">this</span>.setOpenState(<span class="hljs-literal">true</span>);
-  },
-  onCancel() {
-    <span class="hljs-keyword">this</span>.setOpenState(<span class="hljs-literal">false</span>);
   },
   onOk(info) {
     <span class="hljs-comment">// console.log(info);</span>
@@ -399,7 +396,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">open</span>=<span class="hljs-value">{this.state.open}</span> <span class="hljs-attribute">onCancel</span>=<span class="hljs-value">{this.onCancel}</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">open</span>=<span class="hljs-value">{this.state.open}</span>
             <span class="hljs-attribute">data</span>=<span class="hljs-value">{gData}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{newVal}</span>
             <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOpen}</span>&gt;</span>controlled open<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>

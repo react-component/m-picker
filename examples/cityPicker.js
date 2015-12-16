@@ -74,9 +74,6 @@ webpackJsonp([0,1],[
 	  onOpen: function onOpen() {
 	    this.setOpenState(true);
 	  },
-	  onCancel: function onCancel() {
-	    this.setOpenState(false);
-	  },
 	  onOk: function onOk(info) {
 	    // console.log(info);
 	    var finalSel = '';
@@ -187,7 +184,7 @@ webpackJsonp([0,1],[
 	        null,
 	        _react2['default'].createElement(
 	          _rmcPicker2['default'],
-	          { open: this.state.open, onCancel: this.onCancel,
+	          { open: this.state.open,
 	            data: gData, value: newVal,
 	            onOk: this.onOk, onChange: this.onChange },
 	          _react2['default'].createElement(
@@ -19875,7 +19872,6 @@ webpackJsonp([0,1],[
 	    data: _react2['default'].PropTypes.array,
 	    value: _react2['default'].PropTypes.array,
 	    onOk: _react2['default'].PropTypes.func,
-	    onCancel: _react2['default'].PropTypes.func,
 	    onChange: _react2['default'].PropTypes.func
 	  },
 	  getDefaultProps: function getDefaultProps() {
@@ -19914,20 +19910,6 @@ webpackJsonp([0,1],[
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.destroySelector();
-	  },
-	  onOpen: function onOpen() {
-	    this.setOpenState(true);
-	  },
-	  onClose: function onClose() {
-	    this.setOpenState(false);
-	  },
-	  onCancel: function onCancel() {
-	    this.setOpenState(false);
-	    if (this.props.onCancel) {
-	      this.props.onCancel({
-	        event: 'cancel'
-	      });
-	    }
 	  },
 	  onOk: function onOk() {
 	    this.setOpenState(false);
@@ -19969,11 +19951,7 @@ webpackJsonp([0,1],[
 	      _react2['default'].createElement(
 	        'div',
 	        { className: props.prefixCls + '-header' },
-	        _react2['default'].createElement(
-	          'div',
-	          { className: props.prefixCls + '-item', onClick: this.onCancel },
-	          '取消'
-	        ),
+	        _react2['default'].createElement('div', { className: props.prefixCls + '-item' }),
 	        _react2['default'].createElement('div', { className: props.prefixCls + '-item' }),
 	        _react2['default'].createElement(
 	          'div',
@@ -19995,7 +19973,9 @@ webpackJsonp([0,1],[
 	    );
 	
 	    var mask = _react2['default'].createElement('div', { className: (0, _classnames2['default'])(props.prefixCls + '-mask', this.state.open ? props.prefixCls + '-mask-open' : ''),
-	      onClick: this.onClose });
+	      onClick: function () {
+	        _this.setOpenState(false);
+	      } });
 	
 	    if (!this.selectorContainer) {
 	      this.selectorContainer = document.createElement('div');
@@ -20026,6 +20006,8 @@ webpackJsonp([0,1],[
 	    });
 	  },
 	  render: function render() {
+	    var _this2 = this;
+	
 	    var props = this.props;
 	
 	    var ele = '';
@@ -20040,7 +20022,9 @@ webpackJsonp([0,1],[
 	    }
 	
 	    ele = _react2['default'].cloneElement(ele, 'open' in this.props ? {} : {
-	      onClick: this.onOpen
+	      onClick: function onClick() {
+	        _this2.setOpenState(true);
+	      }
 	    });
 	
 	    return ele;
@@ -20146,7 +20130,7 @@ webpackJsonp([0,1],[
 	
 	  propTypes: {
 	    data: _react2['default'].PropTypes.array,
-	    defaultValue: _react2['default'].PropTypes.string,
+	    defaultValue: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
 	    indexOfScrollers: _react2['default'].PropTypes.number,
 	    heightOfItem: _react2['default'].PropTypes.number,
 	    onSelect: _react2['default'].PropTypes.func
