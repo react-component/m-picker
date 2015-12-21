@@ -1,145 +1,129 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import Scroller from './Scroller';
+import IScroll from 'iscroll';
+
+// compare two object,  props.data with nextProps.data
+// data: [{value: '1', name: '1x'}, {value: '2', name: '2x'}...]
+function isEqual(preData, data) {
+  if (preData.length !== data.length) {
+    return false;
+  }
+  const equal = data.every((item, index) => {
+    return item.value === preData[index].value && item.name === preData[index].name;
+  });
+  if (!equal) {
+    return false;
+  }
+  return true;
+}
+// console.log(isEqual([{value: '1', name: '1x'}, {value: '2', name: '2x'}], [{value: '1', name: '1x'}]));
 
 const Picker = React.createClass({
   propTypes: {
     prefixCls: React.PropTypes.string,
-    open: React.PropTypes.bool,
     data: React.PropTypes.array,
-    value: React.PropTypes.array,
-    onOk: React.PropTypes.func,
-    onChange: React.PropTypes.func,
+    onValueChange: React.PropTypes.func,
+    selectedValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    heightOfItem: React.PropTypes.number,
   },
   getDefaultProps() {
     return {
       prefixCls: 'rmc-picker',
-      data: [],
-      value: [],
+      selectedValue: '',
+      heightOfItem: 34, // scroller's list item's height, should be a constant value
     };
-  },
-  getInitialState() {
-    const st = {
-      open: false,
-    };
-    if ('open' in this.props) {
-      st.open = this.props.open || false;
-    }
-    return st;
   },
   componentDidMount() {
     this.componentDidUpdate();
   },
-  componentWillReceiveProps(nextProps) {
-    const props = {};
-    if ('open' in nextProps) {
-      props.open = nextProps.open;
+  shouldComponentUpdate(nextProps) {
+    if (isEqual(this.props.data, nextProps.data) && this.iscroll) {
+      return false;
     }
-    this.setState(props);
+    return true;
   },
   componentDidUpdate() {
-    if (this.state.open) {
-      this.processDataValue();
-      this.createSelector();
+    const thisDom = ReactDOM.findDOMNode(this);
+    // when parent element display none
+    if (thisDom.offsetHeight <= 0 || thisDom.offsetWidth <= 0) {
+      return;
+    }
+    if (!this.iscroll) {
+      this.initScroller();
     } else {
-      this.destroySelector();
+      // refresh 和 scrollTo 等方法都会再次触发 scrollEnd
+      setTimeout(() => {
+        this.iscroll.refresh();
+        this.iscroll.scrollTo(0, this.iscroll.pages[0][this.defaultScrollPosition].y);
+      }, 0);
     }
   },
   componentWillUnmount() {
-    this.destroySelector();
+    this.iscroll.destroy();
+    this.iscroll = null;
   },
-  onOk() {
-    this.setOpenState(false);
-    if (this.props.onOk) {
-      this.props.onOk({
-        value: this.value,
+  onScrollEnd() {
+    let index = undefined;
+    if (this.props.heightOfItem) {
+      index = Math.abs(this.iscroll.y / this.props.heightOfItem);
+    } else {
+      this.iscroll.pages[0].forEach((item, i) => {
+        if (index !== undefined && Math.abs(this.iscroll.y - item.y) < 2) {
+          index = i;
+        }
       });
     }
-  },
-  onSelect(selectNameValue, indexOfScrollers) {
-    if (this.props.onChange) {
-      this.props.onChange(selectNameValue.value, {
-        indexOfScrollers: indexOfScrollers,
-        preValue: [...this.value],
-      });
+    if (this.props.onValueChange && index !== undefined) {
+      this.props.onValueChange(this.data[index]);
     }
   },
-  setOpenState(open, callback) {
-    if (this.state.open !== open) {
-      if (!('open' in this.props)) {
-        this.setState({
-          open: open,
-        }, callback);
-      } else {
-        this.setState({
-          open: this.props.open,
-        });
-      }
-    }
-  },
-  createSelector() {
-    const props = this.props;
-
-    const container = (<div className={classNames(props.className, props.prefixCls + '-container')}>
-        <div className={props.prefixCls + '-header'}>
-          <div className={props.prefixCls + '-item'}></div>
-          <div className={props.prefixCls + '-item'}></div>
-          <div className={props.prefixCls + '-item'} onClick={this.onOk}>完成</div>
-        </div>
-        <div className={props.prefixCls + '-content'}>
-          {this.data.map((item, index) => {
-            return item.length ? (<div key={index} className={`${this.props.prefixCls}-item`} data-index={index}>
-                <Scroller data={item} indexOfScrollers={index} defaultValue={this.value[index]} onSelect={this.onSelect} />
-              </div>) : null;
-          })}
-        </div>
-      </div>);
-
-    const mask = (<div className={classNames(`${props.prefixCls}-mask`,
-        this.state.open ? `${props.prefixCls}-mask-open` : '')}
-      onClick={() => { this.setOpenState(false); }}></div>);
-
-    if (!this.selectorContainer) {
-      this.selectorContainer = document.createElement('div');
-      document.body.appendChild(this.selectorContainer);
-    }
-
-    ReactDOM.render((<div>{container}{mask}</div>), this.selectorContainer);
-  },
-  destroySelector() {
-    if (this.selectorContainer) {
-      ReactDOM.unmountComponentAtNode(this.selectorContainer);
-      document.body.removeChild(this.selectorContainer);
-      this.selectorContainer = null;
-    }
-  },
-  processDataValue() {
-    // make value array lenth equal with data array length
-    const value = [...this.props.value];
-    this.value = value;
-    this.data = [...this.props.data];
-    this.data.forEach((item, index) => {
-      value[index] = value[index] || '';
+  initScroller() {
+    // debugger
+    this.iscroll = new IScroll(this.refs.iscroll_wrapper, {
+      snap: 'div',
+      startY: this.startY,
     });
+    this.iscroll.on('scrollEnd', this.onScrollEnd);
   },
+  teardownScroller() {},
   render() {
     const props = this.props;
+    const prefixCls = props.prefixCls;
 
-    let ele = '';
-    if (React.Children.count(props.children) === 1) {
-      ele = React.Children.only(props.children);
-    } else {
-      ele = <span>{props.children}</span>;
+    let data = [...props.data];
+    this.data = data;
+    // 前后补三个空元素，页面展示需要
+    const temp = [0, 1, 2].map(() => {
+      return {value: '', name: ''};
+    });
+    const len = temp.length;
+    data = [...temp, ...data, ...temp];
+
+    // get default scroll position
+    this.defaultScrollPosition = 0;
+    if (props.selectedValue) {
+      data.forEach((item, index) => {
+        if (item.value === props.selectedValue) {
+          this.defaultScrollPosition = index - len;
+        }
+      });
     }
 
-    ele = React.cloneElement(ele, ('open' in this.props) ? {} : {
-      onClick: () => {
-        this.setOpenState(true);
-      },
-    });
+    // get default scroll startY
+    this.startY = -(props.heightOfItem * this.defaultScrollPosition) || 0;
 
-    return ele;
+    return (<div ref="iscroll_wrapper" className={classNames(props.className, `${prefixCls}-scroller-wrapper`)}>
+        <div ref="iscroll_scroller" className={`${prefixCls}-scroller`}>{
+          data.map((item, index) => {
+            return (<div key={index} className={`${prefixCls}-scroller-item`}
+                data-value={item.value}>{item.name}</div>);
+          })
+        }</div>
+        <div className={`${prefixCls}-scroller-mask`} data-role="mask"></div>
+        <div ref="indicator" className={`${prefixCls}-scroller-indicator`} data-role="indicator"></div>
+      </div>);
   },
 });
+
 export default Picker;

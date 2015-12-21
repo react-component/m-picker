@@ -1,29 +1,5 @@
-@MPickerPrefixCls: rmc-picker;
-.@{MPickerPrefixCls} {
-  &-container {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    z-index: 10000;
-    background-color: #fff;
-  }
-  &-mask {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    opacity: 0;
-    -webkit-transition: opacity 0.1s ease;
-    transition: opacity 0.1s ease;
-    background-color: #000;
-    z-index: 9999;
-
-    &-open {
-      opacity: 0.5
-    }
-  }
+@McityPickerPrefixCls: rmc-picker;
+.@{McityPickerPrefixCls} {
   &-header {
     display: -webkit-box;
     display: -webkit-flex;

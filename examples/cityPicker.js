@@ -1,7 +1,10 @@
 import 'rmc-picker/assets/index.less';
+import '../assets/cityPicker.less';
+import 'rmc-modal/assets/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Picker from 'rmc-picker';
+import Modal from 'rmc-modal';
 const data = require('./data');
 
 const remoteData = [data.province, data.city, data.region];
@@ -37,40 +40,41 @@ const CityPicker = React.createClass({
   },
   getInitialState() {
     return {
-      indexOfScrollers: 0,
+      indexOfPickers: 0,
       finalSel: '',
-      open: true,
+      modalVisible: false,
     };
   },
-  onOpen() {
-    this.setOpenState(true);
+  onDismiss() {
+    this.setVisibleState(false);
   },
-  onOk(info) {
-    // console.log(info);
+  onOk() {
+    this.setState({finalSel: this.getSel()});
+    this.setVisibleState(false);
+  },
+  onValueChange(index, selectNameValue) {
+    console.log(index, selectNameValue);
+    this.value[index] = selectNameValue.value;
+    this.setState({
+      indexOfPickers: index,
+      finalSel: this.getSel(),
+    });
+  },
+  setVisibleState(visible) {
+    this.setState({
+      modalVisible: visible,
+    });
+  },
+  getSel() {
     let finalSel = '';
-    info.value.forEach((item, index) => {
+    this.value.forEach((item, index) => {
       gData[index].forEach((ii) => {
         if (ii.value === item) {
           finalSel += ii.name + ' ';
         }
       });
     });
-    this.setState({finalSel: finalSel});
-    this.setOpenState(false);
-  },
-  onChange(value, info) {
-    console.log('onChang', value, info);
-    const newVal = [...info.preValue];
-    newVal[info.indexOfScrollers] = value;
-    this.value = newVal;
-    this.setState({
-      indexOfScrollers: info.indexOfScrollers,
-    });
-  },
-  setOpenState(openSt) {
-    this.setState({
-      open: openSt,
-    });
+    return finalSel;
   },
   getSelected(arr) {
     // 默认选中第一项
@@ -90,14 +94,15 @@ const CityPicker = React.createClass({
     return sel;
   },
   render() {
+    const props = this.props;
     const st = this.state;
     const newVal = this.value ? [...this.value] : [];
 
-    // 设置 indexOfScrollers 下一条的默认值
-    let index = st.indexOfScrollers;
+    // 设置 indexOfPickers 下一条的默认值
+    let index = st.indexOfPickers;
     let next = gData[index];
     while (next && next.length) {
-      if (index === st.indexOfScrollers) {
+      if (index === st.indexOfPickers) {
         newVal[index] = newVal[index] || this.getSelected(next);
       } else {
         newVal[index] = this.getSelected(next);
@@ -119,23 +124,46 @@ const CityPicker = React.createClass({
       }
     }
 
+    // make value array lenth equal with data array length
+    gData.forEach((item, i) => {
+      newVal[i] = newVal[i] || '';
+    });
+
+    this.value = newVal;
+
+    const inlinePickers = (<div className={props.prefixCls + '-content'}>
+      {gData.map((item, i) => {
+        return (<div key={i} className={`${props.prefixCls}-item`}>
+            <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
+          </div>);
+      })}
+    </div>);
+
+    const popPicker = (<Modal visible={this.state.modalVisible} onDismiss={this.onDismiss}>
+      <div className={props.prefixCls + '-header'}>
+        <div className={props.prefixCls + '-item'} onClick={this.setVisibleState.bind(this, false)}>取消</div>
+        <div className={props.prefixCls + '-item'}></div>
+        <div className={props.prefixCls + '-item'} onClick={this.onOk}>完成</div>
+      </div>
+      <div className={props.prefixCls + '-content'}>
+        {gData.map((item, i) => {
+          return (<div key={i} className={`${props.prefixCls}-item`}>
+              <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
+            </div>);
+        })}
+      </div>
+    </Modal>);
+
     return (<div style={{margin: '10px 30px'}}>
         <h3>city picker</h3>
-        <p>您选择的城市是：{st.finalSel}</p>
-        <p>
-          <Picker
-            data={gData} value={newVal}
-            onOk={this.onOk} onChange={this.onChange}>
-            <button>trigger</button>
-          </Picker>
-        </p>
-        <p>
-          <Picker open={this.state.open}
-            data={gData} value={newVal}
-            onOk={this.onOk} onChange={this.onChange}>
-            <button onClick={this.onOpen}>controlled open</button>
-          </Picker>
-        </p>
+        <p>您选择的城市是：{st.finalSel || this.getSel()}</p>
+        <div>
+          {inlinePickers}
+        </div>
+        <div>
+          {popPicker}
+          <button onClick={this.setVisibleState.bind(this, true)}>open picker</button>
+        </div>
       </div>);
   },
 });

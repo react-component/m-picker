@@ -62,11 +62,9 @@ see example
 |----------|----------------|----------|--------------|
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | '' |
-|open | controlled open state | bool | false |
-|data | input data | array<array{obj}>  | [ [{name, value, selected(option)},...], ... ] |
-|value | default selected values corresponding to the input data above | array | [val1, val2] |
-|onChange | fire when change the selector's item | Function | '' |
-|onOk | fire when finish select the selector | Function | '' |
+|data | input data | array{obj}  | [{name, value, selected(option)},...] |
+|selectedValue | default selected values corresponding to the input data above | string/number |  |
+|onValueChange | fire when picker change | Function | '' |
 
 
 ## Test Case
