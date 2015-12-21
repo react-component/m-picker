@@ -1,6 +1,6 @@
 import 'rmc-picker/assets/index.less';
-import '../assets/cityPicker.less';
 import 'rmc-modal/assets/index.css';
+import 'rmc-modal/assets/simple.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Picker from 'rmc-picker';
@@ -32,6 +32,7 @@ const CityPicker = React.createClass({
   getDefaultProps() {
     return {
       prefixCls: 'rmc-picker',
+      modalPrefixCls: 'rmc-modal',
       defaultSelectedValues: [],
       // defaultSelectedValues: ['01', '01-2'],
       // forceColumnAmount: 'auto',
@@ -131,23 +132,23 @@ const CityPicker = React.createClass({
 
     this.value = newVal;
 
-    const inlinePickers = (<div className={props.prefixCls + '-content'}>
+    const inlinePickers = (<div className={props.modalPrefixCls + '-content'}>
       {gData.map((item, i) => {
-        return (<div key={i} className={`${props.prefixCls}-item`}>
+        return (<div key={i} className={`${props.modalPrefixCls}-item`}>
             <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
           </div>);
       })}
     </div>);
 
     const popPicker = (<Modal visible={this.state.modalVisible} onDismiss={this.onDismiss}>
-      <div className={props.prefixCls + '-header'}>
-        <div className={props.prefixCls + '-item'} onClick={this.setVisibleState.bind(this, false)}>取消</div>
-        <div className={props.prefixCls + '-item'}></div>
-        <div className={props.prefixCls + '-item'} onClick={this.onOk}>完成</div>
+      <div className={props.modalPrefixCls + '-header'}>
+        <div className={props.modalPrefixCls + '-item'} onClick={this.setVisibleState.bind(this, false)}>取消</div>
+        <div className={props.modalPrefixCls + '-item'}></div>
+        <div className={props.modalPrefixCls + '-item'} onClick={this.onOk}>完成</div>
       </div>
-      <div className={props.prefixCls + '-content'}>
+      <div className={props.modalPrefixCls + '-content'}>
         {gData.map((item, i) => {
-          return (<div key={i} className={`${props.prefixCls}-item`}>
+          return (<div key={i} className={`${props.modalPrefixCls}-item`}>
               <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
             </div>);
         })}
