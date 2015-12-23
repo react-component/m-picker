@@ -1,9 +1,11 @@
+/* eslint no-console:0 */
+
 import 'rmc-picker/assets/index.less';
 import 'rmc-modal/assets/index.css';
 import 'rmc-modal/assets/simple.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Picker, { PickerItem } from 'rmc-picker';
+import Picker, { Item as PickerItem } from 'rmc-picker';
 import Modal from 'rmc-modal';
 const data = require('./data');
 
@@ -55,7 +57,7 @@ const CityPicker = React.createClass({
   },
   onValueChange(index, selectNameValue) {
     console.log(index, selectNameValue);
-    this.value[index] = selectNameValue.value;
+    this.value[index] = selectNameValue;
     this.setState({
       indexOfPickers: index,
       sel: this.getSel(),
@@ -136,8 +138,8 @@ const CityPicker = React.createClass({
       {gData.map((item, i) => {
         return (<div key={i} className={`${props.modalPrefixCls}-item`}>
             <Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}>
-              {item.map((it, ii) => {
-                return <PickerItem key={ii} value={it.value} name={it.name} />;
+              {item.map((it) => {
+                return <PickerItem key={it.value} value={it.value} label={it.name} />;
               })}
             </Picker>
           </div>);
@@ -154,8 +156,8 @@ const CityPicker = React.createClass({
         {gData.map((item, i) => {
           return (<div key={i} className={`${props.modalPrefixCls}-item`}>
               <Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}>
-                {item.map((it, ii) => {
-                  return <PickerItem key={ii} value={it.value} name={it.name} />;
+                {item.map((it) => {
+                  return <PickerItem key={it.value} value={it.value} label={it.name} />;
                 })}
               </Picker>
             </div>);

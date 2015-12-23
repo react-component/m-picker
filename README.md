@@ -1,7 +1,7 @@
 # rmc-picker
 ---
 
-React MCascadeSelect Component
+React Mobile Picker Component
 
 
 [![NPM version][npm-image]][npm-url]
@@ -10,9 +10,6 @@ React MCascadeSelect Component
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
-[![Sauce Test Status](https://saucelabs.com/buildstatus/rmc-picker)](https://saucelabs.com/u/rmc-picker)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/rmc-picker.svg)](https://saucelabs.com/u/rmc-picker)
 
 [npm-image]: http://img.shields.io/npm/v/rmc-picker.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/rmc-picker
@@ -43,7 +40,7 @@ npm start
 
 http://localhost:8000/examples/
 
-online example: http://react-component.github.io/m-picker/examples/
+online example: http://react-component.github.io/m-picker/
 
 
 ## install
@@ -60,18 +57,17 @@ see example
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|className | additional css class of root dom node | String | '' |
+|className | additional css class of root dom node | String |  |
 |prefixCls | prefix class | String | '' |
 |selectedValue | default selected values corresponding to the input data above | string/number |  |
-|onValueChange | fire when picker change | Function | '' |
+|onValueChange | fire when picker change | Function(value) |  |
 
 ### PickerItem props
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|value | PickerItem value | any | '' |
-|name | PickerItem name | any | '' |
-
+|value | PickerItem value | any |  |
+|label | PickerItem label | any |  |
 
 ## Test Case
 

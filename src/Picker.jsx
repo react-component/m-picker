@@ -1,111 +1,112 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import IScroll from 'iscroll';
-import PickerItem from './PickerItem';
+
+// 前后补三个空元素，页面展示需要
+const paddingElements = [0, 1, 2, 3, 4, 5].map((i) => {
+  return {
+    props: {
+      value: 'padding_' + i,
+      label: '',
+      key: 'padding_' + i,
+    },
+  };
+});
+
+const paddingElementsHalfLen = paddingElements.length / 2;
 
 const Picker = React.createClass({
   propTypes: {
-    prefixCls: React.PropTypes.string,
-    onValueChange: React.PropTypes.func,
-    selectedValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    heightOfItem: React.PropTypes.number,
+    prefixCls: PropTypes.string,
+    onValueChange: PropTypes.func,
+    children: PropTypes.any,
+    selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   },
   getDefaultProps() {
     return {
+      onValueChange() {
+      },
       prefixCls: 'rmc-picker',
-      selectedValue: '',
-      heightOfItem: 34, // scroller's list item's height, should be a constant value
     };
   },
   componentDidMount() {
-    this.componentDidUpdate();
+    this.initScroller();
+    this.positionScroll();
   },
-  componentDidUpdate() {
+  shouldComponentUpdate() {
     const thisDom = ReactDOM.findDOMNode(this);
     // when parent element display none
     if (thisDom.offsetHeight <= 0 || thisDom.offsetWidth <= 0) {
-      return;
+      return false;
     }
-    if (!this.iscroll) {
-      this.initScroller();
-    } else {
-      // refresh 和 scrollTo 等方法都会再次触发 scrollEnd
-      setTimeout(() => {
-        this.iscroll.refresh();
-        this.iscroll.scrollTo(0, this.iscroll.pages[0][this.defaultScrollPosition].y);
-      }, 0);
-    }
+    return true;
+  },
+  componentDidUpdate() {
+    this.iscroll.refresh();
+    this.positionScroll();
   },
   componentWillUnmount() {
     this.iscroll.destroy();
     this.iscroll = null;
   },
   onScrollEnd() {
-    let index = undefined;
-    if (this.props.heightOfItem) {
-      index = Math.abs(this.iscroll.y / this.props.heightOfItem);
-    } else {
-      this.iscroll.pages[0].forEach((item, i) => {
-        if (index !== undefined && Math.abs(this.iscroll.y - item.y) < 2) {
-          index = i;
-        }
-      });
-    }
-    if (this.props.onValueChange && index !== undefined) {
-      this.props.onValueChange(this.userData[index]);
+    let index;
+    const iscrollY = this.iscroll.y;
+    this.iscroll.pages[0].forEach((item, i) => {
+      if (index === undefined && Math.abs(iscrollY - item.y) < 2) {
+        index = i;
+      }
+    });
+    if (index !== undefined) {
+      const selectedValue = this.getValueByIndex(index);
+      if (selectedValue !== this.props.selectedValue) {
+        this.props.onValueChange(this.getValueByIndex(index));
+      }
     }
   },
+  getValueByIndex(index) {
+    return this.props.children[index].props.value;
+  },
+  getScrollPosition() {
+    const props = this.props;
+    if (!props.selectedValue) {
+      return 0;
+    }
+    let scrollPosition = 0;
+    props.children.forEach((item, index) => {
+      if (item.props.value === props.selectedValue) {
+        scrollPosition = index;
+      }
+    });
+    return scrollPosition;
+  },
   initScroller() {
-    // debugger
-    this.iscroll = new IScroll(this.refs.iscroll_wrapper, {
+    this.iscroll = new IScroll(this.refs.iscrollWrapper, {
       snap: 'div',
-      startY: this.startY,
     });
     this.iscroll.on('scrollEnd', this.onScrollEnd);
   },
-  teardownScroller() {},
+  positionScroll() {
+    if (this.iscroll.pages[0]) {
+      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition()].y);
+    }
+  },
   render() {
     const props = this.props;
     const prefixCls = props.prefixCls;
-
-    // 前后补三个空元素，页面展示需要
-    const temp = [0, 1, 2].map(() => {
-      return {value: '', name: ''};
+    const compositeData = [...paddingElements.slice(0, paddingElementsHalfLen),
+      ...props.children,
+      ...paddingElements.slice(paddingElementsHalfLen, paddingElements.length)];
+    const items = compositeData.map((item, index) => {
+      const itemProps = item.props;
+      return (<div key={itemProps.key || index} className={`${prefixCls}-scroller-item`}>{itemProps.label}</div>);
     });
-    const len = temp.length;
-
-    this.userData = [];
-    React.Children.forEach(props.children, (child)=> {
-      if (child.type === PickerItem) {
-        this.userData.push({value: child.props.value, name: child.props.name});
-      }
-    });
-    const compositeData = [...temp, ...this.userData, ...temp];
-
-    // get default scroll position
-    this.defaultScrollPosition = 0;
-    if (props.selectedValue) {
-      compositeData.forEach((item, index) => {
-        if (item.value === props.selectedValue) {
-          this.defaultScrollPosition = index - len;
-        }
-      });
-    }
-
-    // get default scroll startY
-    this.startY = -(props.heightOfItem * this.defaultScrollPosition) || 0;
-
-    return (<div ref="iscroll_wrapper" className={classNames(props.className, `${prefixCls}-scroller-wrapper`)}>
-        <div ref="iscroll_scroller" className={`${prefixCls}-scroller`}>{
-          compositeData.map((item, index) => {
-            return (<div key={index} className={`${prefixCls}-scroller-item`}
-                data-value={item.value}>{item.name}</div>);
-          })
-        }</div>
-        <div className={`${prefixCls}-scroller-mask`} data-role="mask"></div>
-        <div ref="indicator" className={`${prefixCls}-scroller-indicator`} data-role="indicator"></div>
-      </div>);
+    return (<div ref="iscrollWrapper" className={classNames(props.className, `${prefixCls}-scroller-wrapper`)}>
+      <div ref="iscroll_scroller" className={`${prefixCls}-scroller`}>{items}</div>
+      <div className={`${prefixCls}-scroller-mask`} data-role="mask"></div>
+      <div ref="indicator" className={`${prefixCls}-scroller-indicator`} data-role="indicator"></div>
+    </div>);
   },
 });
 

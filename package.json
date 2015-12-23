@@ -1,7 +1,7 @@
 {
   "name": "rmc-picker",
-  "version": "0.5.0",
-  "description": "m-picker ui component for react",
+  "version": "1.0.0",
+  "description": "React Mobile Picker Component",
   "keywords": [
     "react",
     "react-component",
@@ -9,7 +9,10 @@
     "m-picker"
   ],
   "homepage": "https://github.com/react-component/m-picker",
-  "author": "hualei5280@gmail.com",
+  "maitainers": [
+    "hualei5280@gmail.com",
+    "yiminghe@gmail.com"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/react-component/m-picker.git"
