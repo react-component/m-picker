@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-picker@0.5.0</title>
+  <title>cityPicker.js - example - rmc-picker@1.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,19 +257,21 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-picker@0.5.0</h1>
+    <h1>rmc-picker@1.0.0</h1>
 
-    <p>m-picker ui component for react</p>
+    <p>React Mobile Picker Component</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="cityPicker.js?nowrap"></script>
-  <div class="highlight"><pre><code language="undefined">import 'rmc-picker/assets/index.css';
+  <div class="highlight"><pre><code language="undefined">/* eslint no-console:0 */
+
+import 'rmc-picker/assets/index.css';
 import 'rmc-modal/assets/index.css';
 import 'rmc-modal/assets/simple.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Picker, { PickerItem } from 'rmc-picker';
+import Picker, { Item as PickerItem } from 'rmc-picker';
 import Modal from 'rmc-modal';
 const data = require('./data');
 
@@ -321,7 +323,7 @@ const CityPicker = React.createClass({
   },
   onValueChange(index, selectNameValue) {
     console.log(index, selectNameValue);
-    this.value[index] = selectNameValue.value;
+    this.value[index] = selectNameValue;
     this.setState({
       indexOfPickers: index,
       sel: this.getSel(),
@@ -402,8 +404,8 @@ const CityPicker = React.createClass({
       {gData.map((item, i) =&gt; {
         return (&lt;div key={i} className={`${props.modalPrefixCls}-item`}&gt;
             &lt;Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}&gt;
-              {item.map((it, ii) =&gt; {
-                return &lt;PickerItem key={ii} value={it.value} name={it.name} /&gt;;
+              {item.map((it) =&gt; {
+                return &lt;PickerItem key={it.value} value={it.value} label={it.name} /&gt;;
               })}
             &lt;/Picker&gt;
           &lt;/div&gt;);
@@ -420,8 +422,8 @@ const CityPicker = React.createClass({
         {gData.map((item, i) =&gt; {
           return (&lt;div key={i} className={`${props.modalPrefixCls}-item`}&gt;
               &lt;Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}&gt;
-                {item.map((it, ii) =&gt; {
-                  return &lt;PickerItem key={ii} value={it.value} name={it.name} /&gt;;
+                {item.map((it) =&gt; {
+                  return &lt;PickerItem key={it.value} value={it.value} label={it.name} /&gt;;
                 })}
               &lt;/Picker&gt;
             &lt;/div&gt;);

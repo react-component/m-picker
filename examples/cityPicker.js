@@ -9,6 +9,8 @@ webpackJsonp([0,1],[
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* eslint no-console:0 */
+	
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -89,7 +91,7 @@ webpackJsonp([0,1],[
 	  },
 	  onValueChange: function onValueChange(index, selectNameValue) {
 	    console.log(index, selectNameValue);
-	    this.value[index] = selectNameValue.value;
+	    this.value[index] = selectNameValue;
 	    this.setState({
 	      indexOfPickers: index,
 	      sel: this.getSel()
@@ -180,8 +182,8 @@ webpackJsonp([0,1],[
 	          _react2['default'].createElement(
 	            _rmcPicker2['default'],
 	            { selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) },
-	            item.map(function (it, ii) {
-	              return _react2['default'].createElement(_rmcPicker.PickerItem, { key: ii, value: it.value, name: it.name });
+	            item.map(function (it) {
+	              return _react2['default'].createElement(_rmcPicker.Item, { key: it.value, value: it.value, label: it.name });
 	            })
 	          )
 	        );
@@ -216,8 +218,8 @@ webpackJsonp([0,1],[
 	            _react2['default'].createElement(
 	              _rmcPicker2['default'],
 	              { selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) },
-	              item.map(function (it, ii) {
-	                return _react2['default'].createElement(_rmcPicker.PickerItem, { key: ii, value: it.value, name: it.name });
+	              item.map(function (it) {
+	                return _react2['default'].createElement(_rmcPicker.Item, { key: it.value, value: it.value, label: it.name });
 	              })
 	            )
 	          );
@@ -19889,7 +19891,6 @@ webpackJsonp([0,1],[
 /* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// export this package's api
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
@@ -19906,7 +19907,7 @@ webpackJsonp([0,1],[
 	
 	var _PickerItem2 = _interopRequireDefault(_PickerItem);
 	
-	_Picker2['default'].PickerItem = _PickerItem2['default'];
+	_Picker2['default'].Item = _PickerItem2['default'];
 	exports['default'] = _Picker2['default'];
 	module.exports = exports['default'];
 
@@ -19940,124 +19941,115 @@ webpackJsonp([0,1],[
 	
 	var _iscroll2 = _interopRequireDefault(_iscroll);
 	
-	var _PickerItem = __webpack_require__(168);
+	// 前后补三个空元素，页面展示需要
+	var paddingElements = [0, 1, 2, 3, 4, 5].map(function (i) {
+	  return {
+	    props: {
+	      value: 'padding_' + i,
+	      label: '',
+	      key: 'padding_' + i
+	    }
+	  };
+	});
 	
-	var _PickerItem2 = _interopRequireDefault(_PickerItem);
+	var paddingElementsHalfLen = paddingElements.length / 2;
 	
 	var Picker = _react2['default'].createClass({
 	  displayName: 'Picker',
 	
 	  propTypes: {
-	    prefixCls: _react2['default'].PropTypes.string,
-	    onValueChange: _react2['default'].PropTypes.func,
-	    selectedValue: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
-	    heightOfItem: _react2['default'].PropTypes.number
+	    prefixCls: _react.PropTypes.string,
+	    onValueChange: _react.PropTypes.func,
+	    children: _react.PropTypes.any,
+	    selectedValue: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number])
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      prefixCls: 'rmc-picker',
-	      selectedValue: '',
-	      heightOfItem: 34 };
+	      onValueChange: function onValueChange() {},
+	      prefixCls: 'rmc-picker'
+	    };
 	  },
-	  // scroller's list item's height, should be a constant value
 	  componentDidMount: function componentDidMount() {
-	    this.componentDidUpdate();
+	    this.initScroller();
+	    this.positionScroll();
 	  },
-	  componentDidUpdate: function componentDidUpdate() {
-	    var _this = this;
-	
+	  shouldComponentUpdate: function shouldComponentUpdate() {
 	    var thisDom = _reactDom2['default'].findDOMNode(this);
 	    // when parent element display none
 	    if (thisDom.offsetHeight <= 0 || thisDom.offsetWidth <= 0) {
-	      return;
+	      return false;
 	    }
-	    if (!this.iscroll) {
-	      this.initScroller();
-	    } else {
-	      // refresh 和 scrollTo 等方法都会再次触发 scrollEnd
-	      setTimeout(function () {
-	        _this.iscroll.refresh();
-	        _this.iscroll.scrollTo(0, _this.iscroll.pages[0][_this.defaultScrollPosition].y);
-	      }, 0);
-	    }
+	    return true;
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    this.iscroll.refresh();
+	    this.positionScroll();
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.iscroll.destroy();
 	    this.iscroll = null;
 	  },
 	  onScrollEnd: function onScrollEnd() {
-	    var _this2 = this;
-	
 	    var index = undefined;
-	    if (this.props.heightOfItem) {
-	      index = Math.abs(this.iscroll.y / this.props.heightOfItem);
-	    } else {
-	      this.iscroll.pages[0].forEach(function (item, i) {
-	        if (index !== undefined && Math.abs(_this2.iscroll.y - item.y) < 2) {
-	          index = i;
-	        }
-	      });
-	    }
-	    if (this.props.onValueChange && index !== undefined) {
-	      this.props.onValueChange(this.userData[index]);
+	    var iscrollY = this.iscroll.y;
+	    this.iscroll.pages[0].forEach(function (item, i) {
+	      if (index === undefined && Math.abs(iscrollY - item.y) < 2) {
+	        index = i;
+	      }
+	    });
+	    if (index !== undefined) {
+	      var selectedValue = this.getValueByIndex(index);
+	      if (selectedValue !== this.props.selectedValue) {
+	        this.props.onValueChange(this.getValueByIndex(index));
+	      }
 	    }
 	  },
+	  getValueByIndex: function getValueByIndex(index) {
+	    return this.props.children[index].props.value;
+	  },
+	  getScrollPosition: function getScrollPosition() {
+	    var props = this.props;
+	    if (!props.selectedValue) {
+	      return 0;
+	    }
+	    var scrollPosition = 0;
+	    props.children.forEach(function (item, index) {
+	      if (item.props.value === props.selectedValue) {
+	        scrollPosition = index;
+	      }
+	    });
+	    return scrollPosition;
+	  },
 	  initScroller: function initScroller() {
-	    // debugger
-	    this.iscroll = new _iscroll2['default'](this.refs.iscroll_wrapper, {
-	      snap: 'div',
-	      startY: this.startY
+	    this.iscroll = new _iscroll2['default'](this.refs.iscrollWrapper, {
+	      snap: 'div'
 	    });
 	    this.iscroll.on('scrollEnd', this.onScrollEnd);
 	  },
-	  teardownScroller: function teardownScroller() {},
+	  positionScroll: function positionScroll() {
+	    if (this.iscroll.pages[0]) {
+	      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition()].y);
+	    }
+	  },
 	  render: function render() {
-	    var _this3 = this;
-	
 	    var props = this.props;
 	    var prefixCls = props.prefixCls;
-	
-	    // 前后补三个空元素，页面展示需要
-	    var temp = [0, 1, 2].map(function () {
-	      return { value: '', name: '' };
+	    var compositeData = [].concat(_toConsumableArray(paddingElements.slice(0, paddingElementsHalfLen)), _toConsumableArray(props.children), _toConsumableArray(paddingElements.slice(paddingElementsHalfLen, paddingElements.length)));
+	    var items = compositeData.map(function (item, index) {
+	      var itemProps = item.props;
+	      return _react2['default'].createElement(
+	        'div',
+	        { key: itemProps.key || index, className: prefixCls + '-scroller-item' },
+	        itemProps.label
+	      );
 	    });
-	    var len = temp.length;
-	
-	    this.userData = [];
-	    _react2['default'].Children.forEach(props.children, function (child) {
-	      if (child.type === _PickerItem2['default']) {
-	        _this3.userData.push({ value: child.props.value, name: child.props.name });
-	      }
-	    });
-	    var compositeData = [].concat(_toConsumableArray(temp), _toConsumableArray(this.userData), _toConsumableArray(temp));
-	
-	    // get default scroll position
-	    this.defaultScrollPosition = 0;
-	    if (props.selectedValue) {
-	      compositeData.forEach(function (item, index) {
-	        if (item.value === props.selectedValue) {
-	          _this3.defaultScrollPosition = index - len;
-	        }
-	      });
-	    }
-	
-	    // get default scroll startY
-	    this.startY = -(props.heightOfItem * this.defaultScrollPosition) || 0;
-	
 	    return _react2['default'].createElement(
 	      'div',
-	      { ref: 'iscroll_wrapper', className: (0, _classnames2['default'])(props.className, prefixCls + '-scroller-wrapper') },
+	      { ref: 'iscrollWrapper', className: (0, _classnames2['default'])(props.className, prefixCls + '-scroller-wrapper') },
 	      _react2['default'].createElement(
 	        'div',
 	        { ref: 'iscroll_scroller', className: prefixCls + '-scroller' },
-	        compositeData.map(function (item, index) {
-	          return _react2['default'].createElement(
-	            'div',
-	            { key: index, className: prefixCls + '-scroller-item',
-	              'data-value': item.value },
-	            item.name
-	          );
-	        })
+	        items
 	      ),
 	      _react2['default'].createElement('div', { className: prefixCls + '-scroller-mask', 'data-role': 'mask' }),
 	      _react2['default'].createElement('div', { ref: 'indicator', className: prefixCls + '-scroller-indicator', 'data-role': 'indicator' })
