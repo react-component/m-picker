@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-picker@0.4.0 - m-picker ui component for react</title>
+  <title>rmc-picker@0.5.0 - m-picker ui component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-picker@0.4.0</h1>
+  <h1>rmc-picker@0.5.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -770,7 +770,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <p>online example: <a href="http://react-component.github.io/m-picker/examples/" title="null">http://react-component.github.io/m-picker/examples/</a></p>
 <h2>install<a id="user-content-install" name="install" class="anchor" aria-hidden="true" href="#install"><span class="octicon octicon-link"></span></a></h2><p><a href="https://npmjs.org/package/rmc-picker" title="null"><img src="https://nodei.co/npm/rmc-picker.png" alt="rmc-picker"></a></p>
 <h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><p>see example</p>
-<h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><table>
+<h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>Picker props<a id="user-content-picker-props" name="picker-props" class="anchor" aria-hidden="true" href="#picker-props"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>
 <tr>
 <th>name</th>
@@ -793,12 +793,6 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>&#39;&#39;</td>
 </tr>
 <tr>
-<td>data</td>
-<td>input data</td>
-<td>array{obj}</td>
-<td>[{name, value, selected(option)},...]</td>
-</tr>
-<tr>
 <td>selectedValue</td>
 <td>default selected values corresponding to the input data above</td>
 <td>string/number</td>
@@ -808,6 +802,30 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>onValueChange</td>
 <td>fire when picker change</td>
 <td>Function</td>
+<td>&#39;&#39;</td>
+</tr>
+</tbody>
+</table>
+<h3>PickerItem props<a id="user-content-pickeritem-props" name="pickeritem-props" class="anchor" aria-hidden="true" href="#pickeritem-props"><span class="octicon octicon-link"></span></a></h3><table>
+<thead>
+<tr>
+<th>name</th>
+<th>description</th>
+<th>type</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>PickerItem value</td>
+<td>any</td>
+<td>&#39;&#39;</td>
+</tr>
+<tr>
+<td>name</td>
+<td>PickerItem name</td>
+<td>any</td>
 <td>&#39;&#39;</td>
 </tr>
 </tbody>

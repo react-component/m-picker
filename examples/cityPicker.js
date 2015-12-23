@@ -33,11 +33,11 @@ webpackJsonp([0,1],[
 	
 	var _rmcPicker2 = _interopRequireDefault(_rmcPicker);
 	
-	var _rmcModal = __webpack_require__(168);
+	var _rmcModal = __webpack_require__(169);
 	
 	var _rmcModal2 = _interopRequireDefault(_rmcModal);
 	
-	var data = __webpack_require__(171);
+	var data = __webpack_require__(172);
 	
 	var remoteData = [data.province, data.city, data.region];
 	var gData = [[].concat(_toConsumableArray(data.province)), [], []];
@@ -177,7 +177,13 @@ webpackJsonp([0,1],[
 	        return _react2['default'].createElement(
 	          'div',
 	          { key: i, className: props.modalPrefixCls + '-item' },
-	          _react2['default'].createElement(_rmcPicker2['default'], { data: item, selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) })
+	          _react2['default'].createElement(
+	            _rmcPicker2['default'],
+	            { selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) },
+	            item.map(function (it, ii) {
+	              return _react2['default'].createElement(_rmcPicker.PickerItem, { key: ii, value: it.value, name: it.name });
+	            })
+	          )
 	        );
 	      })
 	    );
@@ -207,7 +213,13 @@ webpackJsonp([0,1],[
 	          return _react2['default'].createElement(
 	            'div',
 	            { key: i, className: props.modalPrefixCls + '-item' },
-	            _react2['default'].createElement(_rmcPicker2['default'], { data: item, selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) })
+	            _react2['default'].createElement(
+	              _rmcPicker2['default'],
+	              { selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) },
+	              item.map(function (it, ii) {
+	                return _react2['default'].createElement(_rmcPicker.PickerItem, { key: ii, value: it.value, name: it.name });
+	              })
+	            )
 	          );
 	        })
 	      )
@@ -19889,7 +19901,12 @@ webpackJsonp([0,1],[
 	var _Picker = __webpack_require__(165);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
-
+	
+	var _PickerItem = __webpack_require__(168);
+	
+	var _PickerItem2 = _interopRequireDefault(_PickerItem);
+	
+	_Picker2['default'].PickerItem = _PickerItem2['default'];
 	exports['default'] = _Picker2['default'];
 	module.exports = exports['default'];
 
@@ -19923,28 +19940,15 @@ webpackJsonp([0,1],[
 	
 	var _iscroll2 = _interopRequireDefault(_iscroll);
 	
-	// compare two object,  props.data with nextProps.data
-	// data: [{value: '1', name: '1x'}, {value: '2', name: '2x'}...]
-	function isEqual(preData, data) {
-	  if (preData.length !== data.length) {
-	    return false;
-	  }
-	  var equal = data.every(function (item, index) {
-	    return item.value === preData[index].value && item.name === preData[index].name;
-	  });
-	  if (!equal) {
-	    return false;
-	  }
-	  return true;
-	}
-	// console.log(isEqual([{value: '1', name: '1x'}, {value: '2', name: '2x'}], [{value: '1', name: '1x'}]));
+	var _PickerItem = __webpack_require__(168);
+	
+	var _PickerItem2 = _interopRequireDefault(_PickerItem);
 	
 	var Picker = _react2['default'].createClass({
 	  displayName: 'Picker',
 	
 	  propTypes: {
 	    prefixCls: _react2['default'].PropTypes.string,
-	    data: _react2['default'].PropTypes.array,
 	    onValueChange: _react2['default'].PropTypes.func,
 	    selectedValue: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
 	    heightOfItem: _react2['default'].PropTypes.number
@@ -19958,12 +19962,6 @@ webpackJsonp([0,1],[
 	  // scroller's list item's height, should be a constant value
 	  componentDidMount: function componentDidMount() {
 	    this.componentDidUpdate();
-	  },
-	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	    if (isEqual(this.props.data, nextProps.data) && this.iscroll) {
-	      return false;
-	    }
-	    return true;
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    var _this = this;
@@ -20001,7 +19999,7 @@ webpackJsonp([0,1],[
 	      });
 	    }
 	    if (this.props.onValueChange && index !== undefined) {
-	      this.props.onValueChange(this.data[index]);
+	      this.props.onValueChange(this.userData[index]);
 	    }
 	  },
 	  initScroller: function initScroller() {
@@ -20019,19 +20017,24 @@ webpackJsonp([0,1],[
 	    var props = this.props;
 	    var prefixCls = props.prefixCls;
 	
-	    var data = [].concat(_toConsumableArray(props.data));
-	    this.data = data;
 	    // 前后补三个空元素，页面展示需要
 	    var temp = [0, 1, 2].map(function () {
 	      return { value: '', name: '' };
 	    });
 	    var len = temp.length;
-	    data = [].concat(_toConsumableArray(temp), _toConsumableArray(data), _toConsumableArray(temp));
+	
+	    this.userData = [];
+	    _react2['default'].Children.forEach(props.children, function (child) {
+	      if (child.type === _PickerItem2['default']) {
+	        _this3.userData.push({ value: child.props.value, name: child.props.name });
+	      }
+	    });
+	    var compositeData = [].concat(_toConsumableArray(temp), _toConsumableArray(this.userData), _toConsumableArray(temp));
 	
 	    // get default scroll position
 	    this.defaultScrollPosition = 0;
 	    if (props.selectedValue) {
-	      data.forEach(function (item, index) {
+	      compositeData.forEach(function (item, index) {
 	        if (item.value === props.selectedValue) {
 	          _this3.defaultScrollPosition = index - len;
 	        }
@@ -20047,7 +20050,7 @@ webpackJsonp([0,1],[
 	      _react2['default'].createElement(
 	        'div',
 	        { ref: 'iscroll_scroller', className: prefixCls + '-scroller' },
-	        data.map(function (item, index) {
+	        compositeData.map(function (item, index) {
 	          return _react2['default'].createElement(
 	            'div',
 	            { key: index, className: prefixCls + '-scroller-item',
@@ -22139,7 +22142,6 @@ webpackJsonp([0,1],[
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// export this package's api
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
@@ -22148,11 +22150,17 @@ webpackJsonp([0,1],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _web = __webpack_require__(169);
+	var _react = __webpack_require__(5);
 	
-	var _web2 = _interopRequireDefault(_web);
+	var _react2 = _interopRequireDefault(_react);
 	
-	exports['default'] = _web2['default'];
+	var PickerItem = _react2['default'].createClass({
+	  displayName: 'PickerItem',
+	
+	  render: function render() {}
+	});
+	
+	exports['default'] = PickerItem;
 	module.exports = exports['default'];
 
 /***/ },
@@ -22168,7 +22176,27 @@ webpackJsonp([0,1],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _Modal = __webpack_require__(170);
+	var _web = __webpack_require__(170);
+	
+	var _web2 = _interopRequireDefault(_web);
+	
+	exports['default'] = _web2['default'];
+	module.exports = exports['default'];
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// export this package's api
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _Modal = __webpack_require__(171);
 	
 	var _Modal2 = _interopRequireDefault(_Modal);
 	
@@ -22176,7 +22204,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 170 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22266,7 +22294,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports) {
 
 	'use strict';
