@@ -2,27 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import IScroll from 'iscroll';
-
-// compare two object,  props.data with nextProps.data
-// data: [{value: '1', name: '1x'}, {value: '2', name: '2x'}...]
-function isEqual(preData, data) {
-  if (preData.length !== data.length) {
-    return false;
-  }
-  const equal = data.every((item, index) => {
-    return item.value === preData[index].value && item.name === preData[index].name;
-  });
-  if (!equal) {
-    return false;
-  }
-  return true;
-}
-// console.log(isEqual([{value: '1', name: '1x'}, {value: '2', name: '2x'}], [{value: '1', name: '1x'}]));
+import PickerItem from './PickerItem';
 
 const Picker = React.createClass({
   propTypes: {
     prefixCls: React.PropTypes.string,
-    data: React.PropTypes.array,
     onValueChange: React.PropTypes.func,
     selectedValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     heightOfItem: React.PropTypes.number,
@@ -36,12 +20,6 @@ const Picker = React.createClass({
   },
   componentDidMount() {
     this.componentDidUpdate();
-  },
-  shouldComponentUpdate(nextProps) {
-    if (isEqual(this.props.data, nextProps.data) && this.iscroll) {
-      return false;
-    }
-    return true;
   },
   componentDidUpdate() {
     const thisDom = ReactDOM.findDOMNode(this);
@@ -75,7 +53,7 @@ const Picker = React.createClass({
       });
     }
     if (this.props.onValueChange && index !== undefined) {
-      this.props.onValueChange(this.data[index]);
+      this.props.onValueChange(this.userData[index]);
     }
   },
   initScroller() {
@@ -91,19 +69,24 @@ const Picker = React.createClass({
     const props = this.props;
     const prefixCls = props.prefixCls;
 
-    let data = [...props.data];
-    this.data = data;
     // 前后补三个空元素，页面展示需要
     const temp = [0, 1, 2].map(() => {
       return {value: '', name: ''};
     });
     const len = temp.length;
-    data = [...temp, ...data, ...temp];
+
+    this.userData = [];
+    React.Children.forEach(props.children, (child)=> {
+      if (child.type === PickerItem) {
+        this.userData.push({value: child.props.value, name: child.props.name});
+      }
+    });
+    const compositeData = [...temp, ...this.userData, ...temp];
 
     // get default scroll position
     this.defaultScrollPosition = 0;
     if (props.selectedValue) {
-      data.forEach((item, index) => {
+      compositeData.forEach((item, index) => {
         if (item.value === props.selectedValue) {
           this.defaultScrollPosition = index - len;
         }
@@ -115,7 +98,7 @@ const Picker = React.createClass({
 
     return (<div ref="iscroll_wrapper" className={classNames(props.className, `${prefixCls}-scroller-wrapper`)}>
         <div ref="iscroll_scroller" className={`${prefixCls}-scroller`}>{
-          data.map((item, index) => {
+          compositeData.map((item, index) => {
             return (<div key={index} className={`${prefixCls}-scroller-item`}
                 data-value={item.value}>{item.name}</div>);
           })

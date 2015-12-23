@@ -56,15 +56,21 @@ see example
 
 ## API
 
-### props
+### Picker props
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | '' |
-|data | input data | array{obj}  | [{name, value, selected(option)},...] |
 |selectedValue | default selected values corresponding to the input data above | string/number |  |
 |onValueChange | fire when picker change | Function | '' |
+
+### PickerItem props
+
+| name     | description    | type     | default      |
+|----------|----------------|----------|--------------|
+|value | PickerItem value | any | '' |
+|name | PickerItem name | any | '' |
 
 
 ## Test Case

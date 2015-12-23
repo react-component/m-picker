@@ -3,7 +3,7 @@ import 'rmc-modal/assets/index.css';
 import 'rmc-modal/assets/simple.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Picker from 'rmc-picker';
+import Picker, { PickerItem } from 'rmc-picker';
 import Modal from 'rmc-modal';
 const data = require('./data');
 
@@ -42,7 +42,7 @@ const CityPicker = React.createClass({
   getInitialState() {
     return {
       indexOfPickers: 0,
-      finalSel: '',
+      sel: '',
       modalVisible: false,
     };
   },
@@ -50,7 +50,7 @@ const CityPicker = React.createClass({
     this.setVisibleState(false);
   },
   onOk() {
-    this.setState({finalSel: this.getSel()});
+    this.setState({sel: this.getSel()});
     this.setVisibleState(false);
   },
   onValueChange(index, selectNameValue) {
@@ -58,7 +58,7 @@ const CityPicker = React.createClass({
     this.value[index] = selectNameValue.value;
     this.setState({
       indexOfPickers: index,
-      finalSel: this.getSel(),
+      sel: this.getSel(),
     });
   },
   setVisibleState(visible) {
@@ -67,15 +67,15 @@ const CityPicker = React.createClass({
     });
   },
   getSel() {
-    let finalSel = '';
+    let sel = '';
     this.value.forEach((item, index) => {
       gData[index].forEach((ii) => {
         if (ii.value === item) {
-          finalSel += ii.name + ' ';
+          sel += ii.name + ' ';
         }
       });
     });
-    return finalSel;
+    return sel;
   },
   getSelected(arr) {
     // 默认选中第一项
@@ -135,7 +135,11 @@ const CityPicker = React.createClass({
     const inlinePickers = (<div className={props.modalPrefixCls + '-content'}>
       {gData.map((item, i) => {
         return (<div key={i} className={`${props.modalPrefixCls}-item`}>
-            <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
+            <Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}>
+              {item.map((it, ii) => {
+                return <PickerItem key={ii} value={it.value} name={it.name} />;
+              })}
+            </Picker>
           </div>);
       })}
     </div>);
@@ -149,7 +153,11 @@ const CityPicker = React.createClass({
       <div className={props.modalPrefixCls + '-content'}>
         {gData.map((item, i) => {
           return (<div key={i} className={`${props.modalPrefixCls}-item`}>
-              <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
+              <Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}>
+                {item.map((it, ii) => {
+                  return <PickerItem key={ii} value={it.value} name={it.name} />;
+                })}
+              </Picker>
             </div>);
         })}
       </div>
@@ -157,7 +165,7 @@ const CityPicker = React.createClass({
 
     return (<div style={{margin: '10px 30px'}}>
         <h3>city picker</h3>
-        <p>您选择的城市是：{st.finalSel || this.getSel()}</p>
+        <p>您选择的城市是：{st.sel || this.getSel()}</p>
         <div>
           {inlinePickers}
         </div>
