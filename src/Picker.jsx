@@ -31,8 +31,7 @@ const Picker = React.createClass({
     };
   },
   componentDidMount() {
-    this.initScroller();
-    this.positionScroll();
+    this.init();
   },
   shouldComponentUpdate() {
     const thisDom = ReactDOM.findDOMNode(this);
@@ -43,8 +42,8 @@ const Picker = React.createClass({
     return true;
   },
   componentDidUpdate() {
-    this.iscroll.refresh();
-    this.positionScroll();
+    this.componentWillUnmount();
+    this.init();
   },
   componentWillUnmount() {
     this.iscroll.destroy();
@@ -80,6 +79,14 @@ const Picker = React.createClass({
       }
     });
     return scrollPosition;
+  },
+  init() {
+    // refresh 不能改变 pages[0] 里数组的长度，导致计算错误。todo remove iscroll !
+    // this.iscroll.refresh();
+    setTimeout(() => {
+      this.initScroller();
+      this.positionScroll();
+    }, 10);
   },
   initScroller() {
     this.iscroll = new IScroll(this.refs.iscrollWrapper, {
