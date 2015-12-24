@@ -19970,8 +19970,7 @@ webpackJsonp([0,1],[
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.initScroller();
-	    this.positionScroll();
+	    this.init();
 	  },
 	  shouldComponentUpdate: function shouldComponentUpdate() {
 	    var thisDom = _reactDom2['default'].findDOMNode(this);
@@ -19982,8 +19981,8 @@ webpackJsonp([0,1],[
 	    return true;
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
-	    this.iscroll.refresh();
-	    this.positionScroll();
+	    this.componentWillUnmount();
+	    this.init();
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.iscroll.destroy();
@@ -20019,6 +20018,16 @@ webpackJsonp([0,1],[
 	      }
 	    });
 	    return scrollPosition;
+	  },
+	  init: function init() {
+	    var _this = this;
+	
+	    // refresh 不能改变 pages[0] 里数组的长度，导致计算错误。todo remove iscroll !
+	    // this.iscroll.refresh();
+	    setTimeout(function () {
+	      _this.initScroller();
+	      _this.positionScroll();
+	    }, 10);
 	  },
 	  initScroller: function initScroller() {
 	    this.iscroll = new _iscroll2['default'](this.refs.iscrollWrapper, {
