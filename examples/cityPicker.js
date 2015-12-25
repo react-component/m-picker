@@ -19985,7 +19985,9 @@ webpackJsonp([0,1],[
 	    this.init();
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    this.iscroll.destroy();
+	    if (this.iscroll) {
+	      this.iscroll.destroy();
+	    }
 	    this.iscroll = null;
 	  },
 	  onScrollEnd: function onScrollEnd() {
