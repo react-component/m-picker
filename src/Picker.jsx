@@ -46,7 +46,9 @@ const Picker = React.createClass({
     this.init();
   },
   componentWillUnmount() {
-    this.iscroll.destroy();
+    if (this.iscroll) {
+      this.iscroll.destroy();
+    }
     this.iscroll = null;
   },
   onScrollEnd() {
