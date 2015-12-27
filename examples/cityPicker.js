@@ -15,8 +15,6 @@ webpackJsonp([0,1],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-	
 	__webpack_require__(2);
 	
 	__webpack_require__(3);
@@ -41,44 +39,48 @@ webpackJsonp([0,1],[
 	
 	var data = __webpack_require__(172);
 	
-	var remoteData = [data.province, data.city, data.region];
-	var gData = [[].concat(_toConsumableArray(data.province)), [], []];
+	var containerStyle = {
+	  display: '-webkit-flex',
+	  WebkitBoxAlign: 'center',
+	  padding: '10px 0'
+	};
 	
-	function setData(val, index) {
-	  gData.forEach(function (item, ind) {
-	    if (ind <= index) {
-	      return;
-	    } else if (index + 1 === ind) {
-	      gData[ind] = remoteData[ind].filter(function (ii) {
-	        return ii.value.indexOf(val) === 0;
-	      });
-	    } else {
-	      gData[ind] = [];
-	    }
+	var itemStyle = {
+	  WebkitFlex: 1,
+	  textAlign: 'center'
+	};
+	
+	function getData(value, index) {
+	  if (index === 0) {
+	    return data.province;
+	  }
+	  return data[index === 1 ? 'city' : 'region'].filter(function (c) {
+	    return c.value.indexOf(value) !== -1;
 	  });
+	}
+	
+	function getValues(lv) {
+	  return lv.map(function (pair) {
+	    return pair.value;
+	  });
+	}
+	
+	function getLabelByValue(list, value) {
+	  var ret = list.filter(function (l) {
+	    return l.value === value;
+	  })[0];
+	  return ret && ret.label || '';
 	}
 	
 	var CityPicker = _react2['default'].createClass({
 	  displayName: 'CityPicker',
 	
-	  propTypes: {
-	    defaultSelectedValues: _react2['default'].PropTypes.array,
-	    forceColumnAmount: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string])
-	  },
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      prefixCls: 'rmc-picker',
-	      modalPrefixCls: 'rmc-modal',
-	      defaultSelectedValues: [],
-	      // defaultSelectedValues: ['01', '01-2'],
-	      // forceColumnAmount: 'auto',
-	      forceColumnAmount: 3
-	    };
-	  },
 	  getInitialState: function getInitialState() {
+	    var province = data.province[0].value;
+	    var cities = getData(province, 1);
+	    var regions = getData(getValues(cities)[0], 2);
 	    return {
-	      indexOfPickers: 0,
-	      sel: '',
+	      value: [province, getValues(cities)[0], getValues(regions)[0]],
 	      modalVisible: false
 	    };
 	  },
@@ -86,15 +88,17 @@ webpackJsonp([0,1],[
 	    this.setVisibleState(false);
 	  },
 	  onOk: function onOk() {
-	    this.setState({ sel: this.getSel() });
 	    this.setVisibleState(false);
 	  },
 	  onValueChange: function onValueChange(index, selectNameValue) {
-	    console.log(index, selectNameValue);
-	    this.value[index] = selectNameValue;
+	    var value = this.state.value.concat();
+	    value[index] = selectNameValue;
+	    for (var i = index + 1; i < value.length; i++) {
+	      value[i] = getValues(getData(value[i - 1], i))[0];
+	    }
+	    console.log(index, selectNameValue, value);
 	    this.setState({
-	      indexOfPickers: index,
-	      sel: this.getSel()
+	      value: value
 	    });
 	  },
 	  setVisibleState: function setVisibleState(visible) {
@@ -103,129 +107,80 @@ webpackJsonp([0,1],[
 	    });
 	  },
 	  getSel: function getSel() {
-	    var sel = '';
-	    this.value.forEach(function (item, index) {
-	      gData[index].forEach(function (ii) {
-	        if (ii.value === item) {
-	          sel += ii.name + ' ';
-	        }
-	      });
-	    });
-	    return sel;
-	  },
-	  getSelected: function getSelected(arr) {
-	    var _this = this;
-	
-	    // 默认选中第一项
-	    var sel = arr[0].value || '';
-	    // 如果数据项中有 selected: true 标记，默认选中第一个标记
-	    arr.forEach(function (item) {
-	      if (item.selected) {
-	        sel = item.value;
+	    return this.state.value.map(function (v, i) {
+	      var d = data.province;
+	      if (i === 1) {
+	        d = data.city;
+	      } else if (i === 2) {
+	        d = data.region;
 	      }
-	    });
-	    // 如果设置了 defaultSelectedValues 属性，从中设置默认值
-	    arr.forEach(function (item) {
-	      if (_this.props.defaultSelectedValues.indexOf(item.value) !== -1) {
-	        sel = item.value;
+	      if (v) {
+	        return getLabelByValue(d, v);
 	      }
-	    });
-	    return sel;
+	      return '';
+	    }).join(',');
 	  },
 	  render: function render() {
-	    var _this2 = this;
+	    var _this = this;
 	
-	    var props = this.props;
-	    var st = this.state;
-	    var newVal = this.value ? [].concat(_toConsumableArray(this.value)) : [];
-	
-	    // 设置 indexOfPickers 下一条的默认值
-	    var index = st.indexOfPickers;
-	    var next = gData[index];
-	    while (next && next.length) {
-	      if (index === st.indexOfPickers) {
-	        newVal[index] = newVal[index] || this.getSelected(next);
-	      } else {
-	        newVal[index] = this.getSelected(next);
-	      }
-	      setData(newVal[index], index);
-	      index++;
-	      next = gData[index];
-	    }
-	
-	    // 限制列数，即 scroller 数量
-	    var forceColumnAmount = this.props.forceColumnAmount;
-	    if (typeof forceColumnAmount === 'number') {
-	      for (var i = 0; i < forceColumnAmount; i++) {
-	        gData[i] = gData[i] && gData[i].length ? gData[i] : [{ name: '', value: '' }];
-	      }
-	      if (gData.length > forceColumnAmount) {
-	        gData.length = forceColumnAmount;
-	        newVal.length = forceColumnAmount;
-	      }
-	    }
-	
-	    // make value array lenth equal with data array length
-	    gData.forEach(function (item, i) {
-	      newVal[i] = newVal[i] || '';
-	    });
-	
-	    this.value = newVal;
+	    var value = this.state.value;
 	
 	    var inlinePickers = _react2['default'].createElement(
 	      'div',
-	      { className: props.modalPrefixCls + '-content' },
-	      gData.map(function (item, i) {
+	      { style: containerStyle },
+	      value.map(function (v, i) {
+	        var d = getData(value[i - 1], i);
 	        return _react2['default'].createElement(
 	          'div',
-	          { key: i, className: props.modalPrefixCls + '-item' },
+	          { key: i, style: itemStyle },
 	          _react2['default'].createElement(
 	            _rmcPicker2['default'],
-	            { selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) },
-	            item.map(function (it) {
-	              return _react2['default'].createElement(_rmcPicker.Item, { key: it.value, value: it.value, label: it.name });
+	            { selectedValue: v, onValueChange: _this.onValueChange.bind(_this, i) },
+	            d.map(function (it) {
+	              return _react2['default'].createElement(_rmcPicker.Item, { key: it.value, value: it.value, label: it.label });
 	            })
 	          )
 	        );
 	      })
 	    );
 	
-	    var popPicker = _react2['default'].createElement(
+	    var popPicker = this.state.modalVisible ? _react2['default'].createElement(
 	      _rmcModal2['default'],
-	      { visible: this.state.modalVisible, onDismiss: this.onDismiss },
+	      { visible: true, onDismiss: this.onDismiss },
 	      _react2['default'].createElement(
 	        'div',
-	        { className: props.modalPrefixCls + '-header' },
+	        { style: containerStyle },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.modalPrefixCls + '-item', onClick: this.setVisibleState.bind(this, false) },
+	          { style: itemStyle, onClick: this.setVisibleState.bind(this, false) },
 	          '取消'
 	        ),
-	        _react2['default'].createElement('div', { className: props.modalPrefixCls + '-item' }),
+	        _react2['default'].createElement('div', { style: itemStyle }),
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.modalPrefixCls + '-item', onClick: this.onOk },
+	          { style: itemStyle, onClick: this.onOk },
 	          '完成'
 	        )
 	      ),
 	      _react2['default'].createElement(
 	        'div',
-	        { className: props.modalPrefixCls + '-content' },
-	        gData.map(function (item, i) {
+	        { style: containerStyle },
+	        value.map(function (v, i) {
+	          var d = getData(value[i - 1], i);
 	          return _react2['default'].createElement(
 	            'div',
-	            { key: i, className: props.modalPrefixCls + '-item' },
+	            { key: i, style: itemStyle },
 	            _react2['default'].createElement(
 	              _rmcPicker2['default'],
-	              { selectedValue: newVal[i], onValueChange: _this2.onValueChange.bind(_this2, i) },
-	              item.map(function (it) {
-	                return _react2['default'].createElement(_rmcPicker.Item, { key: it.value, value: it.value, label: it.name });
+	              { selectedValue: v, onValueChange: _this.onValueChange.bind(_this, i) },
+	              d.map(function (it) {
+	                return _react2['default'].createElement(_rmcPicker.Item, { key: it.value, value: it.value, label: it.label });
 	              })
 	            )
 	          );
 	        })
 	      )
-	    );
+	    ) : null;
 	
 	    return _react2['default'].createElement(
 	      'div',
@@ -239,7 +194,7 @@ webpackJsonp([0,1],[
 	        'p',
 	        null,
 	        '您选择的城市是：',
-	        st.sel || this.getSel()
+	        this.getSel()
 	      ),
 	      _react2['default'].createElement(
 	        'div',
@@ -19929,10 +19884,6 @@ webpackJsonp([0,1],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
 	var _classnames = __webpack_require__(166);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
@@ -19966,23 +19917,38 @@ webpackJsonp([0,1],[
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      onValueChange: function onValueChange() {},
+	      children: [],
 	      prefixCls: 'rmc-picker'
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.init();
+	    this.initScroller();
+	    this.positionScroll();
 	  },
-	  shouldComponentUpdate: function shouldComponentUpdate() {
-	    var thisDom = _reactDom2['default'].findDOMNode(this);
-	    // when parent element display none
-	    if (thisDom.offsetHeight <= 0 || thisDom.offsetWidth <= 0) {
-	      return false;
+	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
+	    var nextChildren = nextProps.children;
+	    var _props = this.props;
+	    var children = _props.children;
+	    var selectedValue = _props.selectedValue;
+	
+	    if (nextChildren.length !== children.length) {
+	      return true;
 	    }
-	    return true;
+	    for (var i = 0; i < nextChildren.length; i++) {
+	      var nextChild = nextChildren[i];
+	      var child = children[i];
+	      if (nextChild.value !== child.value || nextChild.label !== child.label) {
+	        return true;
+	      }
+	    }
+	    if (nextProps.selectedValue !== selectedValue) {
+	      this.positionScroll(nextProps);
+	    }
+	    return false;
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
-	    this.componentWillUnmount();
-	    this.init();
+	    this.iscroll.refresh();
+	    this.positionScroll();
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    if (this.iscroll) {
@@ -20008,8 +19974,7 @@ webpackJsonp([0,1],[
 	  getValueByIndex: function getValueByIndex(index) {
 	    return this.props.children[index].props.value;
 	  },
-	  getScrollPosition: function getScrollPosition() {
-	    var props = this.props;
+	  getScrollPosition: function getScrollPosition(props) {
 	    if (!props.selectedValue) {
 	      return 0;
 	    }
@@ -20021,25 +19986,17 @@ webpackJsonp([0,1],[
 	    });
 	    return scrollPosition;
 	  },
-	  init: function init() {
-	    var _this = this;
-	
-	    // refresh 不能改变 pages[0] 里数组的长度，导致计算错误。todo remove iscroll !
-	    // this.iscroll.refresh();
-	    setTimeout(function () {
-	      _this.initScroller();
-	      _this.positionScroll();
-	    }, 10);
-	  },
 	  initScroller: function initScroller() {
 	    this.iscroll = new _iscroll2['default'](this.refs.iscrollWrapper, {
 	      snap: 'div'
 	    });
 	    this.iscroll.on('scrollEnd', this.onScrollEnd);
 	  },
-	  positionScroll: function positionScroll() {
+	  positionScroll: function positionScroll(props) {
+	    // pages[0] is ok!
+	    // console.log(this.props.children[0],this.iscroll.pages[0] && this.iscroll.pages[0].length)
 	    if (this.iscroll.pages[0]) {
-	      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition()].y);
+	      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition(props || this.props)].y);
 	    }
 	  },
 	  render: function render() {
@@ -22305,11 +22262,11 @@ webpackJsonp([0,1],[
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var province = [{ name: '北京', value: '01', selected: true }, { name: '浙江', value: '02' }];
+	var province = [{ label: '北京', value: '01' }, { label: '浙江', value: '02' }];
 	exports.province = province;
-	var city = [{ name: '东城区', value: '01-1' }, { name: '西城区', value: '01-2' }, { name: '崇文区', value: '01-3', selected: true }, { name: '宣武区', value: '01-4' }, { name: '杭州', value: '02-1' }, { name: '宁波', value: '02-2' }, { name: '温州', value: '02-3' }, { name: '嘉兴', value: '02-4' }, { name: '湖州', value: '02-5' }, { name: '绍兴', value: '02-6' }];
+	var city = [{ label: '东城区', value: '01-1' }, { label: '西城区', value: '01-2' }, { label: '崇文区', value: '01-3' }, { label: '宣武区', value: '01-4' }, { label: '杭州', value: '02-1' }, { label: '宁波', value: '02-2' }, { label: '温州', value: '02-3' }, { label: '嘉兴', value: '02-4' }, { label: '湖州', value: '02-5' }, { label: '绍兴', value: '02-6' }];
 	exports.city = city;
-	var region = [{ name: '西湖区', value: '02-1-1' }, { name: '上城区', value: '02-1-2' }, { name: '江干区', value: '02-1-3' }, { name: '下城区', value: '02-1-4' }, { name: 'xx区', value: '02-2-1' }, { name: 'yy区', value: '02-2-2' }];
+	var region = [{ label: '西湖区', value: '02-1-1' }, { label: '上城区', value: '02-1-2' }, { label: '江干区', value: '02-1-3' }, { label: '下城区', value: '02-1-4' }, { label: 'xx区', value: '02-2-1' }, { label: 'yy区', value: '02-2-2' }];
 	exports.region = region;
 
 /***/ }
