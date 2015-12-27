@@ -9,42 +9,46 @@ import Picker, { Item as PickerItem } from 'rmc-picker';
 import Modal from 'rmc-modal';
 const data = require('./data');
 
-const remoteData = [data.province, data.city, data.region];
-const gData = [[...data.province], [], []];
+const containerStyle = {
+  display: '-webkit-flex',
+  WebkitBoxAlign: 'center',
+  padding: '10px 0',
+};
 
-function setData(val, index) {
-  gData.forEach((item, ind) => {
-    if (ind <= index) {
-      return;
-    } else if (index + 1 === ind) {
-      gData[ind] = remoteData[ind].filter((ii) => {
-        return ii.value.indexOf(val) === 0;
-      });
-    } else {
-      gData[ind] = [];
-    }
+const itemStyle = {
+  WebkitFlex: 1,
+  textAlign: 'center',
+};
+
+function getData(value, index) {
+  if (index === 0) {
+    return data.province;
+  }
+  return data[index === 1 ? 'city' : 'region'].filter((c)=> {
+    return c.value.indexOf(value) !== -1;
   });
 }
 
+function getValues(lv) {
+  return lv.map((pair)=> {
+    return pair.value;
+  });
+}
+
+function getLabelByValue(list, value) {
+  const ret = list.filter((l)=> {
+    return l.value === value;
+  })[0];
+  return ret && ret.label || '';
+}
+
 const CityPicker = React.createClass({
-  propTypes: {
-    defaultSelectedValues: React.PropTypes.array,
-    forceColumnAmount: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-  },
-  getDefaultProps() {
-    return {
-      prefixCls: 'rmc-picker',
-      modalPrefixCls: 'rmc-modal',
-      defaultSelectedValues: [],
-      // defaultSelectedValues: ['01', '01-2'],
-      // forceColumnAmount: 'auto',
-      forceColumnAmount: 3,
-    };
-  },
   getInitialState() {
+    const province = data.province[0].value;
+    const cities = getData(province, 1);
+    const regions = getData(getValues(cities)[0], 2);
     return {
-      indexOfPickers: 0,
-      sel: '',
+      value: [province, getValues(cities)[0], getValues(regions)[0]],
       modalVisible: false,
     };
   },
@@ -52,15 +56,17 @@ const CityPicker = React.createClass({
     this.setVisibleState(false);
   },
   onOk() {
-    this.setState({sel: this.getSel()});
     this.setVisibleState(false);
   },
   onValueChange(index, selectNameValue) {
-    console.log(index, selectNameValue);
-    this.value[index] = selectNameValue;
+    const value = this.state.value.concat();
+    value[index] = selectNameValue;
+    for (let i = index + 1; i < value.length; i++) {
+      value[i] = getValues(getData(value[i - 1], i))[0];
+    }
+    console.log(index, selectNameValue, value);
     this.setState({
-      indexOfPickers: index,
-      sel: this.getSel(),
+      value: value,
     });
   },
   setVisibleState(visible) {
@@ -69,113 +75,66 @@ const CityPicker = React.createClass({
     });
   },
   getSel() {
-    let sel = '';
-    this.value.forEach((item, index) => {
-      gData[index].forEach((ii) => {
-        if (ii.value === item) {
-          sel += ii.name + ' ';
-        }
-      });
-    });
-    return sel;
-  },
-  getSelected(arr) {
-    // 默认选中第一项
-    let sel = arr[0].value || '';
-    // 如果数据项中有 selected: true 标记，默认选中第一个标记
-    arr.forEach((item) => {
-      if (item.selected) {
-        sel = item.value;
+    return this.state.value.map((v, i)=> {
+      let d = data.province;
+      if (i === 1) {
+        d = data.city;
+      } else if (i === 2) {
+        d = data.region;
       }
-    });
-    // 如果设置了 defaultSelectedValues 属性，从中设置默认值
-    arr.forEach((item) => {
-      if (this.props.defaultSelectedValues.indexOf(item.value) !== -1) {
-        sel = item.value;
+      if (v) {
+        return getLabelByValue(d, v);
       }
-    });
-    return sel;
+      return '';
+    }).join(',');
   },
   render() {
-    const props = this.props;
-    const st = this.state;
-    const newVal = this.value ? [...this.value] : [];
+    const value = this.state.value;
 
-    // 设置 indexOfPickers 下一条的默认值
-    let index = st.indexOfPickers;
-    let next = gData[index];
-    while (next && next.length) {
-      if (index === st.indexOfPickers) {
-        newVal[index] = newVal[index] || this.getSelected(next);
-      } else {
-        newVal[index] = this.getSelected(next);
-      }
-      setData(newVal[index], index);
-      index++;
-      next = gData[index];
-    }
-
-    // 限制列数，即 scroller 数量
-    const forceColumnAmount = this.props.forceColumnAmount;
-    if (typeof forceColumnAmount === 'number') {
-      for (let i = 0; i < forceColumnAmount; i++) {
-        gData[i] = (gData[i] && gData[i].length) ? gData[i] : [{name: '', value: ''}];
-      }
-      if (gData.length > forceColumnAmount) {
-        gData.length = forceColumnAmount;
-        newVal.length = forceColumnAmount;
-      }
-    }
-
-    // make value array lenth equal with data array length
-    gData.forEach((item, i) => {
-      newVal[i] = newVal[i] || '';
-    });
-
-    this.value = newVal;
-
-    const inlinePickers = (<div className={props.modalPrefixCls + '-content'}>
-      {gData.map((item, i) => {
-        return (<div key={i} className={`${props.modalPrefixCls}-item`}>
-            <Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}>
-              {item.map((it) => {
-                return <PickerItem key={it.value} value={it.value} label={it.name} />;
-              })}
-            </Picker>
-          </div>);
+    const inlinePickers = (<div style={containerStyle}>
+      {value.map((v, i) => {
+        const d = getData(value[i - 1], i);
+        return (<div key={i} style={itemStyle}>
+          <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
+            {d.map((it) => {
+              return <PickerItem key={it.value} value={it.value} label={it.label}/>;
+            })}
+          </Picker>
+        </div>);
       })}
     </div>);
 
-    const popPicker = (<Modal visible={this.state.modalVisible} onDismiss={this.onDismiss}>
-      <div className={props.modalPrefixCls + '-header'}>
-        <div className={props.modalPrefixCls + '-item'} onClick={this.setVisibleState.bind(this, false)}>取消</div>
-        <div className={props.modalPrefixCls + '-item'}></div>
-        <div className={props.modalPrefixCls + '-item'} onClick={this.onOk}>完成</div>
+    const popPicker = this.state.modalVisible ? (<Modal visible onDismiss={this.onDismiss}>
+      <div style={containerStyle}>
+        <div style={itemStyle} onClick={this.setVisibleState.bind(this, false)}>取消</div>
+        <div style={itemStyle}></div>
+        <div style={itemStyle} onClick={this.onOk}>完成</div>
       </div>
-      <div className={props.modalPrefixCls + '-content'}>
-        {gData.map((item, i) => {
-          return (<div key={i} className={`${props.modalPrefixCls}-item`}>
-              <Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}>
-                {item.map((it) => {
-                  return <PickerItem key={it.value} value={it.value} label={it.name} />;
-                })}
-              </Picker>
-            </div>);
+      <div style={containerStyle}>
+        {value.map((v, i) => {
+          const d = getData(value[i - 1], i);
+          return (<div key={i} style={itemStyle}>
+            <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
+              {d.map((it) => {
+                return <PickerItem key={it.value} value={it.value} label={it.label}/>;
+              })}
+            </Picker>
+          </div>);
         })}
       </div>
-    </Modal>);
+    </Modal>) : null;
 
     return (<div style={{margin: '10px 30px'}}>
-        <h3>city picker</h3>
-        <p>您选择的城市是：{st.sel || this.getSel()}</p>
-        <div>
-          {inlinePickers}
-        </div>
-        <div>
-          {popPicker}
-          <button onClick={this.setVisibleState.bind(this, true)}>open picker</button>
-        </div>
-      </div>);
+      <h3>city picker</h3>
+      <p>您选择的城市是：{this.getSel()}</p>
+      <div>
+        {inlinePickers}
+      </div>
+      <div>
+        {popPicker}
+        <button onClick={this.setVisibleState.bind(this, true)}>open picker</button>
+      </div>
+    </div>);
   },
 });
 

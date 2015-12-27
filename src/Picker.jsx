@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import IScroll from 'iscroll';
 
@@ -27,23 +26,35 @@ const Picker = React.createClass({
     return {
       onValueChange() {
       },
+      children: [],
       prefixCls: 'rmc-picker',
     };
   },
   componentDidMount() {
-    this.init();
+    this.initScroller();
+    this.positionScroll();
   },
-  shouldComponentUpdate() {
-    const thisDom = ReactDOM.findDOMNode(this);
-    // when parent element display none
-    if (thisDom.offsetHeight <= 0 || thisDom.offsetWidth <= 0) {
-      return false;
+  shouldComponentUpdate(nextProps) {
+    const nextChildren = nextProps.children;
+    const {children, selectedValue} = this.props;
+    if (nextChildren.length !== children.length) {
+      return true;
     }
-    return true;
+    for (let i = 0; i < nextChildren.length; i++) {
+      const nextChild = nextChildren[i];
+      const child = children[i];
+      if (nextChild.value !== child.value || nextChild.label !== child.label) {
+        return true;
+      }
+    }
+    if (nextProps.selectedValue !== selectedValue) {
+      this.positionScroll(nextProps);
+    }
+    return false;
   },
   componentDidUpdate() {
-    this.componentWillUnmount();
-    this.init();
+    this.iscroll.refresh();
+    this.positionScroll();
   },
   componentWillUnmount() {
     if (this.iscroll) {
@@ -69,8 +80,7 @@ const Picker = React.createClass({
   getValueByIndex(index) {
     return this.props.children[index].props.value;
   },
-  getScrollPosition() {
-    const props = this.props;
+  getScrollPosition(props) {
     if (!props.selectedValue) {
       return 0;
     }
@@ -82,23 +92,17 @@ const Picker = React.createClass({
     });
     return scrollPosition;
   },
-  init() {
-    // refresh 不能改变 pages[0] 里数组的长度，导致计算错误。todo remove iscroll !
-    // this.iscroll.refresh();
-    setTimeout(() => {
-      this.initScroller();
-      this.positionScroll();
-    }, 10);
-  },
   initScroller() {
     this.iscroll = new IScroll(this.refs.iscrollWrapper, {
       snap: 'div',
     });
     this.iscroll.on('scrollEnd', this.onScrollEnd);
   },
-  positionScroll() {
+  positionScroll(props) {
+    // pages[0] is ok!
+    // console.log(this.props.children[0],this.iscroll.pages[0] && this.iscroll.pages[0].length)
     if (this.iscroll.pages[0]) {
-      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition()].y);
+      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition(props || this.props)].y);
     }
   },
   render() {
