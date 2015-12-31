@@ -19764,19 +19764,37 @@
 	  return computedStyle[key] || '';
 	}
 	
+	function isChildrenEqual(c1, c2, pure) {
+	  if (pure) {
+	    return c1 === c2;
+	  }
+	  if (c1.length !== c2.length) {
+	    return false;
+	  }
+	  var len = c1.length;
+	  for (var i = 0; i < len; i++) {
+	    if (c1[i].value !== c2[i].value || c1[i].label !== c2[i].label) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
 	var Picker = _react2['default'].createClass({
 	  displayName: 'Picker',
 	
 	  propTypes: {
 	    prefixCls: _react.PropTypes.string,
-	    selectedValue: _react.PropTypes.string,
+	    selectedValue: _react.PropTypes.any,
 	    children: _react.PropTypes.array,
+	    pure: _react.PropTypes.bool,
 	    onValueChange: _react.PropTypes.func
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      prefixCls: 'rmc-picker',
+	      pure: true,
 	      onValueChange: function onValueChange() {}
 	    };
 	  },
@@ -19791,14 +19809,14 @@
 	  },
 	
 	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	    return this.props.selectedValue !== nextProps.selectedValue || this.props.children !== nextProps.children;
+	    return this.props.selectedValue !== nextProps.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
 	  },
 	
 	  componentDidUpdate: function componentDidUpdate(prevProps) {
-	    if (prevProps.children !== this.props.children) {
+	    if (!isChildrenEqual(prevProps.children, this.props.children, this.props.pure)) {
 	      this.init();
 	    } else {
-	      console.log('select');
+	      // console.log('select');
 	      this.select(this.props.selectedValue, false);
 	    }
 	  },
@@ -19843,7 +19861,7 @@
 	  },
 	
 	  init: function init() {
-	    console.log('init');
+	    // console.log('init');
 	    assign(this, {
 	      isSingleTouch: false,
 	      isTracking: false,
