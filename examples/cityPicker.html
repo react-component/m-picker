@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-picker@1.0.3</title>
+  <title>cityPicker.js - example - rmc-picker@2.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -251,161 +251,158 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  <link rel="stylesheet" href="cityPicker.css" />
+  <link rel="stylesheet" href="cityPicker.css" /><link rel="stylesheet" href="common.css" />
 </head>
 
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-picker@1.0.3</h1>
+    <h1>rmc-picker@2.0.0</h1>
 
     <p>React Mobile Picker Component</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="cityPicker.js?nowrap"></script>
-  <div class="highlight"><pre><code language="undefined">/* eslint no-console:0 */
+  <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint no-console:0 */</span>
 
-import 'rmc-picker/assets/index.css';
-import 'rmc-modal/assets/index.css';
-import 'rmc-modal/assets/simple.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Picker, { Item as PickerItem } from 'rmc-picker';
-import Modal from 'rmc-modal';
-const data = require('./data');
+import <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
+import <span class="hljs-string">'rmc-modal/assets/index.css'</span>;
+import <span class="hljs-string">'rmc-modal/assets/simple.css'</span>;
+import React from <span class="hljs-string">'react'</span>;
+import ReactDOM from <span class="hljs-string">'react-dom'</span>;
+import Picker from <span class="hljs-string">'rmc-picker'</span>;
+import Modal from <span class="hljs-string">'rmc-modal'</span>;
+import globalData from <span class="hljs-string">'./data'</span>;
 
-const containerStyle = {
-  display: '-webkit-flex',
-  WebkitBoxAlign: 'center',
-  padding: '10px 0',
+<span class="hljs-keyword">const</span> modalHeaderStyle = {
+  color: <span class="hljs-string">'#0ae'</span>,
+  display: <span class="hljs-string">'-webkit-flex'</span>,
+  <span class="hljs-string">'WebkitBoxAlign'</span>: <span class="hljs-string">'center'</span>,
+  <span class="hljs-string">'WebkitAlignItems'</span>: <span class="hljs-string">'center'</span>,
+  <span class="hljs-string">'backgroundImage'</span>: <span class="hljs-string">'-webkit-linear-gradient(top, #e7e7e7, #e7e7e7, transparent, transparent)'</span>,
+  <span class="hljs-string">'backgroundPosition'</span>: <span class="hljs-string">'bottom'</span>,
+  <span class="hljs-string">'backgroundSize'</span>: <span class="hljs-string">'100% 1px'</span>,
+  <span class="hljs-string">'backgroundRepeat'</span>: <span class="hljs-string">'no-repeat'</span>,
 };
 
-const itemStyle = {
-  WebkitFlex: 1,
-  textAlign: 'center',
-};
-
-function getData(value, index) {
-  if (index === 0) {
-    return data.province;
-  }
-  return data[index === 1 ? 'city' : 'region'].filter((c)=&gt; {
-    return c.value.indexOf(value) !== -1;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span><span class="hljs-params">(ds, fn)</span> </span>{
+  ds.forEach((d)=&gt; {
+    fn(d);
+    <span class="hljs-keyword">if</span> (d.children) {
+      loop(d.children, fn);
+    }
   });
 }
 
-function getValues(lv) {
-  return lv.map((pair)=&gt; {
-    return pair.value;
-  });
+<span class="hljs-keyword">const</span> dataMap = {};
+
+loop(globalData, (d)=&gt; {
+  dataMap[d.value] = d;
+});
+
+<span class="hljs-keyword">const</span> containerStyle = {
+  display: <span class="hljs-string">'-webkit-flex'</span>,
+  WebkitBoxAlign: <span class="hljs-string">'center'</span>,
+  padding: <span class="hljs-string">'10px 0'</span>,
+};
+
+<span class="hljs-keyword">const</span> itemStyle = {
+  WebkitFlex: <span class="hljs-number">1</span>,
+  textAlign: <span class="hljs-string">'center'</span>,
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue0</span><span class="hljs-params">(items)</span> </span>{
+  <span class="hljs-keyword">return</span> items &amp;&amp; items[<span class="hljs-number">0</span>] &amp;&amp; items[<span class="hljs-number">0</span>].value;
 }
 
-function getLabelByValue(list, value) {
-  const ret = list.filter((l)=&gt; {
-    return l.value === value;
-  })[0];
-  return ret &amp;&amp; ret.label || '';
-}
-
-const CityPicker = React.createClass({
+<span class="hljs-keyword">const</span> CityPicker = React.createClass({
   getInitialState() {
-    const province = data.province[0].value;
-    const cities = getData(province, 1);
-    const regions = getData(getValues(cities)[0], 2);
-    return {
-      value: [province, getValues(cities)[0], getValues(regions)[0]],
-      modalVisible: false,
+    <span class="hljs-keyword">const</span> province = globalData[<span class="hljs-number">0</span>].value;
+    <span class="hljs-keyword">const</span> cities = dataMap[province].children;
+    <span class="hljs-keyword">const</span> regions = cities[<span class="hljs-number">0</span>].children;
+    <span class="hljs-keyword">return</span> {
+      value: [province, cities[<span class="hljs-number">0</span>].value, getValue0(regions)],
+      modalVisible: <span class="hljs-literal">false</span>,
     };
   },
   onDismiss() {
-    this.setVisibleState(false);
+    <span class="hljs-keyword">this</span>.setVisibleState(<span class="hljs-literal">false</span>);
   },
   onOk() {
-    this.setVisibleState(false);
+    <span class="hljs-keyword">this</span>.setVisibleState(<span class="hljs-literal">false</span>);
   },
   onValueChange(index, selectNameValue) {
-    const value = this.state.value.concat();
+    <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value.concat();
     value[index] = selectNameValue;
-    for (let i = index + 1; i &lt; value.length; i++) {
-      value[i] = getValues(getData(value[i - 1], i))[0];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = index + <span class="hljs-number">1</span>; i &lt; value.length; i++) {
+      value[i] = getValue0(dataMap[value[i - <span class="hljs-number">1</span>]].children);
     }
-    console.log(index, selectNameValue, value);
-    this.setState({
+    <span class="hljs-built_in">console</span>.log(index, selectNameValue, value);
+    <span class="hljs-keyword">this</span>.setState({
       value: value,
     });
   },
   setVisibleState(visible) {
-    this.setState({
+    <span class="hljs-keyword">this</span>.setState({
       modalVisible: visible,
     });
   },
   getSel() {
-    return this.state.value.map((v, i)=&gt; {
-      let d = data.province;
-      if (i === 1) {
-        d = data.city;
-      } else if (i === 2) {
-        d = data.region;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.state.value.map((v)=&gt; {
+      <span class="hljs-keyword">if</span> (v) {
+        <span class="hljs-keyword">return</span> dataMap[v].label;
       }
-      if (v) {
-        return getLabelByValue(d, v);
-      }
-      return '';
-    }).join(',');
+      <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+    }).join(<span class="hljs-string">','</span>);
   },
   render() {
-    const value = this.state.value;
+    <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value;
 
-    const inlinePickers = (&lt;div style={containerStyle}&gt;
+    <span class="hljs-keyword">const</span> inlinePickers = (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{containerStyle}</span>&gt;</span>
       {value.map((v, i) =&gt; {
-        const d = getData(value[i - 1], i);
-        return (&lt;div key={i} style={itemStyle}&gt;
-          &lt;Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}&gt;
-            {d.map((it) =&gt; {
-              return &lt;PickerItem key={it.value} value={it.value} label={it.label}/&gt;;
-            })}
-          &lt;/Picker&gt;
-        &lt;/div&gt;);
+        const d = i === 0 ? globalData : dataMap[value[i - 1]] &amp;&amp; dataMap[value[i - 1]].children;
+        return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span>
+          {d ? <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
+            {d}
+          <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span> : null}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
       })}
-    &lt;/div&gt;);
-
-    const popPicker = this.state.modalVisible ? (&lt;Modal visible onDismiss={this.onDismiss}&gt;
-      &lt;div style={containerStyle}&gt;
-        &lt;div style={itemStyle} onClick={this.setVisibleState.bind(this, false)}&gt;取消&lt;/div&gt;
-        &lt;div style={itemStyle}&gt;&lt;/div&gt;
-        &lt;div style={itemStyle} onClick={this.onOk}&gt;完成&lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div style={containerStyle}&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
+    const popPicker = this.state.modalVisible ? (<span class="hljs-tag">&lt;<span class="hljs-title">Modal</span> <span class="hljs-attribute">visible</span> <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{...containerStyle,</span> <span class="hljs-attribute">...modalHeaderStyle</span>}}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.setVisibleState.bind(this,</span> <span class="hljs-attribute">false</span>)}&gt;</span>取消<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOk}</span>&gt;</span>完成<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{containerStyle}</span>&gt;</span>
         {value.map((v, i) =&gt; {
-          const d = getData(value[i - 1], i);
-          return (&lt;div key={i} style={itemStyle}&gt;
-            &lt;Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}&gt;
-              {d.map((it) =&gt; {
-                return &lt;PickerItem key={it.value} value={it.value} label={it.label}/&gt;;
-              })}
-            &lt;/Picker&gt;
-          &lt;/div&gt;);
+          const d = i === 0 ? globalData : dataMap[value[i - 1]] &amp;&amp; dataMap[value[i - 1]].children;
+          return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span>
+            {d ? <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
+              {d}
+            <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span> : null}
+          <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
         })}
-      &lt;/div&gt;
-    &lt;/Modal&gt;) : null;
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">Modal</span>&gt;</span>) : null;
 
-    return (&lt;div style={{margin: '10px 30px'}}&gt;
-      &lt;h3&gt;city picker&lt;/h3&gt;
-      &lt;p&gt;您选择的城市是：{this.getSel()}&lt;/p&gt;
-      &lt;div&gt;
+    return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>city picker<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>您选择的城市是：{this.getSel()}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         {inlinePickers}
-      &lt;/div&gt;
-      &lt;div&gt;
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         {popPicker}
-        &lt;button onClick={this.setVisibleState.bind(this, true)}&gt;open picker&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;);
+        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.setVisibleState.bind(this,</span> <span class="hljs-attribute">true</span>)}&gt;</span>open picker<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
   },
 });
 
-ReactDOM.render(&lt;CityPicker /&gt;, document.getElementById('__react-content'));
-</code></pre></div>
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">CityPicker</span> /&gt;</span>, document.getElementById('__react-content'));
+</span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/m-picker">
   <img style="position: absolute; top: 0; right: 0; border: 0;"
