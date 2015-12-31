@@ -6,9 +6,7 @@ import expect from 'expect.js';
 import TestUtils from 'react-addons-test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Picker, {Item as PickerItem} from 'rmc-picker';
-
-const paddingSize = 3;
+import Picker from 'rmc-picker';
 
 function offsetTop(el) {
   return el.getBoundingClientRect().top;
@@ -19,6 +17,16 @@ function isEq(t1, t2) {
 }
 
 describe('m-picker', ()=> {
+  const items = [
+    {
+      value: '1',
+      label: 'a',
+    },
+    {
+      value: '2',
+      label: 'b',
+    },
+  ];
   let div;
   let component;
   let indicator;
@@ -26,27 +34,25 @@ describe('m-picker', ()=> {
     div = document.createElement('div');
     document.body.appendChild(div);
     component = ReactDOM.render(<Picker>
-      <PickerItem label="a" value="1"/>
-      <PickerItem label="b" value="2"/>
+      {items}
     </Picker>, div);
-    indicator = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-scroller-indicator')[0];
+    indicator = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-indicator')[0];
   });
   afterEach(()=> {
     ReactDOM.unmountComponentAtNode(div);
     document.body.removeChild(div);
   });
   it('render works', ()=> {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-scroller-item').length).to.be(2 + paddingSize * 2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item').length).to.be(2);
     expect(isEq(offsetTop(indicator),
-      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-scroller-item')[0 + paddingSize]))).to.be(true);
+      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item')[0]))).to.be(true);
   });
   it('selectedValue works', ()=> {
     ReactDOM.render(<Picker selectedValue="2">
-      <PickerItem label="a" value="1"/>
-      <PickerItem label="b" value="2"/>
+      {items}
     </Picker>, div);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-scroller-item').length).to.be(2 + paddingSize * 2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item').length).to.be(2);
     expect(isEq(offsetTop(indicator),
-      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-scroller-item')[1 + paddingSize]))).to.be(true);
+      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item')[1]))).to.be(true);
   });
 });

@@ -61,13 +61,8 @@ see example
 |prefixCls | prefix class | String | '' |
 |selectedValue | default selected values corresponding to the input data above | string/number |  |
 |onValueChange | fire when picker change | Function(value) |  |
+|children      | array of picker items | [{label, value}]
 
-### PickerItem props
-
-| name     | description    | type     | default      |
-|----------|----------------|----------|--------------|
-|value | PickerItem value | any |  |
-|label | PickerItem label | any |  |
 
 ## Test Case
 

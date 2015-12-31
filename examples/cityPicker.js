@@ -5,9 +5,35 @@ import 'rmc-modal/assets/index.css';
 import 'rmc-modal/assets/simple.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Picker, { Item as PickerItem } from 'rmc-picker';
+import Picker from 'rmc-picker';
 import Modal from 'rmc-modal';
-const data = require('./data');
+import globalData from './data';
+
+const modalHeaderStyle = {
+  color: '#0ae',
+  display: '-webkit-flex',
+  'WebkitBoxAlign': 'center',
+  'WebkitAlignItems': 'center',
+  'backgroundImage': '-webkit-linear-gradient(top, #e7e7e7, #e7e7e7, transparent, transparent)',
+  'backgroundPosition': 'bottom',
+  'backgroundSize': '100% 1px',
+  'backgroundRepeat': 'no-repeat',
+};
+
+function loop(ds, fn) {
+  ds.forEach((d)=> {
+    fn(d);
+    if (d.children) {
+      loop(d.children, fn);
+    }
+  });
+}
+
+const dataMap = {};
+
+loop(globalData, (d)=> {
+  dataMap[d.value] = d;
+});
 
 const containerStyle = {
   display: '-webkit-flex',
@@ -20,35 +46,17 @@ const itemStyle = {
   textAlign: 'center',
 };
 
-function getData(value, index) {
-  if (index === 0) {
-    return data.province;
-  }
-  return data[index === 1 ? 'city' : 'region'].filter((c)=> {
-    return c.value.indexOf(value) !== -1;
-  });
-}
-
-function getValues(lv) {
-  return lv.map((pair)=> {
-    return pair.value;
-  });
-}
-
-function getLabelByValue(list, value) {
-  const ret = list.filter((l)=> {
-    return l.value === value;
-  })[0];
-  return ret && ret.label || '';
+function getValue0(items) {
+  return items && items[0] && items[0].value;
 }
 
 const CityPicker = React.createClass({
   getInitialState() {
-    const province = data.province[0].value;
-    const cities = getData(province, 1);
-    const regions = getData(getValues(cities)[0], 2);
+    const province = globalData[0].value;
+    const cities = dataMap[province].children;
+    const regions = cities[0].children;
     return {
-      value: [province, getValues(cities)[0], getValues(regions)[0]],
+      value: [province, cities[0].value, getValue0(regions)],
       modalVisible: false,
     };
   },
@@ -62,7 +70,7 @@ const CityPicker = React.createClass({
     const value = this.state.value.concat();
     value[index] = selectNameValue;
     for (let i = index + 1; i < value.length; i++) {
-      value[i] = getValues(getData(value[i - 1], i))[0];
+      value[i] = getValue0(dataMap[value[i - 1]].children);
     }
     console.log(index, selectNameValue, value);
     this.setState({
@@ -75,15 +83,9 @@ const CityPicker = React.createClass({
     });
   },
   getSel() {
-    return this.state.value.map((v, i)=> {
-      let d = data.province;
-      if (i === 1) {
-        d = data.city;
-      } else if (i === 2) {
-        d = data.region;
-      }
+    return this.state.value.map((v)=> {
       if (v) {
-        return getLabelByValue(d, v);
+        return dataMap[v].label;
       }
       return '';
     }).join(',');
@@ -93,32 +95,27 @@ const CityPicker = React.createClass({
 
     const inlinePickers = (<div style={containerStyle}>
       {value.map((v, i) => {
-        const d = getData(value[i - 1], i);
+        const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
         return (<div key={i} style={itemStyle}>
-          <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
-            {d.map((it) => {
-              return <PickerItem key={it.value} value={it.value} label={it.label}/>;
-            })}
-          </Picker>
+          {d ? <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
+            {d}
+          </Picker> : null}
         </div>);
       })}
     </div>);
-
     const popPicker = this.state.modalVisible ? (<Modal visible onDismiss={this.onDismiss}>
-      <div style={containerStyle}>
+      <div style={{...containerStyle, ...modalHeaderStyle}}>
         <div style={itemStyle} onClick={this.setVisibleState.bind(this, false)}>取消</div>
         <div style={itemStyle}></div>
         <div style={itemStyle} onClick={this.onOk}>完成</div>
       </div>
       <div style={containerStyle}>
         {value.map((v, i) => {
-          const d = getData(value[i - 1], i);
+          const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
           return (<div key={i} style={itemStyle}>
-            <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
-              {d.map((it) => {
-                return <PickerItem key={it.value} value={it.value} label={it.label}/>;
-              })}
-            </Picker>
+            {d ? <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
+              {d}
+            </Picker> : null}
           </div>);
         })}
       </div>

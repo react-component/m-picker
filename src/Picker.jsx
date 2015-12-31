@@ -1,126 +1,509 @@
-import React, { PropTypes } from 'react';
-import classNames from 'classnames';
-import IScroll from 'iscroll';
+/*
+ * Based on Zynga Scroller (http://github.com/zynga/scroller)
+ * Copyright 2011, Zynga Inc.
+ * Licensed under the MIT License.
+ * https://raw.github.com/zynga/scroller/master/MIT-LICENSE.txt
+ */
 
-// 前后补三个空元素，页面展示需要
-const paddingElements = [0, 1, 2, 3, 4, 5].map((i) => {
-  return {
-    props: {
-      value: 'padding_' + i,
-      label: '',
-      key: 'padding_' + i,
-    },
-  };
-});
+import React, {PropTypes} from 'react';
+import {Animate, easeOutCubic, easeInOutCubic} from './Animate';
 
-const paddingElementsHalfLen = paddingElements.length / 2;
+function assign(to, from) {
+  for (const key in from) {
+    if (from.hasOwnProperty(key)) {
+      to[key] = from[key];
+    }
+  }
+}
+
+function getComputedStyle(el, key) {
+  const computedStyle = window.getComputedStyle(el);
+  return computedStyle[key] || '';
+}
 
 const Picker = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
+    selectedValue: PropTypes.string,
+    children: PropTypes.array,
     onValueChange: PropTypes.func,
-    children: PropTypes.any,
-    selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   },
+
   getDefaultProps() {
     return {
+      prefixCls: 'rmc-picker',
       onValueChange() {
       },
-      children: [],
-      prefixCls: 'rmc-picker',
     };
   },
+
   componentDidMount() {
-    this.initScroller();
-    this.positionScroll();
+    this.init();
+    const {component} = this.refs;
+    component.addEventListener('touchstart', this.onTouchStart, false);
+    component.addEventListener('touchmove', this.onTouchMove, false);
+    component.addEventListener('touchend', this.onTouchEnd, false);
   },
+
   shouldComponentUpdate(nextProps) {
-    const nextChildren = nextProps.children;
-    const {children, selectedValue} = this.props;
-    if (nextChildren.length !== children.length) {
-      return true;
-    }
-    for (let i = 0; i < nextChildren.length; i++) {
-      const nextChild = nextChildren[i];
-      const child = children[i];
-      if (nextChild.value !== child.value || nextChild.label !== child.label) {
-        return true;
-      }
-    }
-    if (nextProps.selectedValue !== selectedValue) {
-      this.positionScroll(nextProps);
-    }
-    return false;
+    return this.props.selectedValue !== nextProps.selectedValue ||
+      this.props.children !== nextProps.children;
   },
-  componentDidUpdate() {
-    this.iscroll.refresh();
-    this.positionScroll();
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.children !== this.props.children) {
+      this.init();
+    } else {
+      console.log('select');
+      this.select(this.props.selectedValue, false);
+    }
   },
+
   componentWillUnmount() {
-    if (this.iscroll) {
-      this.iscroll.destroy();
-    }
-    this.iscroll = null;
+    const {component} = this.refs;
+    component.removeEventListener('touchstart', this.onTouchStart, false);
+    component.removeEventListener('touchmove', this.onTouchMove, false);
+    component.removeEventListener('touchend', this.onTouchEnd, false);
   },
-  onScrollEnd() {
-    let index;
-    const iscrollY = this.iscroll.y;
-    this.iscroll.pages[0].forEach((item, i) => {
-      if (index === undefined && Math.abs(iscrollY - item.y) < 2) {
-        index = i;
-      }
+
+  onTouchEnd(e) {
+    this.doTouchEnd(e.timeStamp);
+  },
+
+  onTouchMove(e) {
+    this.doTouchMove(e.touches, e.timeStamp);
+  },
+
+  onTouchStart(e) {
+    if (e.target.tagName.match(/input|textarea|select/i)) {
+      return;
+    }
+    e.preventDefault();
+    this.doTouchStart(e.touches, e.timeStamp);
+  },
+
+  setTop(top) {
+    this.refs.content.style.webkitTransform = 'translate3d(0, ' + (-top) + 'px, 0)';
+  },
+
+  setDimensions(clientHeight, contentHeight) {
+    this.clientHeight = clientHeight;
+    this.contentHeight = contentHeight;
+
+    const totalItemCount = this.props.children.length;
+    const clientItemCount = Math.round(this.clientHeight / this.itemHeight);
+
+    this.minScrollTop = -this.itemHeight * (clientItemCount / 2);
+    this.maxScrollTop = this.minScrollTop + totalItemCount * this.itemHeight - 0.1;
+  },
+
+  init() {
+    console.log('init');
+    assign(this, {
+      isSingleTouch: false,
+      isTracking: false,
+      didDecelerationComplete: false,
+      isGesturing: false,
+      isDragging: false,
+      isDecelerating: false,
+      isAnimating: false,
+      clientTop: 0,
+      clientHeight: 0,
+      contentHeight: 0,
+      itemHeight: 0,
+      scrollTop: 0,
+      minScrollTop: 0,
+      maxScrollTop: 0,
+      scheduledTop: 0,
+      lastTouchTop: null,
+      lastTouchMove: null,
+      positions: null,
+      minDecelerationScrollTop: null,
+      maxDecelerationScrollTop: null,
+      decelerationVelocityY: null,
     });
-    if (index !== undefined) {
-      const selectedValue = this.getValueByIndex(index);
-      if (selectedValue !== this.props.selectedValue) {
-        this.props.onValueChange(this.getValueByIndex(index));
+
+    const {indicator, component, content} = this.refs;
+
+    this.itemHeight = parseInt(getComputedStyle(indicator, 'height'), 10);
+
+    const rect = component.getBoundingClientRect();
+
+    this.clientTop = (rect.top + component.clientTop) || 0;
+
+    this.setDimensions(component.clientHeight, content.offsetHeight);
+
+    this.select(this.props.selectedValue, false);
+  },
+
+  selectByIndex(index, animate) {
+    if (index < 0 || index >= this.props.children.length) {
+      return;
+    }
+    this.scrollTop = this.minScrollTop + index * this.itemHeight;
+
+    this.scrollTo(this.scrollTop, animate);
+
+    this.fireValueChange(this.props.children[index].value);
+  },
+
+  select(value, animate) {
+    const children = this.props.children;
+    for (let i = 0, len = children.length; i < len; i++) {
+      if (children[i].value === value) {
+        this.selectByIndex(i, animate);
+        return;
       }
     }
+    this.selectByIndex(0, animate);
   },
-  getValueByIndex(index) {
-    return this.props.children[index].props.value;
-  },
-  getScrollPosition(props) {
-    if (!props.selectedValue) {
-      return 0;
+
+  scrollTo(t, a) {
+    let top = t;
+    let animate = a;
+    animate = (animate === undefined) ? true : animate;
+
+    if (this.isDecelerating) {
+      Animate.stop(this.isDecelerating);
+      this.isDecelerating = false;
     }
-    let scrollPosition = 0;
-    props.children.forEach((item, index) => {
-      if (item.props.value === props.selectedValue) {
-        scrollPosition = index;
+
+    top = Math.round(top / this.itemHeight) * this.itemHeight;
+    top = Math.max(Math.min(this.maxScrollTop, top), this.minScrollTop);
+
+    if (top === this.scrollTop || !animate) {
+      this.publish(top);
+      this.scrollingComplete();
+      return;
+    }
+    this.publish(top, 250);
+  },
+
+  fireValueChange(itemValue) {
+    if (itemValue !== this.props.selectedValue) {
+      this.props.onValueChange(itemValue);
+    }
+  },
+
+  scrollingComplete() {
+    const index = Math.round((this.scrollTop - this.minScrollTop - this.itemHeight / 2) / this.itemHeight);
+    this.fireValueChange(this.props.children[index].value);
+  },
+
+  doTouchStart(touches, ts) {
+    let timeStamp = ts;
+    if (touches.length === null) {
+      throw new Error('Invalid touch list: ' + touches);
+    }
+    if (timeStamp instanceof Date) {
+      timeStamp = timeStamp.valueOf();
+    }
+    if (typeof timeStamp !== 'number') {
+      throw new Error('Invalid timestamp value: ' + timeStamp);
+    }
+
+    this.interruptedAnimation = true;
+
+    if (this.isDecelerating) {
+      Animate.stop(this.isDecelerating);
+      this.isDecelerating = false;
+      this.interruptedAnimation = true;
+    }
+
+    if (this.isAnimating) {
+      Animate.stop(this.isAnimating);
+      this.isAnimating = false;
+      this.interruptedAnimation = true;
+    }
+
+    // Use center point when dealing with two fingers
+    let currentTouchTop;
+    const isSingleTouch = touches.length === 1;
+    if (isSingleTouch) {
+      currentTouchTop = touches[0].pageY;
+    } else {
+      currentTouchTop = Math.abs(touches[0].pageY + touches[1].pageY) / 2;
+    }
+
+    this.initialTouchTop = currentTouchTop;
+    this.lastTouchTop = currentTouchTop;
+    this.lastTouchMove = timeStamp;
+    this.lastScale = 1;
+    this.enableScrollY = !isSingleTouch;
+    this.isTracking = true;
+    this.didDecelerationComplete = false;
+    this.isDragging = !isSingleTouch;
+    this.isSingleTouch = isSingleTouch;
+    this.positions = [];
+  },
+
+  doTouchMove(touches, ts, scale) {
+    let timeStamp = ts;
+    if (touches.length === null) {
+      throw new Error('Invalid touch list: ' + touches);
+    }
+    if (timeStamp instanceof Date) {
+      timeStamp = timeStamp.valueOf();
+    }
+    if (typeof timeStamp !== 'number') {
+      throw new Error('Invalid timestamp value: ' + timeStamp);
+    }
+
+    // Ignore event when tracking is not enabled (event might be outside of element)
+    if (!this.isTracking) {
+      return;
+    }
+
+    let currentTouchTop;
+
+    // Compute move based around of center of fingers
+    if (touches.length === 2) {
+      currentTouchTop = Math.abs(touches[0].pageY + touches[1].pageY) / 2;
+    } else {
+      currentTouchTop = touches[0].pageY;
+    }
+
+    const positions = this.positions;
+
+    // Are we already is dragging mode?
+    if (this.isDragging) {
+      const moveY = currentTouchTop - this.lastTouchTop;
+      let scrollTop = this.scrollTop;
+
+      if (this.enableScrollY) {
+        scrollTop -= moveY;
+
+        const minScrollTop = this.minScrollTop;
+        const maxScrollTop = this.maxScrollTop;
+
+        if (scrollTop > maxScrollTop || scrollTop < minScrollTop) {
+          // Slow down on the edges
+          if (scrollTop > maxScrollTop) {
+            scrollTop = maxScrollTop;
+          } else {
+            scrollTop = minScrollTop;
+          }
+        }
       }
-    });
-    return scrollPosition;
-  },
-  initScroller() {
-    this.iscroll = new IScroll(this.refs.iscrollWrapper, {
-      snap: 'div',
-    });
-    this.iscroll.on('scrollEnd', this.onScrollEnd);
-  },
-  positionScroll(props) {
-    // pages[0] is ok!
-    // console.log(this.props.children[0],this.iscroll.pages[0] && this.iscroll.pages[0].length)
-    if (this.iscroll.pages[0]) {
-      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition(props || this.props)].y);
+
+      // Keep list from growing infinitely (holding min 10, max 20 measure points)
+      if (positions.length > 40) {
+        positions.splice(0, 20);
+      }
+
+      // Track scroll movement for decleration
+      positions.push(scrollTop, timeStamp);
+
+      // Sync scroll position
+      this.publish(scrollTop);
+      // Otherwise figure out whether we are switching into dragging mode now.
+    } else {
+      const minimumTrackingForScroll = 0;
+      const minimumTrackingForDrag = 5;
+
+      const distanceY = Math.abs(currentTouchTop - this.initialTouchTop);
+
+      this.enableScrollY = distanceY >= minimumTrackingForScroll;
+
+      positions.push(this.scrollTop, timeStamp);
+
+      this.isDragging = this.enableScrollY && (distanceY >= minimumTrackingForDrag);
+
+      if (this.isDragging) {
+        this.interruptedAnimation = false;
+      }
     }
+
+    // Update last touch positions and time stamp for next event
+    this.lastTouchTop = currentTouchTop;
+    this.lastTouchMove = timeStamp;
+    this.lastScale = scale;
+  },
+
+  doTouchEnd(ts) {
+    let timeStamp = ts;
+    if (timeStamp instanceof Date) {
+      timeStamp = timeStamp.valueOf();
+    }
+    if (typeof timeStamp !== 'number') {
+      throw new Error('Invalid timestamp value: ' + timeStamp);
+    }
+
+    // Ignore event when tracking is not enabled (no touchstart event on element)
+    // This is required as this listener ('touchmove') sits on the document and not on the element itself.
+    if (!this.isTracking) {
+      return;
+    }
+
+    // Not touching anymore (when two finger hit the screen there are two touch end events)
+    this.isTracking = false;
+
+    // Be sure to reset the dragging flag now. Here we also detect whether
+    // the finger has moved fast enough to switch into a deceleration animation.
+    if (this.isDragging) {
+      // Reset dragging flag
+      this.isDragging = false;
+
+      // Start deceleration
+      // Verify that the last move detected was in some relevant time frame
+      if (this.isSingleTouch && (timeStamp - this.lastTouchMove) <= 100) {
+        // Then figure out what the scroll position was about 100ms ago
+        const positions = this.positions;
+        const endPos = positions.length - 1;
+        let startPos = endPos;
+
+        // Move pointer to position measured 100ms ago
+        for (let i = endPos; i > 0 && positions[i] > (this.lastTouchMove - 100); i -= 2) {
+          startPos = i;
+        }
+
+        // If start and stop position is identical in a 100ms timeframe,
+        // we cannot compute any useful deceleration.
+        if (startPos !== endPos) {
+          // Compute relative movement between these two points
+          const timeOffset = positions[endPos] - positions[startPos];
+          const movedTop = this.scrollTop - positions[startPos - 1];
+
+          // Based on 50ms compute the movement to apply for each render step
+          this.decelerationVelocityY = movedTop / timeOffset * (1000 / 60);
+
+          // How much velocity is required to start the deceleration
+          const minVelocityToStartDeceleration = 4;
+
+          // Verify that we have enough velocity to start deceleration
+          if (Math.abs(this.decelerationVelocityY) > minVelocityToStartDeceleration) {
+            this.startDeceleration(timeStamp);
+          }
+        }
+      }
+    }
+
+    if (!this.isDecelerating) {
+      this.scrollTo(this.scrollTop);
+    }
+
+    // Fully cleanup list
+    this.positions.length = 0;
+  },
+
+  // Applies the scroll position to the content element
+  publish(top, animationDuration) {
+    // Remember whether we had an animation, then we try to continue based on the current "drive" of the animation
+    const wasAnimating = this.isAnimating;
+    if (wasAnimating) {
+      Animate.stop(wasAnimating);
+      this.isAnimating = false;
+    }
+
+    if (animationDuration) {
+      // Keep scheduled positions for scrollBy functionality
+      this.scheduledTop = top;
+
+      const oldTop = this.scrollTop;
+      const diffTop = top - oldTop;
+
+      const step = (percent) => {
+        this.scrollTop = oldTop + (diffTop * percent);
+        // Push values out
+        this.setTop(this.scrollTop);
+      };
+
+      const verify = (id) => {
+        return this.isAnimating === id;
+      };
+
+      const completed = (renderedFramesPerSecond, animationId, wasFinished) => {
+        if (animationId === this.isAnimating) {
+          this.isAnimating = false;
+        }
+        if (this.didDecelerationComplete || wasFinished) {
+          this.scrollingComplete();
+        }
+      };
+
+      // When continuing based on previous animation we choose an ease-out animation instead of ease-in-out
+      this.isAnimating = Animate.start(step, verify, completed, animationDuration, wasAnimating ? easeOutCubic : easeInOutCubic);
+    } else {
+      this.scheduledTop = this.scrollTop = top;
+      // Push values out
+      this.setTop(top);
+    }
+  },
+
+  // Called when a touch sequence end and the speed of the finger was high enough to switch into deceleration mode.
+  startDeceleration() {
+    this.minDecelerationScrollTop = this.minScrollTop;
+    this.maxDecelerationScrollTop = this.maxScrollTop;
+
+    // Wrap class method
+    const step = (percent, now, render) => {
+      this.stepThroughDeceleration(render);
+    };
+
+    // How much velocity is required to keep the deceleration running
+    const minVelocityToKeepDecelerating = 0.5;
+
+    // Detect whether it's still worth to continue animating steps
+    // If we are already slow enough to not being user perceivable anymore, we stop the whole process here.
+    const verify = () => {
+      const shouldContinue = Math.abs(this.decelerationVelocityY) >= minVelocityToKeepDecelerating;
+      if (!shouldContinue) {
+        this.didDecelerationComplete = true;
+      }
+      return shouldContinue;
+    };
+
+    const completed = () => {
+      this.isDecelerating = false;
+      if (this.scrollTop <= this.minScrollTop || this.scrollTop >= this.maxScrollTop) {
+        this.scrollTo(this.scrollTop);
+        return;
+      }
+      if (this.didDecelerationComplete) {
+        this.scrollingComplete();
+      }
+    };
+
+    // Start animation and switch on flag
+    this.isDecelerating = Animate.start(step, verify, completed);
+  },
+
+  // Called on every step of the animation
+  stepThroughDeceleration() {
+    let scrollTop = this.scrollTop + this.decelerationVelocityY;
+
+    const scrollTopFixed = Math.max(Math.min(this.maxDecelerationScrollTop, scrollTop), this.minDecelerationScrollTop);
+    if (scrollTopFixed !== scrollTop) {
+      scrollTop = scrollTopFixed;
+      this.decelerationVelocityY = 0;
+    }
+
+    if (Math.abs(this.decelerationVelocityY) <= 1) {
+      if (Math.abs(scrollTop % this.itemHeight) < 1) {
+        this.decelerationVelocityY = 0;
+      }
+    } else {
+      this.decelerationVelocityY *= 0.95;
+    }
+
+    this.publish(scrollTop);
   },
   render() {
-    const props = this.props;
-    const prefixCls = props.prefixCls;
-    const compositeData = [...paddingElements.slice(0, paddingElementsHalfLen),
-      ...props.children,
-      ...paddingElements.slice(paddingElementsHalfLen, paddingElements.length)];
-    const items = compositeData.map((item, index) => {
-      const itemProps = item.props;
-      return (<div key={itemProps.key || index} className={`${prefixCls}-scroller-item`}>{itemProps.label}</div>);
+    const {children, prefixCls, selectedValue} = this.props;
+    const itemClassName = `${prefixCls}-item`;
+    const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
+    const items = children.map((item)=> {
+      return (<div className={selectedValue === item.value ? selectedItemClassName : itemClassName}
+                   key={item.value}
+                   data-value={item.value}>{item.label}</div>);
     });
-    return (<div ref="iscrollWrapper" className={classNames(props.className, `${prefixCls}-scroller-wrapper`)}>
-      <div ref="iscroll_scroller" className={`${prefixCls}-scroller`}>{items}</div>
-      <div className={`${prefixCls}-scroller-mask`} data-role="mask"></div>
-      <div ref="indicator" className={`${prefixCls}-scroller-indicator`} data-role="indicator"></div>
+    return (<div className={`${prefixCls}`} data-role="component" ref="component">
+      <div className={`${prefixCls}-mask`} data-role="mask"/>
+      <div className={`${prefixCls}-indicator`} data-role="indicator" ref="indicator"/>
+      <div className={`${prefixCls}-content`} data-role="content" ref="content">
+        {items}
+      </div>
     </div>);
   },
 });
-
 export default Picker;

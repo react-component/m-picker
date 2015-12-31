@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "React Mobile Picker Component",
   "keywords": [
     "react",
@@ -10,8 +10,8 @@
   ],
   "homepage": "https://github.com/react-component/m-picker",
   "maitainers": [
-    "hualei5280@gmail.com",
-    "yiminghe@gmail.com"
+    "yiminghe@gmail.com",
+    "hualei5280@gmail.com"
   ],
   "repository": {
     "type": "git",
@@ -52,9 +52,5 @@
   },
   "pre-commit": [
     "lint"
-  ],
-  "dependencies": {
-    "classnames": "~2.2.1",
-    "iscroll": "~5.1.3"
-  }
+  ]
 }

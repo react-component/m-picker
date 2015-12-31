@@ -1,4 +1,2 @@
-import Picker from './Picker';
-import PickerItem from './PickerItem';
-Picker.Item = PickerItem;
-export default Picker;
+// export this package's api
+export { default } from './Picker';
