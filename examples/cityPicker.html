@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>cityPicker.js - example - rmc-picker@2.1.0</title>
+  <title>cityPicker.js - example - rmc-picker@2.1.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-picker@2.1.0</h1>
+    <h1>rmc-picker@2.1.1</h1>
 
     <p>React Mobile Picker Component</p>
   </div>
@@ -268,12 +268,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
 import <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
 import <span class="hljs-string">'rmc-modal/assets/index.css'</span>;
-import <span class="hljs-string">'rmc-modal/assets/simple.css'</span>;
 import React from <span class="hljs-string">'react'</span>;
 import ReactDOM from <span class="hljs-string">'react-dom'</span>;
 import Picker from <span class="hljs-string">'rmc-picker'</span>;
 import Modal from <span class="hljs-string">'rmc-modal'</span>;
 import globalData from <span class="hljs-string">'./data'</span>;
+
+<span class="hljs-keyword">const</span> emptyArray = [];
 
 <span class="hljs-keyword">const</span> modalHeaderStyle = {
   color: <span class="hljs-string">'#0ae'</span>,
@@ -326,12 +327,6 @@ loop(globalData, (d)=&gt; {
       modalVisible: <span class="hljs-literal">false</span>,
     };
   },
-  onDismiss() {
-    <span class="hljs-keyword">this</span>.setVisibleState(<span class="hljs-literal">false</span>);
-  },
-  onOk() {
-    <span class="hljs-keyword">this</span>.setVisibleState(<span class="hljs-literal">false</span>);
-  },
   onValueChange(index, selectNameValue) {
     <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value.concat();
     value[index] = selectNameValue;
@@ -356,6 +351,12 @@ loop(globalData, (d)=&gt; {
       <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
     }).join(<span class="hljs-string">','</span>);
   },
+  hide() {
+    <span class="hljs-keyword">this</span>.setVisibleState(<span class="hljs-literal">false</span>);
+  },
+  show() {
+    <span class="hljs-keyword">this</span>.setVisibleState(<span class="hljs-literal">true</span>);
+  },
   render() {
     <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value;
 
@@ -363,25 +364,27 @@ loop(globalData, (d)=&gt; {
       {value.map((v, i) =&gt; {
         const d = i === 0 ? globalData : dataMap[value[i - 1]] &amp;&amp; dataMap[value[i - 1]].children;
         return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span>
-          {d ? <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
-            {d}
-          <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span> : null}
+          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
+            {d || emptyArray}
+          <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
       })}
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
-    const popPicker = this.state.modalVisible ? (<span class="hljs-tag">&lt;<span class="hljs-title">Modal</span> <span class="hljs-attribute">visible</span> <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>&gt;</span>
+    const popPicker = this.state.modalVisible ? (<span class="hljs-tag">&lt;<span class="hljs-title">Modal</span>
+      <span class="hljs-attribute">style</span>=<span class="hljs-value">{{left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span>}}
+      <span class="hljs-attribute">visible</span> <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.hide}</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{...containerStyle,</span> <span class="hljs-attribute">...modalHeaderStyle</span>}}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.setVisibleState.bind(this,</span> <span class="hljs-attribute">false</span>)}&gt;</span>取消<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.hide}</span>&gt;</span>取消<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOk}</span>&gt;</span>完成<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.hide}</span>&gt;</span>完成<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{containerStyle}</span>&gt;</span>
         {value.map((v, i) =&gt; {
           const d = i === 0 ? globalData : dataMap[value[i - 1]] &amp;&amp; dataMap[value[i - 1]].children;
           return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span>
-            {d ? <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
-              {d}
-            <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span> : null}
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
+              {d || emptyArray}
+            <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
         })}
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -395,7 +398,7 @@ loop(globalData, (d)=&gt; {
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         {popPicker}
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.setVisibleState.bind(this,</span> <span class="hljs-attribute">true</span>)}&gt;</span>open picker<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.show}</span>&gt;</span>open picker<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
   },

@@ -1,3 +1,9 @@
+.rmc-modal {
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
+  background-color: #fff;
+}
 .rmc-modal-wrapper {
   display: none;
 }
@@ -18,43 +24,6 @@
 }
 .rmc-modal-mask-open {
   opacity: 0.5;
-}
-.rmc-modal-container {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  z-index: 10000;
-  background-color: #fff;
-}
-.rmc-modal-header {
-  display: -webkit-flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  background-image: -webkit-linear-gradient(top, #e7e7e7, #e7e7e7, transparent, transparent);
-  background-image: linear-gradient(to bottom, #e7e7e7, #e7e7e7, transparent, transparent);
-  background-position: bottom;
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-}
-.rmc-modal-header .rmc-modal-item {
-  color: #0ae;
-  font-size: 18px;
-  height: 44px;
-  line-height: 44px;
-  cursor: pointer;
-}
-.rmc-modal-item {
-  -webkit-box-sizing: border-box;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  text-align: center;
-}
-.rmc-modal-content {
-  display: -webkit-flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  padding: 10px 0;
 }
 
 /*# sourceMappingURL=cityPicker.css.map*/

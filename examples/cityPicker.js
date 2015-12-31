@@ -23,27 +23,27 @@ webpackJsonp([0],{
 	
 	__webpack_require__(3);
 	
-	__webpack_require__(4);
-	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rmcPicker = __webpack_require__(163);
+	var _rmcPicker = __webpack_require__(162);
 	
 	var _rmcPicker2 = _interopRequireDefault(_rmcPicker);
 	
-	var _rmcModal = __webpack_require__(167);
+	var _rmcModal = __webpack_require__(166);
 	
 	var _rmcModal2 = _interopRequireDefault(_rmcModal);
 	
-	var _data = __webpack_require__(171);
+	var _data = __webpack_require__(169);
 	
 	var _data2 = _interopRequireDefault(_data);
+	
+	var emptyArray = [];
 	
 	var modalHeaderStyle = {
 	  color: '#0ae',
@@ -98,12 +98,6 @@ webpackJsonp([0],{
 	      modalVisible: false
 	    };
 	  },
-	  onDismiss: function onDismiss() {
-	    this.setVisibleState(false);
-	  },
-	  onOk: function onOk() {
-	    this.setVisibleState(false);
-	  },
 	  onValueChange: function onValueChange(index, selectNameValue) {
 	    var value = this.state.value.concat();
 	    value[index] = selectNameValue;
@@ -128,6 +122,12 @@ webpackJsonp([0],{
 	      return '';
 	    }).join(',');
 	  },
+	  hide: function hide() {
+	    this.setVisibleState(false);
+	  },
+	  show: function show() {
+	    this.setVisibleState(true);
+	  },
 	  render: function render() {
 	    var _this = this;
 	
@@ -141,29 +141,31 @@ webpackJsonp([0],{
 	        return _react2['default'].createElement(
 	          'div',
 	          { key: i, style: itemStyle },
-	          d ? _react2['default'].createElement(
+	          _react2['default'].createElement(
 	            _rmcPicker2['default'],
 	            { selectedValue: v, onValueChange: _this.onValueChange.bind(_this, i) },
-	            d
-	          ) : null
+	            d || emptyArray
+	          )
 	        );
 	      })
 	    );
 	    var popPicker = this.state.modalVisible ? _react2['default'].createElement(
 	      _rmcModal2['default'],
-	      { visible: true, onDismiss: this.onDismiss },
+	      {
+	        style: { left: 0, bottom: 0 },
+	        visible: true, onDismiss: this.hide },
 	      _react2['default'].createElement(
 	        'div',
 	        { style: _extends({}, containerStyle, modalHeaderStyle) },
 	        _react2['default'].createElement(
 	          'div',
-	          { style: itemStyle, onClick: this.setVisibleState.bind(this, false) },
+	          { style: itemStyle, onClick: this.hide },
 	          '取消'
 	        ),
 	        _react2['default'].createElement('div', { style: itemStyle }),
 	        _react2['default'].createElement(
 	          'div',
-	          { style: itemStyle, onClick: this.onOk },
+	          { style: itemStyle, onClick: this.hide },
 	          '完成'
 	        )
 	      ),
@@ -175,11 +177,11 @@ webpackJsonp([0],{
 	          return _react2['default'].createElement(
 	            'div',
 	            { key: i, style: itemStyle },
-	            d ? _react2['default'].createElement(
+	            _react2['default'].createElement(
 	              _rmcPicker2['default'],
 	              { selectedValue: v, onValueChange: _this.onValueChange.bind(_this, i) },
-	              d
-	            ) : null
+	              d || emptyArray
+	            )
 	          );
 	        })
 	      )
@@ -210,7 +212,7 @@ webpackJsonp([0],{
 	        popPicker,
 	        _react2['default'].createElement(
 	          'button',
-	          { onClick: this.setVisibleState.bind(this, true) },
+	          { onClick: this.show },
 	          'open picker'
 	        )
 	      )
@@ -229,14 +231,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 4:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 167:
+/***/ 166:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
@@ -248,28 +243,7 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _web = __webpack_require__(168);
-	
-	var _web2 = _interopRequireDefault(_web);
-	
-	exports['default'] = _web2['default'];
-	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 168:
-/***/ function(module, exports, __webpack_require__) {
-
-	// export this package's api
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _Modal = __webpack_require__(169);
+	var _Modal = __webpack_require__(167);
 	
 	var _Modal2 = _interopRequireDefault(_Modal);
 	
@@ -278,7 +252,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 169:
+/***/ 167:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -291,15 +265,11 @@ webpackJsonp([0],{
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _classnames = __webpack_require__(170);
+	var _classnames = __webpack_require__(168);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -314,14 +284,14 @@ webpackJsonp([0],{
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      prefixCls: 'rmc-modal'
+	      prefixCls: 'rmc-modal',
+	      onDismiss: function onDismiss() {}
 	    };
 	  },
 	  getInitialState: function getInitialState() {
-	    var st = {
+	    return {
 	      visible: 'visible' in this.props ? this.props.visible : false
 	    };
-	    return st;
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var props = {};
@@ -330,19 +300,13 @@ webpackJsonp([0],{
 	    }
 	    this.setState(props);
 	  },
-	  setVisibleState: function setVisibleState(visible, callback) {
+	  hide: function hide() {
 	    if (!('visible' in this.props)) {
 	      this.setState({
-	        visible: visible
-	      }, callback);
-	    } else {
-	      this.setState({
-	        visible: this.props.visible
+	        visible: false
 	      });
 	    }
-	    if (!visible && this.props.onDismiss) {
-	      this.props.onDismiss();
-	    }
+	    this.props.onDismiss();
 	  },
 	  render: function render() {
 	    var _wrapperCls, _maskCls;
@@ -357,10 +321,10 @@ webpackJsonp([0],{
 	      { className: (0, _classnames2['default'])(wrapperCls) },
 	      _react2['default'].createElement(
 	        'div',
-	        { className: (0, _classnames2['default'])(props.className, props.prefixCls + '-container') },
+	        { className: (0, _classnames2['default'])(props.className, '' + props.prefixCls), style: props.style },
 	        props.children
 	      ),
-	      _react2['default'].createElement('div', { className: (0, _classnames2['default'])(maskCls), onClick: this.setVisibleState.bind(this, false) })
+	      _react2['default'].createElement('div', { className: (0, _classnames2['default'])(maskCls), onClick: this.hide })
 	    );
 	  }
 	});
@@ -369,7 +333,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 170:
+/***/ 168:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -424,7 +388,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 171:
+/***/ 169:
 /***/ function(module, exports) {
 
 	'use strict';
