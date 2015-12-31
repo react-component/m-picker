@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "React Mobile Picker Component",
   "keywords": [
     "react",
@@ -48,7 +48,7 @@
     "react": "0.14.x",
     "react-addons-test-utils": "0.14.x",
     "react-dom": "0.14.x",
-    "rmc-modal": "~0.1.0"
+    "rmc-modal": "^0.3.0"
   },
   "pre-commit": [
     "lint"

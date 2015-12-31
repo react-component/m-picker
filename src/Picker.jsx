@@ -21,7 +21,14 @@ function getComputedStyle(el, key) {
   return computedStyle[key] || '';
 }
 
+function isEmptyArray(a) {
+  return !a || !a.length;
+}
+
 function isChildrenEqual(c1, c2, pure) {
+  if (isEmptyArray(c1) && isEmptyArray(c2)) {
+    return true;
+  }
   if (pure) {
     return c1 === c2;
   }
@@ -204,7 +211,10 @@ const Picker = React.createClass({
 
   scrollingComplete() {
     const index = Math.round((this.scrollTop - this.minScrollTop - this.itemHeight / 2) / this.itemHeight);
-    this.fireValueChange(this.props.children[index].value);
+    const child = this.props.children[index];
+    if (child) {
+      this.fireValueChange(child.value);
+    }
   },
 
   doTouchStart(touches, ts) {

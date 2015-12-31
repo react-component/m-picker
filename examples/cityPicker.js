@@ -2,12 +2,13 @@
 
 import 'rmc-picker/assets/index.less';
 import 'rmc-modal/assets/index.css';
-import 'rmc-modal/assets/simple.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Picker from 'rmc-picker';
 import Modal from 'rmc-modal';
 import globalData from './data';
+
+const emptyArray = [];
 
 const modalHeaderStyle = {
   color: '#0ae',
@@ -60,12 +61,6 @@ const CityPicker = React.createClass({
       modalVisible: false,
     };
   },
-  onDismiss() {
-    this.setVisibleState(false);
-  },
-  onOk() {
-    this.setVisibleState(false);
-  },
   onValueChange(index, selectNameValue) {
     const value = this.state.value.concat();
     value[index] = selectNameValue;
@@ -90,6 +85,12 @@ const CityPicker = React.createClass({
       return '';
     }).join(',');
   },
+  hide() {
+    this.setVisibleState(false);
+  },
+  show() {
+    this.setVisibleState(true);
+  },
   render() {
     const value = this.state.value;
 
@@ -97,25 +98,27 @@ const CityPicker = React.createClass({
       {value.map((v, i) => {
         const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
         return (<div key={i} style={itemStyle}>
-          {d ? <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
-            {d}
-          </Picker> : null}
+          <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
+            {d || emptyArray}
+          </Picker>
         </div>);
       })}
     </div>);
-    const popPicker = this.state.modalVisible ? (<Modal visible onDismiss={this.onDismiss}>
+    const popPicker = this.state.modalVisible ? (<Modal
+      style={{left: 0, bottom: 0}}
+      visible onDismiss={this.hide}>
       <div style={{...containerStyle, ...modalHeaderStyle}}>
-        <div style={itemStyle} onClick={this.setVisibleState.bind(this, false)}>取消</div>
+        <div style={itemStyle} onClick={this.hide}>取消</div>
         <div style={itemStyle}></div>
-        <div style={itemStyle} onClick={this.onOk}>完成</div>
+        <div style={itemStyle} onClick={this.hide}>完成</div>
       </div>
       <div style={containerStyle}>
         {value.map((v, i) => {
           const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
           return (<div key={i} style={itemStyle}>
-            {d ? <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
-              {d}
-            </Picker> : null}
+            <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
+              {d || emptyArray}
+            </Picker>
           </div>);
         })}
       </div>
@@ -129,7 +132,7 @@ const CityPicker = React.createClass({
       </div>
       <div>
         {popPicker}
-        <button onClick={this.setVisibleState.bind(this, true)}>open picker</button>
+        <button onClick={this.show}>open picker</button>
       </div>
     </div>);
   },
