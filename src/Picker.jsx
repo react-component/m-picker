@@ -21,17 +21,35 @@ function getComputedStyle(el, key) {
   return computedStyle[key] || '';
 }
 
+function isChildrenEqual(c1, c2, pure) {
+  if (pure) {
+    return c1 === c2;
+  }
+  if (c1.length !== c2.length) {
+    return false;
+  }
+  const len = c1.length;
+  for (let i = 0; i < len; i++) {
+    if (c1[i].value !== c2[i].value || c1[i].label !== c2[i].label) {
+      return false;
+    }
+  }
+  return true;
+}
+
 const Picker = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
-    selectedValue: PropTypes.string,
+    selectedValue: PropTypes.any,
     children: PropTypes.array,
+    pure: PropTypes.bool,
     onValueChange: PropTypes.func,
   },
 
   getDefaultProps() {
     return {
       prefixCls: 'rmc-picker',
+      pure: true,
       onValueChange() {
       },
     };
@@ -46,15 +64,14 @@ const Picker = React.createClass({
   },
 
   shouldComponentUpdate(nextProps) {
-    return this.props.selectedValue !== nextProps.selectedValue ||
-      this.props.children !== nextProps.children;
+    return this.props.selectedValue !== nextProps.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
   },
 
   componentDidUpdate(prevProps) {
-    if (prevProps.children !== this.props.children) {
+    if (!isChildrenEqual(prevProps.children, this.props.children, this.props.pure)) {
       this.init();
     } else {
-      console.log('select');
+      // console.log('select');
       this.select(this.props.selectedValue, false);
     }
   },
@@ -98,7 +115,7 @@ const Picker = React.createClass({
   },
 
   init() {
-    console.log('init');
+    // console.log('init');
     assign(this, {
       isSingleTouch: false,
       isTracking: false,

@@ -61,8 +61,8 @@ see example
 |prefixCls | prefix class | String | '' |
 |selectedValue | default selected values corresponding to the input data above | string/number |  |
 |onValueChange | fire when picker change | Function(value) |  |
-|children      | array of picker items | [{label, value}]
-
+|children      | array of picker items | [{label, value}] |
+|pure      | whether children is immutable | bool | true
 
 ## Test Case
 
