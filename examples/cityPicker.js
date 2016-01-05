@@ -30,12 +30,6 @@ function loop(ds, fn) {
   });
 }
 
-const dataMap = {};
-
-loop(globalData, (d)=> {
-  dataMap[d.value] = d;
-});
-
 const containerStyle = {
   display: '-webkit-flex',
   WebkitBoxAlign: 'center',
@@ -52,12 +46,42 @@ function getValue0(items) {
 }
 
 const ValueMixin = {
-  getInitialState() {
-    const province = globalData[0].value;
-    const cities = dataMap[province].children;
-    const regions = cities[0].children;
+  propTypes: {
+    cols: PropTypes.number,
+  },
+
+  getDefaultProps() {
     return {
-      value: this.props.defaultValue || [province, cities[0].value, getValue0(regions)],
+      cols: 3,
+    };
+  },
+
+  getInitialState() {
+    const dataMap = {};
+
+    let data = this.props.data;
+
+    loop(data, (d)=> {
+      dataMap[d.value] = d;
+    });
+
+    this.dataMap = dataMap;
+
+    let value = this.props.defaultValue;
+
+    if (!value) {
+      value = [];
+      for (let i = 0; i < this.props.cols; i++) {
+        if (data) {
+          value[i] = data[0].value;
+          data = data[0].children;
+        } else {
+          value[i] = undefined;
+        }
+      }
+    }
+    return {
+      value,
     };
   },
 };
@@ -65,13 +89,14 @@ const ValueMixin = {
 const InlinePicker = React.createClass({
   propTypes: {
     onChange: PropTypes.func,
+    data: PropTypes.any,
   },
   mixins: [ValueMixin],
   onValueChange(index, selectNameValue) {
     const value = this.state.value.concat();
     value[index] = selectNameValue;
     for (let i = index + 1; i < value.length; i++) {
-      value[i] = getValue0(dataMap[value[i - 1]].children);
+      value[i] = getValue0(this.dataMap[value[i - 1]].children);
     }
     this.setState({
       value: value,
@@ -82,7 +107,7 @@ const InlinePicker = React.createClass({
     const value = this.state.value;
     return (<div style={containerStyle}>
       {value.map((v, i) => {
-        const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
+        const d = i === 0 ? this.props.data : this.dataMap[value[i - 1]] && this.dataMap[value[i - 1]].children;
         return (<div key={i} style={itemStyle}>
           <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
             {d || emptyArray}
@@ -94,6 +119,9 @@ const InlinePicker = React.createClass({
 });
 
 const CityPicker = React.createClass({
+  propTypes: {
+    data: PropTypes.any,
+  },
   mixins: [ValueMixin],
   getInitialState() {
     return {
@@ -120,7 +148,7 @@ const CityPicker = React.createClass({
   getSel() {
     return this.state.value.map((v)=> {
       if (v) {
-        return dataMap[v].label;
+        return this.dataMap[v].label;
       }
       return '';
     }).join(',');
@@ -142,7 +170,7 @@ const CityPicker = React.createClass({
         <div style={itemStyle}></div>
         <div style={itemStyle} onClick={this.onOK}>完成</div>
       </div>
-      <InlinePicker defaultValue={value} onChange={this.onPickerChange}/>
+      <InlinePicker defaultValue={value} onChange={this.onPickerChange} data={this.props.data}/>
     </Modal>) : null;
 
     return (<div style={{margin: '10px 30px'}}>
@@ -155,4 +183,4 @@ const CityPicker = React.createClass({
   },
 });
 
-ReactDOM.render(<CityPicker />, document.getElementById('__react-content'));
+ReactDOM.render(<CityPicker data={globalData}/>, document.getElementById('__react-content'));
