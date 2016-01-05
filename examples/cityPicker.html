@@ -296,12 +296,6 @@ import globalData from <span class="hljs-string">'./data'</span>;
   });
 }
 
-<span class="hljs-keyword">const</span> dataMap = {};
-
-loop(globalData, (d)=&gt; {
-  dataMap[d.value] = d;
-});
-
 <span class="hljs-keyword">const</span> containerStyle = {
   display: <span class="hljs-string">'-webkit-flex'</span>,
   WebkitBoxAlign: <span class="hljs-string">'center'</span>,
@@ -318,12 +312,42 @@ loop(globalData, (d)=&gt; {
 }
 
 <span class="hljs-keyword">const</span> ValueMixin = {
-  getInitialState() {
-    <span class="hljs-keyword">const</span> province = globalData[<span class="hljs-number">0</span>].value;
-    <span class="hljs-keyword">const</span> cities = dataMap[province].children;
-    <span class="hljs-keyword">const</span> regions = cities[<span class="hljs-number">0</span>].children;
+  propTypes: {
+    cols: PropTypes.number,
+  },
+
+  getDefaultProps() {
     <span class="hljs-keyword">return</span> {
-      value: <span class="hljs-keyword">this</span>.props.defaultValue || [province, cities[<span class="hljs-number">0</span>].value, getValue0(regions)],
+      cols: <span class="hljs-number">3</span>,
+    };
+  },
+
+  getInitialState() {
+    <span class="hljs-keyword">const</span> dataMap = {};
+
+    <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">this</span>.props.data;
+
+    loop(data, (d)=&gt; {
+      dataMap[d.value] = d;
+    });
+
+    <span class="hljs-keyword">this</span>.dataMap = dataMap;
+
+    <span class="hljs-keyword">let</span> value = <span class="hljs-keyword">this</span>.props.defaultValue;
+
+    <span class="hljs-keyword">if</span> (!value) {
+      value = [];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.props.cols; i++) {
+        <span class="hljs-keyword">if</span> (data) {
+          value[i] = data[<span class="hljs-number">0</span>].value;
+          data = data[<span class="hljs-number">0</span>].children;
+        } <span class="hljs-keyword">else</span> {
+          value[i] = <span class="hljs-literal">undefined</span>;
+        }
+      }
+    }
+    <span class="hljs-keyword">return</span> {
+      value,
     };
   },
 };
@@ -331,13 +355,14 @@ loop(globalData, (d)=&gt; {
 <span class="hljs-keyword">const</span> InlinePicker = React.createClass({
   propTypes: {
     onChange: PropTypes.func,
+    data: PropTypes.any,
   },
   mixins: [ValueMixin],
   onValueChange(index, selectNameValue) {
     <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value.concat();
     value[index] = selectNameValue;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = index + <span class="hljs-number">1</span>; i &lt; value.length; i++) {
-      value[i] = getValue0(dataMap[value[i - <span class="hljs-number">1</span>]].children);
+      value[i] = getValue0(<span class="hljs-keyword">this</span>.dataMap[value[i - <span class="hljs-number">1</span>]].children);
     }
     <span class="hljs-keyword">this</span>.setState({
       value: value,
@@ -348,7 +373,7 @@ loop(globalData, (d)=&gt; {
     <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value;
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{containerStyle}</span>&gt;</span>
       {value.map((v, i) =&gt; {
-        const d = i === 0 ? globalData : dataMap[value[i - 1]] &amp;&amp; dataMap[value[i - 1]].children;
+        const d = i === 0 ? this.props.data : this.dataMap[value[i - 1]] &amp;&amp; this.dataMap[value[i - 1]].children;
         return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
             {d || emptyArray}
@@ -360,6 +385,9 @@ loop(globalData, (d)=&gt; {
 });
 
 const CityPicker = React.createClass({
+  propTypes: {
+    data: PropTypes.any,
+  },
   mixins: [ValueMixin],
   getInitialState() {
     return {
@@ -386,7 +414,7 @@ const CityPicker = React.createClass({
   getSel() {
     return this.state.value.map((v)=&gt; {
       if (v) {
-        return dataMap[v].label;
+        return this.dataMap[v].label;
       }
       return '';
     }).join(',');
@@ -408,7 +436,7 @@ const CityPicker = React.createClass({
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOK}</span>&gt;</span>完成<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">InlinePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{value}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onPickerChange}</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">InlinePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{value}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onPickerChange}</span> <span class="hljs-attribute">data</span>=<span class="hljs-value">{this.props.data}</span>/&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">Modal</span>&gt;</span>) : null;
 
     return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
@@ -421,7 +449,7 @@ const CityPicker = React.createClass({
   },
 });
 
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">CityPicker</span> /&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">CityPicker</span> <span class="hljs-attribute">data</span>=<span class="hljs-value">{globalData}</span>/&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/m-picker">

@@ -65,12 +65,6 @@ webpackJsonp([0],{
 	  });
 	}
 	
-	var dataMap = {};
-	
-	loop(_data2['default'], function (d) {
-	  dataMap[d.value] = d;
-	});
-	
 	var containerStyle = {
 	  display: '-webkit-flex',
 	  WebkitBoxAlign: 'center',
@@ -87,12 +81,42 @@ webpackJsonp([0],{
 	}
 	
 	var ValueMixin = {
-	  getInitialState: function getInitialState() {
-	    var province = _data2['default'][0].value;
-	    var cities = dataMap[province].children;
-	    var regions = cities[0].children;
+	  propTypes: {
+	    cols: _react.PropTypes.number
+	  },
+	
+	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      value: this.props.defaultValue || [province, cities[0].value, getValue0(regions)]
+	      cols: 3
+	    };
+	  },
+	
+	  getInitialState: function getInitialState() {
+	    var dataMap = {};
+	
+	    var data = this.props.data;
+	
+	    loop(data, function (d) {
+	      dataMap[d.value] = d;
+	    });
+	
+	    this.dataMap = dataMap;
+	
+	    var value = this.props.defaultValue;
+	
+	    if (!value) {
+	      value = [];
+	      for (var i = 0; i < this.props.cols; i++) {
+	        if (data) {
+	          value[i] = data[0].value;
+	          data = data[0].children;
+	        } else {
+	          value[i] = undefined;
+	        }
+	      }
+	    }
+	    return {
+	      value: value
 	    };
 	  }
 	};
@@ -101,14 +125,15 @@ webpackJsonp([0],{
 	  displayName: 'InlinePicker',
 	
 	  propTypes: {
-	    onChange: _react.PropTypes.func
+	    onChange: _react.PropTypes.func,
+	    data: _react.PropTypes.any
 	  },
 	  mixins: [ValueMixin],
 	  onValueChange: function onValueChange(index, selectNameValue) {
 	    var value = this.state.value.concat();
 	    value[index] = selectNameValue;
 	    for (var i = index + 1; i < value.length; i++) {
-	      value[i] = getValue0(dataMap[value[i - 1]].children);
+	      value[i] = getValue0(this.dataMap[value[i - 1]].children);
 	    }
 	    this.setState({
 	      value: value
@@ -123,7 +148,7 @@ webpackJsonp([0],{
 	      'div',
 	      { style: containerStyle },
 	      value.map(function (v, i) {
-	        var d = i === 0 ? _data2['default'] : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
+	        var d = i === 0 ? _this.props.data : _this.dataMap[value[i - 1]] && _this.dataMap[value[i - 1]].children;
 	        return _react2['default'].createElement(
 	          'div',
 	          { key: i, style: itemStyle },
@@ -141,6 +166,9 @@ webpackJsonp([0],{
 	var CityPicker = _react2['default'].createClass({
 	  displayName: 'CityPicker',
 	
+	  propTypes: {
+	    data: _react.PropTypes.any
+	  },
 	  mixins: [ValueMixin],
 	  getInitialState: function getInitialState() {
 	    return {
@@ -165,9 +193,11 @@ webpackJsonp([0],{
 	    });
 	  },
 	  getSel: function getSel() {
+	    var _this2 = this;
+	
 	    return this.state.value.map(function (v) {
 	      if (v) {
-	        return dataMap[v].label;
+	        return _this2.dataMap[v].label;
 	      }
 	      return '';
 	    }).join(',');
@@ -201,7 +231,7 @@ webpackJsonp([0],{
 	          '完成'
 	        )
 	      ),
-	      _react2['default'].createElement(InlinePicker, { defaultValue: value, onChange: this.onPickerChange })
+	      _react2['default'].createElement(InlinePicker, { defaultValue: value, onChange: this.onPickerChange, data: this.props.data })
 	    ) : null;
 	
 	    return _react2['default'].createElement(
@@ -226,7 +256,7 @@ webpackJsonp([0],{
 	  }
 	});
 	
-	_reactDom2['default'].render(_react2['default'].createElement(CityPicker, null), document.getElementById('__react-content'));
+	_reactDom2['default'].render(_react2['default'].createElement(CityPicker, { data: _data2['default'] }), document.getElementById('__react-content'));
 
 /***/ },
 
