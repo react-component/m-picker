@@ -59,7 +59,8 @@ see example
 |----------|----------------|----------|--------------|
 |className | additional css class of root dom node | String |  |
 |prefixCls | prefix class | String | '' |
-|selectedValue | default selected values corresponding to the input data above | string/number |  |
+|defaultSelectedValue | default selected values corresponding to the input data above | string/number |  |
+|selectedValue | current selected values corresponding to the input data above | string/number |  |
 |onValueChange | fire when picker change | Function(value) |  |
 |children      | array of picker items | [{label, value}] |
 |pure      | whether children is immutable | bool | true

@@ -1,8 +1,8 @@
-/* eslint no-console:0 */
+/* eslint no-console:0, react/no-multi-comp:0 */
 
 import 'rmc-picker/assets/index.less';
 import 'rmc-modal/assets/index.css';
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Picker from 'rmc-picker';
 import Modal from 'rmc-modal';
@@ -51,26 +51,66 @@ function getValue0(items) {
   return items && items[0] && items[0].value;
 }
 
-const CityPicker = React.createClass({
+const ValueMixin = {
   getInitialState() {
     const province = globalData[0].value;
     const cities = dataMap[province].children;
     const regions = cities[0].children;
     return {
-      value: [province, cities[0].value, getValue0(regions)],
-      modalVisible: false,
+      value: this.props.defaultValue || [province, cities[0].value, getValue0(regions)],
     };
   },
+};
+
+const InlinePicker = React.createClass({
+  propTypes: {
+    onChange: PropTypes.func,
+  },
+  mixins: [ValueMixin],
   onValueChange(index, selectNameValue) {
     const value = this.state.value.concat();
     value[index] = selectNameValue;
     for (let i = index + 1; i < value.length; i++) {
       value[i] = getValue0(dataMap[value[i - 1]].children);
     }
-    console.log(index, selectNameValue, value);
     this.setState({
       value: value,
     });
+    this.props.onChange(value);
+  },
+  render() {
+    const value = this.state.value;
+    return (<div style={containerStyle}>
+      {value.map((v, i) => {
+        const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
+        return (<div key={i} style={itemStyle}>
+          <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
+            {d || emptyArray}
+          </Picker>
+        </div>);
+      })}
+    </div>);
+  },
+});
+
+const CityPicker = React.createClass({
+  mixins: [ValueMixin],
+  getInitialState() {
+    return {
+      modalVisible: false,
+    };
+  },
+  onPickerChange(value) {
+    this.pickerValue = value;
+    // this.setState({});// try rerender
+  },
+  onOK() {
+    if (this.pickerValue) {
+      this.setState({
+        value: this.pickerValue,
+      });
+    }
+    this.hide();
   },
   setVisibleState(visible) {
     this.setState({
@@ -86,6 +126,7 @@ const CityPicker = React.createClass({
     }).join(',');
   },
   hide() {
+    this.pickerValue = null;
     this.setVisibleState(false);
   },
   show() {
@@ -93,46 +134,22 @@ const CityPicker = React.createClass({
   },
   render() {
     const value = this.state.value;
-
-    const inlinePickers = (<div style={containerStyle}>
-      {value.map((v, i) => {
-        const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
-        return (<div key={i} style={itemStyle}>
-          <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
-            {d || emptyArray}
-          </Picker>
-        </div>);
-      })}
-    </div>);
     const popPicker = this.state.modalVisible ? (<Modal
       style={{left: 0, bottom: 0}}
       visible onDismiss={this.hide}>
       <div style={{...containerStyle, ...modalHeaderStyle}}>
         <div style={itemStyle} onClick={this.hide}>取消</div>
         <div style={itemStyle}></div>
-        <div style={itemStyle} onClick={this.hide}>完成</div>
+        <div style={itemStyle} onClick={this.onOK}>完成</div>
       </div>
-      <div style={containerStyle}>
-        {value.map((v, i) => {
-          const d = i === 0 ? globalData : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
-          return (<div key={i} style={itemStyle}>
-            <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
-              {d || emptyArray}
-            </Picker>
-          </div>);
-        })}
-      </div>
+      <InlinePicker defaultValue={value} onChange={this.onPickerChange}/>
     </Modal>) : null;
 
     return (<div style={{margin: '10px 30px'}}>
-      <h3>city picker</h3>
-      <p>您选择的城市是：{this.getSel()}</p>
-      <div>
-        {inlinePickers}
-      </div>
+      <h2>city picker</h2>
       <div>
         {popPicker}
-        <button onClick={this.show}>open picker</button>
+        <button onClick={this.show}>{this.getSel() || 'please select'}</button>
       </div>
     </div>);
   },

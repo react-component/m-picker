@@ -1,4 +1,4 @@
-// use jsx to render html, do not modify simple.html
+/* eslint no-console:0 */
 
 import 'rmc-picker/assets/index.less';
 import Picker from 'rmc-picker';

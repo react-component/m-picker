@@ -46,6 +46,7 @@ function isChildrenEqual(c1, c2, pure) {
 
 const Picker = React.createClass({
   propTypes: {
+    defaultSelectedValue: PropTypes.any,
     prefixCls: PropTypes.string,
     selectedValue: PropTypes.any,
     children: PropTypes.array,
@@ -62,6 +63,12 @@ const Picker = React.createClass({
     };
   },
 
+  getInitialState() {
+    return {
+      selectedValue: this.props.selectedValue || this.props.defaultSelectedValue,
+    };
+  },
+
   componentDidMount() {
     this.init();
     const {component} = this.refs;
@@ -70,8 +77,16 @@ const Picker = React.createClass({
     component.addEventListener('touchend', this.onTouchEnd, false);
   },
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.selectedValue !== nextProps.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
+  componentWillReceiveProps(nextProps) {
+    if ('selectedValue' in nextProps) {
+      this.setState({
+        selectedValue: nextProps.selectedValue,
+      });
+    }
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.selectedValue !== nextState.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
   },
 
   componentDidUpdate(prevProps) {
@@ -79,7 +94,7 @@ const Picker = React.createClass({
       this.init();
     } else {
       // console.log('select');
-      this.select(this.props.selectedValue, false);
+      this.select(this.state.selectedValue, false);
     }
   },
 
@@ -107,7 +122,9 @@ const Picker = React.createClass({
   },
 
   setTop(top) {
-    this.refs.content.style.webkitTransform = 'translate3d(0, ' + (-top) + 'px, 0)';
+    if (this.refs.content) {
+      this.refs.content.style.webkitTransform = 'translate3d(0, ' + (-top) + 'px, 0)';
+    }
   },
 
   setDimensions(clientHeight, contentHeight) {
@@ -157,7 +174,7 @@ const Picker = React.createClass({
 
     this.setDimensions(component.clientHeight, content.offsetHeight);
 
-    this.select(this.props.selectedValue, false);
+    this.select(this.state.selectedValue, false);
   },
 
   selectByIndex(index, animate) {
@@ -204,7 +221,7 @@ const Picker = React.createClass({
   },
 
   fireValueChange(itemValue) {
-    if (itemValue !== this.props.selectedValue) {
+    if (itemValue !== this.state.selectedValue) {
       this.props.onValueChange(itemValue);
     }
   },
@@ -516,7 +533,8 @@ const Picker = React.createClass({
     this.publish(scrollTop);
   },
   render() {
-    const {children, prefixCls, selectedValue} = this.props;
+    const {children, prefixCls} = this.props;
+    const {selectedValue} = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
     const items = children.map((item)=> {
