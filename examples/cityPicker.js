@@ -11,7 +11,7 @@ webpackJsonp([0],{
 /***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint no-console:0 */
+	/* eslint no-console:0, react/no-multi-comp:0 */
 	
 	'use strict';
 	
@@ -86,54 +86,40 @@ webpackJsonp([0],{
 	  return items && items[0] && items[0].value;
 	}
 	
-	var CityPicker = _react2['default'].createClass({
-	  displayName: 'CityPicker',
-	
+	var ValueMixin = {
 	  getInitialState: function getInitialState() {
 	    var province = _data2['default'][0].value;
 	    var cities = dataMap[province].children;
 	    var regions = cities[0].children;
 	    return {
-	      value: [province, cities[0].value, getValue0(regions)],
-	      modalVisible: false
+	      value: this.props.defaultValue || [province, cities[0].value, getValue0(regions)]
 	    };
+	  }
+	};
+	
+	var InlinePicker = _react2['default'].createClass({
+	  displayName: 'InlinePicker',
+	
+	  propTypes: {
+	    onChange: _react.PropTypes.func
 	  },
+	  mixins: [ValueMixin],
 	  onValueChange: function onValueChange(index, selectNameValue) {
 	    var value = this.state.value.concat();
 	    value[index] = selectNameValue;
 	    for (var i = index + 1; i < value.length; i++) {
 	      value[i] = getValue0(dataMap[value[i - 1]].children);
 	    }
-	    console.log(index, selectNameValue, value);
 	    this.setState({
 	      value: value
 	    });
-	  },
-	  setVisibleState: function setVisibleState(visible) {
-	    this.setState({
-	      modalVisible: visible
-	    });
-	  },
-	  getSel: function getSel() {
-	    return this.state.value.map(function (v) {
-	      if (v) {
-	        return dataMap[v].label;
-	      }
-	      return '';
-	    }).join(',');
-	  },
-	  hide: function hide() {
-	    this.setVisibleState(false);
-	  },
-	  show: function show() {
-	    this.setVisibleState(true);
+	    this.props.onChange(value);
 	  },
 	  render: function render() {
 	    var _this = this;
 	
 	    var value = this.state.value;
-	
-	    var inlinePickers = _react2['default'].createElement(
+	    return _react2['default'].createElement(
 	      'div',
 	      { style: containerStyle },
 	      value.map(function (v, i) {
@@ -149,6 +135,52 @@ webpackJsonp([0],{
 	        );
 	      })
 	    );
+	  }
+	});
+	
+	var CityPicker = _react2['default'].createClass({
+	  displayName: 'CityPicker',
+	
+	  mixins: [ValueMixin],
+	  getInitialState: function getInitialState() {
+	    return {
+	      modalVisible: false
+	    };
+	  },
+	  onPickerChange: function onPickerChange(value) {
+	    this.pickerValue = value;
+	    // this.setState({});// try rerender
+	  },
+	  onOK: function onOK() {
+	    if (this.pickerValue) {
+	      this.setState({
+	        value: this.pickerValue
+	      });
+	    }
+	    this.hide();
+	  },
+	  setVisibleState: function setVisibleState(visible) {
+	    this.setState({
+	      modalVisible: visible
+	    });
+	  },
+	  getSel: function getSel() {
+	    return this.state.value.map(function (v) {
+	      if (v) {
+	        return dataMap[v].label;
+	      }
+	      return '';
+	    }).join(',');
+	  },
+	  hide: function hide() {
+	    this.pickerValue = null;
+	    this.setVisibleState(false);
+	  },
+	  show: function show() {
+	    this.setVisibleState(true);
+	  },
+	  render: function render() {
+	    var value = this.state.value;
 	    var popPicker = this.state.modalVisible ? _react2['default'].createElement(
 	      _rmcModal2['default'],
 	      {
@@ -165,46 +197,20 @@ webpackJsonp([0],{
 	        _react2['default'].createElement('div', { style: itemStyle }),
 	        _react2['default'].createElement(
 	          'div',
-	          { style: itemStyle, onClick: this.hide },
+	          { style: itemStyle, onClick: this.onOK },
 	          '完成'
 	        )
 	      ),
-	      _react2['default'].createElement(
-	        'div',
-	        { style: containerStyle },
-	        value.map(function (v, i) {
-	          var d = i === 0 ? _data2['default'] : dataMap[value[i - 1]] && dataMap[value[i - 1]].children;
-	          return _react2['default'].createElement(
-	            'div',
-	            { key: i, style: itemStyle },
-	            _react2['default'].createElement(
-	              _rmcPicker2['default'],
-	              { selectedValue: v, onValueChange: _this.onValueChange.bind(_this, i) },
-	              d || emptyArray
-	            )
-	          );
-	        })
-	      )
+	      _react2['default'].createElement(InlinePicker, { defaultValue: value, onChange: this.onPickerChange })
 	    ) : null;
 	
 	    return _react2['default'].createElement(
 	      'div',
 	      { style: { margin: '10px 30px' } },
 	      _react2['default'].createElement(
-	        'h3',
+	        'h2',
 	        null,
 	        'city picker'
-	      ),
-	      _react2['default'].createElement(
-	        'p',
-	        null,
-	        '您选择的城市是：',
-	        this.getSel()
-	      ),
-	      _react2['default'].createElement(
-	        'div',
-	        null,
-	        inlinePickers
 	      ),
 	      _react2['default'].createElement(
 	        'div',
@@ -213,7 +219,7 @@ webpackJsonp([0],{
 	        _react2['default'].createElement(
 	          'button',
 	          { onClick: this.show },
-	          'open picker'
+	          this.getSel() || 'please select'
 	        )
 	      )
 	    );
@@ -269,6 +275,10 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(161);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	var _classnames = __webpack_require__(168);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
@@ -280,18 +290,29 @@ webpackJsonp([0],{
 	    prefixCls: _react2['default'].PropTypes.string,
 	    animated: _react2['default'].PropTypes.bool,
 	    visible: _react2['default'].PropTypes.bool,
+	    defaultVisible: _react2['default'].PropTypes.bool,
 	    onDismiss: _react2['default'].PropTypes.func
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      prefixCls: 'rmc-modal',
+	      defaultVisible: false,
 	      onDismiss: function onDismiss() {}
 	    };
 	  },
 	  getInitialState: function getInitialState() {
+	    var _props = this.props;
+	    var defaultVisible = _props.defaultVisible;
+	    var visible = _props.visible;
+	
 	    return {
-	      visible: 'visible' in this.props ? this.props.visible : false
+	      visible: 'visible' in this.props ? visible : defaultVisible
 	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.container = document.createElement('div');
+	    document.body.insertBefore(this.container, document.body.firstChild || null);
+	    this.componentDidUpdate();
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var props = {};
@@ -300,15 +321,14 @@ webpackJsonp([0],{
 	    }
 	    this.setState(props);
 	  },
-	  hide: function hide() {
-	    if (!('visible' in this.props)) {
-	      this.setState({
-	        visible: false
-	      });
-	    }
-	    this.props.onDismiss();
+	  componentDidUpdate: function componentDidUpdate() {
+	    _reactDom2['default'].unstable_renderSubtreeIntoContainer(this, this.getRender(), this.container);
 	  },
-	  render: function render() {
+	  componentWillUnmount: function componentWillUnmount() {
+	    _reactDom2['default'].unmountComponentAtNode(this.container);
+	    document.body.removeChild(this.container);
+	  },
+	  getRender: function getRender() {
 	    var _wrapperCls, _maskCls;
 	
 	    var props = this.props;
@@ -326,6 +346,17 @@ webpackJsonp([0],{
 	      ),
 	      _react2['default'].createElement('div', { className: (0, _classnames2['default'])(maskCls), onClick: this.hide })
 	    );
+	  },
+	  hide: function hide() {
+	    if (!('visible' in this.props)) {
+	      this.setState({
+	        visible: false
+	      });
+	    }
+	    this.props.onDismiss();
+	  },
+	  render: function render() {
+	    return null;
 	  }
 	});
 	exports['default'] = Modal;
@@ -337,7 +368,7 @@ webpackJsonp([0],{
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
+	  Copyright (c) 2016 Jed Watson.
 	  Licensed under the MIT License (MIT), see
 	  http://jedwatson.github.io/classnames
 	*/
@@ -349,7 +380,7 @@ webpackJsonp([0],{
 		var hasOwn = {}.hasOwnProperty;
 	
 		function classNames () {
-			var classes = '';
+			var classes = [];
 	
 			for (var i = 0; i < arguments.length; i++) {
 				var arg = arguments[i];
@@ -358,19 +389,19 @@ webpackJsonp([0],{
 				var argType = typeof arg;
 	
 				if (argType === 'string' || argType === 'number') {
-					classes += ' ' + arg;
+					classes.push(arg);
 				} else if (Array.isArray(arg)) {
-					classes += ' ' + classNames.apply(null, arg);
+					classes.push(classNames.apply(null, arg));
 				} else if (argType === 'object') {
 					for (var key in arg) {
 						if (hasOwn.call(arg, key) && arg[key]) {
-							classes += ' ' + key;
+							classes.push(key);
 						}
 					}
 				}
 			}
 	
-			return classes.substr(1);
+			return classes.join(' ');
 		}
 	
 		if (typeof module !== 'undefined' && module.exports) {

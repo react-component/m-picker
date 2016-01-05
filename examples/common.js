@@ -19790,6 +19790,7 @@
 	  displayName: 'Picker',
 	
 	  propTypes: {
+	    defaultSelectedValue: _react.PropTypes.any,
 	    prefixCls: _react.PropTypes.string,
 	    selectedValue: _react.PropTypes.any,
 	    children: _react.PropTypes.array,
@@ -19805,6 +19806,12 @@
 	    };
 	  },
 	
+	  getInitialState: function getInitialState() {
+	    return {
+	      selectedValue: this.props.selectedValue || this.props.defaultSelectedValue
+	    };
+	  },
+	
 	  componentDidMount: function componentDidMount() {
 	    this.init();
 	    var component = this.refs.component;
@@ -19814,8 +19821,16 @@
 	    component.addEventListener('touchend', this.onTouchEnd, false);
 	  },
 	
-	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	    return this.props.selectedValue !== nextProps.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if ('selectedValue' in nextProps) {
+	      this.setState({
+	        selectedValue: nextProps.selectedValue
+	      });
+	    }
+	  },
+	
+	  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+	    return this.state.selectedValue !== nextState.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
 	  },
 	
 	  componentDidUpdate: function componentDidUpdate(prevProps) {
@@ -19823,7 +19838,7 @@
 	      this.init();
 	    } else {
 	      // console.log('select');
-	      this.select(this.props.selectedValue, false);
+	      this.select(this.state.selectedValue, false);
 	    }
 	  },
 	
@@ -19852,7 +19867,9 @@
 	  },
 	
 	  setTop: function setTop(top) {
-	    this.refs.content.style.webkitTransform = 'translate3d(0, ' + -top + 'px, 0)';
+	    if (this.refs.content) {
+	      this.refs.content.style.webkitTransform = 'translate3d(0, ' + -top + 'px, 0)';
+	    }
 	  },
 	
 	  setDimensions: function setDimensions(clientHeight, contentHeight) {
@@ -19905,7 +19922,7 @@
 	
 	    this.setDimensions(component.clientHeight, content.offsetHeight);
 	
-	    this.select(this.props.selectedValue, false);
+	    this.select(this.state.selectedValue, false);
 	  },
 	
 	  selectByIndex: function selectByIndex(index, animate) {
@@ -19952,7 +19969,7 @@
 	  },
 	
 	  fireValueChange: function fireValueChange(itemValue) {
-	    if (itemValue !== this.props.selectedValue) {
+	    if (itemValue !== this.state.selectedValue) {
 	      this.props.onValueChange(itemValue);
 	    }
 	  },
@@ -20273,7 +20290,7 @@
 	    var _props = this.props;
 	    var children = _props.children;
 	    var prefixCls = _props.prefixCls;
-	    var selectedValue = _props.selectedValue;
+	    var selectedValue = this.state.selectedValue;
 	
 	    var itemClassName = prefixCls + '-item';
 	    var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
