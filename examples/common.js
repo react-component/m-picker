@@ -19968,9 +19968,14 @@
 	    this.publish(top, 250);
 	  },
 	
-	  fireValueChange: function fireValueChange(itemValue) {
-	    if (itemValue !== this.state.selectedValue) {
-	      this.props.onValueChange(itemValue);
+	  fireValueChange: function fireValueChange(selectedValue) {
+	    if (selectedValue !== this.state.selectedValue) {
+	      if (!('selectedValue' in this.props)) {
+	        this.setState({
+	          selectedValue: selectedValue
+	        });
+	      }
+	      this.props.onValueChange(selectedValue);
 	    }
 	  },
 	
