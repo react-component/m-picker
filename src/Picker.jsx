@@ -220,9 +220,14 @@ const Picker = React.createClass({
     this.publish(top, 250);
   },
 
-  fireValueChange(itemValue) {
-    if (itemValue !== this.state.selectedValue) {
-      this.props.onValueChange(itemValue);
+  fireValueChange(selectedValue) {
+    if (selectedValue !== this.state.selectedValue) {
+      if (!('selectedValue' in this.props)) {
+        this.setState({
+          selectedValue,
+        });
+      }
+      this.props.onValueChange(selectedValue);
     }
   },
 
