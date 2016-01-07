@@ -273,6 +273,7 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
 import Picker from <span class="hljs-string">'rmc-picker'</span>;
 import Modal from <span class="hljs-string">'rmc-modal'</span>;
 import globalData from <span class="hljs-string">'./data'</span>;
+import arrayTreeFilter from <span class="hljs-string">'array-tree-filter'</span>;
 
 <span class="hljs-keyword">const</span> emptyArray = [];
 
@@ -287,15 +288,6 @@ import globalData from <span class="hljs-string">'./data'</span>;
   <span class="hljs-string">'backgroundRepeat'</span>: <span class="hljs-string">'no-repeat'</span>,
 };
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span><span class="hljs-params">(ds, fn)</span> </span>{
-  ds.forEach((d)=&gt; {
-    fn(d);
-    <span class="hljs-keyword">if</span> (d.children) {
-      loop(d.children, fn);
-    }
-  });
-}
-
 <span class="hljs-keyword">const</span> containerStyle = {
   display: <span class="hljs-string">'-webkit-flex'</span>,
   WebkitBoxAlign: <span class="hljs-string">'center'</span>,
@@ -306,10 +298,6 @@ import globalData from <span class="hljs-string">'./data'</span>;
   WebkitFlex: <span class="hljs-number">1</span>,
   textAlign: <span class="hljs-string">'center'</span>,
 };
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue0</span><span class="hljs-params">(items)</span> </span>{
-  <span class="hljs-keyword">return</span> items &amp;&amp; items[<span class="hljs-number">0</span>] &amp;&amp; items[<span class="hljs-number">0</span>].value;
-}
 
 <span class="hljs-keyword">const</span> ValueMixin = {
   propTypes: {
@@ -323,18 +311,8 @@ import globalData from <span class="hljs-string">'./data'</span>;
   },
 
   getInitialState() {
-    <span class="hljs-keyword">const</span> dataMap = {};
-
     <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">this</span>.props.data;
-
-    loop(data, (d)=&gt; {
-      dataMap[d.value] = d;
-    });
-
-    <span class="hljs-keyword">this</span>.dataMap = dataMap;
-
     <span class="hljs-keyword">let</span> value = <span class="hljs-keyword">this</span>.props.defaultValue;
-
     <span class="hljs-keyword">if</span> (!value) {
       value = [];
       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.props.cols; i++) {
@@ -350,19 +328,33 @@ import globalData from <span class="hljs-string">'./data'</span>;
       value,
     };
   },
+
+  getColArray() {
+    <span class="hljs-keyword">const</span> ret = [];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.props.cols; i++) {
+      ret[i] = <span class="hljs-literal">undefined</span>;
+    }
+    <span class="hljs-keyword">return</span> ret;
+  },
 };
 
 <span class="hljs-keyword">const</span> InlinePicker = React.createClass({
   propTypes: {
     onChange: PropTypes.func,
     data: PropTypes.any,
+    cols: PropTypes.number,
   },
   mixins: [ValueMixin],
   onValueChange(index, selectNameValue) {
     <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value.concat();
     value[index] = selectNameValue;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = index + <span class="hljs-number">1</span>; i &lt; value.length; i++) {
-      value[i] = getValue0(<span class="hljs-keyword">this</span>.dataMap[value[i - <span class="hljs-number">1</span>]].children);
+    <span class="hljs-keyword">const</span> children = arrayTreeFilter(<span class="hljs-keyword">this</span>.props.data, (c, level) =&gt; {
+      <span class="hljs-keyword">return</span> level &lt;= index &amp;&amp; c.value === value[level];
+    });
+    <span class="hljs-keyword">let</span> data = children[index];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = index + <span class="hljs-number">1</span>; data &amp;&amp; data.children &amp;&amp; data.children.length &amp;&amp; i &lt; value.length; i++) {
+      data = data.children[<span class="hljs-number">0</span>];
+      value[i] = data.value;
     }
     <span class="hljs-keyword">this</span>.setState({
       value: value,
@@ -371,12 +363,16 @@ import globalData from <span class="hljs-string">'./data'</span>;
   },
   render() {
     <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">this</span>.state.value;
+    <span class="hljs-keyword">const</span> childrenTree = arrayTreeFilter(<span class="hljs-keyword">this</span>.props.data, (c, level) =&gt; {
+      <span class="hljs-keyword">return</span> c.value === value[level];
+    }).map(c=&gt;c.children);
+    childrenTree.length = <span class="hljs-keyword">this</span>.props.cols - <span class="hljs-number">1</span>;
+    childrenTree.unshift(<span class="hljs-keyword">this</span>.props.data);
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{containerStyle}</span>&gt;</span>
-      {value.map((v, i) =&gt; {
-        const d = i === 0 ? this.props.data : this.dataMap[value[i - 1]] &amp;&amp; this.dataMap[value[i - 1]].children;
+      {this.getColArray().map((v, i) =&gt; {
         return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{itemStyle}</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{v}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
-            {d || emptyArray}
+          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{value[i]}</span> <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange.bind(this,</span> <span class="hljs-attribute">i</span>)}&gt;</span>
+            {childrenTree[i] || emptyArray}
           <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
       })}
@@ -412,11 +408,12 @@ const CityPicker = React.createClass({
     });
   },
   getSel() {
-    return this.state.value.map((v)=&gt; {
-      if (v) {
-        return this.dataMap[v].label;
-      }
-      return '';
+    const {value} = this.state;
+    const treeChildren = arrayTreeFilter(this.props.data, (c, level)=&gt; {
+      return c.value === value[level];
+    });
+    return treeChildren.map((v)=&gt; {
+      return v.label;
     }).join(',');
   },
   hide() {

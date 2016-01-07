@@ -43,6 +43,10 @@ webpackJsonp([0],{
 	
 	var _data2 = _interopRequireDefault(_data);
 	
+	var _arrayTreeFilter = __webpack_require__(170);
+	
+	var _arrayTreeFilter2 = _interopRequireDefault(_arrayTreeFilter);
+	
 	var emptyArray = [];
 	
 	var modalHeaderStyle = {
@@ -56,15 +60,6 @@ webpackJsonp([0],{
 	  'backgroundRepeat': 'no-repeat'
 	};
 	
-	function loop(ds, fn) {
-	  ds.forEach(function (d) {
-	    fn(d);
-	    if (d.children) {
-	      loop(d.children, fn);
-	    }
-	  });
-	}
-	
 	var containerStyle = {
 	  display: '-webkit-flex',
 	  WebkitBoxAlign: 'center',
@@ -75,10 +70,6 @@ webpackJsonp([0],{
 	  WebkitFlex: 1,
 	  textAlign: 'center'
 	};
-	
-	function getValue0(items) {
-	  return items && items[0] && items[0].value;
-	}
 	
 	var ValueMixin = {
 	  propTypes: {
@@ -92,18 +83,8 @@ webpackJsonp([0],{
 	  },
 	
 	  getInitialState: function getInitialState() {
-	    var dataMap = {};
-	
 	    var data = this.props.data;
-	
-	    loop(data, function (d) {
-	      dataMap[d.value] = d;
-	    });
-	
-	    this.dataMap = dataMap;
-	
 	    var value = this.props.defaultValue;
-	
 	    if (!value) {
 	      value = [];
 	      for (var i = 0; i < this.props.cols; i++) {
@@ -118,6 +99,14 @@ webpackJsonp([0],{
 	    return {
 	      value: value
 	    };
+	  },
+	
+	  getColArray: function getColArray() {
+	    var ret = [];
+	    for (var i = 0; i < this.props.cols; i++) {
+	      ret[i] = undefined;
+	    }
+	    return ret;
 	  }
 	};
 	
@@ -126,14 +115,20 @@ webpackJsonp([0],{
 	
 	  propTypes: {
 	    onChange: _react.PropTypes.func,
-	    data: _react.PropTypes.any
+	    data: _react.PropTypes.any,
+	    cols: _react.PropTypes.number
 	  },
 	  mixins: [ValueMixin],
 	  onValueChange: function onValueChange(index, selectNameValue) {
 	    var value = this.state.value.concat();
 	    value[index] = selectNameValue;
-	    for (var i = index + 1; i < value.length; i++) {
-	      value[i] = getValue0(this.dataMap[value[i - 1]].children);
+	    var children = (0, _arrayTreeFilter2['default'])(this.props.data, function (c, level) {
+	      return level <= index && c.value === value[level];
+	    });
+	    var data = children[index];
+	    for (var i = index + 1; data && data.children && data.children.length && i < value.length; i++) {
+	      data = data.children[0];
+	      value[i] = data.value;
 	    }
 	    this.setState({
 	      value: value
@@ -144,18 +139,24 @@ webpackJsonp([0],{
 	    var _this = this;
 	
 	    var value = this.state.value;
+	    var childrenTree = (0, _arrayTreeFilter2['default'])(this.props.data, function (c, level) {
+	      return c.value === value[level];
+	    }).map(function (c) {
+	      return c.children;
+	    });
+	    childrenTree.length = this.props.cols - 1;
+	    childrenTree.unshift(this.props.data);
 	    return _react2['default'].createElement(
 	      'div',
 	      { style: containerStyle },
-	      value.map(function (v, i) {
-	        var d = i === 0 ? _this.props.data : _this.dataMap[value[i - 1]] && _this.dataMap[value[i - 1]].children;
+	      this.getColArray().map(function (v, i) {
 	        return _react2['default'].createElement(
 	          'div',
 	          { key: i, style: itemStyle },
 	          _react2['default'].createElement(
 	            _rmcPicker2['default'],
-	            { selectedValue: v, onValueChange: _this.onValueChange.bind(_this, i) },
-	            d || emptyArray
+	            { selectedValue: value[i], onValueChange: _this.onValueChange.bind(_this, i) },
+	            childrenTree[i] || emptyArray
 	          )
 	        );
 	      })
@@ -193,13 +194,13 @@ webpackJsonp([0],{
 	    });
 	  },
 	  getSel: function getSel() {
-	    var _this2 = this;
+	    var value = this.state.value;
 	
-	    return this.state.value.map(function (v) {
-	      if (v) {
-	        return _this2.dataMap[v].label;
-	      }
-	      return '';
+	    var treeChildren = (0, _arrayTreeFilter2['default'])(this.props.data, function (c, level) {
+	      return c.value === value[level];
+	    });
+	    return treeChildren.map(function (v) {
+	      return v.label;
 	    }).join(',');
 	  },
 	  hide: function hide() {
@@ -517,6 +518,35 @@ webpackJsonp([0],{
 	  }]
 	}];
 	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 170:
+/***/ function(module, exports) {
+
+	function arrayTreeFilter(data, filterFn, options) {
+	  options = options || {};
+	  options.childrenKeyName = options.childrenKeyName || 'children';
+	  var children = data || [];
+	  var result = [];
+	  var level = 0;
+	  var foundItem;
+	  do {
+	    var foundItem = children.filter(function(item) {
+	      return filterFn(item, level);
+	    })[0];
+	    if (!foundItem) {
+	      break;
+	    }
+	    result.push(foundItem);
+	    children = foundItem[options.childrenKeyName] || [];
+	    level += 1;
+	  } while(children.length > 0);
+	  return result;
+	}
+	
+	module.exports = arrayTreeFilter;
+
 
 /***/ }
 
