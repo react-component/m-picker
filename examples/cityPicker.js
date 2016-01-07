@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import Picker from 'rmc-picker';
 import Modal from 'rmc-modal';
 import globalData from './data';
+import arrayTreeFilter from 'array-tree-filter';
 
 const emptyArray = [];
 
@@ -21,15 +22,6 @@ const modalHeaderStyle = {
   'backgroundRepeat': 'no-repeat',
 };
 
-function loop(ds, fn) {
-  ds.forEach((d)=> {
-    fn(d);
-    if (d.children) {
-      loop(d.children, fn);
-    }
-  });
-}
-
 const containerStyle = {
   display: '-webkit-flex',
   WebkitBoxAlign: 'center',
@@ -40,10 +32,6 @@ const itemStyle = {
   WebkitFlex: 1,
   textAlign: 'center',
 };
-
-function getValue0(items) {
-  return items && items[0] && items[0].value;
-}
 
 const ValueMixin = {
   propTypes: {
@@ -57,18 +45,8 @@ const ValueMixin = {
   },
 
   getInitialState() {
-    const dataMap = {};
-
     let data = this.props.data;
-
-    loop(data, (d)=> {
-      dataMap[d.value] = d;
-    });
-
-    this.dataMap = dataMap;
-
     let value = this.props.defaultValue;
-
     if (!value) {
       value = [];
       for (let i = 0; i < this.props.cols; i++) {
@@ -84,19 +62,33 @@ const ValueMixin = {
       value,
     };
   },
+
+  getColArray() {
+    const ret = [];
+    for (let i = 0; i < this.props.cols; i++) {
+      ret[i] = undefined;
+    }
+    return ret;
+  },
 };
 
 const InlinePicker = React.createClass({
   propTypes: {
     onChange: PropTypes.func,
     data: PropTypes.any,
+    cols: PropTypes.number,
   },
   mixins: [ValueMixin],
   onValueChange(index, selectNameValue) {
     const value = this.state.value.concat();
     value[index] = selectNameValue;
-    for (let i = index + 1; i < value.length; i++) {
-      value[i] = getValue0(this.dataMap[value[i - 1]].children);
+    const children = arrayTreeFilter(this.props.data, (c, level) => {
+      return level <= index && c.value === value[level];
+    });
+    let data = children[index];
+    for (let i = index + 1; data && data.children && data.children.length && i < value.length; i++) {
+      data = data.children[0];
+      value[i] = data.value;
     }
     this.setState({
       value: value,
@@ -105,12 +97,16 @@ const InlinePicker = React.createClass({
   },
   render() {
     const value = this.state.value;
+    const childrenTree = arrayTreeFilter(this.props.data, (c, level) => {
+      return c.value === value[level];
+    }).map(c=>c.children);
+    childrenTree.length = this.props.cols - 1;
+    childrenTree.unshift(this.props.data);
     return (<div style={containerStyle}>
-      {value.map((v, i) => {
-        const d = i === 0 ? this.props.data : this.dataMap[value[i - 1]] && this.dataMap[value[i - 1]].children;
+      {this.getColArray().map((v, i) => {
         return (<div key={i} style={itemStyle}>
-          <Picker selectedValue={v} onValueChange={this.onValueChange.bind(this, i)}>
-            {d || emptyArray}
+          <Picker selectedValue={value[i]} onValueChange={this.onValueChange.bind(this, i)}>
+            {childrenTree[i] || emptyArray}
           </Picker>
         </div>);
       })}
@@ -146,11 +142,12 @@ const CityPicker = React.createClass({
     });
   },
   getSel() {
-    return this.state.value.map((v)=> {
-      if (v) {
-        return this.dataMap[v].label;
-      }
-      return '';
+    const {value} = this.state;
+    const treeChildren = arrayTreeFilter(this.props.data, (c, level)=> {
+      return c.value === value[level];
+    });
+    return treeChildren.map((v)=> {
+      return v.label;
     }).join(',');
   },
   hide() {

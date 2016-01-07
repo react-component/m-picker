@@ -41,6 +41,7 @@
     "browser-test-cover": "rc-tools run browser-test-cover"
   },
   "devDependencies": {
+    "array-tree-filter": "1.x",
     "expect.js": "0.3.x",
     "pre-commit": "1.x",
     "rc-server": "3.x",
