@@ -8,6 +8,17 @@
 import React, {PropTypes} from 'react';
 import {Animate, easeOutCubic, easeInOutCubic} from './Animate';
 
+const DECELERATION_VELOCITY_RATE = 0.95;
+// How much velocity is required to keep the deceleration running
+const MIN_VELOCITY_TO_KEEP_DECELERATING = 0.5;
+const POSITION_MAX_LENGTH = 40;
+const MINIUM_TRACKING_FOR_SCROLL = 0;
+const MINIUM_TRACKING_FOR_DRAG = 5;
+const DEFAULT_ANIM_DURATION = 250;
+const TIME_FRAME = 100;
+// How much velocity is required to start the deceleration
+const MIN_VELOCITY_TO_START_DECELERATION = 4;
+
 function assign(to, from) {
   for (const key in from) {
     if (from.hasOwnProperty(key)) {
@@ -64,8 +75,17 @@ const Picker = React.createClass({
   },
 
   getInitialState() {
+    let selectedValueState;
+    const {selectedValue, defaultSelectedValue, children} = this.props;
+    if (selectedValue !== undefined) {
+      selectedValueState = selectedValue;
+    } else if (defaultSelectedValue !== undefined) {
+      selectedValueState = defaultSelectedValue;
+    } else if (children.length) {
+      selectedValueState = children[0].value;
+    }
     return {
-      selectedValue: this.props.selectedValue || this.props.defaultSelectedValue,
+      selectedValue: selectedValueState,
     };
   },
 
@@ -93,7 +113,6 @@ const Picker = React.createClass({
     if (!isChildrenEqual(prevProps.children, this.props.children, this.props.pure)) {
       this.init();
     } else {
-      // console.log('select');
       this.select(this.state.selectedValue, false);
     }
   },
@@ -103,14 +122,15 @@ const Picker = React.createClass({
     component.removeEventListener('touchstart', this.onTouchStart, false);
     component.removeEventListener('touchmove', this.onTouchMove, false);
     component.removeEventListener('touchend', this.onTouchEnd, false);
+    this.clearAnim();
   },
 
   onTouchEnd(e) {
-    this.doTouchEnd(e.timeStamp);
+    this.doTouchEnd(+e.timeStamp);
   },
 
   onTouchMove(e) {
-    this.doTouchMove(e.touches, e.timeStamp);
+    this.doTouchMove(e.touches, +e.timeStamp);
   },
 
   onTouchStart(e) {
@@ -118,7 +138,7 @@ const Picker = React.createClass({
       return;
     }
     e.preventDefault();
-    this.doTouchStart(e.touches, e.timeStamp);
+    this.doTouchStart(e.touches, +e.timeStamp);
   },
 
   setTop(top) {
@@ -138,17 +158,25 @@ const Picker = React.createClass({
     this.maxScrollTop = this.minScrollTop + totalItemCount * this.itemHeight - 0.1;
   },
 
+  clearAnim() {
+    if (this.isDecelerating) {
+      Animate.stop(this.isDecelerating);
+      this.isDecelerating = false;
+    }
+
+    if (this.isAnimating) {
+      Animate.stop(this.isAnimating);
+      this.isAnimating = false;
+    }
+  },
+
   init() {
-    // console.log('init');
     assign(this, {
-      isSingleTouch: false,
       isTracking: false,
       didDecelerationComplete: false,
-      isGesturing: false,
       isDragging: false,
       isDecelerating: false,
       isAnimating: false,
-      clientTop: 0,
       clientHeight: 0,
       contentHeight: 0,
       itemHeight: 0,
@@ -156,21 +184,17 @@ const Picker = React.createClass({
       minScrollTop: 0,
       maxScrollTop: 0,
       scheduledTop: 0,
-      lastTouchTop: null,
-      lastTouchMove: null,
-      positions: null,
-      minDecelerationScrollTop: null,
-      maxDecelerationScrollTop: null,
-      decelerationVelocityY: null,
+      lastTouchTop: 0,
+      lastTouchMove: 0,
+      positions: [],
+      minDecelerationScrollTop: 0,
+      maxDecelerationScrollTop: 0,
+      decelerationVelocityY: 0,
     });
 
     const {indicator, component, content} = this.refs;
 
     this.itemHeight = parseInt(getComputedStyle(indicator, 'height'), 10);
-
-    const rect = component.getBoundingClientRect();
-
-    this.clientTop = (rect.top + component.clientTop) || 0;
 
     this.setDimensions(component.clientHeight, content.offsetHeight);
 
@@ -184,8 +208,6 @@ const Picker = React.createClass({
     this.scrollTop = this.minScrollTop + index * this.itemHeight;
 
     this.scrollTo(this.scrollTop, animate);
-
-    this.fireValueChange(this.props.children[index].value);
   },
 
   select(value, animate) {
@@ -204,10 +226,7 @@ const Picker = React.createClass({
     let animate = a;
     animate = (animate === undefined) ? true : animate;
 
-    if (this.isDecelerating) {
-      Animate.stop(this.isDecelerating);
-      this.isDecelerating = false;
-    }
+    this.clearAnim();
 
     top = Math.round(top / this.itemHeight) * this.itemHeight;
     top = Math.max(Math.min(this.maxScrollTop, top), this.minScrollTop);
@@ -217,7 +236,7 @@ const Picker = React.createClass({
       this.scrollingComplete();
       return;
     }
-    this.publish(top, 250);
+    this.publish(top, DEFAULT_ANIM_DURATION);
   },
 
   fireValueChange(selectedValue) {
@@ -239,78 +258,24 @@ const Picker = React.createClass({
     }
   },
 
-  doTouchStart(touches, ts) {
-    let timeStamp = ts;
-    if (touches.length === null) {
-      throw new Error('Invalid touch list: ' + touches);
-    }
-    if (timeStamp instanceof Date) {
-      timeStamp = timeStamp.valueOf();
-    }
-    if (typeof timeStamp !== 'number') {
-      throw new Error('Invalid timestamp value: ' + timeStamp);
-    }
-
-    this.interruptedAnimation = true;
-
-    if (this.isDecelerating) {
-      Animate.stop(this.isDecelerating);
-      this.isDecelerating = false;
-      this.interruptedAnimation = true;
-    }
-
-    if (this.isAnimating) {
-      Animate.stop(this.isAnimating);
-      this.isAnimating = false;
-      this.interruptedAnimation = true;
-    }
-
-    // Use center point when dealing with two fingers
-    let currentTouchTop;
-    const isSingleTouch = touches.length === 1;
-    if (isSingleTouch) {
-      currentTouchTop = touches[0].pageY;
-    } else {
-      currentTouchTop = Math.abs(touches[0].pageY + touches[1].pageY) / 2;
-    }
-
-    this.initialTouchTop = currentTouchTop;
-    this.lastTouchTop = currentTouchTop;
+  doTouchStart(touches, timeStamp) {
+    this.clearAnim();
+    this.initialTouchTop = this.lastTouchTop = touches[0].pageY;
     this.lastTouchMove = timeStamp;
-    this.lastScale = 1;
-    this.enableScrollY = !isSingleTouch;
+    this.enableScrollY = false;
     this.isTracking = true;
     this.didDecelerationComplete = false;
-    this.isDragging = !isSingleTouch;
-    this.isSingleTouch = isSingleTouch;
+    this.isDragging = false;
     this.positions = [];
   },
 
-  doTouchMove(touches, ts, scale) {
-    let timeStamp = ts;
-    if (touches.length === null) {
-      throw new Error('Invalid touch list: ' + touches);
-    }
-    if (timeStamp instanceof Date) {
-      timeStamp = timeStamp.valueOf();
-    }
-    if (typeof timeStamp !== 'number') {
-      throw new Error('Invalid timestamp value: ' + timeStamp);
-    }
-
+  doTouchMove(touches, timeStamp) {
     // Ignore event when tracking is not enabled (event might be outside of element)
     if (!this.isTracking) {
       return;
     }
 
-    let currentTouchTop;
-
-    // Compute move based around of center of fingers
-    if (touches.length === 2) {
-      currentTouchTop = Math.abs(touches[0].pageY + touches[1].pageY) / 2;
-    } else {
-      currentTouchTop = touches[0].pageY;
-    }
+    const currentTouchTop = touches[0].pageY;
 
     const positions = this.positions;
 
@@ -336,48 +301,32 @@ const Picker = React.createClass({
       }
 
       // Keep list from growing infinitely (holding min 10, max 20 measure points)
-      if (positions.length > 40) {
-        positions.splice(0, 20);
+      if (positions.length > POSITION_MAX_LENGTH) {
+        positions.splice(0, POSITION_MAX_LENGTH / 2);
       }
 
-      // Track scroll movement for decleration
+      // Track scroll movement for declaration
       positions.push(scrollTop, timeStamp);
 
       // Sync scroll position
       this.publish(scrollTop);
       // Otherwise figure out whether we are switching into dragging mode now.
     } else {
-      const minimumTrackingForScroll = 0;
-      const minimumTrackingForDrag = 5;
-
       const distanceY = Math.abs(currentTouchTop - this.initialTouchTop);
 
-      this.enableScrollY = distanceY >= minimumTrackingForScroll;
+      this.enableScrollY = distanceY >= MINIUM_TRACKING_FOR_SCROLL;
 
       positions.push(this.scrollTop, timeStamp);
 
-      this.isDragging = this.enableScrollY && (distanceY >= minimumTrackingForDrag);
-
-      if (this.isDragging) {
-        this.interruptedAnimation = false;
-      }
+      this.isDragging = this.enableScrollY && (distanceY >= MINIUM_TRACKING_FOR_DRAG);
     }
 
     // Update last touch positions and time stamp for next event
     this.lastTouchTop = currentTouchTop;
     this.lastTouchMove = timeStamp;
-    this.lastScale = scale;
   },
 
-  doTouchEnd(ts) {
-    let timeStamp = ts;
-    if (timeStamp instanceof Date) {
-      timeStamp = timeStamp.valueOf();
-    }
-    if (typeof timeStamp !== 'number') {
-      throw new Error('Invalid timestamp value: ' + timeStamp);
-    }
-
+  doTouchEnd(timeStamp) {
     // Ignore event when tracking is not enabled (no touchstart event on element)
     // This is required as this listener ('touchmove') sits on the document and not on the element itself.
     if (!this.isTracking) {
@@ -395,14 +344,14 @@ const Picker = React.createClass({
 
       // Start deceleration
       // Verify that the last move detected was in some relevant time frame
-      if (this.isSingleTouch && (timeStamp - this.lastTouchMove) <= 100) {
+      if ((timeStamp - this.lastTouchMove) <= TIME_FRAME) {
         // Then figure out what the scroll position was about 100ms ago
         const positions = this.positions;
         const endPos = positions.length - 1;
         let startPos = endPos;
 
         // Move pointer to position measured 100ms ago
-        for (let i = endPos; i > 0 && positions[i] > (this.lastTouchMove - 100); i -= 2) {
+        for (let i = endPos; i > 0 && positions[i] > (this.lastTouchMove - TIME_FRAME); i -= 2) {
           startPos = i;
         }
 
@@ -416,11 +365,8 @@ const Picker = React.createClass({
           // Based on 50ms compute the movement to apply for each render step
           this.decelerationVelocityY = movedTop / timeOffset * (1000 / 60);
 
-          // How much velocity is required to start the deceleration
-          const minVelocityToStartDeceleration = 4;
-
           // Verify that we have enough velocity to start deceleration
-          if (Math.abs(this.decelerationVelocityY) > minVelocityToStartDeceleration) {
+          if (Math.abs(this.decelerationVelocityY) > MIN_VELOCITY_TO_START_DECELERATION) {
             this.startDeceleration(timeStamp);
           }
         }
@@ -489,13 +435,10 @@ const Picker = React.createClass({
       this.stepThroughDeceleration(render);
     };
 
-    // How much velocity is required to keep the deceleration running
-    const minVelocityToKeepDecelerating = 0.5;
-
     // Detect whether it's still worth to continue animating steps
     // If we are already slow enough to not being user perceivable anymore, we stop the whole process here.
     const verify = () => {
-      const shouldContinue = Math.abs(this.decelerationVelocityY) >= minVelocityToKeepDecelerating;
+      const shouldContinue = Math.abs(this.decelerationVelocityY) >= MIN_VELOCITY_TO_KEEP_DECELERATING;
       if (!shouldContinue) {
         this.didDecelerationComplete = true;
       }
@@ -532,7 +475,7 @@ const Picker = React.createClass({
         this.decelerationVelocityY = 0;
       }
     } else {
-      this.decelerationVelocityY *= 0.95;
+      this.decelerationVelocityY *= DECELERATION_VELOCITY_RATE;
     }
 
     this.publish(scrollTop);

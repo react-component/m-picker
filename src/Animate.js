@@ -1,5 +1,5 @@
-const desiredFrames = 60;
-const millisecondsPerSecond = 1000;
+const DESIRED_FRAMES = 60;
+const MILLISECONDS_PER_SECOND = 1000;
 let running = {};
 let counter = 1;
 
@@ -7,8 +7,8 @@ const Animate = {
   // A requestAnimationFrame wrapper / polyfill.
   requestAnimationFrame: (() => {
     const requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
-    return (callback, root) => {
-      requestFrame(callback, root);
+    return (callback) => {
+      requestFrame(callback);
     };
   })(),
 
@@ -27,17 +27,12 @@ const Animate = {
   },
 
   // Start the animation.
-  start(stepCallback, verifyCallback, completedCallback, duration, easingMethod, r) {
+  start(stepCallback, verifyCallback, completedCallback, duration, easingMethod) {
     const start = Date.now();
     let lastFrame = start;
     let percent = 0;
     let dropCounter = 0;
     const id = counter++;
-    let root = r;
-    if (!root) {
-      root = document.body;
-    }
-
     // Compacting running db automatically every few new animations
     if (id % 20 === 0) {
       const newRunning = {};
@@ -60,7 +55,7 @@ const Animate = {
       if (!running[id] || (verifyCallback && !verifyCallback(id))) {
         running[id] = null;
         if (completedCallback) {
-          completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, false);
+          completedCallback(DESIRED_FRAMES - (dropCounter / ((now - start) / MILLISECONDS_PER_SECOND)), id, false);
         }
         return;
       }
@@ -68,7 +63,7 @@ const Animate = {
       // For the current rendering to apply let's update omitted steps in memory.
       // This is important to bring internal state constiables up-to-date with progress in time.
       if (render) {
-        const droppedFrames = Math.round((now - lastFrame) / (millisecondsPerSecond / desiredFrames)) - 1;
+        const droppedFrames = Math.round((now - lastFrame) / (MILLISECONDS_PER_SECOND / DESIRED_FRAMES)) - 1;
         for (let j = 0; j < Math.min(droppedFrames, 4); j++) {
           step(true);
           dropCounter++;
@@ -88,18 +83,18 @@ const Animate = {
       if ((stepCallback(value, now, render) === false || percent === 1) && render) {
         running[id] = null;
         if (completedCallback) {
-          completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, percent === 1 || duration === null);
+          completedCallback(DESIRED_FRAMES - (dropCounter / ((now - start) / MILLISECONDS_PER_SECOND)), id, percent === 1 || duration === null);
         }
       } else if (render) {
         lastFrame = now;
-        Animate.requestAnimationFrame(step, root);
+        Animate.requestAnimationFrame(step);
       }
     };
 
     // Mark as running
     running[id] = true;
     // Init first step
-    Animate.requestAnimationFrame(step, root);
+    Animate.requestAnimationFrame(step);
     // Return unique animation ID
     return id;
   },

@@ -99,7 +99,7 @@ const InlinePicker = React.createClass({
     const value = this.state.value;
     const childrenTree = arrayTreeFilter(this.props.data, (c, level) => {
       return c.value === value[level];
-    }).map(c=>c.children);
+    }).map(c => c.children);
     childrenTree.length = this.props.cols - 1;
     childrenTree.unshift(this.props.data);
     return (<div style={containerStyle}>
