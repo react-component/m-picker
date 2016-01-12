@@ -26,7 +26,7 @@ React Mobile Picker Component
 
 ## Screenshots
 
-<img src="https://os.alipayobjects.com/rmsportal/EJtTSrdrAcdTbFm.png" width="288"/>
+<img src="https://os.alipayobjects.com/rmsportal/fOaDvpIJukLYznc.png" width="288"/>
 
 
 ## Development
