@@ -314,6 +314,9 @@ webpackJsonp([0],{
 	  render: function render() {
 	    var props = this.props;
 	    var children = props.children;
+	    if (!children) {
+	      return null;
+	    }
 	    var child = _react2['default'].Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
