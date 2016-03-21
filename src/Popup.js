@@ -117,6 +117,9 @@ const PopupPicker = React.createClass({
   render() {
     const props = this.props;
     const children = props.children;
+    if (!children) {
+      return null;
+    }
     const child = React.Children.only(children);
     const newChildProps = {
       onClick: this.onTriggerClick,
