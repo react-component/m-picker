@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "description": "React Mobile Picker Component",
   "keywords": [
     "react",
@@ -40,16 +40,19 @@
     "browser-test": "rc-tools run browser-test",
     "browser-test-cover": "rc-tools run browser-test-cover"
   },
+  "dependencies": {
+    "rc-dialog": "6.x"
+  },
   "devDependencies": {
     "array-tree-filter": "1.x",
     "expect.js": "0.3.x",
+    "load-script": "^1.0.0",
     "pre-commit": "1.x",
     "rc-server": "3.x",
     "rc-tools": "4.x",
     "react": "0.14.x",
     "react-addons-test-utils": "0.14.x",
-    "react-dom": "0.14.x",
-    "rmc-modal": "^0.4.0"
+    "react-dom": "0.14.x"
   },
   "pre-commit": [
     "lint"
