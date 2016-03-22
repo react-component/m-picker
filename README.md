@@ -8,7 +8,6 @@ React Mobile Picker Component
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
-[![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: http://img.shields.io/npm/v/rmc-picker.svg?style=flat-square
@@ -65,13 +64,22 @@ see example
 |children      | array of picker items | [{label, value}] |
 |pure      | whether children is immutable | bool | true
 
+
 ## Test Case
 
-http://localhost:8000/tests/runner.html?coverage
+```
+npm test
+npm run chrome-test
+```
 
 ## Coverage
 
-http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/tests/runner.html?coverage
+```
+npm run coverage
+```
+
+open coverage/ dir
+
 
 ## License
 

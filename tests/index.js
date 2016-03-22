@@ -16,7 +16,7 @@ function isEq(t1, t2) {
   return Math.abs(t1 - t2) < 10;
 }
 
-describe('m-picker', ()=> {
+describe('m-picker', () => {
   const items = [
     {
       value: '1',
@@ -30,29 +30,34 @@ describe('m-picker', ()=> {
   let div;
   let component;
   let indicator;
-  beforeEach(()=> {
+  beforeEach(() => {
     div = document.createElement('div');
     document.body.appendChild(div);
     component = ReactDOM.render(<Picker>
       {items}
     </Picker>, div);
-    indicator = TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-indicator')[0];
+    indicator = TestUtils.scryRenderedDOMComponentsWithClass(component,
+      'rmc-picker-indicator')[0];
   });
-  afterEach(()=> {
+  afterEach(() => {
     ReactDOM.unmountComponentAtNode(div);
     document.body.removeChild(div);
   });
-  it('render works', ()=> {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item').length).to.be(2);
+  it('render works', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(component,
+      'rmc-picker-item').length).to.be(2);
     expect(isEq(offsetTop(indicator),
-      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item')[0]))).to.be(true);
+      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component,
+        'rmc-picker-item')[0]))).to.be(true);
   });
-  it('selectedValue works', ()=> {
+  it('selectedValue works', () => {
     ReactDOM.render(<Picker selectedValue="2">
       {items}
     </Picker>, div);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item').length).to.be(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(component,
+      'rmc-picker-item').length).to.be(2);
     expect(isEq(offsetTop(indicator),
-      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component, 'rmc-picker-item')[1]))).to.be(true);
+      offsetTop(TestUtils.scryRenderedDOMComponentsWithClass(component,
+        'rmc-picker-item')[1]))).to.be(true);
   });
 });

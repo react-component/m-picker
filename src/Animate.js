@@ -3,7 +3,7 @@ const MILLISECONDS_PER_SECOND = 1000;
 let running = {};
 let counter = 1;
 
-const Animate = {
+export const Animate = {
   // A requestAnimationFrame wrapper / polyfill.
   requestAnimationFrame: (() => {
     const requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
@@ -55,7 +55,9 @@ const Animate = {
       if (!running[id] || (verifyCallback && !verifyCallback(id))) {
         running[id] = null;
         if (completedCallback) {
-          completedCallback(DESIRED_FRAMES - (dropCounter / ((now - start) / MILLISECONDS_PER_SECOND)), id, false);
+          completedCallback(DESIRED_FRAMES
+            - (dropCounter / ((now - start) / MILLISECONDS_PER_SECOND)),
+            id, false);
         }
         return;
       }
@@ -63,7 +65,8 @@ const Animate = {
       // For the current rendering to apply let's update omitted steps in memory.
       // This is important to bring internal state constiables up-to-date with progress in time.
       if (render) {
-        const droppedFrames = Math.round((now - lastFrame) / (MILLISECONDS_PER_SECOND / DESIRED_FRAMES)) - 1;
+        const droppedFrames = Math.round((now - lastFrame)
+            / (MILLISECONDS_PER_SECOND / DESIRED_FRAMES)) - 1;
         for (let j = 0; j < Math.min(droppedFrames, 4); j++) {
           step(true);
           dropCounter++;
@@ -83,7 +86,9 @@ const Animate = {
       if ((stepCallback(value, now, render) === false || percent === 1) && render) {
         running[id] = null;
         if (completedCallback) {
-          completedCallback(DESIRED_FRAMES - (dropCounter / ((now - start) / MILLISECONDS_PER_SECOND)), id, percent === 1 || duration === null);
+          completedCallback(DESIRED_FRAMES
+            - (dropCounter / ((now - start) / MILLISECONDS_PER_SECOND)),
+            id, percent === 1 || duration === null);
         }
       } else if (render) {
         lastFrame = now;
@@ -114,5 +119,3 @@ export function easeInOutCubic(p) {
   }
   return 0.5 * (Math.pow((pos - 2), 3) + 2);
 }
-
-export {Animate};

@@ -11,19 +11,21 @@ const Test = React.createClass({
   getInitialState() {
     return {
       items: this.getItems(count),
-      value: count + '',
+      value: `${count}`,
     };
   },
   onChange(value) {
     console.log('onChange', value);
-    this.setState({value});
+    this.setState({
+      value,
+    });
   },
   getItems(start) {
     const items = [];
     for (let i = start; i < start + len; i++) {
       items.push({
-        value: i + '',
-        label: 'content ' + i,
+        value: String(i),
+        label: `${count} ${i}`,
       });
     }
     return items;
@@ -33,11 +35,11 @@ const Test = React.createClass({
     const items = this.getItems(count);
     this.setState({
       items,
-      value: count + '',
+      value: String(count),
     });
   },
   render() {
-    return (<div style={{border: '1px solid black', padding: 10}}>
+    return (<div style={{ border: '1px solid black', padding: 10 }}>
       <button onClick={this.rerender}>rerender</button>
       <Picker selectedValue={this.state.value} onValueChange={this.onChange}>
         {this.state.items}

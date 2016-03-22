@@ -2,7 +2,6 @@
 
 import 'rmc-picker/assets/index.less';
 import 'rmc-picker/assets/popup.less';
-import loadScript from 'load-script';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -32,7 +31,3 @@ const Demo = React.createClass({
 });
 
 ReactDOM.render(<Demo />, document.getElementById('__react-content'));
-
-loadScript('//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js', () => {
-  window.FastClick.attach(document.body);
-});

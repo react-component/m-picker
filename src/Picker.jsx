@@ -5,8 +5,8 @@
  * https://raw.github.com/zynga/scroller/master/MIT-LICENSE.txt
  */
 
-import React, {PropTypes} from 'react';
-import {Animate, easeOutCubic, easeInOutCubic} from './Animate';
+import React, { PropTypes } from 'react';
+import { Animate, easeOutCubic, easeInOutCubic } from './Animate';
 
 const DECELERATION_VELOCITY_RATE = 0.95;
 // How much velocity is required to keep the deceleration running
@@ -76,7 +76,7 @@ const Picker = React.createClass({
 
   getInitialState() {
     let selectedValueState;
-    const {selectedValue, defaultSelectedValue, children} = this.props;
+    const { selectedValue, defaultSelectedValue, children } = this.props;
     if (selectedValue !== undefined) {
       selectedValueState = selectedValue;
     } else if (defaultSelectedValue !== undefined) {
@@ -91,7 +91,7 @@ const Picker = React.createClass({
 
   componentDidMount() {
     this.init();
-    const {component} = this.refs;
+    const { component } = this.refs;
     component.addEventListener('touchstart', this.onTouchStart, false);
     component.addEventListener('touchmove', this.onTouchMove, false);
     component.addEventListener('touchend', this.onTouchEnd, false);
@@ -106,7 +106,8 @@ const Picker = React.createClass({
   },
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.selectedValue !== nextState.selectedValue || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
+    return this.state.selectedValue !== nextState.selectedValue
+      || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
   },
 
   componentDidUpdate(prevProps) {
@@ -118,7 +119,7 @@ const Picker = React.createClass({
   },
 
   componentWillUnmount() {
-    const {component} = this.refs;
+    const { component } = this.refs;
     component.removeEventListener('touchstart', this.onTouchStart, false);
     component.removeEventListener('touchmove', this.onTouchMove, false);
     component.removeEventListener('touchend', this.onTouchEnd, false);
@@ -143,7 +144,7 @@ const Picker = React.createClass({
 
   setTop(top) {
     if (this.refs.content) {
-      this.refs.content.style.webkitTransform = 'translate3d(0, ' + (-top) + 'px, 0)';
+      this.refs.content.style.webkitTransform = `translate3d(0, ${-top}px, 0)`;
     }
   },
 
@@ -192,7 +193,7 @@ const Picker = React.createClass({
       decelerationVelocityY: 0,
     });
 
-    const {indicator, component, content} = this.refs;
+    const { indicator, component, content } = this.refs;
 
     this.itemHeight = parseInt(getComputedStyle(indicator, 'height'), 10);
 
@@ -251,7 +252,8 @@ const Picker = React.createClass({
   },
 
   scrollingComplete() {
-    const index = Math.round((this.scrollTop - this.minScrollTop - this.itemHeight / 2) / this.itemHeight);
+    const index = Math.round((this.scrollTop - this.minScrollTop
+      - this.itemHeight / 2) / this.itemHeight);
     const child = this.props.children[index];
     if (child) {
       this.fireValueChange(child.value);
@@ -328,7 +330,8 @@ const Picker = React.createClass({
 
   doTouchEnd(timeStamp) {
     // Ignore event when tracking is not enabled (no touchstart event on element)
-    // This is required as this listener ('touchmove') sits on the document and not on the element itself.
+    // This is required as this listener ('touchmove')
+    // sits on the document and not on the element itself.
     if (!this.isTracking) {
       return;
     }
@@ -383,7 +386,8 @@ const Picker = React.createClass({
 
   // Applies the scroll position to the content element
   publish(top, animationDuration) {
-    // Remember whether we had an animation, then we try to continue based on the current "drive" of the animation
+    // Remember whether we had an animation,
+    // then we try to continue based on the current "drive" of the animation
     const wasAnimating = this.isAnimating;
     if (wasAnimating) {
       Animate.stop(wasAnimating);
@@ -416,8 +420,11 @@ const Picker = React.createClass({
         }
       };
 
-      // When continuing based on previous animation we choose an ease-out animation instead of ease-in-out
-      this.isAnimating = Animate.start(step, verify, completed, animationDuration, wasAnimating ? easeOutCubic : easeInOutCubic);
+      // When continuing based on previous animation
+      // we choose an ease-out animation instead of ease-in-out
+      this.isAnimating = Animate.start(step, verify,
+        completed, animationDuration, wasAnimating ?
+          easeOutCubic : easeInOutCubic);
     } else {
       this.scheduledTop = this.scrollTop = top;
       // Push values out
@@ -425,7 +432,8 @@ const Picker = React.createClass({
     }
   },
 
-  // Called when a touch sequence end and the speed of the finger was high enough to switch into deceleration mode.
+  // Called when a touch sequence end and the speed of
+  // the finger was high enough to switch into deceleration mode.
   startDeceleration() {
     this.minDecelerationScrollTop = this.minScrollTop;
     this.maxDecelerationScrollTop = this.maxScrollTop;
@@ -436,9 +444,11 @@ const Picker = React.createClass({
     };
 
     // Detect whether it's still worth to continue animating steps
-    // If we are already slow enough to not being user perceivable anymore, we stop the whole process here.
+    // If we are already slow enough to not being user perceivable anymore,
+    // we stop the whole process here.
     const verify = () => {
-      const shouldContinue = Math.abs(this.decelerationVelocityY) >= MIN_VELOCITY_TO_KEEP_DECELERATING;
+      const shouldContinue = Math.abs(this.decelerationVelocityY)
+        >= MIN_VELOCITY_TO_KEEP_DECELERATING;
       if (!shouldContinue) {
         this.didDecelerationComplete = true;
       }
@@ -464,7 +474,8 @@ const Picker = React.createClass({
   stepThroughDeceleration() {
     let scrollTop = this.scrollTop + this.decelerationVelocityY;
 
-    const scrollTopFixed = Math.max(Math.min(this.maxDecelerationScrollTop, scrollTop), this.minDecelerationScrollTop);
+    const scrollTopFixed = Math.max(Math.min(this.maxDecelerationScrollTop, scrollTop),
+      this.minDecelerationScrollTop);
     if (scrollTopFixed !== scrollTop) {
       scrollTop = scrollTopFixed;
       this.decelerationVelocityY = 0;
@@ -481,14 +492,18 @@ const Picker = React.createClass({
     this.publish(scrollTop);
   },
   render() {
-    const {children, prefixCls} = this.props;
-    const {selectedValue} = this.state;
+    const { children, prefixCls } = this.props;
+    const { selectedValue } = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
-    const items = children.map((item)=> {
-      return (<div className={selectedValue === item.value ? selectedItemClassName : itemClassName}
-                   key={item.value}
-                   data-value={item.value}>{item.label}</div>);
+    const items = children.map((item) => {
+      return (<div
+        className={selectedValue === item.value ? selectedItemClassName : itemClassName}
+        key={item.value}
+        data-value={item.value}
+      >
+        {item.label}
+      </div>);
     });
     return (<div className={`${prefixCls}`} data-role="component" ref="component">
       <div className={`${prefixCls}-mask`} data-role="mask"/>
