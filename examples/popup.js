@@ -11,35 +11,28 @@ webpackJsonp([0],{
 /***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint no-console:0 */
-	
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	__webpack_require__(2);
 	
 	__webpack_require__(3);
 	
-	var _loadScript = __webpack_require__(4);
-	
-	var _loadScript2 = _interopRequireDefault(_loadScript);
-	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rmcPickerSrcPopup = __webpack_require__(163);
+	var _Popup = __webpack_require__(162);
 	
-	var _rmcPickerSrcPopup2 = _interopRequireDefault(_rmcPickerSrcPopup);
+	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var Demo = _react2['default'].createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var Demo = _react2["default"].createClass({
 	  displayName: 'Demo',
-	
 	  onOk: function onOk() {
 	    console.log('onOk');
 	  },
@@ -47,25 +40,25 @@ webpackJsonp([0],{
 	    console.log('onDismiss');
 	  },
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return _react2["default"].createElement(
 	      'div',
 	      { style: { margin: '10px 30px' } },
-	      _react2['default'].createElement(
+	      _react2["default"].createElement(
 	        'h2',
 	        null,
 	        'popup date picker'
 	      ),
-	      _react2['default'].createElement(
+	      _react2["default"].createElement(
 	        'div',
 	        null,
-	        _react2['default'].createElement(
-	          _rmcPickerSrcPopup2['default'],
+	        _react2["default"].createElement(
+	          _Popup2["default"],
 	          {
 	            content: 'popup',
 	            onDismiss: this.onDismiss,
 	            onOk: this.onOk
 	          },
-	          _react2['default'].createElement(
+	          _react2["default"].createElement(
 	            'button',
 	            { onClick: this.show },
 	            'open'
@@ -74,13 +67,9 @@ webpackJsonp([0],{
 	      )
 	    );
 	  }
-	});
+	}); /* eslint no-console:0 */
 	
-	_reactDom2['default'].render(_react2['default'].createElement(Demo, null), document.getElementById('__react-content'));
-	
-	(0, _loadScript2['default'])('//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js', function () {
-	  window.FastClick.attach(document.body);
-	});
+	_reactDom2["default"].render(_react2["default"].createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ },
 
@@ -91,104 +80,32 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 4:
-/***/ function(module, exports) {
-
-	
-	module.exports = function load (src, opts, cb) {
-	  var head = document.head || document.getElementsByTagName('head')[0]
-	  var script = document.createElement('script')
-	
-	  if (typeof opts === 'function') {
-	    cb = opts
-	    opts = {}
-	  }
-	
-	  opts = opts || {}
-	  cb = cb || function() {}
-	
-	  script.type = opts.type || 'text/javascript'
-	  script.charset = opts.charset || 'utf8';
-	  script.async = 'async' in opts ? !!opts.async : true
-	  script.src = src
-	
-	  if (opts.attrs) {
-	    setAttributes(script, opts.attrs)
-	  }
-	
-	  if (opts.text) {
-	    script.text = '' + opts.text
-	  }
-	
-	  var onend = 'onload' in script ? stdOnEnd : ieOnEnd
-	  onend(script, cb)
-	
-	  // some good legacy browsers (firefox) fail the 'in' detection above
-	  // so as a fallback we always set onload
-	  // old IE will ignore this and new IE will set onload
-	  if (!script.onload) {
-	    stdOnEnd(script, cb);
-	  }
-	
-	  head.appendChild(script)
-	}
-	
-	function setAttributes(script, attrs) {
-	  for (var attr in attrs) {
-	    script.setAttribute(attr, attrs[attr]);
-	  }
-	}
-	
-	function stdOnEnd (script, cb) {
-	  script.onload = function () {
-	    this.onerror = this.onload = null
-	    cb(null, script)
-	  }
-	  script.onerror = function () {
-	    // this.onload = null here is necessary
-	    // because even IE9 works not like others
-	    this.onerror = this.onload = null
-	    cb(new Error('Failed to load ' + this.src), script)
-	  }
-	}
-	
-	function ieOnEnd (script, cb) {
-	  script.onreadystatechange = function () {
-	    if (this.readyState != 'complete' && this.readyState != 'loaded') return
-	    this.onreadystatechange = null
-	    cb(null, script) // there is no way to catch loading errors in IE8
-	  }
-	}
-
-
-/***/ },
-
-/***/ 163:
+/***/ 162:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rcDialog = __webpack_require__(164);
+	var _rcDialog = __webpack_require__(163);
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _utils = __webpack_require__(177);
+	var _utils = __webpack_require__(176);
 	
-	var PopupPicker = _react2['default'].createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var PopupPicker = _react2["default"].createClass({
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
@@ -229,17 +146,17 @@ webpackJsonp([0],{
 	      if (!this.onDocumentClickListener) {
 	        this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
 	      }
-	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
+	      _reactDom2["default"].render(this.getModal(), this.popupContainer);
 	    } else {
 	      if (this.onDocumentClickListener) {
 	        this.onDocumentClickListener.remove();
 	        this.onDocumentClickListener = null;
 	      }
-	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	      _reactDom2["default"].unmountComponentAtNode(this.popupContainer);
 	    }
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	    _reactDom2["default"].unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
 	  onOk: function onOk() {
@@ -252,7 +169,7 @@ webpackJsonp([0],{
 	  },
 	  onTriggerClick: function onTriggerClick(e) {
 	    this.fireVisibleChange(!this.state.visible);
-	    var child = _react2['default'].Children.only(this.props.children);
+	    var child = _react2["default"].Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
 	      childProps.onClick(e);
@@ -270,27 +187,27 @@ webpackJsonp([0],{
 	  },
 	  getModal: function getModal() {
 	    var props = this.props;
-	    return _react2['default'].createElement(
-	      _rcDialog2['default'],
+	    return _react2["default"].createElement(
+	      _rcDialog2["default"],
 	      {
 	        prefixCls: '' + props.prefixCls,
 	        visible: true,
 	        closable: false,
 	        style: props.style
 	      },
-	      _react2['default'].createElement(
+	      _react2["default"].createElement(
 	        'div',
 	        { ref: this.saveModalContent },
-	        _react2['default'].createElement(
+	        _react2["default"].createElement(
 	          'div',
 	          { className: props.prefixCls + '-header' },
-	          _react2['default'].createElement(
+	          _react2["default"].createElement(
 	            'div',
 	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
-	          _react2['default'].createElement('div', { className: props.prefixCls + '-item' }),
-	          _react2['default'].createElement(
+	          _react2["default"].createElement('div', { className: props.prefixCls + '-item' }),
+	          _react2["default"].createElement(
 	            'div',
 	            { className: props.prefixCls + '-item', onClick: this.onOk },
 	            props.okText
@@ -317,29 +234,29 @@ webpackJsonp([0],{
 	    if (!children) {
 	      return null;
 	    }
-	    var child = _react2['default'].Children.only(children);
+	    var child = _react2["default"].Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
 	    };
-	    return _react2['default'].cloneElement(child, newChildProps);
+	    return _react2["default"].cloneElement(child, newChildProps);
 	  }
 	});
 	
-	exports['default'] = PopupPicker;
+	exports["default"] = PopupPicker;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 164:
+/***/ 163:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(165);
+	module.exports = __webpack_require__(164);
 
 /***/ },
 
-/***/ 165:
+/***/ 164:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -352,15 +269,15 @@ webpackJsonp([0],{
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Dialog = __webpack_require__(166);
+	var _Dialog = __webpack_require__(165);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
@@ -520,7 +437,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 166:
+/***/ 165:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -531,23 +448,23 @@ webpackJsonp([0],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(167);
+	var _KeyCode = __webpack_require__(166);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(168);
+	var _rcAnimate = __webpack_require__(167);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(176);
+	var _LazyRenderBox = __webpack_require__(175);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -881,7 +798,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 167:
+/***/ 166:
 /***/ function(module, exports) {
 
 	/**
@@ -1407,17 +1324,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 168:
+/***/ 167:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(169);
+	module.exports = __webpack_require__(168);
 
 /***/ },
 
-/***/ 169:
+/***/ 168:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1430,17 +1347,17 @@ webpackJsonp([0],{
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(170);
+	var _ChildrenUtils = __webpack_require__(169);
 	
-	var _AnimateChild = __webpack_require__(171);
+	var _AnimateChild = __webpack_require__(170);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(175);
+	var _util = __webpack_require__(174);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1748,7 +1665,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 170:
+/***/ 169:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1765,7 +1682,7 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -1867,7 +1784,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 171:
+/***/ 170:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1878,19 +1795,19 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(172);
+	var _cssAnimation = __webpack_require__(171);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(175);
+	var _util = __webpack_require__(174);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1971,13 +1888,13 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 172:
+/***/ 171:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Event = __webpack_require__(173);
-	var Css = __webpack_require__(174);
+	var Event = __webpack_require__(172);
+	var Css = __webpack_require__(173);
 	var isCssAnimationSupported = Event.endEvents.length !== 0;
 	
 	function getDuration(node, name) {
@@ -2130,7 +2047,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 173:
+/***/ 172:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2219,7 +2136,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 174:
+/***/ 173:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2251,7 +2168,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 175:
+/***/ 174:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2285,7 +2202,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 176:
+/***/ 175:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2296,7 +2213,7 @@ webpackJsonp([0],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(5);
+	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -2327,28 +2244,28 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 177:
+/***/ 176:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.addEventListener = addEventListener;
 	exports.contains = contains;
 	exports.noop = noop;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
 	function addEventListener(target, eventType, cb) {
 	  /* eslint camelcase: 2 */
-	  var callback = _reactDom2['default'].unstable_batchedUpdates ? function run(e) {
-	    _reactDom2['default'].unstable_batchedUpdates(cb, e);
+	  var callback = _reactDom2["default"].unstable_batchedUpdates ? function run(e) {
+	    _reactDom2["default"].unstable_batchedUpdates(cb, e);
 	  } : cb;
 	  target.addEventListener(eventType, callback, false);
 	  return {
