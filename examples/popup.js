@@ -54,6 +54,8 @@ webpackJsonp([0],{
 	        _react2["default"].createElement(
 	          _Popup2["default"],
 	          {
+	            popupTransitionName: 'rmc-picker-popup-slide-fade',
+	            maskTransitionName: 'rmc-picker-popup-fade',
 	            content: 'popup',
 	            onDismiss: this.onDismiss,
 	            onOk: this.onOk
@@ -114,7 +116,9 @@ webpackJsonp([0],{
 	    onVisibleChange: _react.PropTypes.func,
 	    children: _react.PropTypes.element,
 	    content: _react.PropTypes.any,
-	    onDismiss: _react.PropTypes.func
+	    onDismiss: _react.PropTypes.func,
+	    popupTransitionName: _react.PropTypes.string,
+	    maskTransitionName: _react.PropTypes.string
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
@@ -192,6 +196,8 @@ webpackJsonp([0],{
 	      {
 	        prefixCls: '' + props.prefixCls,
 	        visible: true,
+	        transitionName: props.popupTransitionName,
+	        maskTransitionName: props.maskTransitionName,
 	        closable: false,
 	        style: props.style
 	      },
