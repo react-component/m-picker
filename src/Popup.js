@@ -11,6 +11,8 @@ const PopupPicker = React.createClass({
     children: PropTypes.element,
     content: PropTypes.any,
     onDismiss: PropTypes.func,
+    popupTransitionName: PropTypes.string,
+    maskTransitionName: PropTypes.string,
   },
   getDefaultProps() {
     return {
@@ -86,6 +88,8 @@ const PopupPicker = React.createClass({
     return (<Modal
       prefixCls={`${props.prefixCls}`}
       visible
+      transitionName={props.popupTransitionName}
+      maskTransitionName={props.maskTransitionName}
       closable={false}
       style={props.style}
     >
