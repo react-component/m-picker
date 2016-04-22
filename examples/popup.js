@@ -25,7 +25,7 @@ const Demo = React.createClass({
           onDismiss={this.onDismiss}
           onOk={this.onOk}
         >
-          <button onClick={this.show}>{'open'}</button>
+          <button>{'open'}</button>
         </PopPicker>
       </div>
     </div>);
