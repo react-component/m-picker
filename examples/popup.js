@@ -57,6 +57,7 @@ webpackJsonp([0],{
 	            popupTransitionName: 'rmc-picker-popup-slide-fade',
 	            maskTransitionName: 'rmc-picker-popup-fade',
 	            content: 'popup',
+	            title: 'Picker',
 	            onDismiss: this.onDismiss,
 	            onOk: this.onOk
 	          },
@@ -126,6 +127,7 @@ webpackJsonp([0],{
 	      onVisibleChange: _utils.noop,
 	      okText: 'Ok',
 	      dismissText: 'Dismiss',
+	      title: '',
 	      style: {},
 	      onOk: _utils.noop,
 	      onDismiss: _utils.noop
@@ -212,7 +214,11 @@ webpackJsonp([0],{
 	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
-	          _react2["default"].createElement('div', { className: props.prefixCls + '-item' }),
+	          _react2["default"].createElement(
+	            'div',
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
+	            props.title
+	          ),
 	          _react2["default"].createElement(
 	            'div',
 	            { className: props.prefixCls + '-item', onClick: this.onOk },
@@ -383,7 +389,7 @@ webpackJsonp([0],{
 	    key: 'getDialogElement',
 	    value: function getDialogElement(extra) {
 	      var props = this.props;
-	      var dialogProps = copy(props, ['className', 'closable', 'maskClosable', 'title', 'footer', 'mask', 'keyboard', 'animation', 'transitionName', 'maskAnimation', 'maskTransitionName', 'mousePosition', 'prefixCls', 'style', 'width', 'height', 'zIndex', 'bodyStyle']);
+	      var dialogProps = copy(props, ['className', 'closable', 'maskClosable', 'title', 'footer', 'mask', 'keyboard', 'animation', 'transitionName', 'maskAnimation', 'maskTransitionName', 'mousePosition', 'prefixCls', 'style', 'width', 'wrapStyle', 'height', 'zIndex', 'bodyStyle', 'wrapClassName']);
 	      dialogProps = _extends({}, dialogProps, {
 	        onClose: this.onClose,
 	        visible: this.state.visible
@@ -430,6 +436,8 @@ webpackJsonp([0],{
 	DialogWrap.propTypes = {
 	  className: _react.PropTypes.string,
 	  keyboard: _react.PropTypes.bool,
+	  wrapStyle: _react.PropTypes.object,
+	  style: _react.PropTypes.object,
 	  mask: _react.PropTypes.bool,
 	  closable: _react.PropTypes.bool,
 	  maskClosable: _react.PropTypes.bool,
@@ -524,7 +532,9 @@ webpackJsonp([0],{
 	    closable: _react.PropTypes.bool,
 	    maskClosable: _react.PropTypes.bool,
 	    visible: _react.PropTypes.bool,
-	    mousePosition: _react.PropTypes.object
+	    mousePosition: _react.PropTypes.object,
+	    wrapStyle: _react.PropTypes.object,
+	    wrapClassName: _react.PropTypes.string
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
@@ -697,6 +707,9 @@ webpackJsonp([0],{
 	    }
 	    return style;
 	  },
+	  getWrapStyle: function getWrapStyle() {
+	    return _extends({}, this.getZIndexStyle(), this.props.wrapStyle);
+	  },
 	  getMaskElement: function getMaskElement() {
 	    var props = this.props;
 	    var maskElement = void 0;
@@ -771,7 +784,7 @@ webpackJsonp([0],{
 	  render: function render() {
 	    var props = this.props;
 	    var prefixCls = props.prefixCls;
-	    var style = this.getZIndexStyle();
+	    var style = this.getWrapStyle();
 	    // clear hide display
 	    // and only set display after async anim, not here for hide
 	    if (props.visible) {
@@ -786,7 +799,7 @@ webpackJsonp([0],{
 	        {
 	          tabIndex: '-1',
 	          onKeyDown: this.onKeyDown,
-	          className: prefixCls + '-wrap',
+	          className: prefixCls + '-wrap ' + (props.wrapClassName || ''),
 	          ref: 'wrap',
 	          onClick: this.onMaskClick,
 	          role: 'dialog',
@@ -2001,20 +2014,20 @@ webpackJsonp([0],{
 	
 	  _Event2["default"].addEndEventListener(node, node.rcEndListener);
 	
-	  nodeClasses.add(className);
-	
 	  if (start) {
 	    start();
 	  }
+	  nodeClasses.add(className);
 	
 	  node.rcAnimTimeout = setTimeout(function () {
 	    node.rcAnimTimeout = null;
 	    nodeClasses.add(activeClassName);
 	    if (active) {
-	      active();
+	      setTimeout(active, 0);
 	    }
 	    fixBrowserByTimeout(node);
-	  }, 0);
+	    // 30ms for firefox
+	  }, 30);
 	
 	  return {
 	    stop: function stop() {

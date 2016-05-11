@@ -60,6 +60,9 @@
   text-align: center;
   -webkit-tap-highlight-color: transparent;
 }
+.rmc-picker-popup-title {
+  color: #666;
+}
 .rmc-picker-popup-fade-enter,
 .rmc-picker-popup-fade-appear {
   opacity: 0;
