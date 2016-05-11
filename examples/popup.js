@@ -22,6 +22,7 @@ const Demo = React.createClass({
           popupTransitionName="rmc-picker-popup-slide-fade"
           maskTransitionName="rmc-picker-popup-fade"
           content="popup"
+          title="Picker"
           onDismiss={this.onDismiss}
           onOk={this.onOk}
         >

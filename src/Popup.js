@@ -20,6 +20,7 @@ const PopupPicker = React.createClass({
       onVisibleChange: noop,
       okText: 'Ok',
       dismissText: 'Dismiss',
+      title: '',
       style: {},
       onOk: noop,
       onDismiss: noop,
@@ -98,7 +99,7 @@ const PopupPicker = React.createClass({
           <div className={`${props.prefixCls}-item`} onClick={this.onDismiss}>
             {props.dismissText}
           </div>
-          <div className={`${props.prefixCls}-item`}></div>
+          <div className={`${props.prefixCls}-item ${props.prefixCls}-title`}>{props.title}</div>
           <div className={`${props.prefixCls}-item`} onClick={this.onOk}>
             {props.okText}
           </div>
