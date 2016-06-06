@@ -39,7 +39,8 @@
     "saucelabs": "rc-tools run saucelabs",
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
-    "coverage": "rc-tools run coverage"
+    "coverage": "rc-tools run coverage",
+    "rn-start": "rnpackager start"
   },
   "dependencies": {
     "rc-dialog": "6.x"
@@ -53,7 +54,8 @@
     "react": "0.14.x",
     "react-addons-test-utils": "0.14.x",
     "react-dom": "0.14.x",
-    "rn-core": "~0.3.5"
+    "rn-core": "~0.3.0",
+    "rn-packager": "~0.3.0"
   },
   "pre-commit": [
     "lint"
