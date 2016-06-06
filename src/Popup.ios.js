@@ -13,6 +13,10 @@ const PopupPicker = React.createClass({
     styles: PropTypes.object,
     content: PropTypes.any,
     onDismiss: PropTypes.func,
+    okText: PropTypes.string,
+    dismissText: PropTypes.string,
+    actionTextActiveOpacity: PropTypes.number,
+    actionTextUnderlayColor: PropTypes.string,
   },
   getDefaultProps() {
     return {
@@ -20,6 +24,8 @@ const PopupPicker = React.createClass({
       okText: 'Ok',
       dismissText: 'Dismiss',
       title: '',
+      actionTextUnderlayColor: '#a9d9d4',
+      actionTextActiveOpacity: 0.5,
       styles: {},
       onOk: noop,
       onDismiss: noop,
@@ -66,14 +72,24 @@ const PopupPicker = React.createClass({
       <View style={[styles.modal]}>
         <View style={[styles.modalContent]}>
           <View style={[styles.header]}>
-            <TouchableHighlight onPress={this.onDismiss} style={[styles.headerItem]}>
-              <Text style={[styles.dismissText]}>{props.dismissText}</Text>
+            <TouchableHighlight
+              onPress={this.onDismiss}
+              style={[styles.headerItem]}
+              activeOpacity={props.actionTextActiveOpacity}
+              underlayColor={props.actionTextUnderlayColor}
+            >
+              <Text style={[styles.actionText]}>{props.dismissText}</Text>
             </TouchableHighlight>
             <View style={[styles.headerItem]}>
               <Text style={[styles.title]}>{props.title}</Text>
             </View>
-            <TouchableHighlight onPress={this.onOk} style={[styles.headerItem]}>
-              <Text style={[styles.okText]}>{props.okText}</Text>
+            <TouchableHighlight
+              onPress={this.onOk}
+              style={[styles.headerItem]}
+              activeOpacity={props.actionTextActiveOpacity}
+              underlayColor={props.actionTextUnderlayColor}
+            >
+              <Text style={[styles.actionText]}>{props.okText}</Text>
             </TouchableHighlight>
           </View>
           {props.content}

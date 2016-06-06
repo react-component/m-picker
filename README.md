@@ -83,14 +83,10 @@ open coverage/ dir
 ## react-native
 
 ```
-npm i rn-packager@0.3.x -g
+npm run rn-start
 ```
 
-```
-rn-packager start
-```
-
-load `http://localhost:8081/examples/react-native/popup.bundle?platform=ios` in RNPlayground
+load `http://localhost:8081/examples/react-native/popup.bundle?platform=ios` in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 
 ## License

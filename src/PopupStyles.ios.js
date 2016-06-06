@@ -1,5 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+const textStyle = {
+  color: '#0ae',
+  fontSize: 18,
+  textAlign: 'center',
+};
+
 const styles = StyleSheet.create({
   modal: {
     flex: 1,
@@ -18,18 +24,10 @@ const styles = StyleSheet.create({
   headerItem: {
     flex: 1,
   },
-  okText: {
-    color: '#0ae',
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  dismissText: {
-    color: '#0ae',
-    fontSize: 18,
-  },
+  actionText: textStyle,
   title: {
+    ...textStyle,
     color: '#666',
-    fontSize: 18,
   },
 });
 
