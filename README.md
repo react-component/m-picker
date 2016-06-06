@@ -31,7 +31,7 @@ React Mobile Picker Component
 ## Development
 
 ```
-npm install
+npm i
 npm start
 ```
 
@@ -79,6 +79,18 @@ npm run coverage
 ```
 
 open coverage/ dir
+
+## react-native
+
+```
+npm i rn-packager@0.3.x -g
+```
+
+```
+rn-packager start
+```
+
+load `http://localhost:8081/examples/react-native/popup.bundle?platform=ios` in RNPlayground
 
 
 ## License

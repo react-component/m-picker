@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'rc-dialog';
-import { addEventListener, contains, noop } from './utils';
+import { addEventListener, contains, noop } from './utils.web';
 
 const PopupPicker = React.createClass({
   propTypes: {

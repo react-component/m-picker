@@ -6,7 +6,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import { Animate, easeOutCubic, easeInOutCubic } from './Animate';
+import { Animate, easeOutCubic, easeInOutCubic } from './Animate.web';
 
 const DECELERATION_VELOCITY_RATE = 0.95;
 // How much velocity is required to keep the deceleration running
