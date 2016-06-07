@@ -1,9 +1,9 @@
 /* eslint no-console:0 */
 
 import 'rmc-picker/assets/index.less';
-import Picker from 'rmc-picker';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import Picker from '../src/Picker.web';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 let count = 0;
 const len = 10;
 

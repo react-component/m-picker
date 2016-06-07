@@ -6,7 +6,7 @@ let counter = 1;
 export const Animate = {
   // A requestAnimationFrame wrapper / polyfill.
   requestAnimationFrame: (() => {
-    const requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+    const requestFrame = window.requestAnimationFrame || window['webkitRequestAnimationFrame'];
     return (callback) => {
       requestFrame(callback);
     };
@@ -27,7 +27,7 @@ export const Animate = {
   },
 
   // Start the animation.
-  start(stepCallback, verifyCallback, completedCallback, duration, easingMethod) {
+  start(stepCallback, verifyCallback, completedCallback, duration?, easingMethod?) {
     const start = Date.now();
     let lastFrame = start;
     let percent = 0;

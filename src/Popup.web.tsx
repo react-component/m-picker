@@ -1,45 +1,66 @@
-import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import Modal from 'rc-dialog';
-import { addEventListener, contains, noop } from './utils.web';
+import {addEventListener, contains, noop} from './utils.web';
+import ReactElement = __React.ReactElement;
 
-const PopupPicker = React.createClass({
-  propTypes: {
-    visible: PropTypes.bool,
-    onOk: PropTypes.func,
-    onVisibleChange: PropTypes.func,
-    children: PropTypes.element,
-    content: PropTypes.any,
-    onDismiss: PropTypes.func,
-    popupTransitionName: PropTypes.string,
-    maskTransitionName: PropTypes.string,
-  },
-  getDefaultProps() {
-    return {
-      prefixCls: 'rmc-picker-popup',
-      onVisibleChange: noop,
-      okText: 'Ok',
-      dismissText: 'Dismiss',
-      title: '',
-      style: {},
-      onOk: noop,
-      onDismiss: noop,
+export interface PopupPickerProps {
+  dismissText?:string;
+  okText?:string;
+  title?:string;
+  style?:CSSStyleDeclaration,
+  prefixCls?:string;
+  visible?:boolean;
+  onOk?:() => void;
+  onVisibleChange?:(visible:boolean) => void;
+  content?:React.ReactElement<any>|string;
+  onDismiss?:() => void;
+  popupTransitionName?:string;
+  maskTransitionName?:string;
+}
+
+export interface PopupPickerState {
+  visible:boolean;
+}
+
+export default class PopupPicker extends React.Component<PopupPickerProps, PopupPickerState> {
+  static defaultProps = {
+    prefixCls: 'rmc-picker-popup',
+    onVisibleChange: noop,
+    okText: 'Ok',
+    dismissText: 'Dismiss',
+    title: '',
+    style: {},
+    onOk: noop,
+    onDismiss: noop,
+  };
+
+  popupContainer:HTMLElement;
+
+  modalContent:HTMLElement;
+
+  onDocumentClickListener:{
+    remove:()=>void;
+  };
+
+  constructor(props:PopupPickerProps) {
+    super(props);
+    this.state = {
+      visible: props.visible || false,
     };
-  },
-  getInitialState() {
-    return {
-      visible: this.props.visible || false,
-    };
-  },
+  }
+
   componentDidMount() {
     this.popupContainer = document.createElement('div');
     document.body.appendChild(this.popupContainer);
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
-  },
+  }
+
   componentDidUpdate() {
     if (this.state.visible) {
       if (!this.onDocumentClickListener) {
@@ -53,19 +74,23 @@ const PopupPicker = React.createClass({
       }
       ReactDOM.unmountComponentAtNode(this.popupContainer);
     }
-  },
+  }
+
   componentWillUnmount() {
     ReactDOM.unmountComponentAtNode(this.popupContainer);
     document.body.removeChild(this.popupContainer);
-  },
+  }
+
   onOk() {
     this.fireVisibleChange(false);
     this.props.onOk();
-  },
+  }
+
   onDismiss() {
     this.fireVisibleChange(false);
     this.props.onDismiss();
-  },
+  }
+
   onTriggerClick(e) {
     this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
@@ -73,17 +98,20 @@ const PopupPicker = React.createClass({
     if (childProps.onClick) {
       childProps.onClick(e);
     }
-  },
+  }
+
   onDocumentClick(e) {
     if (e.target !== this.modalContent && !contains(this.modalContent, e.target)) {
       this.fireVisibleChange(false);
     }
-  },
+  }
+
   setVisibleState(visible) {
     this.setState({
       visible,
     });
-  },
+  }
+
   getModal() {
     const props = this.props;
     return (<Modal
@@ -107,10 +135,12 @@ const PopupPicker = React.createClass({
         {this.props.content}
       </div>
     </Modal>);
-  },
+  }
+
   saveModalContent(content) {
     this.modalContent = content;
-  },
+  }
+
   fireVisibleChange(visible) {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
@@ -118,7 +148,8 @@ const PopupPicker = React.createClass({
       }
       this.props.onVisibleChange(visible);
     }
-  },
+  }
+
   render() {
     const props = this.props;
     const children = props.children;
@@ -130,7 +161,5 @@ const PopupPicker = React.createClass({
       onClick: this.onTriggerClick,
     };
     return React.cloneElement(child, newChildProps);
-  },
-});
-
-export default PopupPicker;
+  }
+}

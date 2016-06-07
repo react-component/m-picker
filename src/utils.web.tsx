@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
 
 export function addEventListener(target, eventType, cb) {
   /* eslint camelcase: 2 */

@@ -2,10 +2,10 @@
 
 import 'rmc-picker/assets/index.less';
 import 'rmc-picker/assets/popup.less';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import PopPicker from 'rmc-picker/src/Popup';
+import PopPicker from '../src/Popup.web';
 
 const Demo = React.createClass({
   onOk() {

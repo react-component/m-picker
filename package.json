@@ -57,6 +57,7 @@
     "rn-core": "~0.3.0",
     "rn-packager": "~0.3.0"
   },
+  "typings": "./lib/index.web.d.ts",
   "pre-commit": [
     "lint"
   ]
