@@ -32,7 +32,9 @@ React Mobile Picker Component
 
 ```
 npm i
+npm i typescript -g
 npm start
+tsc --watch
 ```
 
 ## Example

@@ -4,9 +4,9 @@
 import '../assets/index.less';
 import expect from 'expect.js';
 import TestUtils from 'react-addons-test-utils';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Picker from 'rmc-picker';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import Picker from '../src/index.web';
 
 function offsetTop(el) {
   return el.getBoundingClientRect().top;

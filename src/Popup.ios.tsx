@@ -1,73 +1,84 @@
-import React, { PropTypes, Modal, View, TouchableHighlight, Text } from 'react-native';
+import React, {Component, Modal, View, TouchableHighlight, Text} from 'react-native';
 
 function noop() {
-
 }
 
-const PopupPicker = React.createClass({
-  propTypes: {
-    visible: PropTypes.bool,
-    onOk: PropTypes.func,
-    onVisibleChange: PropTypes.func,
-    children: PropTypes.element,
-    styles: PropTypes.object,
-    content: PropTypes.any,
-    onDismiss: PropTypes.func,
-    okText: PropTypes.string,
-    dismissText: PropTypes.string,
-    actionTextActiveOpacity: PropTypes.number,
-    actionTextUnderlayColor: PropTypes.string,
-  },
-  getDefaultProps() {
-    return {
-      onVisibleChange: noop,
-      okText: 'Ok',
-      dismissText: 'Dismiss',
-      title: '',
-      actionTextUnderlayColor: '#a9d9d4',
-      actionTextActiveOpacity: 0.5,
-      styles: {},
-      onOk: noop,
-      onDismiss: noop,
+export interface PopupPickerProps {
+  dismissText?:string;
+  okText?:string;
+  title?:string;
+  style?:any;
+  styles?:any;
+  visible?:boolean;
+  onOk?:() => void;
+  onVisibleChange?:(visible:boolean) => void;
+  content?:React.ReactElement<any>|string;
+  onDismiss?:() => void;
+  actionTextUnderlayColor?:string;
+  actionTextActiveOpacity?:number;
+}
+
+export interface PopupPickerState {
+  visible:boolean;
+}
+
+export default class PopupPicker extends Component<PopupPickerProps, PopupPickerState> {
+  static defaultProps = {
+    onVisibleChange: noop,
+    okText: 'Ok',
+    dismissText: 'Dismiss',
+    title: '',
+    actionTextUnderlayColor: '#a9d9d4',
+    actionTextActiveOpacity: 0.5,
+    styles: {},
+    onOk: noop,
+    onDismiss: noop,
+  };
+
+  constructor(props:PopupPickerProps) {
+    super(props);
+    this.state = {
+      visible: props.visible || false,
     };
-  },
-  getInitialState() {
-    return {
-      visible: this.props.visible || false,
-    };
-  },
-  componentWillReceiveProps(nextProps) {
+  }
+
+  componentWillReceiveProps(nextProps:PopupPickerProps) {
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
-  },
-  onOk() {
+  }
+
+  onOk = () => {
     this.fireVisibleChange(false);
     this.props.onOk();
-  },
-  onDismiss() {
+  };
+
+  onDismiss = () => {
     this.fireVisibleChange(false);
     this.props.onDismiss();
-  },
-  onTriggerClick(e) {
+  };
+
+  onTriggerClick = (e) => {
     this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
     const childProps = child.props || {};
     if (childProps.onPress) {
       childProps.onPress(e);
     }
-  },
+  };
+
   setVisibleState(visible) {
     this.setState({
       visible,
     });
-  },
+  }
+
   getModal() {
     if (!this.state.visible) {
       return null;
     }
-    const { props } = this;
-    const { styles } = props;
+    const {props} = this;
+    const {styles} = props;
     return (<Modal visible transparent animated animationType="slide">
       <View style={[styles.modal]}>
         <View style={[styles.modalContent]}>
@@ -96,7 +107,8 @@ const PopupPicker = React.createClass({
         </View>
       </View>
     </Modal>);
-  },
+  }
+
   fireVisibleChange(visible) {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
@@ -104,7 +116,8 @@ const PopupPicker = React.createClass({
       }
       this.props.onVisibleChange(visible);
     }
-  },
+  }
+
   render() {
     const props = this.props;
     const children = props.children;
@@ -119,7 +132,5 @@ const PopupPicker = React.createClass({
       {React.cloneElement(child, newChildProps)}
       {this.getModal()}
     </View>);
-  },
-});
-
-export default PopupPicker;
+  }
+}

@@ -34,7 +34,7 @@
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
     "pub": "rc-tools run pub",
-    "lint": "rc-tools run lint",
+    "lint": "rc-tools run lint --no-js-lint",
     "karma": "rc-tools run karma",
     "saucelabs": "rc-tools run saucelabs",
     "test": "rc-tools run test",
@@ -43,6 +43,7 @@
     "rn-start": "rnpackager start"
   },
   "dependencies": {
+    "object-assign": "4.x",
     "rc-dialog": "6.x"
   },
   "devDependencies": {

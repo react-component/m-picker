@@ -1,12 +1,12 @@
-import React, { View, TouchableHighlight, AppRegistry, StyleSheet, Text } from 'react-native';
-import Popup from 'rmc-picker/src/Popup';
+import React, {Component, View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
+import Popup from '../../src/Popup.ios';
 import PopupStyles from 'rmc-picker/src/PopupStyles';
 
 const styles = StyleSheet.create({
   button: {
     borderWidth: 1,
     borderColor: 'red',
-    padding: 4,
+    padding: 5,
     width: 100,
   },
   root: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PopupExample = React.createClass({
+class PopupExample extends Component<{}, {}> {
   render() {
     const popupContent = (<View style={styles.content}><Text>
       popupContent
@@ -30,14 +30,14 @@ const PopupExample = React.createClass({
     return (<Popup
       styles={PopupStyles}
       style={styles.root}
-      title="show popup"
+      title={'title'}
       content={popupContent}
     >
       <TouchableHighlight activeOpacity={0.5} style={[styles.button]} underlayColor="#a9d9d4">
         <Text>show popup</Text>
       </TouchableHighlight>
     </Popup>);
-  },
-});
+  }
+}
 
 AppRegistry.registerComponent('popup', () => PopupExample);

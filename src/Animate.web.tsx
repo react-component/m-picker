@@ -6,7 +6,8 @@ let counter = 1;
 export const Animate = {
   // A requestAnimationFrame wrapper / polyfill.
   requestAnimationFrame: (() => {
-    const requestFrame = window.requestAnimationFrame || window['webkitRequestAnimationFrame'];
+    const requestFrame = window.requestAnimationFrame || 
+      window.webkitRequestAnimationFrame;
     return (callback) => {
       requestFrame(callback);
     };
@@ -27,7 +28,8 @@ export const Animate = {
   },
 
   // Start the animation.
-  start(stepCallback, verifyCallback, completedCallback, duration?, easingMethod?) {
+  start(stepCallback, verifyCallback,
+        completedCallback, duration?, easingMethod?) {
     const start = Date.now();
     let lastFrame = start;
     let percent = 0;
@@ -62,8 +64,10 @@ export const Animate = {
         return;
       }
 
-      // For the current rendering to apply let's update omitted steps in memory.
-      // This is important to bring internal state constiables up-to-date with progress in time.
+      // For the current rendering to 
+      // apply let's update omitted steps in memory.
+      // This is important to bring internal 
+      // state constiables up-to-date with progress in time.
       if (render) {
         const droppedFrames = Math.round((now - lastFrame)
             / (MILLISECONDS_PER_SECOND / DESIRED_FRAMES)) - 1;

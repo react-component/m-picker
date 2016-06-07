@@ -7,7 +7,6 @@
 
 import * as React from 'react';
 import {Animate, easeOutCubic, easeInOutCubic} from './Animate.web';
-import Element = JSX.Element;
 
 const DECELERATION_VELOCITY_RATE = 0.95;
 // How much velocity is required to keep the deceleration running
@@ -57,16 +56,16 @@ function isChildrenEqual(c1, c2, pure) {
 }
 
 export interface PickerProps {
-  prefixCls?:string,
-  pure?:boolean,
-  defaultSelectedValue?:any,
-  children?:any,
-  selectedValue?: any,
-  onValueChange?:(value:any) => void,
+  prefixCls?:string;
+  pure?:boolean;
+  defaultSelectedValue?:any;
+  children?:any;
+  selectedValue?:any;
+  onValueChange?:(value:any) => void;
 }
 
 export interface PickerState {
-  selectedValue:any,
+  selectedValue:any;
 }
 
 export default class Picker extends React.Component<PickerProps, PickerState> {
@@ -77,32 +76,32 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
     },
   };
 
-  clientHeight: number;
-  contentHeight: number;
-  minScrollTop: number;
-  maxScrollTop: number;
-  isDecelerating: number;
-  isAnimating: number;
-  itemHeight: number;
-  scrollTop: number;
-  isTracking: boolean;
-  didDecelerationComplete: boolean;
-  isDragging: boolean;
-  scheduledTop: number;
-  lastTouchTop: number;
-  lastTouchMove: number;
-  positions: number[];
-  minDecelerationScrollTop: number;
-  maxDecelerationScrollTop: number;
-  decelerationVelocityY: number;
-  initialTouchTop: number;
-  enableScrollY: boolean;
+  clientHeight:number;
+  contentHeight:number;
+  minScrollTop:number;
+  maxScrollTop:number;
+  isDecelerating:number;
+  isAnimating:number;
+  itemHeight:number;
+  scrollTop:number;
+  isTracking:boolean;
+  didDecelerationComplete:boolean;
+  isDragging:boolean;
+  scheduledTop:number;
+  lastTouchTop:number;
+  lastTouchMove:number;
+  positions:number[];
+  minDecelerationScrollTop:number;
+  maxDecelerationScrollTop:number;
+  decelerationVelocityY:number;
+  initialTouchTop:number;
+  enableScrollY:boolean;
 
   refs:{
-    [key:string]: any;
-    content: HTMLElement;
-    component: HTMLElement;
-    indicator: HTMLElement;
+    [key:string]:any;
+    content:HTMLElement;
+    component:HTMLElement;
+    indicator:HTMLElement;
   };
 
   constructor(props:PickerProps) {
@@ -415,9 +414,9 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
     // Fully cleanup list
     this.positions.length = 0;
   }
-  
+
   // Applies the scroll position to the content element
-  publish(top, animationDuration?: number) {
+  publish(top, animationDuration?:number) {
     // Remember whether we had an animation,
     // then we try to continue based on the current "drive" of the animation
     const wasAnimating = this.isAnimating;

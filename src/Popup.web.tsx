@@ -2,13 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'rc-dialog';
 import {addEventListener, contains, noop} from './utils.web';
-import ReactElement = __React.ReactElement;
 
 export interface PopupPickerProps {
   dismissText?:string;
   okText?:string;
   title?:string;
-  style?:CSSStyleDeclaration,
+  style?:CSSStyleDeclaration;
   prefixCls?:string;
   visible?:boolean;
   onOk?:() => void;
@@ -40,7 +39,7 @@ export default class PopupPicker extends React.Component<PopupPickerProps, Popup
   modalContent:HTMLElement;
 
   onDocumentClickListener:{
-    remove:()=>void;
+    remove:() => void;
   };
 
   constructor(props:PopupPickerProps) {
@@ -81,30 +80,30 @@ export default class PopupPicker extends React.Component<PopupPickerProps, Popup
     document.body.removeChild(this.popupContainer);
   }
 
-  onOk() {
+  onOk = () => {
     this.fireVisibleChange(false);
     this.props.onOk();
-  }
+  };
 
-  onDismiss() {
+  onDismiss = () => {
     this.fireVisibleChange(false);
     this.props.onDismiss();
-  }
+  };
 
-  onTriggerClick(e) {
+  onTriggerClick = (e) => {
     this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
     const childProps = child.props || {};
     if (childProps.onClick) {
       childProps.onClick(e);
     }
-  }
+  };
 
-  onDocumentClick(e) {
+  onDocumentClick = (e) => {
     if (e.target !== this.modalContent && !contains(this.modalContent, e.target)) {
       this.fireVisibleChange(false);
     }
-  }
+  };
 
   setVisibleState(visible) {
     this.setState({
@@ -137,9 +136,9 @@ export default class PopupPicker extends React.Component<PopupPickerProps, Popup
     </Modal>);
   }
 
-  saveModalContent(content) {
+  saveModalContent = (content) => {
     this.modalContent = content;
-  }
+  };
 
   fireVisibleChange(visible) {
     if (this.state.visible !== visible) {
