@@ -1,1 +1,1 @@
-module.exports = require('./PopupStyles.ios');
+export { default } from './PopupStyles.ios';
