@@ -32,7 +32,8 @@ React Mobile Picker Component
 
 ```
 npm i
-npm i typescript -g
+npm i typescript typings -g
+typings install
 npm start
 tsc --watch
 ```
