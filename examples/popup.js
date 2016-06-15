@@ -72,11 +72,7 @@ webpackJsonp([0],{
 /***/ },
 
 /***/ 3:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
+2,
 
 /***/ 162:
 /***/ function(module, exports, __webpack_require__) {
