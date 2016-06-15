@@ -1,5 +1,11 @@
+export interface PickerItem {
+  value:string|number;
+  label:string;
+}
+
 export interface PickerProps {
-  children?:any;
+  children?:PickerItem[];
+  pure?:boolean;
   selectedValue?:any;
   onValueChange?:(value:any) => void;
 }

@@ -1,7 +1,7 @@
 # rmc-picker
 ---
 
-React Mobile Picker Component
+React Mobile Picker Component (web and react-native)
 
 
 [![NPM version][npm-image]][npm-url]
@@ -59,9 +59,9 @@ see example
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|className | additional css class of root dom node | String |  |
-|prefixCls | prefix class | String | '' |
-|defaultSelectedValue | default selected values corresponding to the input data above | string/number |  |
+|className(web) | additional css class of root dom node | String |  |
+|prefixCls(web) | prefix class | String | '' |
+|defaultSelectedValue(web) | default selected values corresponding to the input data above | string/number |  |
 |selectedValue | current selected values corresponding to the input data above | string/number |  |
 |onValueChange | fire when picker change | Function(value) |  |
 |children      | array of picker items | [{label, value}] |
@@ -89,7 +89,12 @@ open coverage/ dir
 npm run rn-start
 ```
 
-load `http://localhost:8081/examples/react-native/popup.bundle?platform=ios` in [RNPlayground](https://github.com/react-component/RNPlayground)
+load
+
+http://localhost:8081/examples/react-native/popup.bundle?platform=ios
+http://localhost:8081/examples/react-native/picker.bundle?platform=ios
+
+in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 
 ## License

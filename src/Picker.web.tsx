@@ -10,7 +10,8 @@ import {Animate, easeOutCubic, easeInOutCubic} from './Animate.web';
 import {PickerProps} from './PickerTypes';
 import Hammer from 'react-hammerjs';
 import assign from 'object-assign';
-import {getComputedStyle, isChildrenEqual} from './utils.web';
+import {getComputedStyle } from './utils.web';
+import isChildrenEqual from './isChildrenEqual';
 
 const DECELERATION_VELOCITY_RATE = 0.95;
 // How much velocity is required to keep the deceleration running
@@ -31,7 +32,6 @@ const HAMMER_DOWN = 16;
 
 export interface PickerPropsWeb extends PickerProps {
   prefixCls?:string;
-  pure?:boolean;
   defaultSelectedValue?:any;
 }
 

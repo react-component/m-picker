@@ -1,6 +1,10 @@
 # History
 ----
 
+## 3.0.0 / 2016-06-15
+
+- support hammerjs and react-native
+
 ## 2.2.0 / 2016-01-05
 
 - support defaultSelectedValue
