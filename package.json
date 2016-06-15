@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -60,7 +60,7 @@
     "rn-core": "~0.3.0",
     "rn-packager": "~0.3.0"
   },
-  "typings": "./lib/index",
+  "typings": "./lib/index.web.d.ts",
   "pre-commit": [
     "lint"
   ]

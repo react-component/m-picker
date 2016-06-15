@@ -1,5 +1,5 @@
 import React, {Component, View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
-import { Picker } from '../../src/index.ios';
+import Picker from '../../src/index.ios';
 
 let count = 0;
 const len = 10;
