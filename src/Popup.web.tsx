@@ -2,27 +2,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'rc-dialog';
 import {addEventListener, contains, noop} from './utils.web';
+import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
 
-export interface PopupPickerProps {
-  dismissText?:string;
-  okText?:string;
-  title?:string;
+export interface PopupPickerPropsWeb extends PopupPickerProps {
   style?:CSSStyleDeclaration;
   prefixCls?:string;
-  visible?:boolean;
-  onOk?:() => void;
-  onVisibleChange?:(visible:boolean) => void;
-  content?:React.ReactElement<any>|string;
-  onDismiss?:() => void;
   popupTransitionName?:string;
   maskTransitionName?:string;
 }
 
-export interface PopupPickerState {
-  visible:boolean;
-}
-
-export default class PopupPicker extends React.Component<PopupPickerProps, PopupPickerState> {
+export default class PopupPicker extends React.Component<PopupPickerPropsWeb, PopupPickerState> {
   static defaultProps = {
     prefixCls: 'rmc-picker-popup',
     onVisibleChange: noop,

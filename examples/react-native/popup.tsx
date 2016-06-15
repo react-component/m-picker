@@ -1,6 +1,6 @@
 import React, {Component, View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
 import Popup from '../../src/Popup.ios';
-import PopupStyles from 'rmc-picker/src/PopupStyles';
+import PopupStyles from '../../src/PopupStyles.ios';
 
 const styles = StyleSheet.create({
   button: {

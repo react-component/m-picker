@@ -30,6 +30,7 @@
     "port": 8020
   },
   "scripts": {
+    "watch-tsc": "rc-tools run watch-tsc",
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
@@ -44,7 +45,8 @@
   },
   "dependencies": {
     "object-assign": "4.x",
-    "rc-dialog": "6.x"
+    "rc-dialog": "6.x",
+    "react-hammerjs": "0.4.x"
   },
   "devDependencies": {
     "array-tree-filter": "1.x",

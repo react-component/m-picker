@@ -1,28 +1,17 @@
 import React, {Component, Modal, View, TouchableHighlight, Text} from 'react-native';
+import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
 
 function noop() {
 }
 
-export interface PopupPickerProps {
-  dismissText?:string;
-  okText?:string;
-  title?:string;
+export interface PopupPickerPropsIOS extends PopupPickerProps {
   style?:any;
   styles?:any;
-  visible?:boolean;
-  onOk?:() => void;
-  onVisibleChange?:(visible:boolean) => void;
-  content?:React.ReactElement<any>|string;
-  onDismiss?:() => void;
   actionTextUnderlayColor?:string;
   actionTextActiveOpacity?:number;
 }
 
-export interface PopupPickerState {
-  visible:boolean;
-}
-
-export default class PopupPicker extends Component<PopupPickerProps, PopupPickerState> {
+export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPickerState> {
   static defaultProps = {
     onVisibleChange: noop,
     okText: 'Ok',

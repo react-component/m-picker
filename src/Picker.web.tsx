@@ -7,95 +7,62 @@
 
 import * as React from 'react';
 import {Animate, easeOutCubic, easeInOutCubic} from './Animate.web';
+import {PickerProps} from './PickerTypes';
+import Hammer from 'react-hammerjs';
+import assign from 'object-assign';
+import {getComputedStyle, isChildrenEqual} from './utils.web';
 
 const DECELERATION_VELOCITY_RATE = 0.95;
 // How much velocity is required to keep the deceleration running
 const MIN_VELOCITY_TO_KEEP_DECELERATING = 0.5;
 const POSITION_MAX_LENGTH = 40;
-const MINIUM_TRACKING_FOR_SCROLL = 0;
-const MINIUM_TRACKING_FOR_DRAG = 5;
 const DEFAULT_ANIM_DURATION = 250;
 const TIME_FRAME = 100;
 // How much velocity is required to start the deceleration
 const MIN_VELOCITY_TO_START_DECELERATION = 4;
-
-function assign(to, from) {
-  for (const key in from) {
-    if (from.hasOwnProperty(key)) {
-      to[key] = from[key];
+const hammerOption = {
+  recognizers: {
+    pan: {
+      threshold: 5
     }
   }
-}
+};
+const HAMMER_DOWN = 16;
 
-function getComputedStyle(el, key) {
-  const computedStyle = window.getComputedStyle(el);
-  return computedStyle[key] || '';
-}
-
-function isEmptyArray(a) {
-  return !a || !a.length;
-}
-
-function isChildrenEqual(c1, c2, pure) {
-  if (isEmptyArray(c1) && isEmptyArray(c2)) {
-    return true;
-  }
-  if (pure) {
-    return c1 === c2;
-  }
-  if (c1.length !== c2.length) {
-    return false;
-  }
-  const len = c1.length;
-  for (let i = 0; i < len; i++) {
-    if (c1[i].value !== c2[i].value || c1[i].label !== c2[i].label) {
-      return false;
-    }
-  }
-  return true;
-}
-
-export interface PickerProps {
+export interface PickerPropsWeb extends PickerProps {
   prefixCls?:string;
   pure?:boolean;
   defaultSelectedValue?:any;
-  children?:any;
-  selectedValue?:any;
-  onValueChange?:(value:any) => void;
 }
 
 export interface PickerState {
   selectedValue:any;
 }
 
-export default class Picker extends React.Component<PickerProps, PickerState> {
+export default class Picker extends React.Component<PickerPropsWeb, PickerState> {
   static defaultProps = {
     prefixCls: 'rmc-picker',
     pure: true,
     onValueChange() {
     },
   };
-
+  startScrollTop:number;
   clientHeight:number;
   contentHeight:number;
   minScrollTop:number;
   maxScrollTop:number;
   isDecelerating:number;
   isAnimating:number;
+  lastTouchMove:number;
   itemHeight:number;
   scrollTop:number;
   isTracking:boolean;
   didDecelerationComplete:boolean;
-  isDragging:boolean;
   scheduledTop:number;
-  lastTouchTop:number;
-  lastTouchMove:number;
   positions:number[];
   minDecelerationScrollTop:number;
   maxDecelerationScrollTop:number;
   decelerationVelocityY:number;
-  initialTouchTop:number;
-  enableScrollY:boolean;
 
   refs:{
     [key:string]:any;
@@ -104,7 +71,7 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
     indicator:HTMLElement;
   };
 
-  constructor(props:PickerProps) {
+  constructor(props:PickerPropsWeb) {
     super(props);
     let selectedValueState;
     const {selectedValue, defaultSelectedValue, children} = props;
@@ -121,11 +88,31 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
   }
 
   componentDidMount() {
-    this.init();
-    const {component} = this.refs;
-    component.addEventListener('touchstart', this.onTouchStart, false);
-    component.addEventListener('touchmove', this.onTouchMove, false);
-    component.addEventListener('touchend', this.onTouchEnd, false);
+    assign(this, {
+      isTracking: false,
+      didDecelerationComplete: false,
+      isDecelerating: false,
+      isAnimating: false,
+      clientHeight: 0,
+      contentHeight: 0,
+      itemHeight: 0,
+      scrollTop: 0,
+      minScrollTop: 0,
+      maxScrollTop: 0,
+      scheduledTop: 0,
+      positions: [],
+      minDecelerationScrollTop: 0,
+      maxDecelerationScrollTop: 0,
+      decelerationVelocityY: 0,
+    });
+
+    const {indicator, component, content} = this.refs;
+
+    this.itemHeight = parseInt(getComputedStyle(indicator, 'height'), 10);
+
+    this.setDimensions(component.clientHeight, content.offsetHeight);
+
+    this.select(this.state.selectedValue, false);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -143,34 +130,121 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
 
   componentDidUpdate(prevProps) {
     if (!isChildrenEqual(prevProps.children, this.props.children, this.props.pure)) {
-      this.init();
+      this.componentDidMount();
     } else {
       this.select(this.state.selectedValue, false);
     }
   }
 
   componentWillUnmount() {
-    const {component} = this.refs;
-    component.removeEventListener('touchstart', this.onTouchStart, false);
-    component.removeEventListener('touchmove', this.onTouchMove, false);
-    component.removeEventListener('touchend', this.onTouchEnd, false);
     this.clearAnim();
   }
 
-  onTouchEnd = (e) => {
-    this.doTouchEnd(+e.timeStamp);
-  };
-
-  onTouchMove = (e) => {
-    this.doTouchMove(e.touches, +e.timeStamp);
-  };
-
-  onTouchStart = (e) => {
+  onPanStart = (e) => {
     if (e.target.tagName.match(/input|textarea|select/i)) {
       return;
     }
     e.preventDefault();
-    this.doTouchStart(e.touches, +e.timeStamp);
+    this.clearAnim();
+    this.lastTouchMove = Date.now();
+    this.isTracking = true;
+    this.didDecelerationComplete = false;
+    this.positions = [];
+    this.startScrollTop = this.scrollTop;
+  };
+
+  onPan = (e) => {
+    // Ignore event when tracking is not enabled (event might be outside of element)
+    if (!this.isTracking) {
+      return;
+    }
+
+    const timeStamp = Date.now();
+
+    this.lastTouchMove = timeStamp;
+
+    const positions = this.positions;
+    
+    let scrollTop = this.startScrollTop + (e.offsetDirection === HAMMER_DOWN ? -e.distance : e.distance);
+
+    const minScrollTop = this.minScrollTop;
+    const maxScrollTop = this.maxScrollTop;
+
+    if (scrollTop > maxScrollTop || scrollTop < minScrollTop) {
+      // Slow down on the edges
+      if (scrollTop > maxScrollTop) {
+        scrollTop = maxScrollTop;
+      } else {
+        scrollTop = minScrollTop;
+      }
+    }
+
+    // Keep list from growing infinitely (holding min 10, max 20 measure points)
+    if (positions.length > POSITION_MAX_LENGTH) {
+      positions.splice(0, POSITION_MAX_LENGTH / 2);
+    }
+
+    // Track scroll movement for declaration
+    positions.push(scrollTop, timeStamp);
+
+    // Sync scroll position
+    this.publish(scrollTop);
+    // Otherwise figure out whether we are switching into dragging mode now.
+  };
+
+  onPanEnd = () => {
+    // Ignore event when tracking is not enabled (no touchstart event on element)
+    // This is required as this listener ('touchmove')
+    // sits on the document and not on the element itself.
+    if (!this.isTracking) {
+      return;
+    }
+
+    const timeStamp = Date.now();
+
+    // Not touching anymore (when two finger hit the screen there are two touch end events)
+    this.isTracking = false;
+
+    // Be sure to reset the dragging flag now. Here we also detect whether
+    // the finger has moved fast enough to switch into a deceleration animation.
+
+
+    // Start deceleration
+    // Verify that the last move detected was in some relevant time frame
+    if ((timeStamp - this.lastTouchMove) <= TIME_FRAME) {
+      // Then figure out what the scroll position was about 100ms ago
+      const positions = this.positions;
+      const endPos = positions.length - 1;
+      let startPos = endPos;
+
+      // Move pointer to position measured 100ms ago
+      for (let i = endPos; i > 0 && positions[i] > (this.lastTouchMove - TIME_FRAME); i -= 2) {
+        startPos = i;
+      }
+
+      // If start and stop position is identical in a 100ms timeframe,
+      // we cannot compute any useful deceleration.
+      if (startPos !== endPos) {
+        // Compute relative movement between these two points
+        const timeOffset = positions[endPos] - positions[startPos];
+        const movedTop = this.scrollTop - positions[startPos - 1];
+
+        // Based on 50ms compute the movement to apply for each render step
+        this.decelerationVelocityY = movedTop / timeOffset * (1000 / 60);
+
+        // Verify that we have enough velocity to start deceleration
+        if (Math.abs(this.decelerationVelocityY) > MIN_VELOCITY_TO_START_DECELERATION) {
+          this.startDeceleration();
+        }
+      }
+    }
+
+    if (!this.isDecelerating) {
+      this.scrollTo(this.scrollTop);
+    }
+
+    // Fully cleanup list
+    this.positions.length = 0;
   };
 
   setTop(top) {
@@ -200,37 +274,6 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
       Animate.stop(this.isAnimating);
       this.isAnimating = 0;
     }
-  }
-
-  init() {
-    assign(this, {
-      isTracking: false,
-      didDecelerationComplete: false,
-      isDragging: false,
-      isDecelerating: false,
-      isAnimating: false,
-      clientHeight: 0,
-      contentHeight: 0,
-      itemHeight: 0,
-      scrollTop: 0,
-      minScrollTop: 0,
-      maxScrollTop: 0,
-      scheduledTop: 0,
-      lastTouchTop: 0,
-      lastTouchMove: 0,
-      positions: [],
-      minDecelerationScrollTop: 0,
-      maxDecelerationScrollTop: 0,
-      decelerationVelocityY: 0,
-    });
-
-    const {indicator, component, content} = this.refs;
-
-    this.itemHeight = parseInt(getComputedStyle(indicator, 'height'), 10);
-
-    this.setDimensions(component.clientHeight, content.offsetHeight);
-
-    this.select(this.state.selectedValue, false);
   }
 
   selectByIndex(index, animate) {
@@ -289,130 +332,6 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
     if (child) {
       this.fireValueChange(child.value);
     }
-  }
-
-  doTouchStart(touches, timeStamp) {
-    this.clearAnim();
-    this.initialTouchTop = this.lastTouchTop = touches[0].pageY;
-    this.lastTouchMove = timeStamp;
-    this.enableScrollY = false;
-    this.isTracking = true;
-    this.didDecelerationComplete = false;
-    this.isDragging = false;
-    this.positions = [];
-  }
-
-  doTouchMove(touches, timeStamp) {
-    // Ignore event when tracking is not enabled (event might be outside of element)
-    if (!this.isTracking) {
-      return;
-    }
-
-    const currentTouchTop = touches[0].pageY;
-
-    const positions = this.positions;
-
-    // Are we already is dragging mode?
-    if (this.isDragging) {
-      const moveY = currentTouchTop - this.lastTouchTop;
-      let scrollTop = this.scrollTop;
-
-      if (this.enableScrollY) {
-        scrollTop -= moveY;
-
-        const minScrollTop = this.minScrollTop;
-        const maxScrollTop = this.maxScrollTop;
-
-        if (scrollTop > maxScrollTop || scrollTop < minScrollTop) {
-          // Slow down on the edges
-          if (scrollTop > maxScrollTop) {
-            scrollTop = maxScrollTop;
-          } else {
-            scrollTop = minScrollTop;
-          }
-        }
-      }
-
-      // Keep list from growing infinitely (holding min 10, max 20 measure points)
-      if (positions.length > POSITION_MAX_LENGTH) {
-        positions.splice(0, POSITION_MAX_LENGTH / 2);
-      }
-
-      // Track scroll movement for declaration
-      positions.push(scrollTop, timeStamp);
-
-      // Sync scroll position
-      this.publish(scrollTop);
-      // Otherwise figure out whether we are switching into dragging mode now.
-    } else {
-      const distanceY = Math.abs(currentTouchTop - this.initialTouchTop);
-
-      this.enableScrollY = distanceY >= MINIUM_TRACKING_FOR_SCROLL;
-
-      positions.push(this.scrollTop, timeStamp);
-
-      this.isDragging = this.enableScrollY && (distanceY >= MINIUM_TRACKING_FOR_DRAG);
-    }
-
-    // Update last touch positions and time stamp for next event
-    this.lastTouchTop = currentTouchTop;
-    this.lastTouchMove = timeStamp;
-  }
-
-  doTouchEnd(timeStamp) {
-    // Ignore event when tracking is not enabled (no touchstart event on element)
-    // This is required as this listener ('touchmove')
-    // sits on the document and not on the element itself.
-    if (!this.isTracking) {
-      return;
-    }
-
-    // Not touching anymore (when two finger hit the screen there are two touch end events)
-    this.isTracking = false;
-
-    // Be sure to reset the dragging flag now. Here we also detect whether
-    // the finger has moved fast enough to switch into a deceleration animation.
-    if (this.isDragging) {
-      // Reset dragging flag
-      this.isDragging = false;
-
-      // Start deceleration
-      // Verify that the last move detected was in some relevant time frame
-      if ((timeStamp - this.lastTouchMove) <= TIME_FRAME) {
-        // Then figure out what the scroll position was about 100ms ago
-        const positions = this.positions;
-        const endPos = positions.length - 1;
-        let startPos = endPos;
-
-        // Move pointer to position measured 100ms ago
-        for (let i = endPos; i > 0 && positions[i] > (this.lastTouchMove - TIME_FRAME); i -= 2) {
-          startPos = i;
-        }
-
-        // If start and stop position is identical in a 100ms timeframe,
-        // we cannot compute any useful deceleration.
-        if (startPos !== endPos) {
-          // Compute relative movement between these two points
-          const timeOffset = positions[endPos] - positions[startPos];
-          const movedTop = this.scrollTop - positions[startPos - 1];
-
-          // Based on 50ms compute the movement to apply for each render step
-          this.decelerationVelocityY = movedTop / timeOffset * (1000 / 60);
-
-          // Verify that we have enough velocity to start deceleration
-          if (Math.abs(this.decelerationVelocityY) > MIN_VELOCITY_TO_START_DECELERATION) {
-            this.startDeceleration();
-          }
-        }
-      }
-    }
-
-    if (!this.isDecelerating) {
-      this.scrollTo(this.scrollTop);
-    }
-
-    // Fully cleanup list
-    this.positions.length = 0;
   }
 
   // Applies the scroll position to the content element
@@ -537,12 +456,21 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
         {item.label}
       </div>);
     });
-    return (<div className={`${prefixCls}`} data-role="component" ref="component">
-      <div className={`${prefixCls}-mask`} data-role="mask"/>
-      <div className={`${prefixCls}-indicator`} data-role="indicator" ref="indicator"/>
-      <div className={`${prefixCls}-content`} data-role="content" ref="content">
-        {items}
-      </div>
-    </div>);
+    return (
+      <Hammer
+        vertical
+        onPanStart={this.onPanStart}
+        onPan={this.onPan}
+        onPanEnd={this.onPanEnd}
+        options={hammerOption}
+      >
+        <div className={`${prefixCls}`} data-role="component" ref="component">
+          <div className={`${prefixCls}-mask`} data-role="mask"/>
+          <div className={`${prefixCls}-indicator`} data-role="indicator" ref="indicator"/>
+          <div className={`${prefixCls}-content`} data-role="content" ref="content">
+            {items}
+          </div>
+        </div>
+      </Hammer>);
   }
 }

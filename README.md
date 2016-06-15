@@ -32,10 +32,10 @@ React Mobile Picker Component
 
 ```
 npm i
-npm i typescript typings -g
+npm i typings -g
 typings install
 npm start
-tsc --watch
+npm run watch-tsc
 ```
 
 ## Example
