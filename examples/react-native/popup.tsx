@@ -1,5 +1,5 @@
 import React, {Component, View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
-import { Popup, PopupStyles } from '../../src/index.ios';
+import { Popup, PopupStyles } from '../../src/index';
 
 const styles = StyleSheet.create({
   button: {
