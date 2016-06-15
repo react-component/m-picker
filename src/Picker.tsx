@@ -1,4 +1,5 @@
-import React, {Component, Picker} from 'react-native';
+import React, {Component} from 'react-native';
+import Picker from './NativePicker';
 import {PickerProps} from './PickerTypes';
 import isChildrenEqual from './isChildrenEqual';
 

@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -46,7 +46,8 @@
   "dependencies": {
     "object-assign": "4.x",
     "rc-dialog": "6.x",
-    "react-hammerjs": "0.4.x"
+    "react-hammerjs": "0.4.x",
+    "react-native-picker-android": "~0.3.8"
   },
   "devDependencies": {
     "array-tree-filter": "1.x",
