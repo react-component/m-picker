@@ -2,14 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Modal from 'rc-dialog';
 import {addEventListener, contains, noop} from './utils.web';
-import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
-
-export interface PopupPickerPropsWeb extends PopupPickerProps {
-  style?:CSSStyleDeclaration;
-  prefixCls?:string;
-  popupTransitionName?:string;
-  maskTransitionName?:string;
-}
+import {PopupPickerPropsWeb, PopupPickerState} from './PopupPickerTypes';
 
 export default class PopupPicker extends React.Component<PopupPickerPropsWeb, PopupPickerState> {
   static defaultProps = {

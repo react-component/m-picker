@@ -12,3 +12,10 @@ export interface PopupPickerProps {
 export interface PopupPickerState {
   visible:boolean;
 }
+
+export interface PopupPickerPropsWeb extends PopupPickerProps {
+  style?:CSSStyleDeclaration;
+  prefixCls?:string;
+  popupTransitionName?:string;
+  maskTransitionName?:string;
+}
