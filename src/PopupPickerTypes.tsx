@@ -14,7 +14,7 @@ export interface PopupPickerState {
 }
 
 export interface PopupPickerPropsWeb extends PopupPickerProps {
-  style?:CSSStyleDeclaration;
+  style?:React.CSSProperties;
   prefixCls?:string;
   popupTransitionName?:string;
   maskTransitionName?:string;
