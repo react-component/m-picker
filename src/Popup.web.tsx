@@ -24,7 +24,7 @@ export default class PopupPicker extends React.Component<PopupPickerPropsWeb, Po
     remove:() => void;
   };
 
-  constructor(props:PopupPickerProps) {
+  constructor(props:PopupPickerPropsWeb) {
     super(props);
     this.state = {
       visible: props.visible || false,
@@ -63,22 +63,22 @@ export default class PopupPicker extends React.Component<PopupPickerPropsWeb, Po
   }
 
   onOk = () => {
-    this.fireVisibleChange(false);
     this.props.onOk();
+    this.fireVisibleChange(false);
   };
 
   onDismiss = () => {
-    this.fireVisibleChange(false);
     this.props.onDismiss();
+    this.fireVisibleChange(false);
   };
 
   onTriggerClick = (e) => {
-    this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
     const childProps = child.props || {};
     if (childProps.onClick) {
       childProps.onClick(e);
     }
+    this.fireVisibleChange(!this.state.visible);
   };
 
   onDocumentClick = (e) => {
