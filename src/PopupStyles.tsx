@@ -19,8 +19,12 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
+    height: 44,
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e7e7e7',
   },
   headerItem: {
     flex: 1,
