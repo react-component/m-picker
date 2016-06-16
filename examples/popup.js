@@ -118,20 +118,20 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
 	
 	        _this.onOk = function () {
-	            _this.fireVisibleChange(false);
 	            _this.props.onOk();
+	            _this.fireVisibleChange(false);
 	        };
 	        _this.onDismiss = function () {
-	            _this.fireVisibleChange(false);
 	            _this.props.onDismiss();
+	            _this.fireVisibleChange(false);
 	        };
 	        _this.onTriggerClick = function (e) {
-	            _this.fireVisibleChange(!_this.state.visible);
 	            var child = React.Children.only(_this.props.children);
 	            var childProps = child.props || {};
 	            if (childProps.onClick) {
 	                childProps.onClick(e);
 	            }
+	            _this.fireVisibleChange(!_this.state.visible);
 	        };
 	        _this.onDocumentClick = function (e) {
 	            if (e.target !== _this.modalContent && !(0, _utils.contains)(_this.modalContent, e.target)) {
