@@ -1,5 +1,5 @@
 import React, {Component, Modal, View, TouchableHighlight, Text} from 'react-native';
-import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
+import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
 
 function noop() {
 }
@@ -23,7 +23,7 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
     onOk: noop,
     onDismiss: noop,
   };
-
+  
   constructor(props:PopupPickerProps) {
     super(props);
     this.state = {
@@ -33,7 +33,9 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
 
   componentWillReceiveProps(nextProps:PopupPickerProps) {
     if ('visible' in nextProps) {
-      this.setVisibleState(nextProps.visible);
+      this.setState({
+        visible: nextProps.visible,
+      });
     }
   }
 
@@ -55,12 +57,6 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
     }
     this.fireVisibleChange(!this.state.visible);
   };
-
-  setVisibleState(visible) {
-    this.setState({
-      visible,
-    });
-  }
 
   getModal() {
     if (!this.state.visible) {
@@ -101,7 +97,9 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
   fireVisibleChange(visible) {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
-        this.setVisibleState(visible);
+        this.setState({
+          visible,
+        });
       }
       this.props.onVisibleChange(visible);
     }
@@ -111,7 +109,7 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
     const props = this.props;
     const children = props.children;
     if (!children) {
-      return null;
+      return this.getModal();
     }
     const child = React.Children.only(children);
     const newChildProps = {
