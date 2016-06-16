@@ -38,22 +38,22 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
   }
 
   onOk = () => {
-    this.fireVisibleChange(false);
     this.props.onOk();
+    this.fireVisibleChange(false);
   };
 
   onDismiss = () => {
-    this.fireVisibleChange(false);
     this.props.onDismiss();
+    this.fireVisibleChange(false);
   };
 
   onTriggerClick = (e) => {
-    this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
     const childProps = child.props || {};
     if (childProps.onPress) {
       childProps.onPress(e);
     }
+    this.fireVisibleChange(!this.state.visible);
   };
 
   setVisibleState(visible) {
