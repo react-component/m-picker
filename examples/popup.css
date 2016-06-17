@@ -5,6 +5,9 @@
   width: 100%;
   background-color: #fff;
 }
+.rmc-picker-popup-close {
+  display: none;
+}
 .rmc-picker-popup-wrap {
   position: fixed;
   overflow: auto;
@@ -59,6 +62,7 @@
 }
 .rmc-picker-popup-title {
   color: #666;
+  cursor: default;
 }
 .rmc-picker-popup-fade-enter,
 .rmc-picker-popup-fade-appear {

@@ -3,19 +3,19 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(178);
+	module.exports = __webpack_require__(190);
 
 
 /***/ },
 
-/***/ 178:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(2);
 	
-	var _Picker = __webpack_require__(179);
+	var _Picker = __webpack_require__(191);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -23,7 +23,7 @@ webpackJsonp([1],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(41);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
@@ -88,7 +88,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 179:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101,19 +101,19 @@ webpackJsonp([1],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _Animate = __webpack_require__(180);
+	var _Animate = __webpack_require__(192);
 	
-	var _reactHammerjs = __webpack_require__(181);
+	var _reactHammerjs = __webpack_require__(193);
 	
 	var _reactHammerjs2 = _interopRequireDefault(_reactHammerjs);
 	
-	var _objectAssign = __webpack_require__(183);
+	var _objectAssign = __webpack_require__(7);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _utils = __webpack_require__(177);
+	var _utils = __webpack_require__(195);
 	
-	var _isChildrenEqual = __webpack_require__(184);
+	var _isChildrenEqual = __webpack_require__(196);
 	
 	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
 	
@@ -539,7 +539,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 180:
+/***/ 192:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -660,15 +660,15 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 181:
+/***/ 193:
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(4);
-	var ReactDOM = __webpack_require__(161);
+	var ReactDOM = __webpack_require__(41);
 	
 	// require('hammerjs') when in a browser. This is safe because Hammer is only
 	// invoked in componentDidMount, which is not executed on the server.
-	var Hammer = (typeof window !== 'undefined') ? __webpack_require__(182) : undefined;
+	var Hammer = (typeof window !== 'undefined') ? __webpack_require__(194) : undefined;
 	
 	var privateProps = {
 		children: true,
@@ -802,7 +802,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 182:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -3452,97 +3452,25 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 183:
+/***/ 195:
 /***/ function(module, exports) {
 
 	'use strict';
-	/* eslint-disable no-unused-vars */
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 	
-	function toObject(val) {
-		if (val === null || val === undefined) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-	
-		return Object(val);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.noop = noop;
+	exports.getComputedStyle = getComputedStyle;
+	function noop() {}
+	function getComputedStyle(el, key) {
+	    var computedStyle = window.getComputedStyle(el);
+	    return computedStyle[key] || '';
 	}
-	
-	function shouldUseNative() {
-		try {
-			if (!Object.assign) {
-				return false;
-			}
-	
-			// Detect buggy property enumeration order in older V8 versions.
-	
-			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line
-			test1[5] = 'de';
-			if (Object.getOwnPropertyNames(test1)[0] === '5') {
-				return false;
-			}
-	
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test2 = {};
-			for (var i = 0; i < 10; i++) {
-				test2['_' + String.fromCharCode(i)] = i;
-			}
-			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-				return test2[n];
-			});
-			if (order2.join('') !== '0123456789') {
-				return false;
-			}
-	
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test3 = {};
-			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-				test3[letter] = letter;
-			});
-			if (Object.keys(Object.assign({}, test3)).join('') !==
-					'abcdefghijklmnopqrst') {
-				return false;
-			}
-	
-			return true;
-		} catch (e) {
-			// We don't expect any of the above to throw, but better to be safe.
-			return false;
-		}
-	}
-	
-	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
-		var from;
-		var to = toObject(target);
-		var symbols;
-	
-		for (var s = 1; s < arguments.length; s++) {
-			from = Object(arguments[s]);
-	
-			for (var key in from) {
-				if (hasOwnProperty.call(from, key)) {
-					to[key] = from[key];
-				}
-			}
-	
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
-				for (var i = 0; i < symbols.length; i++) {
-					if (propIsEnumerable.call(from, symbols[i])) {
-						to[symbols[i]] = from[symbols[i]];
-					}
-				}
-			}
-		}
-	
-		return to;
-	};
-
 
 /***/ },
 
-/***/ 184:
+/***/ 196:
 /***/ function(module, exports) {
 
 	"use strict";

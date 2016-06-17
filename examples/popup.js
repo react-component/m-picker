@@ -21,11 +21,11 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(41);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _Popup = __webpack_require__(162);
+	var _Popup = __webpack_require__(171);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
@@ -74,28 +74,30 @@ webpackJsonp([0],{
 /***/ 3:
 2,
 
-/***/ 162:
+/***/ 171:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(4);
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(161);
-	
-	var ReactDOM = _interopRequireWildcard(_reactDom);
-	
-	var _rcDialog = __webpack_require__(163);
+	var _rcDialog = __webpack_require__(172);
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _utils = __webpack_require__(177);
+	var _reactMixin = __webpack_require__(186);
+	
+	var _reactMixin2 = _interopRequireDefault(_reactMixin);
+	
+	var _PopupMixin = __webpack_require__(188);
+	
+	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -110,163 +112,75 @@ webpackJsonp([0],{
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
 	var PopupPicker = function (_React$Component) {
-	    _inherits(PopupPicker, _React$Component);
+	  _inherits(PopupPicker, _React$Component);
 	
-	    function PopupPicker(props) {
-	        _classCallCheck(this, PopupPicker);
+	  function PopupPicker() {
+	    _classCallCheck(this, PopupPicker);
 	
-	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
+	    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	  }
 	
-	        _this.onOk = function () {
-	            _this.props.onOk();
-	            _this.fireVisibleChange(false);
-	        };
-	        _this.onDismiss = function () {
-	            _this.props.onDismiss();
-	            _this.fireVisibleChange(false);
-	        };
-	        _this.onTriggerClick = function (e) {
-	            var child = React.Children.only(_this.props.children);
-	            var childProps = child.props || {};
-	            if (childProps.onClick) {
-	                childProps.onClick(e);
-	            }
-	            _this.fireVisibleChange(!_this.state.visible);
-	        };
-	        _this.onDocumentClick = function (e) {
-	            if (e.target !== _this.modalContent && !(0, _utils.contains)(_this.modalContent, e.target)) {
-	                _this.fireVisibleChange(false);
-	            }
-	        };
-	        _this.saveModalContent = function (content) {
-	            _this.modalContent = content;
-	        };
-	        _this.state = {
-	            visible: props.visible || false
-	        };
-	        return _this;
+	  PopupPicker.prototype.getModal = function getModal() {
+	    var props = this.props;
+	    if (!this.state.visible) {
+	      return null;
 	    }
+	    return React.createElement(
+	      _rcDialog2.default,
+	      { prefixCls: '' + props.prefixCls, visible: true, transitionName: props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.modalStyle },
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: props.prefixCls + '-header' },
+	          React.createElement(
+	            'div',
+	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
+	            props.dismissText
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
+	            props.title
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: props.prefixCls + '-item', onClick: this.onOk },
+	            props.okText
+	          )
+	        ),
+	        this.props.content
+	      )
+	    );
+	  };
 	
-	    PopupPicker.prototype.componentDidMount = function componentDidMount() {
-	        this.popupContainer = document.createElement('div');
-	        document.body.appendChild(this.popupContainer);
-	    };
-	
-	    PopupPicker.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        if ('visible' in nextProps) {
-	            this.setVisibleState(nextProps.visible);
-	        }
-	    };
-	
-	    PopupPicker.prototype.componentDidUpdate = function componentDidUpdate() {
-	        if (this.state.visible) {
-	            if (!this.onDocumentClickListener) {
-	                this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
-	            }
-	            ReactDOM.render(this.getModal(), this.popupContainer);
-	        } else {
-	            if (this.onDocumentClickListener) {
-	                this.onDocumentClickListener.remove();
-	                this.onDocumentClickListener = null;
-	            }
-	            ReactDOM.unmountComponentAtNode(this.popupContainer);
-	        }
-	    };
-	
-	    PopupPicker.prototype.componentWillUnmount = function componentWillUnmount() {
-	        ReactDOM.unmountComponentAtNode(this.popupContainer);
-	        document.body.removeChild(this.popupContainer);
-	    };
-	
-	    PopupPicker.prototype.setVisibleState = function setVisibleState(visible) {
-	        this.setState({
-	            visible: visible
-	        });
-	    };
-	
-	    PopupPicker.prototype.getModal = function getModal() {
-	        var props = this.props;
-	        return React.createElement(
-	            _rcDialog2.default,
-	            { prefixCls: '' + props.prefixCls, visible: true, transitionName: props.popupTransitionName, maskTransitionName: props.maskTransitionName, closable: false, style: props.style },
-	            React.createElement(
-	                'div',
-	                { ref: this.saveModalContent },
-	                React.createElement(
-	                    'div',
-	                    { className: props.prefixCls + '-header' },
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item', onClick: this.onDismiss },
-	                        props.dismissText
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
-	                        props.title
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item', onClick: this.onOk },
-	                        props.okText
-	                    )
-	                ),
-	                this.props.content
-	            )
-	        );
-	    };
-	
-	    PopupPicker.prototype.fireVisibleChange = function fireVisibleChange(visible) {
-	        if (this.state.visible !== visible) {
-	            if (!('visible' in this.props)) {
-	                this.setVisibleState(visible);
-	            }
-	            this.props.onVisibleChange(visible);
-	        }
-	    };
-	
-	    PopupPicker.prototype.render = function render() {
-	        var props = this.props;
-	        var children = props.children;
-	        if (!children) {
-	            return null;
-	        }
-	        var child = React.Children.only(children);
-	        var newChildProps = {
-	            onClick: this.onTriggerClick
-	        };
-	        return React.cloneElement(child, newChildProps);
-	    };
-	
-	    return PopupPicker;
+	  return PopupPicker;
 	}(React.Component);
 	
 	exports.default = PopupPicker;
 	
 	PopupPicker.defaultProps = {
-	    prefixCls: 'rmc-picker-popup',
-	    onVisibleChange: _utils.noop,
-	    okText: 'Ok',
-	    dismissText: 'Dismiss',
-	    title: '',
-	    style: {},
-	    onOk: _utils.noop,
-	    onDismiss: _utils.noop
+	  prefixCls: 'rmc-picker-popup',
+	  modalStyle: {},
+	  triggerType: 'onClick',
+	  WrapComponent: 'span'
 	};
+	_reactMixin2.default.onClass(PopupPicker, _PopupMixin2.default);
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 163:
+/***/ 172:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(164);
+	module.exports = __webpack_require__(173);
 
 /***/ },
 
-/***/ 164:
+/***/ 173:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -283,11 +197,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(41);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Dialog = __webpack_require__(165);
+	var _Dialog = __webpack_require__(174);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
@@ -451,7 +365,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 165:
+/***/ 174:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -466,19 +380,19 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(41);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(166);
+	var _KeyCode = __webpack_require__(175);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(167);
+	var _rcAnimate = __webpack_require__(176);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(176);
+	var _LazyRenderBox = __webpack_require__(185);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -884,7 +798,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 166:
+/***/ 175:
 /***/ function(module, exports) {
 
 	/**
@@ -1410,17 +1324,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 167:
+/***/ 176:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(168);
+	module.exports = __webpack_require__(177);
 
 /***/ },
 
-/***/ 168:
+/***/ 177:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1437,13 +1351,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(169);
+	var _ChildrenUtils = __webpack_require__(178);
 	
-	var _AnimateChild = __webpack_require__(170);
+	var _AnimateChild = __webpack_require__(179);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(175);
+	var _util = __webpack_require__(184);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1751,7 +1665,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 169:
+/***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1870,7 +1784,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 170:
+/***/ 179:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1885,15 +1799,15 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(41);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(171);
+	var _cssAnimation = __webpack_require__(180);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(175);
+	var _util = __webpack_require__(184);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1918,7 +1832,7 @@ webpackJsonp([0],{
 	    if (_util2['default'].isEnterSupported(this.props)) {
 	      this.transition('enter', done);
 	    } else {
-	      done();
+	      setTimeout(done,0);
 	    }
 	  },
 	
@@ -1926,7 +1840,7 @@ webpackJsonp([0],{
 	    if (_util2['default'].isAppearSupported(this.props)) {
 	      this.transition('appear', done);
 	    } else {
-	      done();
+	      setTimeout(done,0);
 	    }
 	  },
 	
@@ -1934,7 +1848,7 @@ webpackJsonp([0],{
 	    if (_util2['default'].isLeaveSupported(this.props)) {
 	      this.transition('leave', done);
 	    } else {
-	      done();
+	      setTimeout(done,0);
 	    }
 	  },
 	
@@ -1974,7 +1888,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 171:
+/***/ 180:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1983,11 +1897,11 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(172);
+	var _Event = __webpack_require__(181);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(173);
+	var _componentClasses = __webpack_require__(182);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -2165,7 +2079,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 172:
+/***/ 181:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2259,7 +2173,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 173:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2267,9 +2181,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(174);
+	  var index = __webpack_require__(183);
 	} catch (err) {
-	  var index = __webpack_require__(174);
+	  var index = __webpack_require__(183);
 	}
 	
 	/**
@@ -2457,7 +2371,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 174:
+/***/ 183:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2470,7 +2384,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 175:
+/***/ 184:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2504,7 +2418,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 176:
+/***/ 185:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2543,6 +2457,455 @@ webpackJsonp([0],{
 	
 	exports["default"] = LazyRenderBox;
 	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 186:
+/***/ function(module, exports, __webpack_require__) {
+
+	var mixin = __webpack_require__(187);
+	var assign = __webpack_require__(7);
+	
+	var mixinProto = mixin({
+	  // lifecycle stuff is as you'd expect
+	  componentDidMount: mixin.MANY,
+	  componentWillMount: mixin.MANY,
+	  componentWillReceiveProps: mixin.MANY,
+	  shouldComponentUpdate: mixin.ONCE,
+	  componentWillUpdate: mixin.MANY,
+	  componentDidUpdate: mixin.MANY,
+	  componentWillUnmount: mixin.MANY,
+	  getChildContext: mixin.MANY_MERGED
+	});
+	
+	function setDefaultProps(reactMixin) {
+	  var getDefaultProps = reactMixin.getDefaultProps;
+	
+	  if (getDefaultProps) {
+	    reactMixin.defaultProps = getDefaultProps();
+	
+	    delete reactMixin.getDefaultProps;
+	  }
+	}
+	
+	function setInitialState(reactMixin) {
+	  var getInitialState = reactMixin.getInitialState;
+	  var componentWillMount = reactMixin.componentWillMount;
+	
+	  function applyInitialState(instance) {
+	    var state = instance.state || {};
+	    assign(state, getInitialState.call(instance));
+	    instance.state = state;
+	  }
+	
+	  if (getInitialState) {
+	    if (!componentWillMount) {
+	      reactMixin.componentWillMount = function() {
+	        applyInitialState(this);
+	      };
+	    } else {
+	      reactMixin.componentWillMount = function() {
+	        applyInitialState(this);
+	        componentWillMount.call(this);
+	      };
+	    }
+	
+	    delete reactMixin.getInitialState;
+	  }
+	}
+	
+	function mixinClass(reactClass, reactMixin) {
+	  setDefaultProps(reactMixin);
+	  setInitialState(reactMixin);
+	
+	  var prototypeMethods = {};
+	  var staticProps = {};
+	
+	  Object.keys(reactMixin).forEach(function(key) {
+	    if (key === 'mixins') {
+	      return; // Handled below to ensure proper order regardless of property iteration order
+	    }
+	    if (key === 'statics') {
+	      return; // gets special handling
+	    } else if (typeof reactMixin[key] === 'function') {
+	      prototypeMethods[key] = reactMixin[key];
+	    } else {
+	      staticProps[key] = reactMixin[key];
+	    }
+	  });
+	
+	  mixinProto(reactClass.prototype, prototypeMethods);
+	
+	  var mergePropTypes = function(left, right, key) {
+	    if (!left) return right;
+	    if (!right) return left;
+	
+	    var result = {};
+	    Object.keys(left).forEach(function(leftKey) {
+	      if (!right[leftKey]) {
+	        result[leftKey] = left[leftKey];
+	      }
+	    });
+	
+	    Object.keys(right).forEach(function(rightKey) {
+	      if (left[rightKey]) {
+	        result[rightKey] = function checkBothContextTypes() {
+	          return right[rightKey].apply(this, arguments) && left[rightKey].apply(this, arguments);
+	        };
+	      } else {
+	        result[rightKey] = right[rightKey];
+	      }
+	    });
+	
+	    return result;
+	  };
+	
+	  mixin({
+	    childContextTypes: mergePropTypes,
+	    contextTypes: mergePropTypes,
+	    propTypes: mixin.MANY_MERGED_LOOSE,
+	    defaultProps: mixin.MANY_MERGED_LOOSE
+	  })(reactClass, staticProps);
+	
+	  // statics is a special case because it merges directly onto the class
+	  if (reactMixin.statics) {
+	    Object.getOwnPropertyNames(reactMixin.statics).forEach(function(key) {
+	      var left = reactClass[key];
+	      var right = reactMixin.statics[key];
+	
+	      if (left !== undefined && right !== undefined) {
+	        throw new TypeError('Cannot mixin statics because statics.' + key + ' and Component.' + key + ' are defined.');
+	      }
+	
+	      reactClass[key] = left !== undefined ? left : right;
+	    });
+	  }
+	
+	  // If more mixins are defined, they need to run. This emulate's react's behavior.
+	  // See behavior in code at:
+	  // https://github.com/facebook/react/blob/41aa3496aa632634f650edbe10d617799922d265/src/isomorphic/classic/class/ReactClass.js#L468
+	  // Note the .reverse(). In React, a fresh constructor is created, then all mixins are mixed in recursively,
+	  // then the actual spec is mixed in last.
+	  //
+	  // With ES6 classes, the properties are already there, so smart-mixin mixes functions (a, b) -> b()a(), which is
+	  // the opposite of how React does it. If we reverse this array, we basically do the whole logic in reverse,
+	  // which makes the result the same. See the test for more.
+	  // See also:
+	  // https://github.com/facebook/react/blob/41aa3496aa632634f650edbe10d617799922d265/src/isomorphic/classic/class/ReactClass.js#L853
+	  if (reactMixin.mixins) {
+	    reactMixin.mixins.reverse().forEach(mixinClass.bind(null, reactClass));
+	  }
+	
+	  return reactClass;
+	}
+	
+	module.exports = (function() {
+	  var reactMixin = mixinProto;
+	
+	  reactMixin.onClass = function(reactClass, mixin) {
+	    // we mutate the mixin so let's clone it
+	    mixin = assign({}, mixin);
+	    return mixinClass(reactClass, mixin);
+	  };
+	
+	  reactMixin.decorate = function(mixin) {
+	    return function(reactClass) {
+	      return reactMixin.onClass(reactClass, mixin);
+	    };
+	  };
+	
+	  return reactMixin;
+	})();
+
+
+/***/ },
+
+/***/ 187:
+/***/ function(module, exports) {
+
+	function objToStr(x){ return Object.prototype.toString.call(x); };
+	
+	function returner(x) { return x; }
+	
+	function wrapIfFunction(thing){
+	    return typeof thing !== "function" ? thing
+	    : function(){
+	        return thing.apply(this, arguments);
+	    };
+	}
+	
+	function setNonEnumerable(target, key, value){
+	    if (key in target){
+	        target[key] = value;
+	    }
+	    else {
+	        Object.defineProperty(target, key, {
+	            value: value,
+	            writable: true,
+	            configurable: true
+	        });
+	    }
+	}
+	
+	function defaultNonFunctionProperty(left, right, key){
+	    if (left !== undefined && right !== undefined) {
+	        var getTypeName = function(obj){
+	            if (obj && obj.constructor && obj.constructor.name) {
+	                return obj.constructor.name;
+	            }
+	            else {
+	                return objToStr(obj).slice(8, -1);
+	            }
+	        };
+	        throw new TypeError('Cannot mixin key ' + key + ' because it is provided by multiple sources, '
+	                + 'and the types are ' + getTypeName(left) + ' and ' + getTypeName(right));
+	    }
+	    return left === undefined ? right : left;
+	};
+	
+	function assertObject(obj, obj2){
+	    var type = objToStr(obj);
+	    if (type !== '[object Object]') {
+	        var displayType = obj.constructor ? obj.constructor.name : 'Unknown';
+	        var displayType2 = obj2.constructor ? obj2.constructor.name : 'Unknown';
+	        throw new Error('cannot merge returned value of type ' + displayType + ' with an ' + displayType2);
+	    }
+	};
+	
+	
+	var mixins = module.exports = function makeMixinFunction(rules, _opts){
+	    var opts = _opts || {};
+	
+	    if (!opts.unknownFunction) {
+	        opts.unknownFunction = mixins.ONCE;
+	    }
+	
+	    if (!opts.nonFunctionProperty) {
+	        opts.nonFunctionProperty = defaultNonFunctionProperty;
+	    }
+	
+	    return function applyMixin(source, mixin){
+	        Object.keys(mixin).forEach(function(key){
+	            var left = source[key], right = mixin[key], rule = rules[key];
+	
+	            // this is just a weird case where the key was defined, but there's no value
+	            // behave like the key wasn't defined
+	            if (left === undefined && right === undefined) return;
+	
+	            // do we have a rule for this key?
+	            if (rule) {
+	                // may throw here
+	                var fn = rule(left, right, key);
+	                setNonEnumerable(source, key, wrapIfFunction(fn));
+	                return;
+	            }
+	
+	            var leftIsFn = typeof left === "function";
+	            var rightIsFn = typeof right === "function";
+	
+	            // check to see if they're some combination of functions or undefined
+	            // we already know there's no rule, so use the unknown function behavior
+	            if (leftIsFn && right === undefined
+	             || rightIsFn && left === undefined
+	             || leftIsFn && rightIsFn) {
+	                // may throw, the default is ONCE so if both are functions
+	                // the default is to throw
+	                setNonEnumerable(source, key, wrapIfFunction(opts.unknownFunction(left, right, key)));
+	                return;
+	            }
+	
+	            // we have no rule for them, one may be a function but one or both aren't
+	            // our default is MANY_MERGED_LOOSE which will merge objects, concat arrays
+	            // and throw if there's a type mismatch or both are primitives (how do you merge 3, and "foo"?)
+	            source[key] = opts.nonFunctionProperty(left, right, key);
+	        });
+	    };
+	};
+	
+	mixins._mergeObjects = function(obj1, obj2) {
+	    if (Array.isArray(obj1) && Array.isArray(obj2)) {
+	        return obj1.concat(obj2);
+	    }
+	
+	    assertObject(obj1, obj2);
+	    assertObject(obj2, obj1);
+	
+	    var result = {};
+	    Object.keys(obj1).forEach(function(k){
+	        if (Object.prototype.hasOwnProperty.call(obj2, k)) {
+	            throw new Error('cannot merge returns because both have the ' + JSON.stringify(k) + ' key');
+	        }
+	        result[k] = obj1[k];
+	    });
+	
+	    Object.keys(obj2).forEach(function(k){
+	        // we can skip the conflict check because all conflicts would already be found
+	        result[k] = obj2[k];
+	    });
+	    return result;
+	};
+	
+	// define our built-in mixin types
+	mixins.ONCE = function(left, right, key){
+	    if (left && right) {
+	        throw new TypeError('Cannot mixin ' + key + ' because it has a unique constraint.');
+	    }
+	    return left || right;
+	};
+	
+	mixins.MANY = function(left, right, key){
+	    return function(){
+	        if (right) right.apply(this, arguments);
+	        return left ? left.apply(this, arguments) : undefined;
+	    };
+	};
+	
+	mixins.MANY_MERGED_LOOSE = function(left, right, key) {
+	    if (left && right) {
+	        return mixins._mergeObjects(left, right);
+	    }
+	    return left || right;
+	};
+	
+	mixins.MANY_MERGED = function(left, right, key){
+	    return function(){
+	        var res1 = right && right.apply(this, arguments);
+	        var res2 = left && left.apply(this, arguments);
+	        if (res1 && res2) {
+	            return mixins._mergeObjects(res1, res2)
+	        }
+	        return res2 || res1;
+	    };
+	};
+	
+	mixins.REDUCE_LEFT = function(_left, _right, key){
+	    var left = _left || returner;
+	    var right = _right || returner;
+	    return function(){
+	        return right.call(this, left.apply(this, arguments));
+	    };
+	};
+	
+	mixins.REDUCE_RIGHT = function(_left, _right, key){
+	    var left = _left || returner;
+	    var right = _right || returner;
+	    return function(){
+	        return left.call(this, right.apply(this, arguments));
+	    };
+	};
+	
+
+
+/***/ },
+
+/***/ 188:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _React = __webpack_require__(189);
+	
+	var _React2 = _interopRequireDefault(_React);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function noop() {}
+	var binds = {
+	    onTriggerClick: function onTriggerClick(e) {
+	        var child = this.props.children;
+	        var childProps = child.props || {};
+	        if (childProps[this.props.triggerType]) {
+	            childProps[this.props.triggerType](e);
+	        }
+	        this.fireVisibleChange(!this.state.visible);
+	    },
+	    onOk: function onOk() {
+	        this.props.onOk();
+	        this.fireVisibleChange(false);
+	    },
+	    onDismiss: function onDismiss() {
+	        this.props.onDismiss();
+	        this.fireVisibleChange(false);
+	    },
+	    hide: function hide() {
+	        this.fireVisibleChange(false);
+	    }
+	};
+	exports.default = {
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            onVisibleChange: noop,
+	            okText: 'Ok',
+	            dismissText: 'Dismiss',
+	            title: '',
+	            onOk: noop,
+	            onDismiss: noop
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            visible: this.props.visible || false
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if ('visible' in nextProps) {
+	            this.setVisibleState(nextProps.visible);
+	        }
+	    },
+	    componentWillMount: function componentWillMount() {
+	        var _this = this;
+	
+	        Object.keys(binds).forEach(function (k) {
+	            _this[k] = binds[k].bind(_this);
+	        });
+	    },
+	    setVisibleState: function setVisibleState(visible) {
+	        this.setState({
+	            visible: visible
+	        });
+	    },
+	    fireVisibleChange: function fireVisibleChange(visible) {
+	        if (this.state.visible !== visible) {
+	            if (!('visible' in this.props)) {
+	                this.setVisibleState(visible);
+	            }
+	            this.props.onVisibleChange(visible);
+	        }
+	    },
+	    render: function render() {
+	        var props = this.props;
+	        var children = props.children;
+	        if (!children) {
+	            return this.getModal();
+	        }
+	        var WrapComponent = this.props.WrapComponent;
+	
+	        var child = children;
+	        var newChildProps = _defineProperty({}, props.triggerType, this.onTriggerClick);
+	        return _React2.default.createElement(
+	            WrapComponent,
+	            { style: props.style },
+	            _React2.default.cloneElement(child, newChildProps),
+	            this.getModal()
+	        );
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 189:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(4);
 
 /***/ }
 
