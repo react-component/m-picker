@@ -1,8 +1,7 @@
 import React, {Component, Modal, View, TouchableHighlight, Text} from 'react-native';
 import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
-
-function noop() {
-}
+import reactMixin from 'react-mixin';
+import PopupMixin from './PopupMixin';
 
 export interface PopupPickerPropsIOS extends PopupPickerProps {
   style?:any;
@@ -13,50 +12,16 @@ export interface PopupPickerPropsIOS extends PopupPickerProps {
 
 export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPickerState> {
   static defaultProps = {
-    onVisibleChange: noop,
-    okText: 'Ok',
-    dismissText: 'Dismiss',
-    title: '',
     actionTextUnderlayColor: '#a9d9d4',
     actionTextActiveOpacity: 0.5,
+    triggerType: 'onPress',
     styles: {},
-    onOk: noop,
-    onDismiss: noop,
-  };
-  
-  constructor(props:PopupPickerProps) {
-    super(props);
-    this.state = {
-      visible: props.visible || false,
-    };
-  }
-
-  componentWillReceiveProps(nextProps:PopupPickerProps) {
-    if ('visible' in nextProps) {
-      this.setState({
-        visible: nextProps.visible,
-      });
-    }
-  }
-
-  onOk = () => {
-    this.props.onOk();
-    this.fireVisibleChange(false);
+    WrapComponent: View,
   };
 
-  onDismiss = () => {
-    this.props.onDismiss();
-    this.fireVisibleChange(false);
-  };
+  onDismiss:() => void;
 
-  onTriggerClick = (e) => {
-    const child = React.Children.only(this.props.children);
-    const childProps = child.props || {};
-    if (childProps.onPress) {
-      childProps.onPress(e);
-    }
-    this.fireVisibleChange(!this.state.visible);
-  };
+  onOk:() => void;
 
   getModal() {
     if (!this.state.visible) {
@@ -93,31 +58,6 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
       </View>
     </Modal>);
   }
-
-  fireVisibleChange(visible) {
-    if (this.state.visible !== visible) {
-      if (!('visible' in this.props)) {
-        this.setState({
-          visible,
-        });
-      }
-      this.props.onVisibleChange(visible);
-    }
-  }
-
-  render() {
-    const props = this.props;
-    const children = props.children;
-    if (!children) {
-      return this.getModal();
-    }
-    const child = React.Children.only(children);
-    const newChildProps = {
-      onPress: this.onTriggerClick,
-    };
-    return (<View style={props.style}>
-      {React.cloneElement(child, newChildProps)}
-      {this.getModal()}
-    </View>);
-  }
 }
+
+reactMixin.onClass(PopupPicker, PopupMixin);

@@ -1,7 +1,10 @@
 export interface PopupPickerProps {
   dismissText?:string;
+  triggerType?:string;
+  WrapComponent:any;
   okText?:string;
   title?:string;
+  style?:React.CSSProperties;
   visible?:boolean;
   onOk?:() => void;
   onVisibleChange?:(visible:boolean) => void;
@@ -14,7 +17,7 @@ export interface PopupPickerState {
 }
 
 export interface PopupPickerPropsWeb extends PopupPickerProps {
-  style?:React.CSSProperties;
+  modalStyle?:React.CSSProperties;
   prefixCls?:string;
   popupTransitionName?:string;
   maskTransitionName?:string;
