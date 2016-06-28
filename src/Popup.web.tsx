@@ -19,7 +19,7 @@ export default class PopupPicker extends React.Component<PopupPickerPropsWeb, Po
   onOk:() => void;
 
   hide:() => void;
-  
+
   getModal() {
     const props = this.props;
     if (!this.state.visible) {
@@ -35,11 +35,11 @@ export default class PopupPicker extends React.Component<PopupPickerPropsWeb, Po
     >
       <div>
         <div className={`${props.prefixCls}-header`}>
-          <div className={`${props.prefixCls}-item`} onClick={this.onDismiss}>
+          <div className={`${props.prefixCls}-item ${props.prefixCls}-header-left`} onClick={this.onDismiss}>
             {props.dismissText}
           </div>
           <div className={`${props.prefixCls}-item ${props.prefixCls}-title`}>{props.title}</div>
-          <div className={`${props.prefixCls}-item`} onClick={this.onOk}>
+          <div className={`${props.prefixCls}-item ${props.prefixCls}-header-right`} onClick={this.onOk}>
             {props.okText}
           </div>
         </div>

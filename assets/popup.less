@@ -39,13 +39,24 @@
   }
 
   &-header {
-    display: flex;
-    align-items: center;
+    // display: flex;
+    // align-items: center;
     background-image: -webkit-linear-gradient(top, #e7e7e7, #e7e7e7, transparent, transparent);
     background-image: linear-gradient(to bottom, #e7e7e7, #e7e7e7, transparent, transparent);
     background-position: bottom;
     background-size: 100% 1px;
     background-repeat: no-repeat;
+    position: relative;
+    &-left {
+      position: absolute;
+      left: 16px;
+      top: 0;
+    }
+    &-right {
+      position: absolute;
+      right: 16px;
+      top: 0;
+    }
   }
 
   &-item {
@@ -55,7 +66,7 @@
     line-height: 44px;
     cursor: pointer;
     box-sizing: border-box;
-    flex: 1;
+    // flex: 1;
     text-align: center;
     -webkit-tap-highlight-color: transparent;
   }
