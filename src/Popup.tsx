@@ -1,4 +1,5 @@
-import React, {Component, Modal, View, TouchableHighlight, Text} from 'react-native';
+import {Modal, View, TouchableHighlight, Text} from 'react-native';
+import * as React from 'react';
 import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
 import reactMixin from 'react-mixin';
 import PopupMixin from './PopupMixin';
@@ -10,7 +11,7 @@ export interface PopupPickerPropsIOS extends PopupPickerProps {
   actionTextActiveOpacity?:number;
 }
 
-export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPickerState> {
+export default class PopupPicker extends React.Component<PopupPickerPropsIOS, PopupPickerState> {
   static defaultProps = {
     actionTextUnderlayColor: '#a9d9d4',
     actionTextActiveOpacity: 0.5,
@@ -29,7 +30,7 @@ export default class PopupPicker extends Component<PopupPickerPropsIOS, PopupPic
     }
     const {props} = this;
     const {styles} = props;
-    return (<Modal visible transparent animated animationType="slide">
+    return (<Modal visible transparent animationType="slide">
       <View style={[styles.modal]}>
         <View style={[styles.modalContent]}>
           <View style={[styles.header]}>

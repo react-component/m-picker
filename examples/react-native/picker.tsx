@@ -1,5 +1,6 @@
-import React, {Component, View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
+import {View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
 import Picker from '../../src/index';
+import * as React from 'react';
 
 let count = 0;
 const len = 10;
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class PopupExample extends Component<{}, {
+class PopupExample extends React.Component<{}, {
   value?: string;
   items?: any[];
 }> {

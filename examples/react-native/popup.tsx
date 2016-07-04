@@ -1,5 +1,6 @@
-import React, {Component, View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
+import {View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
 import { Popup, PopupStyles } from '../../src/index';
+import * as React from 'react';
 
 const styles = StyleSheet.create({
   button: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PopupExample extends Component<{}, {}> {
+class PopupExample extends React.Component<{}, {}> {
   render() {
     const popupContent = (<View style={styles.content}><Text>
       popupContent

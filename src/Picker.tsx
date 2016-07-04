@@ -1,9 +1,9 @@
-import React, {Component} from 'react-native';
+import * as React from 'react';
 import Picker from './NativePicker';
 import {PickerProps} from './PickerTypes';
 import isChildrenEqual from './isChildrenEqual';
 
-export default class PickerIOS extends Component<PickerProps, {}> {
+export default class PickerIOS extends React.Component<PickerProps, {}> {
   static defaultProps = {
     pure: true,
     children: [],

@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -41,14 +41,14 @@
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
     "coverage": "rc-tools run coverage",
-    "rn-start": "rnpackager start"
+    "rn-start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
     "object-assign": "4.x",
     "rc-dialog": "6.x",
     "react-hammerjs": "0.4.x",
     "react-mixin": "~3.0.5",
-    "react-native-picker-android": "~0.3.8"
+    "react-native-picker-android": "~1.0.2"
   },
   "devDependencies": {
     "array-tree-filter": "1.x",
@@ -56,11 +56,10 @@
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
-    "react": "0.14.x",
-    "react-addons-test-utils": "0.14.x",
-    "react-dom": "0.14.x",
-    "rn-core": "~0.3.0",
-    "rn-packager": "~0.3.0"
+    "react": "15.x",
+    "react-addons-test-utils": "15.x",
+    "react-dom": "15.x",
+    "react-native": "0.28.0"
   },
   "typings": "./lib/index.web.d.ts",
   "pre-commit": [
