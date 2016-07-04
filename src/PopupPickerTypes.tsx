@@ -1,7 +1,7 @@
 export interface PopupPickerProps {
   dismissText?:string;
   triggerType?:string;
-  WrapComponent:any;
+  WrapComponent?:any;
   okText?:string;
   title?:string;
   style?:React.CSSProperties;
