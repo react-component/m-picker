@@ -1,7 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import Modal from 'rc-dialog';
-import { contains } from './utils.web';
 import {PopupPickerPropsWeb, PopupPickerState} from './PopupPickerTypes';
 import reactMixin from 'react-mixin';
 import PopupMixin from './PopupMixin';
