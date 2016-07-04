@@ -136,7 +136,7 @@ webpackJsonp([0],{
 	          { className: props.prefixCls + '-header' },
 	          React.createElement(
 	            'div',
-	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
 	          React.createElement(
@@ -146,7 +146,7 @@ webpackJsonp([0],{
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: props.prefixCls + '-item', onClick: this.onOk },
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk },
 	            props.okText
 	          )
 	        ),
