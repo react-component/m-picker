@@ -21,11 +21,11 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(36);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _Popup = __webpack_require__(162);
+	var _Popup = __webpack_require__(173);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
@@ -74,7 +74,7 @@ webpackJsonp([0],{
 /***/ 3:
 2,
 
-/***/ 162:
+/***/ 173:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87,15 +87,15 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _rcDialog = __webpack_require__(163);
+	var _rcDialog = __webpack_require__(174);
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _reactMixin = __webpack_require__(177);
+	var _reactMixin = __webpack_require__(188);
 	
 	var _reactMixin2 = _interopRequireDefault(_reactMixin);
 	
-	var _PopupMixin = __webpack_require__(180);
+	var _PopupMixin = __webpack_require__(190);
 	
 	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
@@ -136,7 +136,7 @@ webpackJsonp([0],{
 	          { className: props.prefixCls + '-header' },
 	          React.createElement(
 	            'div',
-	            { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss },
+	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
 	          React.createElement(
@@ -146,7 +146,7 @@ webpackJsonp([0],{
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk },
+	            { className: props.prefixCls + '-item', onClick: this.onOk },
 	            props.okText
 	          )
 	        ),
@@ -171,16 +171,16 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 163:
+/***/ 174:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(164);
+	module.exports = __webpack_require__(175);
 
 /***/ },
 
-/***/ 164:
+/***/ 175:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -197,11 +197,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(36);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Dialog = __webpack_require__(165);
+	var _Dialog = __webpack_require__(176);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
@@ -365,7 +365,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 165:
+/***/ 176:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -380,19 +380,19 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(36);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(166);
+	var _KeyCode = __webpack_require__(177);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(167);
+	var _rcAnimate = __webpack_require__(178);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(176);
+	var _LazyRenderBox = __webpack_require__(187);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -795,7 +795,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 166:
+/***/ 177:
 /***/ function(module, exports) {
 
 	/**
@@ -1321,17 +1321,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 167:
+/***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(168);
+	module.exports = __webpack_require__(179);
 
 /***/ },
 
-/***/ 168:
+/***/ 179:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1344,13 +1344,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(169);
+	var _ChildrenUtils = __webpack_require__(180);
 	
-	var _AnimateChild = __webpack_require__(170);
+	var _AnimateChild = __webpack_require__(181);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(175);
+	var _util = __webpack_require__(186);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1651,7 +1651,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 169:
+/***/ 180:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1770,7 +1770,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 170:
+/***/ 181:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1785,15 +1785,15 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(161);
+	var _reactDom = __webpack_require__(36);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(171);
+	var _cssAnimation = __webpack_require__(182);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(175);
+	var _util = __webpack_require__(186);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1875,7 +1875,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 171:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1884,11 +1884,11 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(172);
+	var _Event = __webpack_require__(183);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(173);
+	var _componentClasses = __webpack_require__(184);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -2066,7 +2066,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 172:
+/***/ 183:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2160,7 +2160,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 173:
+/***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2168,9 +2168,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(174);
+	  var index = __webpack_require__(185);
 	} catch (err) {
-	  var index = __webpack_require__(174);
+	  var index = __webpack_require__(185);
 	}
 	
 	/**
@@ -2358,7 +2358,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 174:
+/***/ 185:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2371,7 +2371,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 175:
+/***/ 186:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2404,7 +2404,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 176:
+/***/ 187:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2446,11 +2446,11 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 177:
+/***/ 188:
 /***/ function(module, exports, __webpack_require__) {
 
-	var mixin = __webpack_require__(178);
-	var assign = __webpack_require__(179);
+	var mixin = __webpack_require__(189);
+	var assign = __webpack_require__(7);
 	
 	var mixinProto = mixin({
 	  // lifecycle stuff is as you'd expect
@@ -2606,7 +2606,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 178:
+/***/ 189:
 /***/ function(module, exports) {
 
 	function objToStr(x){ return Object.prototype.toString.call(x); };
@@ -2784,7 +2784,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 180:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2793,11 +2793,11 @@ webpackJsonp([0],{
 	    value: true
 	});
 	
-	var _React = __webpack_require__(181);
+	var _react = __webpack_require__(4);
 	
-	var _React2 = _interopRequireDefault(_React);
+	var React = _interopRequireWildcard(_react);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -2874,24 +2874,15 @@ webpackJsonp([0],{
 	
 	        var child = children;
 	        var newChildProps = _defineProperty({}, props.triggerType, this.onTriggerClick);
-	        return _React2.default.createElement(
+	        return React.createElement(
 	            WrapComponent,
 	            { style: props.style },
-	            _React2.default.cloneElement(child, newChildProps),
+	            React.cloneElement(child, newChildProps),
 	            this.getModal()
 	        );
 	    }
 	};
 	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 181:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(4);
 
 /***/ }
 
