@@ -11,6 +11,9 @@ export interface PopupPickerPropsIOS extends PopupPickerProps {
   actionTextActiveOpacity?:number;
 }
 
+function noop() {
+}
+
 export default class PopupPicker extends React.Component<PopupPickerPropsIOS, PopupPickerState> {
   static defaultProps = {
     actionTextUnderlayColor: '#a9d9d4',
@@ -30,34 +33,41 @@ export default class PopupPicker extends React.Component<PopupPickerPropsIOS, Po
     }
     const {props} = this;
     const {styles} = props;
-    return (<Modal visible transparent animationType="slide">
-      <View style={[styles.modal]}>
-        <View style={[styles.modalContent]}>
-          <View style={[styles.header]}>
-            <TouchableHighlight
-              onPress={this.onDismiss}
-              style={[styles.headerItem]}
-              activeOpacity={props.actionTextActiveOpacity}
-              underlayColor={props.actionTextUnderlayColor}
-            >
-              <Text style={[styles.actionText]}>{props.dismissText}</Text>
-            </TouchableHighlight>
-            <View style={[styles.headerItem]}>
-              <Text style={[styles.title]}>{props.title}</Text>
+    return (
+      <Modal
+        visible
+        transparent
+        animationType="slide"
+        onRequestClose={noop}
+      >
+        <View style={[styles.modal]}>
+          <View style={[styles.modalContent]}>
+            <View style={[styles.header]}>
+              <TouchableHighlight
+                onPress={this.onDismiss}
+                style={[styles.headerItem]}
+                activeOpacity={props.actionTextActiveOpacity}
+                underlayColor={props.actionTextUnderlayColor}
+              >
+                <Text style={[styles.actionText]}>{props.dismissText}</Text>
+              </TouchableHighlight>
+              <View style={[styles.headerItem]}>
+                <Text style={[styles.title]}>{props.title}</Text>
+              </View>
+              <TouchableHighlight
+                onPress={this.onOk}
+                style={[styles.headerItem]}
+                activeOpacity={props.actionTextActiveOpacity}
+                underlayColor={props.actionTextUnderlayColor}
+              >
+                <Text style={[styles.actionText]}>{props.okText}</Text>
+              </TouchableHighlight>
             </View>
-            <TouchableHighlight
-              onPress={this.onOk}
-              style={[styles.headerItem]}
-              activeOpacity={props.actionTextActiveOpacity}
-              underlayColor={props.actionTextUnderlayColor}
-            >
-              <Text style={[styles.actionText]}>{props.okText}</Text>
-            </TouchableHighlight>
+            {props.content}
           </View>
-          {props.content}
         </View>
-      </View>
-    </Modal>);
+      </Modal>
+    );
   }
 }
 
