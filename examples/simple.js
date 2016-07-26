@@ -510,7 +510,7 @@ webpackJsonp([1],{
 	        });
 	        return React.createElement(
 	            _reactHammerjs2.default,
-	            { vertical: true, onPanStart: this.onPanStart, onPan: this.onPan, onPanEnd: this.onPanEnd, options: hammerOption },
+	            { direction: 'DIRECTION_ALL', onPanStart: this.onPanStart, onPan: this.onPan, onPanEnd: this.onPanEnd, options: hammerOption },
 	            React.createElement(
 	                'div',
 	                { className: '' + prefixCls, 'data-role': 'component', ref: 'component' },
@@ -672,23 +672,10 @@ webpackJsonp([1],{
 	
 	var privateProps = {
 		children: true,
-		action: true,
-		onTap: true,
-		onDoubleTap: true,
-		onPan: true,
-		onPanStart: true,
-		onPanEnd: true,
-		onPanCancel: true,
-		onSwipe: true,
-		onPress: true,
-		onPressUp: true,
-		onPinch: true,
-		onPinchIn: true,
-		onPinchOut: true,
-		onPinchStart: true,
-		onPinchEnd: true,
-		onPinchCancel: true,
-		onRotate: true,
+		direction: true,
+		options: true,
+		recognizeWith: true,
+		vertical: true,
 	};
 	
 	/**
@@ -698,29 +685,42 @@ webpackJsonp([1],{
 	
 	var handlerToEvent = {
 		action: 'tap press',
-		onTap: 'tap',
 		onDoubleTap: 'doubletap',
-		onPanStart: 'panstart',
 		onPan: 'pan',
-		onPanEnd: 'panend',
 		onPanCancel: 'pancancel',
-		onSwipe: 'swipe',
-		onPress: 'press',
-		onPressUp: 'pressup',
+		onPanEnd: 'panend',
+		onPanStart: 'panstart',
 		onPinch: 'pinch',
+		onPinchCancel: 'pinchcancel',
+		onPinchEnd: 'pinchend',
 		onPinchIn: 'pinchin',
 		onPinchOut: 'pinchout',
 		onPinchStart: 'pinchstart',
-		onPinchEnd: 'pinchend',
+		onPress: 'press',
+		onPressUp: 'pressup',
 		onRotate: 'rotate',
+		onRotateCancel: 'rotatecancel',
+		onRotateEnd: 'rotateend',
+		onRotateMove: 'rotatemove',
+		onRotateStart: 'rotatestart',
+		onSwipe: 'swipe',
+		onTap: 'tap',
 	};
+	
+	Object.keys(handlerToEvent).forEach(function (i) {
+		privateProps[i] = true;
+	});
+	
 	function updateHammer (hammer, props) {
-		if (props.vertical) {
-			hammer.get('pan').set({direction: Hammer.DIRECTION_ALL});
-			hammer.get('swipe').set({direction: Hammer.DIRECTION_ALL});
-		} else {
-			hammer.get('pan').set({direction: Hammer.DIRECTION_HORIZONTAL});
-			hammer.get('swipe').set({direction: Hammer.DIRECTION_HORIZONTAL});
+		if (props.hasOwnProperty('vertical')) {
+			console.warn('vertical is deprecated, please use `direction` instead');
+		}
+	
+		var directionProp = props.direction;
+		if (directionProp || props.hasOwnProperty('vertical')) {
+			direction = directionProp ? directionProp : (props.vertical ? 'DIRECTION_ALL' : 'DIRECTION_HORIZONTAL');
+			hammer.get('pan').set({ direction: Hammer[direction] });
+			hammer.get('swipe').set({ direction: Hammer[direction] });
 		}
 	
 		if (props.options) {
