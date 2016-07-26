@@ -458,7 +458,7 @@ export default class Picker extends React.Component<PickerPropsWeb, PickerState>
     });
     return (
       <Hammer
-        vertical
+        direction="DIRECTION_ALL"
         onPanStart={this.onPanStart}
         onPan={this.onPan}
         onPanEnd={this.onPanEnd}
