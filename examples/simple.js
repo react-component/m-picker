@@ -3,19 +3,19 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(191);
+	module.exports = __webpack_require__(192);
 
 
 /***/ },
 
-/***/ 191:
+/***/ 192:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(2);
 	
-	var _Picker = __webpack_require__(192);
+	var _Picker = __webpack_require__(193);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -32,7 +32,6 @@ webpackJsonp([1],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* eslint no-console:0 */
-	
 	var count = 0;
 	var len = 10;
 	var Test = React.createClass({
@@ -88,7 +87,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 192:
+/***/ 193:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101,9 +100,9 @@ webpackJsonp([1],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _Animate = __webpack_require__(193);
+	var _Animate = __webpack_require__(194);
 	
-	var _reactHammerjs = __webpack_require__(194);
+	var _reactHammerjs = __webpack_require__(195);
 	
 	var _reactHammerjs2 = _interopRequireDefault(_reactHammerjs);
 	
@@ -111,9 +110,9 @@ webpackJsonp([1],{
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _utils = __webpack_require__(196);
+	var _utils = __webpack_require__(197);
 	
-	var _isChildrenEqual = __webpack_require__(197);
+	var _isChildrenEqual = __webpack_require__(198);
 	
 	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
 	
@@ -539,10 +538,10 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 193:
+/***/ 194:
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -553,10 +552,11 @@ webpackJsonp([1],{
 	var MILLISECONDS_PER_SECOND = 1000;
 	var running = {};
 	var counter = 1;
+	var webkitRequestAnimationFrame = 'webkitRequestAnimationFrame';
 	var Animate = exports.Animate = {
 	    // A requestAnimationFrame wrapper / polyfill.
 	    requestAnimationFrame: function () {
-	        var requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+	        var requestFrame = window.requestAnimationFrame || window[webkitRequestAnimationFrame];
 	        return function (callback) {
 	            requestFrame(callback);
 	        };
@@ -606,9 +606,9 @@ webpackJsonp([1],{
 	                }
 	                return;
 	            }
-	            // For the current rendering to
+	            // For the current rendering to 
 	            // apply let's update omitted steps in memory.
-	            // This is important to bring internal
+	            // This is important to bring internal 
 	            // state constiables up-to-date with progress in time.
 	            if (render) {
 	                var droppedFrames = Math.round((now - lastFrame) / (MILLISECONDS_PER_SECOND / DESIRED_FRAMES)) - 1;
@@ -660,7 +660,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 194:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(4);
@@ -668,7 +668,7 @@ webpackJsonp([1],{
 	
 	// require('hammerjs') when in a browser. This is safe because Hammer is only
 	// invoked in componentDidMount, which is not executed on the server.
-	var Hammer = (typeof window !== 'undefined') ? __webpack_require__(195) : undefined;
+	var Hammer = (typeof window !== 'undefined') ? __webpack_require__(196) : undefined;
 	
 	var privateProps = {
 		children: true,
@@ -802,7 +802,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 195:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -3452,7 +3452,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 196:
+/***/ 197:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3460,9 +3460,7 @@ webpackJsonp([1],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.noop = noop;
 	exports.getComputedStyle = getComputedStyle;
-	function noop() {}
 	function getComputedStyle(el, key) {
 	    var computedStyle = window.getComputedStyle(el);
 	    return computedStyle[key] || '';
@@ -3470,7 +3468,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 197:
+/***/ 198:
 /***/ function(module, exports) {
 
 	"use strict";
