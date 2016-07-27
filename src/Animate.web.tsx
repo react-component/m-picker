@@ -2,12 +2,13 @@ const DESIRED_FRAMES = 60;
 const MILLISECONDS_PER_SECOND = 1000;
 let running = {};
 let counter = 1;
+const webkitRequestAnimationFrame = 'webkitRequestAnimationFrame';
 
 export const Animate = {
   // A requestAnimationFrame wrapper / polyfill.
   requestAnimationFrame: (() => {
     const requestFrame = window.requestAnimationFrame || 
-      window.webkitRequestAnimationFrame;
+      window[webkitRequestAnimationFrame];
     return (callback) => {
       requestFrame(callback);
     };

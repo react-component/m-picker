@@ -1,1 +1,1 @@
-module.exports = require('react-native').Picker;
+export  { Picker as default } from 'react-native';

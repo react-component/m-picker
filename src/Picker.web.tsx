@@ -30,16 +30,11 @@ const hammerOption = {
 };
 const HAMMER_DOWN = 16;
 
-export interface PickerPropsWeb extends PickerProps {
-  prefixCls?:string;
-  defaultSelectedValue?:any;
-}
-
 export interface PickerState {
   selectedValue:any;
 }
 
-export default class Picker extends React.Component<PickerPropsWeb, PickerState> {
+export default class Picker extends React.Component<PickerProps, PickerState> {
   static defaultProps = {
     prefixCls: 'rmc-picker',
     pure: true,
@@ -71,7 +66,7 @@ export default class Picker extends React.Component<PickerPropsWeb, PickerState>
     indicator:HTMLElement;
   };
 
-  constructor(props:PickerPropsWeb) {
+  constructor(props:PickerProps) {
     super(props);
     let selectedValueState;
     const {selectedValue, defaultSelectedValue, children} = props;

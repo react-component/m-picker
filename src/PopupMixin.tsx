@@ -3,30 +3,6 @@ import * as React from 'react';
 function noop() {
 }
 
-const binds = {
-  onTriggerClick(e) {
-    const child = this.props.children;
-    const childProps = child.props || {};
-    if (childProps[this.props.triggerType]) {
-      childProps[this.props.triggerType](e);
-    }
-    this.fireVisibleChange(!this.state.visible);
-  },
-  onOk() {
-    this.props.onOk();
-    this.fireVisibleChange(false);
-  },
-
-  onDismiss() {
-    this.props.onDismiss();
-    this.fireVisibleChange(false);
-  },
-
-  hide() {
-    this.fireVisibleChange(false);
-  },
-};
-
 export default {
   getDefaultProps() {
     return {
@@ -51,12 +27,6 @@ export default {
     }
   },
 
-  componentWillMount() {
-    Object.keys(binds).forEach((k) => {
-      this[k] = binds[k].bind(this);
-    });
-  },
-
   setVisibleState(visible) {
     this.setState({
       visible,
@@ -72,7 +42,7 @@ export default {
     }
   },
 
-  render() {
+  getRender() {
     const props = this.props;
     const children = props.children;
     if (!children) {
@@ -87,5 +57,27 @@ export default {
       {React.cloneElement(child, newChildProps)}
       {this.getModal()}
     </WrapComponent>;
-  }
+  },
+
+  onTriggerClick(e) {
+    const child = this.props.children;
+    const childProps = child.props || {};
+    if (childProps[this.props.triggerType]) {
+      childProps[this.props.triggerType](e);
+    }
+    this.fireVisibleChange(!this.state.visible);
+  },
+  onOk() {
+    this.props.onOk();
+    this.fireVisibleChange(false);
+  },
+
+  onDismiss() {
+    this.props.onDismiss();
+    this.fireVisibleChange(false);
+  },
+
+  hide() {
+    this.fireVisibleChange(false);
+  },
 };

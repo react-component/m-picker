@@ -1,31 +1,24 @@
 import {Modal, View, TouchableHighlight, Text} from 'react-native';
 import * as React from 'react';
 import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
-import reactMixin from 'react-mixin';
 import PopupMixin from './PopupMixin';
-
-export interface PopupPickerPropsIOS extends PopupPickerProps {
-  style?:any;
-  styles?:any;
-  actionTextUnderlayColor?:string;
-  actionTextActiveOpacity?:number;
-}
 
 function noop() {
 }
 
-export default class PopupPicker extends React.Component<PopupPickerPropsIOS, PopupPickerState> {
-  static defaultProps = {
-    actionTextUnderlayColor: '#a9d9d4',
-    actionTextActiveOpacity: 0.5,
-    triggerType: 'onPress',
-    styles: {},
-    WrapComponent: View,
-  };
+const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
+  mixins: [PopupMixin],
 
-  onDismiss:() => void;
-
-  onOk:() => void;
+  getDefaultProps() {
+    return {
+      actionTextUnderlayColor: '#a9d9d4',
+      actionTextActiveOpacity: 0.5,
+      triggerType: 'onPress',
+      styles: {},
+      animationType: 'slide',
+      WrapComponent: View,
+    };
+  },
 
   getModal() {
     if (!this.state.visible) {
@@ -37,7 +30,7 @@ export default class PopupPicker extends React.Component<PopupPickerPropsIOS, Po
       <Modal
         visible
         transparent
-        animationType="slide"
+        animationType={props.animationType}
         onRequestClose={noop}
       >
         <View style={[styles.modal]}>
@@ -68,7 +61,11 @@ export default class PopupPicker extends React.Component<PopupPickerPropsIOS, Po
         </View>
       </Modal>
     );
-  }
-}
+  },
 
-reactMixin.onClass(PopupPicker, PopupMixin);
+  render() {
+    return this.getRender();
+  },
+});
+
+export default PopupPicker;

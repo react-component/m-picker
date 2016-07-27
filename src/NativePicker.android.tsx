@@ -1,1 +1,1 @@
-module.exports = require('react-native-picker-android');
+export {default} from 'react-native-picker-android';

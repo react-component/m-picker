@@ -1,22 +1,18 @@
 import * as React from 'react';
 import Modal from 'rc-dialog';
-import {PopupPickerPropsWeb, PopupPickerState} from './PopupPickerTypes';
-import reactMixin from 'react-mixin';
+import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 
-export default class PopupPicker extends React.Component<PopupPickerPropsWeb, PopupPickerState> {
-  static defaultProps = {
-    prefixCls: 'rmc-picker-popup',
-    modalStyle: {},
-    triggerType: 'onClick',
-    WrapComponent:'span',
-  };
+const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
+  mixins: [PopupMixin],
 
-  onDismiss:() => void;
-
-  onOk:() => void;
-
-  hide:() => void;
+  getDefaultProps() {
+    return {
+      prefixCls: 'rmc-picker-popup',
+      triggerType: 'onClick',
+      WrapComponent: 'span',
+    };
+  },
 
   getModal() {
     const props = this.props;
@@ -44,7 +40,11 @@ export default class PopupPicker extends React.Component<PopupPickerPropsWeb, Po
         {this.props.content}
       </div>
     </Modal>);
-  }
-}
+  },
 
-reactMixin.onClass(PopupPicker, PopupMixin);
+  render() {
+    return this.getRender();
+  }
+});
+
+export default PopupPicker;

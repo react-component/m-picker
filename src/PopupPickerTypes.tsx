@@ -4,21 +4,30 @@ export interface PopupPickerProps {
   WrapComponent?:any;
   okText?:string;
   title?:string;
-  style?:React.CSSProperties;
   visible?:boolean;
   onOk?:() => void;
+  style?:any;
   onVisibleChange?:(visible:boolean) => void;
   content?:React.ReactElement<any>|string;
   onDismiss?:() => void;
+  /** react-native only */
+  styles?:any;
+  /** react-native only */
+  actionTextUnderlayColor?:string;
+  /** react-native only */
+  actionTextActiveOpacity?:number;
+  /** react-native only */
+  animationType?: 'fade'|'slide'|'none';
+  /** web only */
+  modalStyle?:React.CSSProperties;
+  /** web only */
+  prefixCls?:string;
+  /** web only */
+  popupTransitionName?:string;
+  /** web only */
+  maskTransitionName?:string;
 }
 
 export interface PopupPickerState {
   visible:boolean;
-}
-
-export interface PopupPickerPropsWeb extends PopupPickerProps {
-  modalStyle?:React.CSSProperties;
-  prefixCls?:string;
-  popupTransitionName?:string;
-  maskTransitionName?:string;
 }

@@ -2,6 +2,8 @@ import {View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-nat
 import Popup from '../../src/Popup';
 import PopupStyles from '../../src/PopupStyles';
 import * as React from 'react';
+import FlexAlignType = __React.FlexAlignType;
+import FlexJustifyType = __React.FlexJustifyType;
 
 const styles = StyleSheet.create({
   button: {
@@ -17,8 +19,8 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'center' as FlexJustifyType,
+    alignItems: 'center' as FlexAlignType,
   },
 });
 

@@ -8,4 +8,8 @@ export interface PickerProps {
   pure?:boolean;
   selectedValue?:any;
   onValueChange?:(value:any) => void;
+  /** web only */
+  prefixCls?:string;
+  /** web only */
+  defaultSelectedValue?:any;
 }
