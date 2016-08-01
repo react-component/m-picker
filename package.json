@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -35,7 +35,7 @@
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
-    "pub": "rc-tools run pub",
+    "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint --no-js-lint",
     "karma": "rc-tools run karma",
     "saucelabs": "rc-tools run saucelabs",
@@ -45,6 +45,7 @@
     "rn-start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "babel-runtime": "6.x",
     "object-assign": "4.x",
     "rc-dialog": "6.x",
     "react-hammerjs": "0.5.x",
