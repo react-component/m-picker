@@ -1,6 +1,6 @@
-import {Modal, View, TouchableHighlight, Text} from 'react-native';
+import { Modal, View, TouchableHighlight, Text, Platform } from 'react-native';
 import * as React from 'react';
-import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
+import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 
 function noop() {
@@ -31,7 +31,7 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
         visible
         transparent
         animationType={props.animationType}
-        onRequestClose={noop}
+        onRequestClose={Platform.OS === 'android' ? this.onDismiss : undefined}
       >
         <View style={[styles.modal]}>
           <View style={[styles.modalContent]}>
