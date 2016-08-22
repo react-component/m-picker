@@ -48,11 +48,14 @@ export default {
     if (!children) {
       return this.getModal();
     }
-    const {WrapComponent} = this.props;
+    const {WrapComponent, disabled} = this.props;
     const child = children;
     const newChildProps = {
-      [props.triggerType]: this.onTriggerClick,
+      disabled,
     };
+    if (disabled) {
+      newChildProps[props.triggerType] = this.onTriggerClick;
+    }
     return <WrapComponent style={props.style}>
       {React.cloneElement(child, newChildProps)}
       {this.getModal()}

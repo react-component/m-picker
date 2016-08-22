@@ -68,6 +68,7 @@ see example
 |onValueChange | fire when picker change | Function(value) |  |
 |children      | array of picker items | [{label, value}] |
 |pure      | whether children is immutable | bool | true
+|disabled     | whether picker is disabled | bool | false
 
 
 ## Test Case
