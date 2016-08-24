@@ -10,6 +10,7 @@ import {Animate, easeOutCubic, easeInOutCubic} from './Animate.web';
 import {PickerProps} from './PickerTypes';
 import Hammer from 'react-hammerjs';
 import assign from 'object-assign';
+import classNames from 'classnames';
 import {getComputedStyle } from './utils.web';
 import isChildrenEqual from './isChildrenEqual';
 
@@ -438,7 +439,7 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
   }
 
   render() {
-    const {children, prefixCls} = this.props;
+    const {children, prefixCls, className, disabled} = this.props;
     const {selectedValue} = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
@@ -451,6 +452,23 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
         {item.label}
       </div>);
     });
+    const pickerCls = {
+      [className]: !!className,
+      [prefixCls]: true,
+      [`${prefixCls}-disabled`]: disabled,
+    };
+    const child = (
+      <div className={classNames(pickerCls) } data-role="component" ref="component">
+        <div className={`${prefixCls}-mask`} data-role="mask"/>
+        <div className={`${prefixCls}-indicator`} data-role="indicator" ref="indicator"/>
+        <div className={`${prefixCls}-content`} data-role="content" ref="content">
+          {items}
+        </div>
+      </div>
+    );
+    if (disabled) {
+      return child;
+    }
     return (
       <Hammer
         direction="DIRECTION_ALL"
@@ -459,13 +477,7 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
         onPanEnd={this.onPanEnd}
         options={hammerOption}
       >
-        <div className={`${prefixCls}`} data-role="component" ref="component">
-          <div className={`${prefixCls}-mask`} data-role="mask"/>
-          <div className={`${prefixCls}-indicator`} data-role="indicator" ref="indicator"/>
-          <div className={`${prefixCls}-content`} data-role="content" ref="content">
-            {items}
-          </div>
-        </div>
+        {child}
       </Hammer>);
   }
 }

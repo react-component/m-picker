@@ -5,6 +5,7 @@ export interface PopupPickerProps {
   okText?:string;
   title?:string;
   visible?:boolean;
+  disabled?:boolean;
   onOk?:() => void;
   style?:any;
   onVisibleChange?:(visible:boolean) => void;
