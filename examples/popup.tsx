@@ -8,6 +8,16 @@ import * as ReactDOM from 'react-dom';
 import PopPicker from '../src/Popup.web';
 
 const Demo = React.createClass({
+  getInitialState() {
+    return {
+      disabled: false,
+    };
+  },
+  disable() {
+    this.setState({
+      disabled: !this.state.disabled,
+    });
+  },
   onOk() {
     console.log('onOk');
   },
@@ -15,21 +25,25 @@ const Demo = React.createClass({
     console.log('onDismiss');
   },
   render() {
-    return (<div style={{ margin: '10px 30px' }}>
-      <h2>popup date picker</h2>
-      <div>
-        <PopPicker
-          popupTransitionName="rmc-picker-popup-slide-fade"
-          maskTransitionName="rmc-picker-popup-fade"
-          content="popup"
-          title="Picker"
-          onDismiss={this.onDismiss}
-          onOk={this.onOk}
-        >
-          <button>{'open'}</button>
-        </PopPicker>
+    return (
+      <div style={{ margin: '10px 30px' }}>
+        <h2>popup date picker</h2>
+        <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
+        <div>
+          <PopPicker
+            popupTransitionName="rmc-picker-popup-slide-fade"
+            maskTransitionName="rmc-picker-popup-fade"
+            content="popup"
+            title="Picker"
+            disabled={this.state.disabled}
+            onDismiss={this.onDismiss}
+            onOk={this.onOk}
+          >
+            <button disabled={this.state.disabled}>{'open'}</button>
+          </PopPicker>
+        </div>
       </div>
-    </div>);
+    );
   },
 });
 

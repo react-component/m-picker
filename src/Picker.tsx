@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Picker from './NativePicker';
+import NativePicker from './NativePicker';
 import {PickerProps} from './PickerTypes';
 import isChildrenEqual from './isChildrenEqual';
 
-export default class PickerIOS extends React.Component<PickerProps, {}> {
+export default class Picker extends React.Component<PickerProps, {}> {
   static defaultProps = {
     pure: true,
     children: [],
@@ -16,8 +16,8 @@ export default class PickerIOS extends React.Component<PickerProps, {}> {
 
   render() {
     const children = this.props.children.map((c) => {
-      return <Picker.Item {...c} key={c.value + ''}/>;
+      return <NativePicker.Item {...c} key={c.value + ''}/>;
     });
-    return <Picker {...this.props}>{children}</Picker>;
+    return <NativePicker {...this.props}>{children}</NativePicker>;
   }
 }

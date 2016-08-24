@@ -10,6 +10,7 @@ const len = 10;
 const Test = React.createClass({
   getInitialState() {
     return {
+      disabled: false,
       items: this.getItems(count),
       value: `${count}`,
     };
@@ -18,6 +19,11 @@ const Test = React.createClass({
     console.log('onChange', value);
     this.setState({
       value,
+    });
+  },
+  disable() {
+    this.setState({
+      disabled: !this.state.disabled,
     });
   },
   getItems(start) {
@@ -39,12 +45,20 @@ const Test = React.createClass({
     });
   },
   render() {
-    return (<div style={{ border: '1px solid black', padding: 10 }}>
-      <button onClick={this.rerender}>rerender</button>
-      <Picker selectedValue={this.state.value} onValueChange={this.onChange}>
-        {this.state.items}
-      </Picker>
-    </div>);
+    return (
+      <div style={{ border: '1px solid black', padding: 10 }}>
+        <button onClick={this.rerender}>rerender</button>
+        &nbsp;
+        <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
+        <Picker
+          selectedValue={this.state.value}
+          disabled={this.state.disabled}
+          onValueChange={this.onChange}
+        >
+          {this.state.items}
+        </Picker>
+      </div>
+    );
   },
 });
 

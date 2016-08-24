@@ -6,12 +6,12 @@
  */
 
 import * as React from 'react';
-import {Animate, easeOutCubic, easeInOutCubic} from './Animate.web';
-import {PickerProps} from './PickerTypes';
+import { Animate, easeOutCubic, easeInOutCubic } from './Animate.web';
+import { PickerProps } from './PickerTypes';
 import Hammer from 'react-hammerjs';
 import assign from 'object-assign';
 import classNames from 'classnames';
-import {getComputedStyle } from './utils.web';
+import { getComputedStyle } from './utils.web';
 import isChildrenEqual from './isChildrenEqual';
 
 const DECELERATION_VELOCITY_RATE = 0.95;
@@ -32,7 +32,7 @@ const hammerOption = {
 const HAMMER_DOWN = 16;
 
 export interface PickerState {
-  selectedValue:any;
+  selectedValue: any;
 }
 
 export default class Picker extends React.Component<PickerProps, PickerState> {
@@ -42,32 +42,32 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
     onValueChange() {
     },
   };
-  startScrollTop:number;
-  clientHeight:number;
-  contentHeight:number;
-  minScrollTop:number;
-  maxScrollTop:number;
-  isDecelerating:number;
-  isAnimating:number;
-  lastTouchMove:number;
-  itemHeight:number;
-  scrollTop:number;
-  isTracking:boolean;
-  didDecelerationComplete:boolean;
-  scheduledTop:number;
-  positions:number[];
-  minDecelerationScrollTop:number;
-  maxDecelerationScrollTop:number;
-  decelerationVelocityY:number;
+  startScrollTop: number;
+  clientHeight: number;
+  contentHeight: number;
+  minScrollTop: number;
+  maxScrollTop: number;
+  isDecelerating: number;
+  isAnimating: number;
+  lastTouchMove: number;
+  itemHeight: number;
+  scrollTop: number;
+  isTracking: boolean;
+  didDecelerationComplete: boolean;
+  scheduledTop: number;
+  positions: number[];
+  minDecelerationScrollTop: number;
+  maxDecelerationScrollTop: number;
+  decelerationVelocityY: number;
 
-  refs:{
-    [key:string]:any;
-    content:HTMLElement;
-    component:HTMLElement;
-    indicator:HTMLElement;
+  refs: {
+    [key: string]: any;
+    content: HTMLElement;
+    component: HTMLElement;
+    indicator: HTMLElement;
   };
 
-  constructor(props:PickerProps) {
+  constructor(props: PickerProps) {
     super(props);
     let selectedValueState;
     const {selectedValue, defaultSelectedValue, children} = props;
@@ -137,7 +137,7 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
   }
 
   onPanStart = (e) => {
-    if (e.target.tagName.match(/input|textarea|select/i)) {
+    if (this.props.disabled || e.target.tagName.match(/input|textarea|select/i)) {
       return;
     }
     e.preventDefault();
@@ -160,7 +160,7 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
     this.lastTouchMove = timeStamp;
 
     const positions = this.positions;
-    
+
     let scrollTop = this.startScrollTop + (e.offsetDirection === HAMMER_DOWN ? -e.distance : e.distance);
 
     const minScrollTop = this.minScrollTop;
@@ -331,7 +331,7 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
   }
 
   // Applies the scroll position to the content element
-  publish(top, animationDuration?:number) {
+  publish(top, animationDuration?: number) {
     // Remember whether we had an animation,
     // then we try to continue based on the current "drive" of the animation
     const wasAnimating = this.isAnimating;
@@ -439,36 +439,25 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
   }
 
   render() {
-    const {children, prefixCls, className, disabled} = this.props;
+    const {children, prefixCls, className} = this.props;
     const {selectedValue} = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
     const items = children.map((item) => {
-      return (<div
-        className={selectedValue === item.value ? selectedItemClassName : itemClassName}
-        key={item.value}
-        data-value={item.value}
-      >
-        {item.label}
-      </div>);
+      return (
+        <div
+          className={selectedValue === item.value ? selectedItemClassName : itemClassName}
+          key={item.value}
+          data-value={item.value}
+        >
+          {item.label}
+        </div>
+      );
     });
     const pickerCls = {
       [className]: !!className,
       [prefixCls]: true,
-      [`${prefixCls}-disabled`]: disabled,
     };
-    const child = (
-      <div className={classNames(pickerCls) } data-role="component" ref="component">
-        <div className={`${prefixCls}-mask`} data-role="mask"/>
-        <div className={`${prefixCls}-indicator`} data-role="indicator" ref="indicator"/>
-        <div className={`${prefixCls}-content`} data-role="content" ref="content">
-          {items}
-        </div>
-      </div>
-    );
-    if (disabled) {
-      return child;
-    }
     return (
       <Hammer
         direction="DIRECTION_ALL"
@@ -477,7 +466,14 @@ export default class Picker extends React.Component<PickerProps, PickerState> {
         onPanEnd={this.onPanEnd}
         options={hammerOption}
       >
-        {child}
-      </Hammer>);
+        <div className={classNames(pickerCls) } data-role="component" ref="component">
+          <div className={`${prefixCls}-mask`} data-role="mask"/>
+          <div className={`${prefixCls}-indicator`} data-role="indicator" ref="indicator"/>
+          <div className={`${prefixCls}-content`} data-role="content" ref="content">
+            {items}
+          </div>
+        </div>
+      </Hammer>
+    );
   }
 }
