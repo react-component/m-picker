@@ -35,6 +35,16 @@ webpackJsonp([0],{
 	
 	var Demo = React.createClass({
 	    displayName: 'Demo',
+	    getInitialState: function getInitialState() {
+	        return {
+	            disabled: false
+	        };
+	    },
+	    disable: function disable() {
+	        this.setState({
+	            disabled: !this.state.disabled
+	        });
+	    },
 	    onOk: function onOk() {
 	        console.log('onOk');
 	    },
@@ -51,14 +61,19 @@ webpackJsonp([0],{
 	                'popup date picker'
 	            ),
 	            React.createElement(
+	                'button',
+	                { onClick: this.disable },
+	                this.state.disabled ? 'enable' : 'disable'
+	            ),
+	            React.createElement(
 	                'div',
 	                null,
 	                React.createElement(
 	                    _Popup2.default,
-	                    { popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', content: 'popup', title: 'Picker', onDismiss: this.onDismiss, onOk: this.onOk },
+	                    { popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', content: 'popup', title: 'Picker', disabled: this.state.disabled, onDismiss: this.onDismiss, onOk: this.onOk },
 	                    React.createElement(
 	                        'button',
-	                        null,
+	                        { disabled: this.state.disabled },
 	                        'open'
 	                    )
 	                )
@@ -2466,17 +2481,11 @@ webpackJsonp([0],{
 	    value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(192);
-	
-	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-	
 	var _react = __webpack_require__(4);
 	
 	var React = _interopRequireWildcard(_react);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function noop() {}
 	exports.default = {
@@ -2519,10 +2528,15 @@ webpackJsonp([0],{
 	        if (!children) {
 	            return this.getModal();
 	        }
-	        var WrapComponent = this.props.WrapComponent;
+	        var _props = this.props;
+	        var WrapComponent = _props.WrapComponent;
+	        var disabled = _props.disabled;
 	
 	        var child = children;
-	        var newChildProps = (0, _defineProperty3.default)({}, props.triggerType, this.onTriggerClick);
+	        var newChildProps = {};
+	        if (!disabled) {
+	            newChildProps[props.triggerType] = this.onTriggerClick;
+	        }
 	        return React.createElement(
 	            WrapComponent,
 	            { style: props.style },
@@ -2551,63 +2565,6 @@ webpackJsonp([0],{
 	    }
 	};
 	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 192:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _defineProperty = __webpack_require__(193);
-	
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
-	  }
-	
-	  return obj;
-	};
-
-/***/ },
-
-/***/ 193:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(194), __esModule: true };
-
-/***/ },
-
-/***/ 194:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(195);
-	var $Object = __webpack_require__(198).Object;
-	module.exports = function defineProperty(it, key, desc){
-	  return $Object.defineProperty(it, key, desc);
-	};
-
-/***/ },
-
-/***/ 195:
-/***/ function(module, exports, __webpack_require__) {
-
-	var $export = __webpack_require__(196);
-	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-	$export($export.S + $export.F * !__webpack_require__(206), 'Object', {defineProperty: __webpack_require__(202).f});
 
 /***/ }
 
