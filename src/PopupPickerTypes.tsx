@@ -1,9 +1,9 @@
 export interface PopupPickerProps {
-  dismissText?:string;
   triggerType?:string;
   WrapComponent?:any;
-  okText?:string;
-  title?:string;
+  dismissText?:string|React.ReactElement<any>; // React.ReactElement only for web
+  okText?:string|React.ReactElement<any>; // React.ReactElement only for web
+  title?:string|React.ReactElement<any>; // React.ReactElement only for web
   visible?:boolean;
   disabled?:boolean;
   onOk?:() => void;
