@@ -21,7 +21,7 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(36);
+	var _reactDom = __webpack_require__(37);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
@@ -106,7 +106,7 @@ webpackJsonp([0],{
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _PopupMixin = __webpack_require__(191);
+	var _PopupMixin = __webpack_require__(230);
 	
 	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
@@ -186,17 +186,19 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends2 = __webpack_require__(178);
+	
+	var _extends3 = _interopRequireDefault(_extends2);
 	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Dialog = __webpack_require__(178);
+	var _Dialog = __webpack_require__(216);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _getContainerRenderMixin = __webpack_require__(190);
+	var _getContainerRenderMixin = __webpack_require__(229);
 	
 	var _getContainerRenderMixin2 = _interopRequireDefault(_getContainerRenderMixin);
 	
@@ -215,7 +217,7 @@ webpackJsonp([0],{
 	
 	    autoDestroy: false,
 	    getComponent: function getComponent(instance, extra) {
-	      return _react2["default"].createElement(_Dialog2["default"], _extends({}, instance.props, extra, {
+	      return _react2["default"].createElement(_Dialog2["default"], (0, _extends3["default"])({}, instance.props, extra, {
 	        key: 'dialog'
 	      }));
 	    }
@@ -259,47 +261,137 @@ webpackJsonp([0],{
 /***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	exports.__esModule = true;
+	
+	var _assign = __webpack_require__(179);
+	
+	var _assign2 = _interopRequireDefault(_assign);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _assign2.default || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+	
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+	
+	  return target;
+	};
+
+/***/ },
+
+/***/ 179:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(180), __esModule: true };
+
+/***/ },
+
+/***/ 180:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(181);
+	module.exports = __webpack_require__(184).Object.assign;
+
+/***/ },
+
+/***/ 181:
+/***/ function(module, exports, __webpack_require__) {
+
+	// 19.1.3.1 Object.assign(target, source)
+	var $export = __webpack_require__(182);
+	
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(197)});
+
+/***/ },
+
+/***/ 197:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	// 19.1.2.1 Object.assign(target, source, ...)
+	var getKeys  = __webpack_require__(198)
+	  , gOPS     = __webpack_require__(213)
+	  , pIE      = __webpack_require__(214)
+	  , toObject = __webpack_require__(215)
+	  , IObject  = __webpack_require__(202)
+	  , $assign  = Object.assign;
+	
+	// should work with symbols and should have deterministic property order (V8 bug)
+	module.exports = !$assign || __webpack_require__(193)(function(){
+	  var A = {}
+	    , B = {}
+	    , S = Symbol()
+	    , K = 'abcdefghijklmnopqrst';
+	  A[S] = 7;
+	  K.split('').forEach(function(k){ B[k] = k; });
+	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+	}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
+	  var T     = toObject(target)
+	    , aLen  = arguments.length
+	    , index = 1
+	    , getSymbols = gOPS.f
+	    , isEnum     = pIE.f;
+	  while(aLen > index){
+	    var S      = IObject(arguments[index++])
+	      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
+	      , length = keys.length
+	      , j      = 0
+	      , key;
+	    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
+	  } return T;
+	} : $assign;
+
+/***/ },
+
+/***/ 216:
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends2 = __webpack_require__(178);
+	
+	var _extends3 = _interopRequireDefault(_extends2);
 	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(36);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(179);
+	var _KeyCode = __webpack_require__(217);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(180);
+	var _rcAnimate = __webpack_require__(218);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(189);
+	var _LazyRenderBox = __webpack_require__(227);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
+	
+	var _getScrollBarSize = __webpack_require__(228);
+	
+	var _getScrollBarSize2 = _interopRequireDefault(_getScrollBarSize);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
 	var uuid = 0;
 	var openCount = 0;
-	
-	// Measure scrollbar width for padding body during modal show/hide
-	var scrollbarMeasure = {
-	  position: 'absolute',
-	  top: '-9999px',
-	  width: '50px',
-	  height: '50px',
-	  overflow: 'scroll'
-	};
 	
 	/* eslint react/no-is-mounted:0 */
 	
@@ -355,6 +447,7 @@ webpackJsonp([0],{
 	    visible: _react.PropTypes.bool,
 	    mousePosition: _react.PropTypes.object,
 	    wrapStyle: _react.PropTypes.object,
+	    maskStyle: _react.PropTypes.object,
 	    prefixCls: _react.PropTypes.string,
 	    wrapClassName: _react.PropTypes.string
 	  },
@@ -490,7 +583,7 @@ webpackJsonp([0],{
 	      );
 	    }
 	
-	    var style = _extends({}, props.style, dest);
+	    var style = (0, _extends3["default"])({}, props.style, dest);
 	    var transitionName = this.getTransitionName();
 	    var dialogElement = _react2["default"].createElement(
 	      _LazyRenderBox2["default"],
@@ -541,7 +634,10 @@ webpackJsonp([0],{
 	    return style;
 	  },
 	  getWrapStyle: function getWrapStyle() {
-	    return _extends({}, this.getZIndexStyle(), this.props.wrapStyle);
+	    return (0, _extends3["default"])({}, this.getZIndexStyle(), this.props.wrapStyle);
+	  },
+	  getMaskStyle: function getMaskStyle() {
+	    return (0, _extends3["default"])({}, this.getZIndexStyle(), this.props.maskStyle);
 	  },
 	  getMaskElement: function getMaskElement() {
 	    var props = this.props;
@@ -549,7 +645,7 @@ webpackJsonp([0],{
 	    if (props.mask) {
 	      var maskTransition = this.getMaskTransitionName();
 	      maskElement = _react2["default"].createElement(_LazyRenderBox2["default"], {
-	        style: this.getZIndexStyle(),
+	        style: this.getMaskStyle(),
 	        key: 'mask',
 	        className: props.prefixCls + '-mask',
 	        hiddenClassName: props.prefixCls + '-mask-hidden',
@@ -593,7 +689,7 @@ webpackJsonp([0],{
 	    return this.refs[part];
 	  },
 	  setScrollbar: function setScrollbar() {
-	    if (this.bodyIsOverflowing && this.scrollbarWidth) {
+	    if (this.bodyIsOverflowing && this.scrollbarWidth !== undefined) {
 	      document.body.style.paddingRight = this.scrollbarWidth + 'px';
 	    }
 	  },
@@ -628,30 +724,14 @@ webpackJsonp([0],{
 	    }
 	    this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth;
 	    if (this.bodyIsOverflowing) {
-	      this.scrollbarWidth = this.measureScrollbar();
+	      this.scrollbarWidth = (0, _getScrollBarSize2["default"])();
 	    }
 	  },
 	  resetScrollbar: function resetScrollbar() {
 	    document.body.style.paddingRight = '';
 	  },
-	  measureScrollbar: function measureScrollbar() {
-	    if (this.scrollbarWidth !== undefined) {
-	      return this.scrollbarWidth;
-	    }
-	    var scrollDiv = document.createElement('div');
-	    for (var scrollProp in scrollbarMeasure) {
-	      if (scrollbarMeasure.hasOwnProperty(scrollProp)) {
-	        scrollDiv.style[scrollProp] = scrollbarMeasure[scrollProp];
-	      }
-	    }
-	    document.body.appendChild(scrollDiv);
-	    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-	    document.body.removeChild(scrollDiv);
-	    this.scrollbarWidth = scrollbarWidth;
-	    return scrollbarWidth;
-	  },
 	  adjustDialog: function adjustDialog() {
-	    if (this.refs.wrap && this.scrollbarWidth) {
+	    if (this.refs.wrap && this.scrollbarWidth !== undefined) {
 	      var modalIsOverflowing = this.refs.wrap.scrollHeight > document.documentElement.clientHeight;
 	      this.refs.wrap.style.paddingLeft = (!this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '') + 'px';
 	      this.refs.wrap.style.paddingRight = (this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : '') + 'px';
@@ -698,7 +778,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 179:
+/***/ 217:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1224,17 +1304,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 180:
+/***/ 218:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(181);
+	module.exports = __webpack_require__(219);
 
 /***/ },
 
-/***/ 181:
+/***/ 219:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1247,13 +1327,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(182);
+	var _ChildrenUtils = __webpack_require__(220);
 	
-	var _AnimateChild = __webpack_require__(183);
+	var _AnimateChild = __webpack_require__(221);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(188);
+	var _util = __webpack_require__(226);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1567,7 +1647,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 182:
+/***/ 220:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1690,7 +1770,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 183:
+/***/ 221:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1705,15 +1785,15 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(36);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(184);
+	var _cssAnimation = __webpack_require__(222);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(188);
+	var _util = __webpack_require__(226);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1773,7 +1853,14 @@ webpackJsonp([0],{
 	    };
 	    if ((_cssAnimation.isCssAnimationSupported || !props.animation[animationType]) && transitionName && props[transitionMap[animationType]]) {
 	      var name = nameIsObj ? transitionName[animationType] : transitionName + '-' + animationType;
-	      this.stopper = (0, _cssAnimation2["default"])(node, name, end);
+	      var activeName = name + '-active';
+	      if (nameIsObj && transitionName[animationType + 'Active']) {
+	        activeName = transitionName[animationType + 'Active'];
+	      }
+	      this.stopper = (0, _cssAnimation2["default"])(node, {
+	        name: name,
+	        active: activeName
+	      }, end);
 	    } else {
 	      this.stopper = props.animation[animationType](node, end);
 	    }
@@ -1795,7 +1882,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 184:
+/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1804,11 +1891,13 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(185);
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	var _Event = __webpack_require__(223);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(186);
+	var _componentClasses = __webpack_require__(224);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -1860,8 +1949,9 @@ webpackJsonp([0],{
 	}
 	
 	var cssAnimation = function cssAnimation(node, transitionName, endCallback) {
-	  var className = transitionName;
-	  var activeClassName = className + '-active';
+	  var nameIsObj = (typeof transitionName === 'undefined' ? 'undefined' : _typeof(transitionName)) === 'object';
+	  var className = nameIsObj ? transitionName.name : transitionName;
+	  var activeClassName = nameIsObj ? transitionName.active : transitionName + '-active';
 	  var end = endCallback;
 	  var start = void 0;
 	  var active = void 0;
@@ -1988,7 +2078,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 185:
+/***/ 223:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2082,7 +2172,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 186:
+/***/ 224:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2090,9 +2180,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(187);
+	  var index = __webpack_require__(225);
 	} catch (err) {
-	  var index = __webpack_require__(187);
+	  var index = __webpack_require__(225);
 	}
 	
 	/**
@@ -2280,7 +2370,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 187:
+/***/ 225:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2293,7 +2383,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 188:
+/***/ 226:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2326,7 +2416,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 189:
+/***/ 227:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2335,7 +2425,9 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends2 = __webpack_require__(178);
+	
+	var _extends3 = _interopRequireDefault(_extends2);
 	
 	var _react = __webpack_require__(4);
 	
@@ -2359,7 +2451,7 @@ webpackJsonp([0],{
 	    if (this.props.hiddenClassName && !this.props.visible) {
 	      className += ' ' + this.props.hiddenClassName;
 	    }
-	    var props = _extends({}, this.props);
+	    var props = (0, _extends3["default"])({}, this.props);
 	    delete props.hiddenClassName;
 	    delete props.visible;
 	    props.className = className;
@@ -2372,7 +2464,55 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 190:
+/***/ 228:
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var cached = void 0;
+	
+	function getScrollBarSize(fresh) {
+	  if (fresh || cached === undefined) {
+	    var inner = document.createElement('div');
+	    inner.style.width = '100%';
+	    inner.style.height = '200px';
+	
+	    var outer = document.createElement('div');
+	    var outerStyle = outer.style;
+	
+	    outerStyle.position = 'absolute';
+	    outerStyle.top = 0;
+	    outerStyle.left = 0;
+	    outerStyle.pointerEvents = 'none';
+	    outerStyle.visibility = 'hidden';
+	    outerStyle.width = '200px';
+	    outerStyle.height = '150px';
+	    outerStyle.overflow = 'hidden';
+	
+	    outer.appendChild(inner);
+	
+	    document.body.appendChild(outer);
+	
+	    var widthContained = inner.offsetWidth;
+	    outer.style.overflow = 'scroll';
+	    var widthScroll = inner.offsetWidth;
+	
+	    if (widthContained === widthScroll) {
+	      widthScroll = outer.clientWidth;
+	    }
+	
+	    document.body.removeChild(outer);
+	
+	    cached = widthContained - widthScroll;
+	  }
+	  return cached;
+	}
+	
+	module.exports = getScrollBarSize;
+
+/***/ },
+
+/***/ 229:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2385,7 +2525,7 @@ webpackJsonp([0],{
 	
 	exports["default"] = getContainerRenderMixin;
 	
-	var _reactDom = __webpack_require__(36);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -2472,7 +2612,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 191:
+/***/ 230:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
