@@ -70,7 +70,7 @@ webpackJsonp([0],{
 	                null,
 	                React.createElement(
 	                    _Popup2.default,
-	                    { popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', content: 'popup', title: 'Picker', disabled: this.state.disabled, onDismiss: this.onDismiss, onOk: this.onOk },
+	                    { className: 'fortest', popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', content: 'popup', title: 'Picker', disabled: this.state.disabled, onDismiss: this.onDismiss, onOk: this.onOk },
 	                    React.createElement(
 	                        'button',
 	                        { disabled: this.state.disabled },
@@ -132,7 +132,7 @@ webpackJsonp([0],{
 	        }
 	        return React.createElement(
 	            _rcDialog2.default,
-	            { prefixCls: '' + props.prefixCls, visible: true, transitionName: props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.modalStyle },
+	            { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, transitionName: props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.modalStyle },
 	            React.createElement(
 	                'div',
 	                null,
