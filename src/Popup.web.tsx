@@ -21,6 +21,7 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
     }
     return (<Modal
       prefixCls={`${props.prefixCls}`}
+      className={props.className || ''}
       visible
       transitionName={props.popupTransitionName}
       maskTransitionName={props.maskTransitionName}

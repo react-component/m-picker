@@ -31,6 +31,7 @@ const Demo = React.createClass({
         <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
         <div>
           <PopPicker
+            className="fortest"
             popupTransitionName="rmc-picker-popup-slide-fade"
             maskTransitionName="rmc-picker-popup-fade"
             content="popup"

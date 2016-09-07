@@ -23,6 +23,7 @@ export interface PopupPickerProps {
   modalStyle?:React.CSSProperties;
   /** web only */
   prefixCls?:string;
+  className?:string;
   /** web only */
   popupTransitionName?:string;
   /** web only */
