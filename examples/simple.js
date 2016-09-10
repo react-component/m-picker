@@ -317,7 +317,7 @@ webpackJsonp([1],[
 	            ),
 	            React.createElement(
 	                _Picker2.default,
-	                { itemStyle: { lineHeight: '34px' }, selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
+	                { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
 	                this.state.items
 	            )
 	        );
@@ -355,10 +355,6 @@ webpackJsonp([1],[
 	
 	var _zscroller2 = _interopRequireDefault(_zscroller);
 	
-	var _objectAssign = __webpack_require__(7);
-	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -369,9 +365,6 @@ webpackJsonp([1],[
 	        return {
 	            prefixCls: 'rmc-picker',
 	            pure: true,
-	            visibleItemCount: 7,
-	            itemHeight: 34,
-	            itemStyle: {},
 	            onValueChange: function onValueChange() {}
 	        };
 	    },
@@ -394,6 +387,9 @@ webpackJsonp([1],[
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
+	        this.itemHeight = this.refs.indicator.offsetHeight;
+	        // compact
+	        this.refs.content.style.padding = this.itemHeight * 3 + 'px';
 	        this.zscroller = new _zscroller2.default(this.refs.content, {
 	            scrollingX: false,
 	            snapping: true,
@@ -401,7 +397,7 @@ webpackJsonp([1],[
 	            minVelocityToKeepDecelerating: 0.5,
 	            scrollingComplete: this.scrollingComplete
 	        });
-	        this.zscroller.scroller.setSnapSize(0, this.props.itemHeight);
+	        this.zscroller.scroller.setSnapSize(0, this.itemHeight);
 	        this.select(this.state.selectedValue);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -425,7 +421,7 @@ webpackJsonp([1],[
 	        if (index < 0 || index >= this.props.children.length) {
 	            return;
 	        }
-	        this.zscroller.scroller.scrollTo(0, index * this.props.itemHeight);
+	        this.zscroller.scroller.scrollTo(0, index * this.itemHeight);
 	    },
 	    select: function select(value) {
 	        var children = this.props.children;
@@ -452,57 +448,39 @@ webpackJsonp([1],[
 	
 	        var top = _zscroller$scroller$g.top;
 	
-	        var index = Math.round((top - this.props.itemHeight / 2) / this.props.itemHeight);
+	        var index = Math.round((top - this.itemHeight / 2) / this.itemHeight);
 	        var child = this.props.children[index];
 	        if (child) {
 	            this.fireValueChange(child.value);
 	        }
 	    },
 	    render: function render() {
-	        var _this = this,
-	            _pickerCls;
+	        var _pickerCls;
 	
 	        var _props2 = this.props;
 	        var children = _props2.children;
 	        var prefixCls = _props2.prefixCls;
 	        var className = _props2.className;
-	        var itemHeight = _props2.itemHeight;
-	        var visibleItemCount = _props2.visibleItemCount;
-	
-	        if (visibleItemCount % 2 !== 1) {
-	            throw new Error('picker visibleItemCount must be odd');
-	        }
 	        var selectedValue = this.state.selectedValue;
 	
 	        var itemClassName = prefixCls + '-item';
 	        var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
 	        var items = children.map(function (item) {
-	            var itemStyle = (0, _objectAssign2.default)({
-	                height: itemHeight
-	            }, _this.props.itemStyle);
 	            return React.createElement(
 	                'div',
-	                { className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value, style: itemStyle },
+	                { className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
 	                item.label
 	            );
 	        });
 	        var pickerCls = (_pickerCls = {}, (0, _defineProperty3.default)(_pickerCls, className, !!className), (0, _defineProperty3.default)(_pickerCls, prefixCls, true), _pickerCls);
-	        var padding = (visibleItemCount - 1) / 2 * itemHeight;
 	        return React.createElement(
 	            'div',
-	            { className: (0, _classnames2.default)(pickerCls), style: {
-	                    height: visibleItemCount * itemHeight
-	                } },
+	            { className: (0, _classnames2.default)(pickerCls) },
 	            React.createElement('div', { className: prefixCls + '-mask' }),
-	            React.createElement('div', { className: prefixCls + '-indicator', ref: 'indicator', style: {
-	                    top: padding,
-	                    height: itemHeight
-	                } }),
+	            React.createElement('div', { className: prefixCls + '-indicator', ref: 'indicator' }),
 	            React.createElement(
 	                'div',
-	                { className: prefixCls + '-content', ref: 'content', style: {
-	                        padding: padding + 'px 0'
-	                    } },
+	                { className: prefixCls + '-content', ref: 'content' },
 	                items
 	            )
 	        );
