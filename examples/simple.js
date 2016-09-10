@@ -317,7 +317,7 @@ webpackJsonp([1],[
 	            ),
 	            React.createElement(
 	                _Picker2.default,
-	                { itemStyle: { lineHeight: '34px' }, selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
+	                { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
 	                this.state.items
 	            )
 	        );
@@ -397,6 +397,7 @@ webpackJsonp([1],[
 	            minVelocityToKeepDecelerating: 0.5,
 	            scrollingComplete: this.scrollingComplete
 	        });
+	        this.zscroller.setDisabled(this.props.disabled);
 	        this.zscroller.scroller.setSnapSize(0, this.itemHeight);
 	        this.select(this.state.selectedValue);
 	    },
@@ -406,7 +407,7 @@ webpackJsonp([1],[
 	                selectedValue: nextProps.selectedValue
 	            });
 	        }
-	        this.zscroller.disabled = nextProps.disabled;
+	        this.zscroller.setDisabled(nextProps.disabled);
 	    },
 	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
 	        return this.state.selectedValue !== nextState.selectedValue || !(0, _isChildrenEqual2.default)(this.props.children, nextProps.children, this.props.pure);
