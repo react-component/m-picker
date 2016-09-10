@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.5.1",
+  "version": "3.4.0",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -9,10 +9,6 @@
     "m-picker"
   ],
   "homepage": "https://github.com/react-component/m-picker",
-  "maitainers": [
-    "yiminghe@gmail.com",
-    "hualei5280@gmail.com"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/react-component/m-picker.git"

@@ -3,16 +3,12 @@ import { PickerProps } from './PickerTypes';
 import classNames from 'classnames';
 import isChildrenEqual from './isChildrenEqual';
 import ZScroller from 'zscroller';
-import assign from 'object-assign';
 
 const Picker = React.createClass<PickerProps, any>({
   getDefaultProps() {
     return {
       prefixCls: 'rmc-picker',
       pure: true,
-      visibleItemCount: 7,
-      itemHeight: 34,
-      itemStyle: {},
       onValueChange() {
       },
     };
@@ -34,6 +30,9 @@ const Picker = React.createClass<PickerProps, any>({
   },
 
   componentDidMount() {
+    this.itemHeight = this.refs.indicator.offsetHeight;
+    // compact
+    this.refs.content.style.padding = this.itemHeight * 3 + 'px';
     this.zscroller = new ZScroller(this.refs.content, {
       scrollingX: false,
       snapping: true,
@@ -41,7 +40,7 @@ const Picker = React.createClass<PickerProps, any>({
       minVelocityToKeepDecelerating: 0.5,
       scrollingComplete: this.scrollingComplete,
     });
-    this.zscroller.scroller.setSnapSize(0, this.props.itemHeight);
+    this.zscroller.scroller.setSnapSize(0, this.itemHeight);
     this.select(this.state.selectedValue);
   },
 
@@ -71,7 +70,7 @@ const Picker = React.createClass<PickerProps, any>({
     if (index < 0 || index >= this.props.children.length) {
       return;
     }
-    this.zscroller.scroller.scrollTo(0, index * this.props.itemHeight);
+    this.zscroller.scroller.scrollTo(0, index * this.itemHeight);
   },
 
   select(value) {
@@ -98,7 +97,7 @@ const Picker = React.createClass<PickerProps, any>({
 
   scrollingComplete() {
     const { top } = this.zscroller.scroller.getValues();
-    const index = Math.round((top - this.props.itemHeight / 2) / this.props.itemHeight);
+    const index = Math.round((top - this.itemHeight / 2) / this.itemHeight);
     const child = this.props.children[index];
     if (child) {
       this.fireValueChange(child.value);
@@ -106,22 +105,15 @@ const Picker = React.createClass<PickerProps, any>({
   },
 
   render() {
-    const { children, prefixCls, className, itemHeight, visibleItemCount } = this.props;
-    if (visibleItemCount % 2 !== 1) {
-      throw new Error(`picker visibleItemCount must be odd`);
-    }
+    const { children, prefixCls, className } = this.props;
     const { selectedValue } = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
     const items = children.map((item) => {
-      const itemStyle = assign({
-        height: itemHeight,
-      }, this.props.itemStyle);
       return (
         <div
           className={selectedValue === item.value ? selectedItemClassName : itemClassName}
           key={item.value}
-          style={itemStyle}
         >
           {item.label}
         </div>
@@ -131,22 +123,13 @@ const Picker = React.createClass<PickerProps, any>({
       [className]: !!className,
       [prefixCls]: true,
     };
-    const padding = (visibleItemCount - 1) / 2 * itemHeight;
     return (
       <div
         className={classNames(pickerCls)}
-        style={{
-          height: visibleItemCount * itemHeight,
-        }}
       >
         <div className={`${prefixCls}-mask`} />
-        <div className={`${prefixCls}-indicator`} ref="indicator" style={{
-          top: padding,
-          height: itemHeight,
-        }} />
-        <div className={`${prefixCls}-content`} ref="content" style={{
-        padding:`${padding}px 0`,
-        }}>
+        <div className={`${prefixCls}-indicator`} ref="indicator" />
+        <div className={`${prefixCls}-content`} ref="content">
           {items}
         </div>
       </div>

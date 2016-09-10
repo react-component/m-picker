@@ -14,7 +14,4 @@ export interface PickerProps {
   className?: string;
   /** web only */
   defaultSelectedValue?: any;
-  itemStyle?: any;
-  itemHeight?: any;
-  visibleItemCount?: any;
 }
