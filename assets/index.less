@@ -1,23 +1,26 @@
 @pickerPrefixCls: rmc-picker;
+@picker-item-height: 34px;
 
 .@{pickerPrefixCls} {
   display: block;
   position: relative;
   overflow: hidden;
+  height: 7*@picker-item-height;
 
   &-content {
     position: absolute;
     left: 0;
     top: 0;
-    right:0;
+    right: 0;
     z-index: 1;
+    padding: 3*@picker-item-height 0;
   }
 
   &-mask {
     position: absolute;
     left: 0;
     top: 0;
-    right:0;
+    right: 0;
     bottom: 0;
     z-index: 3;
     background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6)),
@@ -32,6 +35,8 @@
   &-item {
     text-align: center;
     font-size: 16px;
+    line-height: @picker-item-height;
+    height: @picker-item-height;
     color: #000;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -39,10 +44,11 @@
   }
 
   &-indicator {
-    right:0;
+    right: 0;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 3*@picker-item-height;
+    height: @picker-item-height;
     z-index: 3;
     background-image: -webkit-linear-gradient(top, #d0d0d0, #d0d0d0, transparent, transparent),
     -webkit-linear-gradient(bottom, #d0d0d0, #d0d0d0, transparent, transparent);
