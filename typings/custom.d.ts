@@ -8,6 +8,11 @@ declare module "classnames" {
   export default Ret;
 }
 
+declare module "zscroller" {
+  var Ret: any;
+  export default Ret;
+}
+
 declare module "react-hammerjs" {
   var Ret: any;
   export default Ret;

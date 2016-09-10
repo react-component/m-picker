@@ -5,7 +5,7 @@ import 'rmc-picker/assets/popup.less';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import PopPicker from '../src/Popup.web';
+import Popup from '../src/Popup.web';
 
 const Demo = React.createClass({
   getInitialState() {
@@ -30,7 +30,7 @@ const Demo = React.createClass({
         <h2>popup date picker</h2>
         <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
         <div>
-          <PopPicker
+          <Popup
             popupTransitionName="rmc-picker-popup-slide-fade"
             maskTransitionName="rmc-picker-popup-fade"
             content="popup"
@@ -40,7 +40,7 @@ const Demo = React.createClass({
             onOk={this.onOk}
           >
             <button disabled={this.state.disabled}>{'open'}</button>
-          </PopPicker>
+          </Popup>
         </div>
       </div>
     );
