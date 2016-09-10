@@ -32,7 +32,7 @@ const Demo = React.createClass({
         <div>
           <Popup
             className="fortest"
-            popupTransitionName="rmc-picker-popup-slide-fade"
+            transitionName="rmc-picker-popup-slide-fade"
             maskTransitionName="rmc-picker-popup-fade"
             content="popup"
             title="Picker"
