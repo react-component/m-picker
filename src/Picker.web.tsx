@@ -40,6 +40,7 @@ const Picker = React.createClass<PickerProps, any>({
       minVelocityToKeepDecelerating: 0.5,
       scrollingComplete: this.scrollingComplete,
     });
+    this.zscroller.setDisabled(this.props.disabled);
     this.zscroller.scroller.setSnapSize(0, this.itemHeight);
     this.select(this.state.selectedValue);
   },
@@ -50,7 +51,7 @@ const Picker = React.createClass<PickerProps, any>({
         selectedValue: nextProps.selectedValue,
       });
     }
-    this.zscroller.disabled = nextProps.disabled;
+    this.zscroller.setDisabled(nextProps.disabled);
   },
 
   shouldComponentUpdate(nextProps, nextState) {
