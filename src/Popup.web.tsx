@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Modal from 'rc-dialog';
-import {PopupPickerProps, PopupPickerState} from './PopupPickerTypes';
+import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 
 const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
@@ -23,10 +23,10 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
       prefixCls={`${props.prefixCls}`}
       className={props.className || ''}
       visible
-      transitionName={props.popupTransitionName}
+      transitionName={props.transitionName || props.popupTransitionName}
       maskTransitionName={props.maskTransitionName}
       onClose={this.hide}
-      style={props.modalStyle}
+      style={props.style}
     >
       <div>
         <div className={`${props.prefixCls}-header`}>

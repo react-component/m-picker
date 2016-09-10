@@ -1,35 +1,35 @@
 export interface PopupPickerProps {
-  triggerType?:string;
-  WrapComponent?:any;
-  dismissText?:string|React.ReactElement<any>; // React.ReactElement only for web
-  okText?:string|React.ReactElement<any>; // React.ReactElement only for web
-  title?:string|React.ReactElement<any>; // React.ReactElement only for web
-  visible?:boolean;
-  disabled?:boolean;
-  onOk?:() => void;
-  style?:any;
-  onVisibleChange?:(visible:boolean) => void;
-  content?:React.ReactElement<any>|string;
-  onDismiss?:() => void;
+  triggerType?: string;
+  WrapComponent?: any;
+  dismissText?: string|React.ReactElement<any>; // React.ReactElement only for web
+  okText?: string|React.ReactElement<any>; // React.ReactElement only for web
+  title?: string|React.ReactElement<any>; // React.ReactElement only for web
+  visible?: boolean;
+  disabled?: boolean;
+  onOk?: () => void;
+  style?: any;
+  onVisibleChange?: (visible: boolean) => void;
+  content?: React.ReactElement<any>|string;
+  onDismiss?: () => void;
   /** react-native only */
-  styles?:any;
+  styles?: any;
   /** react-native only */
-  actionTextUnderlayColor?:string;
+  actionTextUnderlayColor?: string;
   /** react-native only */
-  actionTextActiveOpacity?:number;
+  actionTextActiveOpacity?: number;
   /** react-native only */
   animationType?: 'fade'|'slide'|'none';
   /** web only */
-  modalStyle?:React.CSSProperties;
+  wrapStyle?: React.CSSProperties;
   /** web only */
-  prefixCls?:string;
-  className?:string;
+  prefixCls?: string;
+  className?: string;
   /** web only */
-  popupTransitionName?:string;
+  transitionName?: string;
   /** web only */
-  maskTransitionName?:string;
+  maskTransitionName?: string;
 }
 
 export interface PopupPickerState {
-  visible:boolean;
+  visible: boolean;
 }

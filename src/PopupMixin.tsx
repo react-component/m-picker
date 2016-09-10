@@ -54,7 +54,7 @@ export default {
     if (!disabled) {
       newChildProps[props.triggerType] = this.onTriggerClick;
     }
-    return (<WrapComponent style={props.style}>
+    return (<WrapComponent style={props.wrapStyle}>
       {React.cloneElement(child, newChildProps)}
       {this.getModal()}
     </WrapComponent>);

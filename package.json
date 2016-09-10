@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.3.3",
+  "version": "3.4.1",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -27,7 +27,7 @@
   "licenses": "MIT",
   "main": "./lib/index.web",
   "config": {
-    "port": 8020
+    "port": 8021
   },
   "scripts": {
     "watch-tsc": "rc-tools run watch-tsc",
@@ -49,8 +49,8 @@
     "classnames": "2.x",
     "object-assign": "4.x",
     "rc-dialog": "6.x",
-    "react-hammerjs": "0.5.x",
-    "react-native-picker-android": "~1.0.2"
+    "react-native-picker-android": "~1.0.2",
+    "zscroller": "~0.2.0"
   },
   "devDependencies": {
     "array-tree-filter": "1.x",
