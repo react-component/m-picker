@@ -1,6 +1,10 @@
 # History
 ----
 
+## 3.4.0 / 2016-09-10
+
+- use zscroller
+
 ## 3.0.0 / 2016-06-15
 
 - support hammerjs and react-native

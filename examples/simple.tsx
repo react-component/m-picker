@@ -51,7 +51,6 @@ const Test = React.createClass({
         &nbsp;
         <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
         <Picker
-          itemStyle={{lineHeight: '34px'}}
           selectedValue={this.state.value}
           disabled={this.state.disabled}
           onValueChange={this.onChange}
