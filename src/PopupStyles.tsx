@@ -9,13 +9,8 @@ const textStyle = {
 
 const styles = StyleSheet.create({
   modal: {
-    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: '#fff',
   },
   header: {
     flex: 1,
@@ -27,6 +22,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e7e7e7',
   },
   headerItem: {
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
   },
   actionText: textStyle,

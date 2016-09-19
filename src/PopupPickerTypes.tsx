@@ -17,8 +17,6 @@ export interface PopupPickerProps {
   actionTextUnderlayColor?: string;
   /** react-native only */
   actionTextActiveOpacity?: number;
-  /** react-native only */
-  animationType?: 'fade'|'slide'|'none';
   /** web only */
   wrapStyle?: React.CSSProperties;
   /** web only */
