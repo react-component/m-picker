@@ -1,249 +1,21 @@
-webpackJsonp([1],[
-/* 0 */
+webpackJsonp([1],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(231);
+	module.exports = __webpack_require__(230);
 
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */
+
+/***/ 230:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(2);
 	
-	var _Picker = __webpack_require__(232);
+	var _Picker = __webpack_require__(231);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -326,7 +98,8 @@ webpackJsonp([1],[
 	ReactDOM.render(React.createElement(Test, null), document.getElementById('__react-content'));
 
 /***/ },
-/* 232 */
+
+/***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -335,7 +108,7 @@ webpackJsonp([1],[
 	    value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(233);
+	var _defineProperty2 = __webpack_require__(232);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -343,15 +116,15 @@ webpackJsonp([1],[
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _classnames = __webpack_require__(237);
+	var _classnames = __webpack_require__(236);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _isChildrenEqual = __webpack_require__(238);
+	var _isChildrenEqual = __webpack_require__(237);
 	
 	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
 	
-	var _zscroller = __webpack_require__(239);
+	var _zscroller = __webpack_require__(238);
 	
 	var _zscroller2 = _interopRequireDefault(_zscroller);
 	
@@ -491,14 +264,15 @@ webpackJsonp([1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 233 */
+
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _defineProperty = __webpack_require__(234);
+	var _defineProperty = __webpack_require__(233);
 	
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 	
@@ -520,31 +294,35 @@ webpackJsonp([1],[
 	};
 
 /***/ },
-/* 234 */
+
+/***/ 233:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(235), __esModule: true };
+	module.exports = { "default": __webpack_require__(234), __esModule: true };
 
 /***/ },
-/* 235 */
+
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(236);
-	var $Object = __webpack_require__(184).Object;
+	__webpack_require__(235);
+	var $Object = __webpack_require__(183).Object;
 	module.exports = function defineProperty(it, key, desc){
 	  return $Object.defineProperty(it, key, desc);
 	};
 
 /***/ },
-/* 236 */
+
+/***/ 235:
 /***/ function(module, exports, __webpack_require__) {
 
-	var $export = __webpack_require__(182);
+	var $export = __webpack_require__(181);
 	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-	$export($export.S + $export.F * !__webpack_require__(192), 'Object', {defineProperty: __webpack_require__(188).f});
+	$export($export.S + $export.F * !__webpack_require__(191), 'Object', {defineProperty: __webpack_require__(187).f});
 
 /***/ },
-/* 237 */
+
+/***/ 236:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -598,7 +376,8 @@ webpackJsonp([1],[
 
 
 /***/ },
-/* 238 */
+
+/***/ 237:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -631,26 +410,15 @@ webpackJsonp([1],[
 	}
 
 /***/ },
-/* 239 */
+
+/***/ 238:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(240);
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _extends2 = __webpack_require__(241);
-	
-	var _extends3 = _interopRequireDefault(_extends2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Scroller = __webpack_require__(279);
+	var Scroller = __webpack_require__(239);
 	var MIN_INDICATOR_SIZE = 8;
 	
 	function setTransform(nodeStyle, value) {
@@ -681,7 +449,7 @@ webpackJsonp([1],[
 	
 	  this.content = content;
 	  this.container = content.parentNode;
-	  this.options = (0, _extends3.default)({}, options, {
+	  this.options = _extends({}, options, {
 	    scrollingComplete: function scrollingComplete() {
 	      _this.clearScrollbarTimer();
 	      _this.timer = setTimeout(function () {
@@ -730,6 +498,9 @@ webpackJsonp([1],[
 	
 	  // create Scroller instance
 	  this.scroller = new Scroller(function (left, top, zoom) {
+	    if (!init && options.onScroll) {
+	      options.onScroll();
+	    }
 	    setTransform(contentStyle, 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')');
 	    if (scrollbars) {
 	      ['x', 'y'].forEach(function (k) {
@@ -928,335 +699,10 @@ webpackJsonp([1],[
 	module.exports = DOMScroller;
 
 /***/ },
-/* 241 */
+
+/***/ 239:
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _assign = __webpack_require__(242);
-	
-	var _assign2 = _interopRequireDefault(_assign);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _assign2.default || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-	
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }
-	
-	  return target;
-	};
-
-/***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(243), __esModule: true };
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(244);
-	module.exports = __webpack_require__(247).Object.assign;
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.3.1 Object.assign(target, source)
-	var $export = __webpack_require__(245);
-	
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(260)});
-
-/***/ },
-/* 245 */
-[316, 246, 247, 248, 250],
-/* 246 */
-183,
-/* 247 */
-184,
-/* 248 */
-[317, 249],
-/* 249 */
-186,
-/* 250 */
-[318, 251, 259, 255],
-/* 251 */
-[319, 252, 254, 258, 255],
-/* 252 */
-[320, 253],
-/* 253 */
-190,
-/* 254 */
-[321, 255, 256, 257],
-/* 255 */
-[322, 256],
-/* 256 */
-193,
-/* 257 */
-[323, 253, 246],
-/* 258 */
-[324, 253],
-/* 259 */
-196,
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	// 19.1.2.1 Object.assign(target, source, ...)
-	var getKeys  = __webpack_require__(261)
-	  , gOPS     = __webpack_require__(276)
-	  , pIE      = __webpack_require__(277)
-	  , toObject = __webpack_require__(278)
-	  , IObject  = __webpack_require__(265)
-	  , $assign  = Object.assign;
-	
-	// should work with symbols and should have deterministic property order (V8 bug)
-	module.exports = !$assign || __webpack_require__(256)(function(){
-	  var A = {}
-	    , B = {}
-	    , S = Symbol()
-	    , K = 'abcdefghijklmnopqrst';
-	  A[S] = 7;
-	  K.split('').forEach(function(k){ B[k] = k; });
-	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-	}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
-	  var T     = toObject(target)
-	    , aLen  = arguments.length
-	    , index = 1
-	    , getSymbols = gOPS.f
-	    , isEnum     = pIE.f;
-	  while(aLen > index){
-	    var S      = IObject(arguments[index++])
-	      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
-	      , length = keys.length
-	      , j      = 0
-	      , key;
-	    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
-	  } return T;
-	} : $assign;
-
-/***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-	var $keys       = __webpack_require__(262)
-	  , enumBugKeys = __webpack_require__(275);
-	
-	module.exports = Object.keys || function keys(O){
-	  return $keys(O, enumBugKeys);
-	};
-
-/***/ },
-/* 262 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var has          = __webpack_require__(263)
-	  , toIObject    = __webpack_require__(264)
-	  , arrayIndexOf = __webpack_require__(268)(false)
-	  , IE_PROTO     = __webpack_require__(272)('IE_PROTO');
-	
-	module.exports = function(object, names){
-	  var O      = toIObject(object)
-	    , i      = 0
-	    , result = []
-	    , key;
-	  for(key in O)if(key != IE_PROTO)has(O, key) && result.push(key);
-	  // Don't enum bug & hidden keys
-	  while(names.length > i)if(has(O, key = names[i++])){
-	    ~arrayIndexOf(result, key) || result.push(key);
-	  }
-	  return result;
-	};
-
-/***/ },
-/* 263 */
-/***/ function(module, exports) {
-
-	var hasOwnProperty = {}.hasOwnProperty;
-	module.exports = function(it, key){
-	  return hasOwnProperty.call(it, key);
-	};
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// to indexed object, toObject with fallback for non-array-like ES3 strings
-	var IObject = __webpack_require__(265)
-	  , defined = __webpack_require__(267);
-	module.exports = function(it){
-	  return IObject(defined(it));
-	};
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// fallback for non-array-like ES3 and non-enumerable old V8 strings
-	var cof = __webpack_require__(266);
-	module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
-	  return cof(it) == 'String' ? it.split('') : Object(it);
-	};
-
-/***/ },
-/* 266 */
-/***/ function(module, exports) {
-
-	var toString = {}.toString;
-	
-	module.exports = function(it){
-	  return toString.call(it).slice(8, -1);
-	};
-
-/***/ },
-/* 267 */
-/***/ function(module, exports) {
-
-	// 7.2.1 RequireObjectCoercible(argument)
-	module.exports = function(it){
-	  if(it == undefined)throw TypeError("Can't call method on  " + it);
-	  return it;
-	};
-
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// false -> Array#indexOf
-	// true  -> Array#includes
-	var toIObject = __webpack_require__(264)
-	  , toLength  = __webpack_require__(269)
-	  , toIndex   = __webpack_require__(271);
-	module.exports = function(IS_INCLUDES){
-	  return function($this, el, fromIndex){
-	    var O      = toIObject($this)
-	      , length = toLength(O.length)
-	      , index  = toIndex(fromIndex, length)
-	      , value;
-	    // Array#includes uses SameValueZero equality algorithm
-	    if(IS_INCLUDES && el != el)while(length > index){
-	      value = O[index++];
-	      if(value != value)return true;
-	    // Array#toIndex ignores holes, Array#includes - not
-	    } else for(;length > index; index++)if(IS_INCLUDES || index in O){
-	      if(O[index] === el)return IS_INCLUDES || index || 0;
-	    } return !IS_INCLUDES && -1;
-	  };
-	};
-
-/***/ },
-/* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 7.1.15 ToLength
-	var toInteger = __webpack_require__(270)
-	  , min       = Math.min;
-	module.exports = function(it){
-	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-	};
-
-/***/ },
-/* 270 */
-/***/ function(module, exports) {
-
-	// 7.1.4 ToInteger
-	var ceil  = Math.ceil
-	  , floor = Math.floor;
-	module.exports = function(it){
-	  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-	};
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var toInteger = __webpack_require__(270)
-	  , max       = Math.max
-	  , min       = Math.min;
-	module.exports = function(index, length){
-	  index = toInteger(index);
-	  return index < 0 ? max(index + length, 0) : min(index, length);
-	};
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var shared = __webpack_require__(273)('keys')
-	  , uid    = __webpack_require__(274);
-	module.exports = function(key){
-	  return shared[key] || (shared[key] = uid(key));
-	};
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var global = __webpack_require__(246)
-	  , SHARED = '__core-js_shared__'
-	  , store  = global[SHARED] || (global[SHARED] = {});
-	module.exports = function(key){
-	  return store[key] || (store[key] = {});
-	};
-
-/***/ },
-/* 274 */
-/***/ function(module, exports) {
-
-	var id = 0
-	  , px = Math.random();
-	module.exports = function(key){
-	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-	};
-
-/***/ },
-/* 275 */
-/***/ function(module, exports) {
-
-	// IE 8- don't enum bug keys
-	module.exports = (
-	  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-	).split(',');
-
-/***/ },
-/* 276 */
-/***/ function(module, exports) {
-
-	exports.f = Object.getOwnPropertySymbols;
-
-/***/ },
-/* 277 */
-/***/ function(module, exports) {
-
-	exports.f = {}.propertyIsEnumerable;
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 7.1.13 ToObject(argument)
-	var defined = __webpack_require__(267);
-	module.exports = function(it){
-	  return Object(defined(it));
-	};
-
-/***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
 	/*
 	 * Scroller
 	 * http://github.com/zynga/scroller
@@ -1272,14 +718,15 @@ webpackJsonp([1],[
 	 */
 	
 	var Scroller;
-	var Animate = __webpack_require__(280);
+	var Animate = __webpack_require__(240);
 	
-	var NOOP = function NOOP() {};
+	var NOOP = function () {
+	};
 	
 	/**
 	 * A pure logic 'component' for 'virtual' scrolling/zooming.
 	 */
-	Scroller = function Scroller(callback, options) {
+	Scroller = function (callback, options) {
 	
 	  this.__callback = callback;
 	
@@ -1337,7 +784,9 @@ webpackJsonp([1],[
 	  for (var key in options) {
 	    this.options[key] = options[key];
 	  }
+	
 	};
+	
 	
 	// Easing Equations (c) 2003 Robert Penner, all rights reserved.
 	// Open source under the BSD License.
@@ -1345,20 +794,21 @@ webpackJsonp([1],[
 	/**
 	 * @param pos {Number} position between 0 (start of effect) and 1 (end of effect)
 	 **/
-	var easeOutCubic = function easeOutCubic(pos) {
-	  return Math.pow(pos - 1, 3) + 1;
+	var easeOutCubic = function (pos) {
+	  return (Math.pow((pos - 1), 3) + 1);
 	};
 	
 	/**
 	 * @param pos {Number} position between 0 (start of effect) and 1 (end of effect)
 	 **/
-	var easeInOutCubic = function easeInOutCubic(pos) {
+	var easeInOutCubic = function (pos) {
 	  if ((pos /= 0.5) < 1) {
 	    return 0.5 * Math.pow(pos, 3);
 	  }
 	
-	  return 0.5 * (Math.pow(pos - 2, 3) + 2);
+	  return 0.5 * (Math.pow((pos - 2), 3) + 2);
 	};
+	
 	
 	var members = {
 	
@@ -1400,6 +850,7 @@ webpackJsonp([1],[
 	   * {Boolean} Smoothly animating the currently configured change
 	   */
 	  __isAnimating: false,
+	
 	
 	  /*
 	   ---------------------------------------------------------------------------
@@ -1470,6 +921,7 @@ webpackJsonp([1],[
 	  /* {Number} Scheduled zoom level (final scale when animating) */
 	  __scheduledZoom: 0,
 	
+	
 	  /*
 	   ---------------------------------------------------------------------------
 	   INTERNAL FIELDS :: LAST POSITIONS
@@ -1487,6 +939,7 @@ webpackJsonp([1],[
 	
 	  /** {Array} List of positions, uses three indexes for each state: left, top, timestamp */
 	  __positions: null,
+	
 	
 	  /*
 	   ---------------------------------------------------------------------------
@@ -1512,6 +965,7 @@ webpackJsonp([1],[
 	  /** {Number} Current factor to modify vertical scroll position with on every step */
 	  __decelerationVelocityY: null,
 	
+	
 	  /*
 	   ---------------------------------------------------------------------------
 	   PUBLIC API
@@ -1528,7 +982,7 @@ webpackJsonp([1],[
 	   * @param contentWidth {Integer ? null} Outer width of inner element
 	   * @param contentHeight {Integer ? null} Outer height of inner element
 	   */
-	  setDimensions: function setDimensions(clientWidth, clientHeight, contentWidth, contentHeight) {
+	  setDimensions: function (clientWidth, clientHeight, contentWidth, contentHeight) {
 	
 	    var self = this;
 	
@@ -1554,7 +1008,9 @@ webpackJsonp([1],[
 	
 	    // Refresh scroll position
 	    self.scrollTo(self.__scrollLeft, self.__scrollTop, true);
+	
 	  },
+	
 	
 	  /**
 	   * Sets the client coordinates in relation to the document.
@@ -1562,13 +1018,15 @@ webpackJsonp([1],[
 	   * @param left {Integer ? 0} Left position of outer element
 	   * @param top {Integer ? 0} Top position of outer element
 	   */
-	  setPosition: function setPosition(left, top) {
+	  setPosition: function (left, top) {
 	
 	    var self = this;
 	
 	    self.__clientLeft = left || 0;
 	    self.__clientTop = top || 0;
+	
 	  },
+	
 	
 	  /**
 	   * Configures the snapping (when snapping is active)
@@ -1576,13 +1034,15 @@ webpackJsonp([1],[
 	   * @param width {Integer} Snapping width
 	   * @param height {Integer} Snapping height
 	   */
-	  setSnapSize: function setSnapSize(width, height) {
+	  setSnapSize: function (width, height) {
 	
 	    var self = this;
 	
 	    self.__snapWidth = width;
 	    self.__snapHeight = height;
+	
 	  },
+	
 	
 	  /**
 	   * Activates pull-to-refresh. A special zone on the top of the list to start a list refresh whenever
@@ -1594,7 +1054,7 @@ webpackJsonp([1],[
 	   * @param deactivateCallback {Function} Callback to execute on deactivation. This is for signalling the user about the refresh being cancelled.
 	   * @param startCallback {Function} Callback to execute to start the real async refresh action. Call {@link #finishPullToRefresh} after finish of refresh.
 	   */
-	  activatePullToRefresh: function activatePullToRefresh(height, activateCallback, deactivateCallback, startCallback) {
+	  activatePullToRefresh: function (height, activateCallback, deactivateCallback, startCallback) {
 	
 	    var self = this;
 	
@@ -1602,12 +1062,14 @@ webpackJsonp([1],[
 	    self.__refreshActivate = activateCallback;
 	    self.__refreshDeactivate = deactivateCallback;
 	    self.__refreshStart = startCallback;
+	
 	  },
+	
 	
 	  /**
 	   * Starts pull-to-refresh manually.
 	   */
-	  triggerPullToRefresh: function triggerPullToRefresh() {
+	  triggerPullToRefresh: function () {
 	    // Use publish instead of scrollTo to allow scrolling to out of boundary position
 	    // We don't need to normalize scrollLeft, zoomLevel, etc. here because we only y-scrolling when pull-to-refresh is enabled
 	    this.__publish(this.__scrollLeft, -this.__refreshHeight, this.__zoomLevel, true);
@@ -1617,10 +1079,11 @@ webpackJsonp([1],[
 	    }
 	  },
 	
+	
 	  /**
 	   * Signalizes that pull-to-refresh is finished.
 	   */
-	  finishPullToRefresh: function finishPullToRefresh() {
+	  finishPullToRefresh: function () {
 	
 	    var self = this;
 	
@@ -1630,14 +1093,16 @@ webpackJsonp([1],[
 	    }
 	
 	    self.scrollTo(self.__scrollLeft, self.__scrollTop, true);
+	
 	  },
+	
 	
 	  /**
 	   * Returns the scroll position and zooming values
 	   *
 	   * @return {Map} `left` and `top` scroll position and `zoom` level
 	   */
-	  getValues: function getValues() {
+	  getValues: function () {
 	
 	    var self = this;
 	
@@ -1646,14 +1111,16 @@ webpackJsonp([1],[
 	      top: self.__scrollTop,
 	      zoom: self.__zoomLevel
 	    };
+	
 	  },
+	
 	
 	  /**
 	   * Returns the maximum scroll values
 	   *
 	   * @return {Map} `left` and `top` maximum scroll values
 	   */
-	  getScrollMax: function getScrollMax() {
+	  getScrollMax: function () {
 	
 	    var self = this;
 	
@@ -1661,7 +1128,9 @@ webpackJsonp([1],[
 	      left: self.__maxScrollLeft,
 	      top: self.__maxScrollTop
 	    };
+	
 	  },
+	
 	
 	  /**
 	   * Zooms to the given level. Supports optional animation. Zooms
@@ -1673,7 +1142,7 @@ webpackJsonp([1],[
 	   * @param originTop {Number ? null} Zoom in at given top coordinate
 	   * @param callback {Function ? null} A callback that gets fired when the zoom is complete.
 	   */
-	  zoomTo: function zoomTo(level, animate, originLeft, originTop, callback) {
+	  zoomTo: function (level, animate, originLeft, originTop, callback) {
 	
 	    var self = this;
 	
@@ -1710,8 +1179,8 @@ webpackJsonp([1],[
 	    self.__computeScrollMax(level);
 	
 	    // Recompute left and top coordinates based on new zoom level
-	    var left = (originLeft + self.__scrollLeft) * level / oldLevel - originLeft;
-	    var top = (originTop + self.__scrollTop) * level / oldLevel - originTop;
+	    var left = ((originLeft + self.__scrollLeft) * level / oldLevel) - originLeft;
+	    var top = ((originTop + self.__scrollTop) * level / oldLevel) - originTop;
 	
 	    // Limit x-axis
 	    if (left > self.__maxScrollLeft) {
@@ -1729,7 +1198,9 @@ webpackJsonp([1],[
 	
 	    // Push values out
 	    self.__publish(left, top, level, animate);
+	
 	  },
+	
 	
 	  /**
 	   * Zooms the content by the given factor.
@@ -1740,12 +1211,14 @@ webpackJsonp([1],[
 	   * @param originTop {Number ? 0} Zoom in at given top coordinate
 	   * @param callback {Function ? null} A callback that gets fired when the zoom is complete.
 	   */
-	  zoomBy: function zoomBy(factor, animate, originLeft, originTop, callback) {
+	  zoomBy: function (factor, animate, originLeft, originTop, callback) {
 	
 	    var self = this;
 	
 	    self.zoomTo(self.__zoomLevel * factor, animate, originLeft, originTop, callback);
+	
 	  },
+	
 	
 	  /**
 	   * Scrolls to the given position. Respect limitations and snapping automatically.
@@ -1755,7 +1228,7 @@ webpackJsonp([1],[
 	   * @param animate {Boolean?false} Whether the scrolling should happen using an animation
 	   * @param zoom {Number?null} Zoom level to go to
 	   */
-	  scrollTo: function scrollTo(left, top, animate, zoom, callback) {
+	  scrollTo: function (left, top, animate, zoom, callback) {
 	
 	    var self = this;
 	
@@ -1777,15 +1250,18 @@ webpackJsonp([1],[
 	
 	      // Recompute maximum values while temporary tweaking maximum scroll ranges
 	      self.__computeScrollMax(zoom);
+	
 	    } else {
 	
 	      // Keep zoom when not defined
 	      zoom = self.__zoomLevel;
+	
 	    }
 	
 	    if (!self.options.scrollingX) {
 	
 	      left = self.__scrollLeft;
+	
 	    } else {
 	
 	      if (self.options.paging) {
@@ -1793,11 +1269,13 @@ webpackJsonp([1],[
 	      } else if (self.options.snapping) {
 	        left = Math.round(left / self.__snapWidth) * self.__snapWidth;
 	      }
+	
 	    }
 	
 	    if (!self.options.scrollingY) {
 	
 	      top = self.__scrollTop;
+	
 	    } else {
 	
 	      if (self.options.paging) {
@@ -1805,6 +1283,7 @@ webpackJsonp([1],[
 	      } else if (self.options.snapping) {
 	        top = Math.round(top / self.__snapHeight) * self.__snapHeight;
 	      }
+	
 	    }
 	
 	    // Limit for allowed ranges
@@ -1824,7 +1303,9 @@ webpackJsonp([1],[
 	    if (!self.__isTracking) {
 	      self.__publish(left, top, zoom, animate);
 	    }
+	
 	  },
+	
 	
 	  /**
 	   * Scroll by the given offset
@@ -1833,7 +1314,7 @@ webpackJsonp([1],[
 	   * @param top {Number ? 0} Scroll x-axis by given offset
 	   * @param animate {Boolean ? false} Whether to animate the given change
 	   */
-	  scrollBy: function scrollBy(left, top, animate) {
+	  scrollBy: function (left, top, animate) {
 	
 	    var self = this;
 	
@@ -1841,7 +1322,9 @@ webpackJsonp([1],[
 	    var startTop = self.__isAnimating ? self.__scheduledTop : self.__scrollTop;
 	
 	    self.scrollTo(startLeft + (left || 0), startTop + (top || 0), animate);
+	
 	  },
+	
 	
 	  /*
 	   ---------------------------------------------------------------------------
@@ -1852,18 +1335,20 @@ webpackJsonp([1],[
 	  /**
 	   * Mouse wheel handler for zooming support
 	   */
-	  doMouseZoom: function doMouseZoom(wheelDelta, timeStamp, pageX, pageY) {
+	  doMouseZoom: function (wheelDelta, timeStamp, pageX, pageY) {
 	
 	    var self = this;
 	    var change = wheelDelta > 0 ? 0.97 : 1.03;
 	
 	    return self.zoomTo(self.__zoomLevel * change, false, pageX - self.__clientLeft, pageY - self.__clientTop);
+	
 	  },
+	
 	
 	  /**
 	   * Touch start handler for scrolling support
 	   */
-	  doTouchStart: function doTouchStart(touches, timeStamp) {
+	  doTouchStart: function (touches, timeStamp) {
 	
 	    // Array-like check is enough here
 	    if (touches.length == null) {
@@ -1942,12 +1427,14 @@ webpackJsonp([1],[
 	
 	    // Clearing data structure
 	    self.__positions = [];
+	
 	  },
+	
 	
 	  /**
 	   * Touch move handler for scrolling support
 	   */
-	  doTouchMove: function doTouchMove(touches, timeStamp, scale) {
+	  doTouchMove: function (touches, timeStamp, scale) {
 	
 	    // Array-like check is enough here
 	    if (touches.length == null) {
@@ -1967,6 +1454,7 @@ webpackJsonp([1],[
 	    if (!self.__isTracking) {
 	      return;
 	    }
+	
 	
 	    var currentTouchLeft, currentTouchTop;
 	
@@ -2012,11 +1500,12 @@ webpackJsonp([1],[
 	          var currentTouchTopRel = currentTouchTop - self.__clientTop;
 	
 	          // Recompute left and top coordinates based on new zoom level
-	          scrollLeft = (currentTouchLeftRel + scrollLeft) * level / oldLevel - currentTouchLeftRel;
-	          scrollTop = (currentTouchTopRel + scrollTop) * level / oldLevel - currentTouchTopRel;
+	          scrollLeft = ((currentTouchLeftRel + scrollLeft) * level / oldLevel) - currentTouchLeftRel;
+	          scrollTop = ((currentTouchTopRel + scrollTop) * level / oldLevel) - currentTouchTopRel;
 	
 	          // Recompute max scroll values
 	          self.__computeScrollMax(level);
+	
 	        }
 	      }
 	
@@ -2030,13 +1519,16 @@ webpackJsonp([1],[
 	          // Slow down on the edges
 	          if (self.options.bouncing) {
 	
-	            scrollLeft += moveX / 2 * this.options.speedMultiplier;
+	            scrollLeft += (moveX / 2 * this.options.speedMultiplier);
+	
 	          } else if (scrollLeft > maxScrollLeft) {
 	
 	            scrollLeft = maxScrollLeft;
+	
 	          } else {
 	
 	            scrollLeft = 0;
+	
 	          }
 	        }
 	      }
@@ -2052,7 +1544,7 @@ webpackJsonp([1],[
 	          // Slow down on the edges
 	          if (self.options.bouncing) {
 	
-	            scrollTop += moveY / 2 * this.options.speedMultiplier;
+	            scrollTop += (moveY / 2 * this.options.speedMultiplier);
 	
 	            // Support pull-to-refresh (only when only y is scrollable)
 	            if (!self.__enableScrollX && self.__refreshHeight != null) {
@@ -2063,20 +1555,25 @@ webpackJsonp([1],[
 	                if (self.__refreshActivate) {
 	                  self.__refreshActivate();
 	                }
+	
 	              } else if (self.__refreshActive && scrollTop > -self.__refreshHeight) {
 	
 	                self.__refreshActive = false;
 	                if (self.__refreshDeactivate) {
 	                  self.__refreshDeactivate();
 	                }
+	
 	              }
 	            }
+	
 	          } else if (scrollTop > maxScrollTop) {
 	
 	            scrollTop = maxScrollTop;
+	
 	          } else {
 	
 	            scrollTop = 0;
+	
 	          }
 	        }
 	      }
@@ -2110,6 +1607,7 @@ webpackJsonp([1],[
 	      if (self.__isDragging) {
 	        self.__interruptedAnimation = false;
 	      }
+	
 	    }
 	
 	    // Update last touch positions and time stamp for next event
@@ -2117,12 +1615,14 @@ webpackJsonp([1],[
 	    self.__lastTouchTop = currentTouchTop;
 	    self.__lastTouchMove = timeStamp;
 	    self.__lastScale = scale;
+	
 	  },
+	
 	
 	  /**
 	   * Touch end handler for scrolling support
 	   */
-	  doTouchEnd: function doTouchEnd(timeStamp) {
+	  doTouchEnd: function (timeStamp) {
 	
 	    if (timeStamp instanceof Date) {
 	      timeStamp = timeStamp.valueOf();
@@ -2151,7 +1651,7 @@ webpackJsonp([1],[
 	
 	      // Start deceleration
 	      // Verify that the last move detected was in some relevant time frame
-	      if (self.__isSingleTouch && self.options.animating && timeStamp - self.__lastTouchMove <= 100) {
+	      if (self.__isSingleTouch && self.options.animating && (timeStamp - self.__lastTouchMove) <= 100) {
 	
 	        // Then figure out what the scroll position was about 100ms ago
 	        var positions = self.__positions;
@@ -2159,7 +1659,7 @@ webpackJsonp([1],[
 	        var startPos = endPos;
 	
 	        // Move pointer to position measured 100ms ago
-	        for (var i = endPos; i > 0 && positions[i] > self.__lastTouchMove - 100; i -= 3) {
+	        for (var i = endPos; i > 0 && positions[i] > (self.__lastTouchMove - 100); i -= 3) {
 	          startPos = i;
 	        }
 	
@@ -2192,7 +1692,7 @@ webpackJsonp([1],[
 	        } else {
 	          self.options.scrollingComplete();
 	        }
-	      } else if (timeStamp - self.__lastTouchMove > 100) {
+	      } else if ((timeStamp - self.__lastTouchMove) > 100) {
 	        self.options.scrollingComplete();
 	      }
 	    }
@@ -2213,6 +1713,7 @@ webpackJsonp([1],[
 	        if (self.__refreshStart) {
 	          self.__refreshStart();
 	        }
+	
 	      } else {
 	
 	        if (self.__interruptedAnimation || self.__isDragging) {
@@ -2227,13 +1728,16 @@ webpackJsonp([1],[
 	          if (self.__refreshDeactivate) {
 	            self.__refreshDeactivate();
 	          }
+	
 	        }
 	      }
 	    }
 	
 	    // Fully cleanup list
 	    self.__positions.length = 0;
+	
 	  },
+	
 	
 	  /*
 	   ---------------------------------------------------------------------------
@@ -2248,7 +1752,7 @@ webpackJsonp([1],[
 	   * @param top {Number} Top scroll position
 	   * @param animate {Boolean?false} Whether animation should be used to move to the new coordinates
 	   */
-	  __publish: function __publish(left, top, zoom, animate) {
+	  __publish: function (left, top, zoom, animate) {
 	
 	    var self = this;
 	
@@ -2274,26 +1778,27 @@ webpackJsonp([1],[
 	      var diffTop = top - oldTop;
 	      var diffZoom = zoom - oldZoom;
 	
-	      var step = function step(percent, now, render) {
+	      var step = function (percent, now, render) {
 	
 	        if (render) {
 	
-	          self.__scrollLeft = oldLeft + diffLeft * percent;
-	          self.__scrollTop = oldTop + diffTop * percent;
-	          self.__zoomLevel = oldZoom + diffZoom * percent;
+	          self.__scrollLeft = oldLeft + (diffLeft * percent);
+	          self.__scrollTop = oldTop + (diffTop * percent);
+	          self.__zoomLevel = oldZoom + (diffZoom * percent);
 	
 	          // Push values out
 	          if (self.__callback) {
 	            self.__callback(self.__scrollLeft, self.__scrollTop, self.__zoomLevel);
 	          }
+	
 	        }
 	      };
 	
-	      var verify = function verify(id) {
+	      var verify = function (id) {
 	        return self.__isAnimating === id;
 	      };
 	
-	      var completed = function completed(renderedFramesPerSecond, animationId, wasFinished) {
+	      var completed = function (renderedFramesPerSecond, animationId, wasFinished) {
 	        if (animationId === self.__isAnimating) {
 	          self.__isAnimating = false;
 	        }
@@ -2313,6 +1818,7 @@ webpackJsonp([1],[
 	
 	      // When continuing based on previous animation we choose an ease-out animation instead of ease-in-out
 	      self.__isAnimating = Animate.start(step, verify, completed, self.options.animationDuration, wasAnimating ? easeOutCubic : easeInOutCubic);
+	
 	    } else {
 	
 	      self.__scheduledLeft = self.__scrollLeft = left;
@@ -2335,10 +1841,11 @@ webpackJsonp([1],[
 	    }
 	  },
 	
+	
 	  /**
 	   * Recomputes scroll minimum values based on client dimensions and content dimensions.
 	   */
-	  __computeScrollMax: function __computeScrollMax(zoomLevel) {
+	  __computeScrollMax: function (zoomLevel) {
 	
 	    var self = this;
 	
@@ -2346,9 +1853,11 @@ webpackJsonp([1],[
 	      zoomLevel = self.__zoomLevel;
 	    }
 	
-	    self.__maxScrollLeft = Math.max(self.__contentWidth * zoomLevel - self.__clientWidth, 0);
-	    self.__maxScrollTop = Math.max(self.__contentHeight * zoomLevel - self.__clientHeight, 0);
+	    self.__maxScrollLeft = Math.max((self.__contentWidth * zoomLevel) - self.__clientWidth, 0);
+	    self.__maxScrollTop = Math.max((self.__contentHeight * zoomLevel) - self.__clientHeight, 0);
+	
 	  },
+	
 	
 	  /*
 	   ---------------------------------------------------------------------------
@@ -2360,7 +1869,7 @@ webpackJsonp([1],[
 	   * Called when a touch sequence end and the speed of the finger was high enough
 	   * to switch into deceleration mode.
 	   */
-	  __startDeceleration: function __startDeceleration(timeStamp) {
+	  __startDeceleration: function (timeStamp) {
 	
 	    var self = this;
 	
@@ -2377,16 +1886,18 @@ webpackJsonp([1],[
 	      self.__minDecelerationScrollTop = Math.floor(scrollTop / clientHeight) * clientHeight;
 	      self.__maxDecelerationScrollLeft = Math.ceil(scrollLeft / clientWidth) * clientWidth;
 	      self.__maxDecelerationScrollTop = Math.ceil(scrollTop / clientHeight) * clientHeight;
+	
 	    } else {
 	
 	      self.__minDecelerationScrollLeft = 0;
 	      self.__minDecelerationScrollTop = 0;
 	      self.__maxDecelerationScrollLeft = self.__maxScrollLeft;
 	      self.__maxDecelerationScrollTop = self.__maxScrollTop;
+	
 	    }
 	
 	    // Wrap class method
-	    var step = function step(percent, now, render) {
+	    var step = function (percent, now, render) {
 	      self.__stepThroughDeceleration(render);
 	    };
 	
@@ -2400,7 +1911,7 @@ webpackJsonp([1],[
 	
 	    // Detect whether it's still worth to continue animating steps
 	    // If we are already slow enough to not being user perceivable anymore, we stop the whole process here.
-	    var verify = function verify() {
+	    var verify = function () {
 	      var shouldContinue = Math.abs(self.__decelerationVelocityX) >= minVelocityToKeepDecelerating || Math.abs(self.__decelerationVelocityY) >= minVelocityToKeepDecelerating;
 	      if (!shouldContinue) {
 	        self.__didDecelerationComplete = true;
@@ -2408,7 +1919,7 @@ webpackJsonp([1],[
 	      return shouldContinue;
 	    };
 	
-	    var completed = function completed(renderedFramesPerSecond, animationId, wasFinished) {
+	    var completed = function (renderedFramesPerSecond, animationId, wasFinished) {
 	      self.__isDecelerating = false;
 	      // Animate to grid when snapping is active, otherwise just fix out-of-boundary positions
 	      // fixed by yiminghe, in case call scrollingComplete twice
@@ -2417,16 +1928,19 @@ webpackJsonp([1],[
 	
 	    // Start animation and switch on flag
 	    self.__isDecelerating = Animate.start(step, verify, completed);
+	
 	  },
+	
 	
 	  /**
 	   * Called on every step of the animation
 	   *
 	   * @param inMemory {Boolean?false} Whether to not render the current step, but keep it in memory only. Used internally only!
 	   */
-	  __stepThroughDeceleration: function __stepThroughDeceleration(render) {
+	  __stepThroughDeceleration: function (render) {
 	
 	    var self = this;
+	
 	
 	    //
 	    // COMPUTE NEXT SCROLL POSITION
@@ -2435,6 +1949,7 @@ webpackJsonp([1],[
 	    // Add deceleration to scroll position
 	    var scrollLeft = self.__scrollLeft + self.__decelerationVelocityX;
 	    var scrollTop = self.__scrollTop + self.__decelerationVelocityY;
+	
 	
 	    //
 	    // HARD LIMIT SCROLL POSITION FOR NON BOUNCING MODE
@@ -2453,6 +1968,7 @@ webpackJsonp([1],[
 	        scrollTop = scrollTopFixed;
 	        self.__decelerationVelocityY = 0;
 	      }
+	
 	    }
 	
 	    //
@@ -2462,11 +1978,14 @@ webpackJsonp([1],[
 	    if (render) {
 	
 	      self.__publish(scrollLeft, scrollTop, self.__zoomLevel);
+	
 	    } else {
 	
 	      self.__scrollLeft = scrollLeft;
 	      self.__scrollTop = scrollTop;
+	
 	    }
+	
 	
 	    //
 	    // SLOW DOWN
@@ -2482,7 +2001,9 @@ webpackJsonp([1],[
 	
 	      self.__decelerationVelocityX *= frictionFactor;
 	      self.__decelerationVelocityY *= frictionFactor;
+	
 	    }
+	
 	
 	    //
 	    // BOUNCING SUPPORT
@@ -2537,19 +2058,13 @@ webpackJsonp([1],[
 	
 	module.exports = Scroller;
 
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
-	
-	var _typeof2 = __webpack_require__(281);
-	
-	var _typeof3 = _interopRequireDefault(_typeof2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
+/***/ },
+
+/***/ 240:
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/*
 	 * Scroller
 	 * http://github.com/zynga/scroller
 	 *
@@ -2578,10 +2093,10 @@ webpackJsonp([1],[
 	var millisecondsPerSecond = 1000;
 	var running = {};
 	var counter = 1;
-	var win = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== undefined ? window : undefined;
+	var win = typeof window !== undefined ? window : undefined;
 	
 	if (!win) {
-	  win = (typeof global === "undefined" ? "undefined" : (0, _typeof3.default)(global)) !== undefined ? global : {};
+	  win = typeof global !== undefined ? global : {};
 	}
 	
 	var Animate = {
@@ -2592,7 +2107,7 @@ webpackJsonp([1],[
 	   * @param callback {Function} The callback to be invoked before the next repaint.
 	   * @param root {HTMLElement} The root element for the repaint
 	   */
-	  requestAnimationFrame: function () {
+	  requestAnimationFrame: (function () {
 	
 	    // Check for request animation Frame support
 	    var requestFrame = win.requestAnimationFrame || win.webkitRequestAnimationFrame || win.mozRequestAnimationFrame || win.oRequestAnimationFrame;
@@ -2604,7 +2119,7 @@ webpackJsonp([1],[
 	
 	    if (isNative) {
 	      return function (callback, root) {
-	        requestFrame(callback, root);
+	        requestFrame(callback, root)
 	      };
 	    }
 	
@@ -2647,12 +2162,15 @@ webpackJsonp([1],[
 	            clearInterval(intervalHandle);
 	            intervalHandle = null;
 	          }
+	
 	        }, 1000 / TARGET_FPS);
 	      }
 	
 	      return callbackHandle;
 	    };
-	  }(),
+	
+	  })(),
+	
 	
 	  /**
 	   * Stops the given animation.
@@ -2660,7 +2178,7 @@ webpackJsonp([1],[
 	   * @param id {Integer} Unique animation ID
 	   * @return {Boolean} Whether the animation was stopped (aka, was running before)
 	   */
-	  stop: function stop(id) {
+	  stop: function (id) {
 	    var cleared = running[id] != null;
 	    if (cleared) {
 	      running[id] = null;
@@ -2669,15 +2187,17 @@ webpackJsonp([1],[
 	    return cleared;
 	  },
 	
+	
 	  /**
 	   * Whether the given animation is still running.
 	   *
 	   * @param id {Integer} Unique animation ID
 	   * @return {Boolean} Whether the animation is still running
 	   */
-	  isRunning: function isRunning(id) {
+	  isRunning: function (id) {
 	    return running[id] != null;
 	  },
+	
 	
 	  /**
 	   * Start the animation.
@@ -2695,7 +2215,7 @@ webpackJsonp([1],[
 	   *   usage of requestAnimationFrame.
 	   * @return {Integer} Identifier of animation. Can be used to stop it any time.
 	   */
-	  start: function start(stepCallback, verifyCallback, completedCallback, duration, easingMethod, root) {
+	  start: function (stepCallback, verifyCallback, completedCallback, duration, easingMethod, root) {
 	
 	    var start = +new Date();
 	    var lastFrame = start;
@@ -2717,7 +2237,7 @@ webpackJsonp([1],[
 	    }
 	
 	    // This is the internal step method which is called every few milliseconds
-	    var step = function step(virtual) {
+	    var step = function (virtual) {
 	
 	      // Normalize virtual value
 	      var render = virtual !== true;
@@ -2726,11 +2246,12 @@ webpackJsonp([1],[
 	      var now = +new Date();
 	
 	      // Verification is executed before next animation step
-	      if (!running[id] || verifyCallback && !verifyCallback(id)) {
+	      if (!running[id] || (verifyCallback && !verifyCallback(id))) {
 	
 	        running[id] = null;
-	        completedCallback && completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, false);
+	        completedCallback && completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, false);
 	        return;
+	
 	      }
 	
 	      // For the current rendering to apply let's update omitted steps in memory.
@@ -2742,6 +2263,7 @@ webpackJsonp([1],[
 	          step(true);
 	          dropCounter++;
 	        }
+	
 	      }
 	
 	      // Compute percent value
@@ -2756,7 +2278,7 @@ webpackJsonp([1],[
 	      var value = easingMethod ? easingMethod(percent) : percent;
 	      if ((stepCallback(value, now, render) === false || percent === 1) && render) {
 	        running[id] = null;
-	        completedCallback && completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, percent === 1 || duration == null);
+	        completedCallback && completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, percent === 1 || duration == null);
 	      } else if (render) {
 	        lastFrame = now;
 	        Animate.requestAnimationFrame(step, root);
@@ -2775,846 +2297,10 @@ webpackJsonp([1],[
 	};
 	
 	module.exports = Animate;
+	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _iterator = __webpack_require__(282);
-	
-	var _iterator2 = _interopRequireDefault(_iterator);
-	
-	var _symbol = __webpack_require__(302);
-	
-	var _symbol2 = _interopRequireDefault(_symbol);
-	
-	var _typeof = typeof _symbol2.default === "function" && typeof _iterator2.default === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default ? "symbol" : typeof obj; };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
-	  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
-	} : function (obj) {
-	  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
-	};
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(283), __esModule: true };
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(284);
-	__webpack_require__(297);
-	module.exports = __webpack_require__(301).f('iterator');
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var $at  = __webpack_require__(285)(true);
-	
-	// 21.1.3.27 String.prototype[@@iterator]()
-	__webpack_require__(286)(String, 'String', function(iterated){
-	  this._t = String(iterated); // target
-	  this._i = 0;                // next index
-	// 21.1.5.2.1 %StringIteratorPrototype%.next()
-	}, function(){
-	  var O     = this._t
-	    , index = this._i
-	    , point;
-	  if(index >= O.length)return {value: undefined, done: true};
-	  point = $at(O, index);
-	  this._i += point.length;
-	  return {value: point, done: false};
-	});
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var toInteger = __webpack_require__(270)
-	  , defined   = __webpack_require__(267);
-	// true  -> String#at
-	// false -> String#codePointAt
-	module.exports = function(TO_STRING){
-	  return function(that, pos){
-	    var s = String(defined(that))
-	      , i = toInteger(pos)
-	      , l = s.length
-	      , a, b;
-	    if(i < 0 || i >= l)return TO_STRING ? '' : undefined;
-	    a = s.charCodeAt(i);
-	    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-	      ? TO_STRING ? s.charAt(i) : a
-	      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-	  };
-	};
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var LIBRARY        = __webpack_require__(287)
-	  , $export        = __webpack_require__(245)
-	  , redefine       = __webpack_require__(288)
-	  , hide           = __webpack_require__(250)
-	  , has            = __webpack_require__(263)
-	  , Iterators      = __webpack_require__(289)
-	  , $iterCreate    = __webpack_require__(290)
-	  , setToStringTag = __webpack_require__(294)
-	  , getPrototypeOf = __webpack_require__(296)
-	  , ITERATOR       = __webpack_require__(295)('iterator')
-	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
-	  , FF_ITERATOR    = '@@iterator'
-	  , KEYS           = 'keys'
-	  , VALUES         = 'values';
-	
-	var returnThis = function(){ return this; };
-	
-	module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED){
-	  $iterCreate(Constructor, NAME, next);
-	  var getMethod = function(kind){
-	    if(!BUGGY && kind in proto)return proto[kind];
-	    switch(kind){
-	      case KEYS: return function keys(){ return new Constructor(this, kind); };
-	      case VALUES: return function values(){ return new Constructor(this, kind); };
-	    } return function entries(){ return new Constructor(this, kind); };
-	  };
-	  var TAG        = NAME + ' Iterator'
-	    , DEF_VALUES = DEFAULT == VALUES
-	    , VALUES_BUG = false
-	    , proto      = Base.prototype
-	    , $native    = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT]
-	    , $default   = $native || getMethod(DEFAULT)
-	    , $entries   = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined
-	    , $anyNative = NAME == 'Array' ? proto.entries || $native : $native
-	    , methods, key, IteratorPrototype;
-	  // Fix native
-	  if($anyNative){
-	    IteratorPrototype = getPrototypeOf($anyNative.call(new Base));
-	    if(IteratorPrototype !== Object.prototype){
-	      // Set @@toStringTag to native iterators
-	      setToStringTag(IteratorPrototype, TAG, true);
-	      // fix for some old engines
-	      if(!LIBRARY && !has(IteratorPrototype, ITERATOR))hide(IteratorPrototype, ITERATOR, returnThis);
-	    }
-	  }
-	  // fix Array#{values, @@iterator}.name in V8 / FF
-	  if(DEF_VALUES && $native && $native.name !== VALUES){
-	    VALUES_BUG = true;
-	    $default = function values(){ return $native.call(this); };
-	  }
-	  // Define iterator
-	  if((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])){
-	    hide(proto, ITERATOR, $default);
-	  }
-	  // Plug for library
-	  Iterators[NAME] = $default;
-	  Iterators[TAG]  = returnThis;
-	  if(DEFAULT){
-	    methods = {
-	      values:  DEF_VALUES ? $default : getMethod(VALUES),
-	      keys:    IS_SET     ? $default : getMethod(KEYS),
-	      entries: $entries
-	    };
-	    if(FORCED)for(key in methods){
-	      if(!(key in proto))redefine(proto, key, methods[key]);
-	    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-	  }
-	  return methods;
-	};
-
-/***/ },
-/* 287 */
-/***/ function(module, exports) {
-
-	module.exports = true;
-
-/***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(250);
-
-/***/ },
-/* 289 */
-/***/ function(module, exports) {
-
-	module.exports = {};
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var create         = __webpack_require__(291)
-	  , descriptor     = __webpack_require__(259)
-	  , setToStringTag = __webpack_require__(294)
-	  , IteratorPrototype = {};
-	
-	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-	__webpack_require__(250)(IteratorPrototype, __webpack_require__(295)('iterator'), function(){ return this; });
-	
-	module.exports = function(Constructor, NAME, next){
-	  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
-	  setToStringTag(Constructor, NAME + ' Iterator');
-	};
-
-/***/ },
-/* 291 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	var anObject    = __webpack_require__(252)
-	  , dPs         = __webpack_require__(292)
-	  , enumBugKeys = __webpack_require__(275)
-	  , IE_PROTO    = __webpack_require__(272)('IE_PROTO')
-	  , Empty       = function(){ /* empty */ }
-	  , PROTOTYPE   = 'prototype';
-	
-	// Create object with fake `null` prototype: use iframe Object with cleared prototype
-	var createDict = function(){
-	  // Thrash, waste and sodomy: IE GC bug
-	  var iframe = __webpack_require__(257)('iframe')
-	    , i      = enumBugKeys.length
-	    , lt     = '<'
-	    , gt     = '>'
-	    , iframeDocument;
-	  iframe.style.display = 'none';
-	  __webpack_require__(293).appendChild(iframe);
-	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-	  // createDict = iframe.contentWindow.Object;
-	  // html.removeChild(iframe);
-	  iframeDocument = iframe.contentWindow.document;
-	  iframeDocument.open();
-	  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-	  iframeDocument.close();
-	  createDict = iframeDocument.F;
-	  while(i--)delete createDict[PROTOTYPE][enumBugKeys[i]];
-	  return createDict();
-	};
-	
-	module.exports = Object.create || function create(O, Properties){
-	  var result;
-	  if(O !== null){
-	    Empty[PROTOTYPE] = anObject(O);
-	    result = new Empty;
-	    Empty[PROTOTYPE] = null;
-	    // add "__proto__" for Object.getPrototypeOf polyfill
-	    result[IE_PROTO] = O;
-	  } else result = createDict();
-	  return Properties === undefined ? result : dPs(result, Properties);
-	};
-
-
-/***/ },
-/* 292 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var dP       = __webpack_require__(251)
-	  , anObject = __webpack_require__(252)
-	  , getKeys  = __webpack_require__(261);
-	
-	module.exports = __webpack_require__(255) ? Object.defineProperties : function defineProperties(O, Properties){
-	  anObject(O);
-	  var keys   = getKeys(Properties)
-	    , length = keys.length
-	    , i = 0
-	    , P;
-	  while(length > i)dP.f(O, P = keys[i++], Properties[P]);
-	  return O;
-	};
-
-/***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(246).document && document.documentElement;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var def = __webpack_require__(251).f
-	  , has = __webpack_require__(263)
-	  , TAG = __webpack_require__(295)('toStringTag');
-	
-	module.exports = function(it, tag, stat){
-	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
-	};
-
-/***/ },
-/* 295 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var store      = __webpack_require__(273)('wks')
-	  , uid        = __webpack_require__(274)
-	  , Symbol     = __webpack_require__(246).Symbol
-	  , USE_SYMBOL = typeof Symbol == 'function';
-	
-	var $exports = module.exports = function(name){
-	  return store[name] || (store[name] =
-	    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-	};
-	
-	$exports.store = store;
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-	var has         = __webpack_require__(263)
-	  , toObject    = __webpack_require__(278)
-	  , IE_PROTO    = __webpack_require__(272)('IE_PROTO')
-	  , ObjectProto = Object.prototype;
-	
-	module.exports = Object.getPrototypeOf || function(O){
-	  O = toObject(O);
-	  if(has(O, IE_PROTO))return O[IE_PROTO];
-	  if(typeof O.constructor == 'function' && O instanceof O.constructor){
-	    return O.constructor.prototype;
-	  } return O instanceof Object ? ObjectProto : null;
-	};
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(298);
-	var global        = __webpack_require__(246)
-	  , hide          = __webpack_require__(250)
-	  , Iterators     = __webpack_require__(289)
-	  , TO_STRING_TAG = __webpack_require__(295)('toStringTag');
-	
-	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
-	  var NAME       = collections[i]
-	    , Collection = global[NAME]
-	    , proto      = Collection && Collection.prototype;
-	  if(proto && !proto[TO_STRING_TAG])hide(proto, TO_STRING_TAG, NAME);
-	  Iterators[NAME] = Iterators.Array;
-	}
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var addToUnscopables = __webpack_require__(299)
-	  , step             = __webpack_require__(300)
-	  , Iterators        = __webpack_require__(289)
-	  , toIObject        = __webpack_require__(264);
-	
-	// 22.1.3.4 Array.prototype.entries()
-	// 22.1.3.13 Array.prototype.keys()
-	// 22.1.3.29 Array.prototype.values()
-	// 22.1.3.30 Array.prototype[@@iterator]()
-	module.exports = __webpack_require__(286)(Array, 'Array', function(iterated, kind){
-	  this._t = toIObject(iterated); // target
-	  this._i = 0;                   // next index
-	  this._k = kind;                // kind
-	// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-	}, function(){
-	  var O     = this._t
-	    , kind  = this._k
-	    , index = this._i++;
-	  if(!O || index >= O.length){
-	    this._t = undefined;
-	    return step(1);
-	  }
-	  if(kind == 'keys'  )return step(0, index);
-	  if(kind == 'values')return step(0, O[index]);
-	  return step(0, [index, O[index]]);
-	}, 'values');
-	
-	// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-	Iterators.Arguments = Iterators.Array;
-	
-	addToUnscopables('keys');
-	addToUnscopables('values');
-	addToUnscopables('entries');
-
-/***/ },
-/* 299 */
-/***/ function(module, exports) {
-
-	module.exports = function(){ /* empty */ };
-
-/***/ },
-/* 300 */
-/***/ function(module, exports) {
-
-	module.exports = function(done, value){
-	  return {value: value, done: !!done};
-	};
-
-/***/ },
-/* 301 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports.f = __webpack_require__(295);
-
-/***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(303), __esModule: true };
-
-/***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(304);
-	__webpack_require__(313);
-	__webpack_require__(314);
-	__webpack_require__(315);
-	module.exports = __webpack_require__(247).Symbol;
-
-/***/ },
-/* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	// ECMAScript 6 symbols shim
-	var global         = __webpack_require__(246)
-	  , has            = __webpack_require__(263)
-	  , DESCRIPTORS    = __webpack_require__(255)
-	  , $export        = __webpack_require__(245)
-	  , redefine       = __webpack_require__(288)
-	  , META           = __webpack_require__(305).KEY
-	  , $fails         = __webpack_require__(256)
-	  , shared         = __webpack_require__(273)
-	  , setToStringTag = __webpack_require__(294)
-	  , uid            = __webpack_require__(274)
-	  , wks            = __webpack_require__(295)
-	  , wksExt         = __webpack_require__(301)
-	  , wksDefine      = __webpack_require__(306)
-	  , keyOf          = __webpack_require__(307)
-	  , enumKeys       = __webpack_require__(308)
-	  , isArray        = __webpack_require__(309)
-	  , anObject       = __webpack_require__(252)
-	  , toIObject      = __webpack_require__(264)
-	  , toPrimitive    = __webpack_require__(258)
-	  , createDesc     = __webpack_require__(259)
-	  , _create        = __webpack_require__(291)
-	  , gOPNExt        = __webpack_require__(310)
-	  , $GOPD          = __webpack_require__(312)
-	  , $DP            = __webpack_require__(251)
-	  , $keys          = __webpack_require__(261)
-	  , gOPD           = $GOPD.f
-	  , dP             = $DP.f
-	  , gOPN           = gOPNExt.f
-	  , $Symbol        = global.Symbol
-	  , $JSON          = global.JSON
-	  , _stringify     = $JSON && $JSON.stringify
-	  , PROTOTYPE      = 'prototype'
-	  , HIDDEN         = wks('_hidden')
-	  , TO_PRIMITIVE   = wks('toPrimitive')
-	  , isEnum         = {}.propertyIsEnumerable
-	  , SymbolRegistry = shared('symbol-registry')
-	  , AllSymbols     = shared('symbols')
-	  , OPSymbols      = shared('op-symbols')
-	  , ObjectProto    = Object[PROTOTYPE]
-	  , USE_NATIVE     = typeof $Symbol == 'function'
-	  , QObject        = global.QObject;
-	// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-	var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-	
-	// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-	var setSymbolDesc = DESCRIPTORS && $fails(function(){
-	  return _create(dP({}, 'a', {
-	    get: function(){ return dP(this, 'a', {value: 7}).a; }
-	  })).a != 7;
-	}) ? function(it, key, D){
-	  var protoDesc = gOPD(ObjectProto, key);
-	  if(protoDesc)delete ObjectProto[key];
-	  dP(it, key, D);
-	  if(protoDesc && it !== ObjectProto)dP(ObjectProto, key, protoDesc);
-	} : dP;
-	
-	var wrap = function(tag){
-	  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-	  sym._k = tag;
-	  return sym;
-	};
-	
-	var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function(it){
-	  return typeof it == 'symbol';
-	} : function(it){
-	  return it instanceof $Symbol;
-	};
-	
-	var $defineProperty = function defineProperty(it, key, D){
-	  if(it === ObjectProto)$defineProperty(OPSymbols, key, D);
-	  anObject(it);
-	  key = toPrimitive(key, true);
-	  anObject(D);
-	  if(has(AllSymbols, key)){
-	    if(!D.enumerable){
-	      if(!has(it, HIDDEN))dP(it, HIDDEN, createDesc(1, {}));
-	      it[HIDDEN][key] = true;
-	    } else {
-	      if(has(it, HIDDEN) && it[HIDDEN][key])it[HIDDEN][key] = false;
-	      D = _create(D, {enumerable: createDesc(0, false)});
-	    } return setSymbolDesc(it, key, D);
-	  } return dP(it, key, D);
-	};
-	var $defineProperties = function defineProperties(it, P){
-	  anObject(it);
-	  var keys = enumKeys(P = toIObject(P))
-	    , i    = 0
-	    , l = keys.length
-	    , key;
-	  while(l > i)$defineProperty(it, key = keys[i++], P[key]);
-	  return it;
-	};
-	var $create = function create(it, P){
-	  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-	};
-	var $propertyIsEnumerable = function propertyIsEnumerable(key){
-	  var E = isEnum.call(this, key = toPrimitive(key, true));
-	  if(this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key))return false;
-	  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-	};
-	var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key){
-	  it  = toIObject(it);
-	  key = toPrimitive(key, true);
-	  if(it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key))return;
-	  var D = gOPD(it, key);
-	  if(D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key]))D.enumerable = true;
-	  return D;
-	};
-	var $getOwnPropertyNames = function getOwnPropertyNames(it){
-	  var names  = gOPN(toIObject(it))
-	    , result = []
-	    , i      = 0
-	    , key;
-	  while(names.length > i){
-	    if(!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META)result.push(key);
-	  } return result;
-	};
-	var $getOwnPropertySymbols = function getOwnPropertySymbols(it){
-	  var IS_OP  = it === ObjectProto
-	    , names  = gOPN(IS_OP ? OPSymbols : toIObject(it))
-	    , result = []
-	    , i      = 0
-	    , key;
-	  while(names.length > i){
-	    if(has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true))result.push(AllSymbols[key]);
-	  } return result;
-	};
-	
-	// 19.4.1.1 Symbol([description])
-	if(!USE_NATIVE){
-	  $Symbol = function Symbol(){
-	    if(this instanceof $Symbol)throw TypeError('Symbol is not a constructor!');
-	    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-	    var $set = function(value){
-	      if(this === ObjectProto)$set.call(OPSymbols, value);
-	      if(has(this, HIDDEN) && has(this[HIDDEN], tag))this[HIDDEN][tag] = false;
-	      setSymbolDesc(this, tag, createDesc(1, value));
-	    };
-	    if(DESCRIPTORS && setter)setSymbolDesc(ObjectProto, tag, {configurable: true, set: $set});
-	    return wrap(tag);
-	  };
-	  redefine($Symbol[PROTOTYPE], 'toString', function toString(){
-	    return this._k;
-	  });
-	
-	  $GOPD.f = $getOwnPropertyDescriptor;
-	  $DP.f   = $defineProperty;
-	  __webpack_require__(311).f = gOPNExt.f = $getOwnPropertyNames;
-	  __webpack_require__(277).f  = $propertyIsEnumerable;
-	  __webpack_require__(276).f = $getOwnPropertySymbols;
-	
-	  if(DESCRIPTORS && !__webpack_require__(287)){
-	    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-	  }
-	
-	  wksExt.f = function(name){
-	    return wrap(wks(name));
-	  }
-	}
-	
-	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Symbol: $Symbol});
-	
-	for(var symbols = (
-	  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-	  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-	).split(','), i = 0; symbols.length > i; )wks(symbols[i++]);
-	
-	for(var symbols = $keys(wks.store), i = 0; symbols.length > i; )wksDefine(symbols[i++]);
-	
-	$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-	  // 19.4.2.1 Symbol.for(key)
-	  'for': function(key){
-	    return has(SymbolRegistry, key += '')
-	      ? SymbolRegistry[key]
-	      : SymbolRegistry[key] = $Symbol(key);
-	  },
-	  // 19.4.2.5 Symbol.keyFor(sym)
-	  keyFor: function keyFor(key){
-	    if(isSymbol(key))return keyOf(SymbolRegistry, key);
-	    throw TypeError(key + ' is not a symbol!');
-	  },
-	  useSetter: function(){ setter = true; },
-	  useSimple: function(){ setter = false; }
-	});
-	
-	$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-	  // 19.1.2.2 Object.create(O [, Properties])
-	  create: $create,
-	  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-	  defineProperty: $defineProperty,
-	  // 19.1.2.3 Object.defineProperties(O, Properties)
-	  defineProperties: $defineProperties,
-	  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-	  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-	  // 19.1.2.7 Object.getOwnPropertyNames(O)
-	  getOwnPropertyNames: $getOwnPropertyNames,
-	  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-	  getOwnPropertySymbols: $getOwnPropertySymbols
-	});
-	
-	// 24.3.2 JSON.stringify(value [, replacer [, space]])
-	$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function(){
-	  var S = $Symbol();
-	  // MS Edge converts symbol values to JSON as {}
-	  // WebKit converts symbol values to JSON as null
-	  // V8 throws on boxed symbols
-	  return _stringify([S]) != '[null]' || _stringify({a: S}) != '{}' || _stringify(Object(S)) != '{}';
-	})), 'JSON', {
-	  stringify: function stringify(it){
-	    if(it === undefined || isSymbol(it))return; // IE8 returns string on undefined
-	    var args = [it]
-	      , i    = 1
-	      , replacer, $replacer;
-	    while(arguments.length > i)args.push(arguments[i++]);
-	    replacer = args[1];
-	    if(typeof replacer == 'function')$replacer = replacer;
-	    if($replacer || !isArray(replacer))replacer = function(key, value){
-	      if($replacer)value = $replacer.call(this, key, value);
-	      if(!isSymbol(value))return value;
-	    };
-	    args[1] = replacer;
-	    return _stringify.apply($JSON, args);
-	  }
-	});
-	
-	// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-	$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(250)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-	// 19.4.3.5 Symbol.prototype[@@toStringTag]
-	setToStringTag($Symbol, 'Symbol');
-	// 20.2.1.9 Math[@@toStringTag]
-	setToStringTag(Math, 'Math', true);
-	// 24.3.3 JSON[@@toStringTag]
-	setToStringTag(global.JSON, 'JSON', true);
-
-/***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var META     = __webpack_require__(274)('meta')
-	  , isObject = __webpack_require__(253)
-	  , has      = __webpack_require__(263)
-	  , setDesc  = __webpack_require__(251).f
-	  , id       = 0;
-	var isExtensible = Object.isExtensible || function(){
-	  return true;
-	};
-	var FREEZE = !__webpack_require__(256)(function(){
-	  return isExtensible(Object.preventExtensions({}));
-	});
-	var setMeta = function(it){
-	  setDesc(it, META, {value: {
-	    i: 'O' + ++id, // object ID
-	    w: {}          // weak collections IDs
-	  }});
-	};
-	var fastKey = function(it, create){
-	  // return primitive with prefix
-	  if(!isObject(it))return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-	  if(!has(it, META)){
-	    // can't set metadata to uncaught frozen object
-	    if(!isExtensible(it))return 'F';
-	    // not necessary to add metadata
-	    if(!create)return 'E';
-	    // add missing metadata
-	    setMeta(it);
-	  // return object ID
-	  } return it[META].i;
-	};
-	var getWeak = function(it, create){
-	  if(!has(it, META)){
-	    // can't set metadata to uncaught frozen object
-	    if(!isExtensible(it))return true;
-	    // not necessary to add metadata
-	    if(!create)return false;
-	    // add missing metadata
-	    setMeta(it);
-	  // return hash weak collections IDs
-	  } return it[META].w;
-	};
-	// add metadata on freeze-family methods calling
-	var onFreeze = function(it){
-	  if(FREEZE && meta.NEED && isExtensible(it) && !has(it, META))setMeta(it);
-	  return it;
-	};
-	var meta = module.exports = {
-	  KEY:      META,
-	  NEED:     false,
-	  fastKey:  fastKey,
-	  getWeak:  getWeak,
-	  onFreeze: onFreeze
-	};
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var global         = __webpack_require__(246)
-	  , core           = __webpack_require__(247)
-	  , LIBRARY        = __webpack_require__(287)
-	  , wksExt         = __webpack_require__(301)
-	  , defineProperty = __webpack_require__(251).f;
-	module.exports = function(name){
-	  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
-	  if(name.charAt(0) != '_' && !(name in $Symbol))defineProperty($Symbol, name, {value: wksExt.f(name)});
-	};
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getKeys   = __webpack_require__(261)
-	  , toIObject = __webpack_require__(264);
-	module.exports = function(object, el){
-	  var O      = toIObject(object)
-	    , keys   = getKeys(O)
-	    , length = keys.length
-	    , index  = 0
-	    , key;
-	  while(length > index)if(O[key = keys[index++]] === el)return key;
-	};
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// all enumerable object keys, includes symbols
-	var getKeys = __webpack_require__(261)
-	  , gOPS    = __webpack_require__(276)
-	  , pIE     = __webpack_require__(277);
-	module.exports = function(it){
-	  var result     = getKeys(it)
-	    , getSymbols = gOPS.f;
-	  if(getSymbols){
-	    var symbols = getSymbols(it)
-	      , isEnum  = pIE.f
-	      , i       = 0
-	      , key;
-	    while(symbols.length > i)if(isEnum.call(it, key = symbols[i++]))result.push(key);
-	  } return result;
-	};
-
-/***/ },
-/* 309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 7.2.2 IsArray(argument)
-	var cof = __webpack_require__(266);
-	module.exports = Array.isArray || function isArray(arg){
-	  return cof(arg) == 'Array';
-	};
-
-/***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-	var toIObject = __webpack_require__(264)
-	  , gOPN      = __webpack_require__(311).f
-	  , toString  = {}.toString;
-	
-	var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
-	  ? Object.getOwnPropertyNames(window) : [];
-	
-	var getWindowNames = function(it){
-	  try {
-	    return gOPN(it);
-	  } catch(e){
-	    return windowNames.slice();
-	  }
-	};
-	
-	module.exports.f = function getOwnPropertyNames(it){
-	  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
-	};
-
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-	var $keys      = __webpack_require__(262)
-	  , hiddenKeys = __webpack_require__(275).concat('length', 'prototype');
-	
-	exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
-	  return $keys(O, hiddenKeys);
-	};
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var pIE            = __webpack_require__(277)
-	  , createDesc     = __webpack_require__(259)
-	  , toIObject      = __webpack_require__(264)
-	  , toPrimitive    = __webpack_require__(258)
-	  , has            = __webpack_require__(263)
-	  , IE8_DOM_DEFINE = __webpack_require__(254)
-	  , gOPD           = Object.getOwnPropertyDescriptor;
-	
-	exports.f = __webpack_require__(255) ? gOPD : function getOwnPropertyDescriptor(O, P){
-	  O = toIObject(O);
-	  P = toPrimitive(P, true);
-	  if(IE8_DOM_DEFINE)try {
-	    return gOPD(O, P);
-	  } catch(e){ /* empty */ }
-	  if(has(O, P))return createDesc(!pIE.f.call(O, P), O[P]);
-	};
-
-/***/ },
-/* 313 */
-/***/ function(module, exports) {
-
-
-
-/***/ },
-/* 314 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(306)('asyncIterator');
-
-/***/ },
-/* 315 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(306)('observable');
-
 /***/ }
-]);
+
+});
 //# sourceMappingURL=simple.js.map
