@@ -132,7 +132,7 @@ webpackJsonp([0],{
 	        }
 	        return React.createElement(
 	            _rcDialog2.default,
-	            { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style },
+	            { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style },
 	            React.createElement(
 	                'div',
 	                null,
@@ -692,16 +692,14 @@ webpackJsonp([0],{
 	        this.props.afterClose();
 	    },
 	    onMaskClick: function onMaskClick(e) {
-	        if (e.target === e.currentTarget && this.props.closable && this.props.maskClosable) {
+	        if (e.target === e.currentTarget && this.props.maskClosable) {
 	            this.close(e);
 	        }
 	    },
 	    onKeyDown: function onKeyDown(e) {
 	        var props = this.props;
-	        if (props.closable && props.keyboard) {
-	            if (e.keyCode === _KeyCode2["default"].ESC) {
-	                this.close(e);
-	            }
+	        if (props.keyboard && e.keyCode === _KeyCode2["default"].ESC) {
+	            this.close(e);
 	        }
 	        // keep focus inside dialog
 	        if (props.visible) {
