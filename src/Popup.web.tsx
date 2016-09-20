@@ -23,6 +23,7 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
       prefixCls={`${props.prefixCls}`}
       className={props.className || ''}
       visible
+      closable={false}
       transitionName={props.transitionName || props.popupTransitionName}
       maskTransitionName={props.maskTransitionName}
       onClose={this.hide}
