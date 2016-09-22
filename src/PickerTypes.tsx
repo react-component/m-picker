@@ -15,6 +15,4 @@ export interface PickerProps {
   /** web only */
   defaultSelectedValue?: any;
   itemStyle?: any;
-  itemHeight?: any;
-  visibleItemCount?: any;
 }

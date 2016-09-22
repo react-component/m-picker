@@ -106,13 +106,14 @@ const Picker = React.createClass<PickerProps, any>({
   },
 
   render() {
-    const { children, prefixCls, className } = this.props;
+    const { children, prefixCls, className, itemStyle } = this.props;
     const { selectedValue } = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
     const items = children.map((item) => {
       return (
         <div
+          style={itemStyle}
           className={selectedValue === item.value ? selectedItemClassName : itemClassName}
           key={item.value}
         >

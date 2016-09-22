@@ -63,6 +63,7 @@ see example
 |----------|----------------|----------|--------------|
 |className(web) | additional css class of root dom node | String |  |
 |prefixCls(web) | prefix class | String | '' |
+|itemStyle     | Style to apply to each of the item. | object |
 |defaultSelectedValue(web) | default selected values corresponding to the input data above | string/number |  |
 |selectedValue | current selected values corresponding to the input data above | string/number |  |
 |onValueChange | fire when picker change | Function(value) |  |
