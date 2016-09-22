@@ -46,6 +46,12 @@ http://localhost:8000/examples/
 
 online example: http://react-component.github.io/m-picker/
 
+## react-native
+
+```
+./node_modules/rc-tools run react-native-init
+react-native run-ios
+```
 
 ## install
 
@@ -86,20 +92,6 @@ npm run coverage
 ```
 
 open coverage/ dir
-
-## react-native
-
-```
-npm run rn-start
-```
-
-load
-
-http://localhost:8081/examples/react-native/popup.bundle?platform=ios
-http://localhost:8081/examples/react-native/picker.bundle?platform=ios
-
-in [RNPlayground](https://github.com/react-component/RNPlayground)
-
 
 ## License
 
