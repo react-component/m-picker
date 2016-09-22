@@ -235,6 +235,7 @@ webpackJsonp([1],{
 	        var children = _props2.children;
 	        var prefixCls = _props2.prefixCls;
 	        var className = _props2.className;
+	        var itemStyle = _props2.itemStyle;
 	        var selectedValue = this.state.selectedValue;
 	
 	        var itemClassName = prefixCls + '-item';
@@ -242,7 +243,7 @@ webpackJsonp([1],{
 	        var items = children.map(function (item) {
 	            return React.createElement(
 	                'div',
-	                { className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
+	                { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
 	                item.label
 	            );
 	        });
