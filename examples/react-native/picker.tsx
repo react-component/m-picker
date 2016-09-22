@@ -1,4 +1,4 @@
-import {View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
+import { View, TouchableHighlight, AppRegistry, StyleSheet, Text } from 'react-native';
 import Picker from '../../src/Picker';
 import * as React from 'react';
 
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class PopupExample extends React.Component<{}, {
+class PickerDemo extends React.Component<{}, {
   value?: string;
   items?: any[];
 }> {
@@ -25,12 +25,14 @@ class PopupExample extends React.Component<{}, {
       value: `${count}`,
     };
   }
+
   onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
     });
   };
+
   getItems(start) {
     const items = [];
     for (let i = start; i < start + len; i++) {
@@ -41,6 +43,7 @@ class PopupExample extends React.Component<{}, {
     }
     return items;
   }
+
   rerender = () => {
     count += len;
     const items = this.getItems(count);
@@ -49,20 +52,22 @@ class PopupExample extends React.Component<{}, {
       value: String(count),
     });
   };
+
   render() {
     return (<View style={{ padding: 10 }}>
-      <TouchableHighlight 
+      <TouchableHighlight
         onPress={this.rerender}
-        activeOpacity={0.5} 
-        style={[styles.button]} 
+        activeOpacity={0.5}
+        style={[styles.button]}
         underlayColor="#a9d9d4">
         <Text>rerender</Text>
       </TouchableHighlight>
-       <Picker selectedValue={this.state.value} onValueChange={this.onChange}>
+      <Picker selectedValue={this.state.value} onValueChange={this.onChange}>
         {this.state.items}
       </Picker>
     </View>);
   }
 }
 
-AppRegistry.registerComponent('picker', () => PopupExample);
+export const Demo = PickerDemo;
+export const title = 'picker';

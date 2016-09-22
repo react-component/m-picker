@@ -43,4 +43,5 @@ class PopupExample extends React.Component<{}, {}> {
   }
 }
 
-AppRegistry.registerComponent('popup', () => PopupExample);
+export const Demo = PopupExample;
+export const title = 'popup';
