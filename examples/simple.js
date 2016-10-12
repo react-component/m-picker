@@ -186,6 +186,7 @@ webpackJsonp([1],{
 	        return this.state.selectedValue !== nextState.selectedValue || !(0, _isChildrenEqual2.default)(this.props.children, nextProps.children, this.props.pure);
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
+	        this.zscroller.reflow();
 	        this.select(this.state.selectedValue);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
