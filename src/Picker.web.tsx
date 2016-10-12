@@ -60,6 +60,7 @@ const Picker = React.createClass<PickerProps, any>({
   },
 
   componentDidUpdate() {
+    this.zscroller.reflow();
     this.select(this.state.selectedValue);
   },
 
