@@ -52,33 +52,7 @@ webpackJsonp([0],{
 	        console.log('onDismiss');
 	    },
 	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { style: { margin: '10px 30px' } },
-	            React.createElement(
-	                'h2',
-	                null,
-	                'popup date picker'
-	            ),
-	            React.createElement(
-	                'button',
-	                { onClick: this.disable },
-	                this.state.disabled ? 'enable' : 'disable'
-	            ),
-	            React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    _Popup2.default,
-	                    { className: 'fortest', transitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', content: 'popup', title: 'Picker', disabled: this.state.disabled, onDismiss: this.onDismiss, onOk: this.onOk },
-	                    React.createElement(
-	                        'button',
-	                        { disabled: this.state.disabled },
-	                        'open'
-	                    )
-	                )
-	            )
-	        );
+	        return React.createElement("div", { style: { margin: '10px 30px' } }, React.createElement("h2", null, "popup date picker"), React.createElement("button", { onClick: this.disable }, this.state.disabled ? 'enable' : 'disable'), React.createElement("div", null, React.createElement(_Popup2.default, { className: "fortest", transitionName: "rmc-picker-popup-slide-fade", maskTransitionName: "rmc-picker-popup-fade", content: "popup", title: "Picker", disabled: this.state.disabled, onDismiss: this.onDismiss, onOk: this.onOk }, React.createElement("button", { disabled: this.state.disabled }, 'open'))));
 	    }
 	}); /* eslint no-console:0 */
 	
@@ -130,34 +104,7 @@ webpackJsonp([0],{
 	        if (!this.state.visible) {
 	            return null;
 	        }
-	        return React.createElement(
-	            _rcDialog2.default,
-	            { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style },
-	            React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    { className: props.prefixCls + '-header' },
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss },
-	                        props.dismissText
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
-	                        props.title
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk },
-	                        props.okText
-	                    )
-	                ),
-	                this.props.content
-	            )
-	        );
+	        return React.createElement(_rcDialog2.default, { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style }, React.createElement("div", null, React.createElement("div", { className: props.prefixCls + '-header' }, React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss }, props.dismissText), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-title' }, props.title), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk }, props.okText)), this.props.content));
 	    },
 	    render: function render() {
 	        return this.getRender();
@@ -568,6 +515,10 @@ webpackJsonp([0],{
 	    value: true
 	});
 	
+	var _extends2 = __webpack_require__(177);
+	
+	var _extends3 = _interopRequireDefault(_extends2);
+	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -768,14 +719,14 @@ webpackJsonp([0],{
 	                header,
 	                _react2["default"].createElement(
 	                    'div',
-	                    { className: prefixCls + '-body', style: props.bodyStyle, ref: 'body' },
+	                    (0, _extends3["default"])({ className: prefixCls + '-body', style: props.bodyStyle, ref: 'body' }, props.bodyProps),
 	                    props.children
 	                ),
 	                footer
 	            ),
 	            _react2["default"].createElement(
 	                'div',
-	                { tabIndex: '0', ref: 'sentinel', style: { width: 0, height: 0, overflow: 'hidden' } },
+	                { tabIndex: 0, ref: 'sentinel', style: { width: 0, height: 0, overflow: 'hidden' } },
 	                'sentinel'
 	            )
 	        );
@@ -904,7 +855,7 @@ webpackJsonp([0],{
 	            this.getMaskElement(),
 	            _react2["default"].createElement(
 	                'div',
-	                { tabIndex: '-1', onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: 'wrap', onClick: this.onMaskClick, role: 'dialog', 'aria-labelledby': props.title ? this.titleId : null, style: style },
+	                (0, _extends3["default"])({ tabIndex: -1, onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: 'wrap', onClick: this.onMaskClick, role: 'dialog', 'aria-labelledby': props.title ? this.titleId : null, style: style }, props.wrapProps),
 	                this.getDialogElement()
 	            )
 	        );
@@ -2575,7 +2526,7 @@ webpackJsonp([0],{
 	var LazyRenderBox = _react2["default"].createClass({
 	    displayName: 'LazyRenderBox',
 	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	        return !!nextProps.hiddenClassName || nextProps.visible;
+	        return !!nextProps.hiddenClassName || !!nextProps.visible;
 	    },
 	    render: function render() {
 	        var className = this.props.className;
@@ -2807,12 +2758,7 @@ webpackJsonp([0],{
 	        if (!disabled) {
 	            newChildProps[props.triggerType] = this.onTriggerClick;
 	        }
-	        return React.createElement(
-	            WrapComponent,
-	            { style: props.wrapStyle },
-	            React.cloneElement(child, newChildProps),
-	            this.getModal()
-	        );
+	        return React.createElement(WrapComponent, { style: props.wrapStyle }, React.cloneElement(child, newChildProps), this.getModal());
 	    },
 	    onTriggerClick: function onTriggerClick(e) {
 	        var child = this.props.children;

@@ -73,26 +73,7 @@ webpackJsonp([1],{
 	        });
 	    },
 	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { style: { border: '1px solid black', padding: 10 } },
-	            React.createElement(
-	                'button',
-	                { onClick: this.rerender },
-	                'rerender'
-	            ),
-	            ' ',
-	            React.createElement(
-	                'button',
-	                { onClick: this.disable },
-	                this.state.disabled ? 'enable' : 'disable'
-	            ),
-	            React.createElement(
-	                _Picker2.default,
-	                { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
-	                this.state.items
-	            )
-	        );
+	        return React.createElement("div", { style: { border: '1px solid black', padding: 10 } }, React.createElement("button", { onClick: this.rerender }, "rerender"), " ", React.createElement("button", { onClick: this.disable }, this.state.disabled ? 'enable' : 'disable'), React.createElement(_Picker2.default, { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange }, this.state.items));
 	    }
 	});
 	ReactDOM.render(React.createElement(Test, null), document.getElementById('__react-content'));
@@ -242,24 +223,10 @@ webpackJsonp([1],{
 	        var itemClassName = prefixCls + '-item';
 	        var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
 	        var items = children.map(function (item) {
-	            return React.createElement(
-	                'div',
-	                { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
-	                item.label
-	            );
+	            return React.createElement("div", { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value }, item.label);
 	        });
 	        var pickerCls = (_pickerCls = {}, (0, _defineProperty3.default)(_pickerCls, className, !!className), (0, _defineProperty3.default)(_pickerCls, prefixCls, true), _pickerCls);
-	        return React.createElement(
-	            'div',
-	            { className: (0, _classnames2.default)(pickerCls) },
-	            React.createElement('div', { className: prefixCls + '-mask' }),
-	            React.createElement('div', { className: prefixCls + '-indicator', ref: 'indicator' }),
-	            React.createElement(
-	                'div',
-	                { className: prefixCls + '-content', ref: 'content' },
-	                items
-	            )
-	        );
+	        return React.createElement("div", { className: (0, _classnames2.default)(pickerCls) }, React.createElement("div", { className: prefixCls + '-mask' }), React.createElement("div", { className: prefixCls + '-indicator', ref: "indicator" }), React.createElement("div", { className: prefixCls + '-content', ref: "content" }, items));
 	    }
 	});
 	exports.default = Picker;
@@ -2095,10 +2062,10 @@ webpackJsonp([1],{
 	var millisecondsPerSecond = 1000;
 	var running = {};
 	var counter = 1;
-	var win = typeof window !== undefined ? window : undefined;
+	var win = typeof window !== 'undefined' ? window : undefined;
 	
 	if (!win) {
-	  win = typeof global !== undefined ? global : {};
+	  win = typeof global !== 'undefined' ? global : {};
 	}
 	
 	var Animate = {
