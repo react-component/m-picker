@@ -34,7 +34,7 @@ class PickerDemo extends React.Component<{}, {
   };
 
   getItems(start) {
-    const items = [];
+    const items:any[] = [];
     for (let i = start; i < start + len; i++) {
       items.push({
         value: String(i),

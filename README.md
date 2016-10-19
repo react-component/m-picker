@@ -34,10 +34,7 @@ React Mobile Picker Component (web and react-native)
 
 ```
 npm i
-npm i typings -g
-typings install
 npm start
-npm run watch-tsc
 ```
 
 ## Example
