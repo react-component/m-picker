@@ -1,4 +1,4 @@
-import {View, TouchableHighlight, AppRegistry, StyleSheet, Text} from 'react-native';
+import {View, TouchableHighlight, StyleSheet, Text} from 'react-native';
 import Popup from '../../src/Popup';
 import PopupStyles from '../../src/PopupStyles';
 import React from 'react';

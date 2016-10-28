@@ -46,7 +46,7 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
 
   render() {
     return this.getRender();
-  }
+  },
 });
 
 export default PopupPicker;

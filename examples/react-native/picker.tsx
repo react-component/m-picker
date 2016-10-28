@@ -1,4 +1,6 @@
-import { View, TouchableHighlight, AppRegistry, StyleSheet, Text } from 'react-native';
+/* tslint:disable:no-console */
+
+import { View, TouchableHighlight, StyleSheet, Text } from 'react-native';
 import Picker from '../../src/Picker';
 import * as React from 'react';
 
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     padding: 5,
     width: 100,
-  }
+  },
 });
 
 class PickerDemo extends React.Component<{}, {
@@ -34,7 +36,7 @@ class PickerDemo extends React.Component<{}, {
   };
 
   getItems(start) {
-    const items:any[] = [];
+    const items: any[] = [];
     for (let i = start; i < start + len; i++) {
       items.push({
         value: String(i),

@@ -1,4 +1,4 @@
-/* eslint no-console:0 */
+/* tslint:disable:no-console */
 
 import 'rmc-picker/assets/index.less';
 import Picker from '../src/Picker.web';
