@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { PickerProps } from './PickerTypes';
 import classNames from 'classnames';
-import isChildrenEqual from './isChildrenEqual';
 import ZScroller from 'zscroller';
+import { PickerProps } from './PickerTypes';
+import PickerMixin from './PickerMixin';
+import isChildrenEqual from './isChildrenEqual';
 
 const Picker = React.createClass<PickerProps, any>({
+  mixins: [PickerMixin],
+
   getDefaultProps() {
     return {
       prefixCls: 'rmc-picker',
@@ -68,22 +71,8 @@ const Picker = React.createClass<PickerProps, any>({
     this.zscroller.destroy();
   },
 
-  selectByIndex(index) {
-    if (index < 0 || index >= this.props.children.length) {
-      return;
-    }
-    this.zscroller.scroller.scrollTo(0, index * this.itemHeight);
-  },
-
-  select(value) {
-    const children = this.props.children;
-    for (let i = 0, len = children.length; i < len; i++) {
-      if (children[i].value === value) {
-        this.selectByIndex(i);
-        return;
-      }
-    }
-    this.selectByIndex(0);
+  scrollTo(top) {
+    this.zscroller.scroller.scrollTo(0, top);
   },
 
   fireValueChange(selectedValue) {
@@ -98,12 +87,15 @@ const Picker = React.createClass<PickerProps, any>({
   },
 
   scrollingComplete() {
-    const { top } = this.zscroller.scroller.getValues();
-    const index = Math.round((top - this.itemHeight / 2) / this.itemHeight);
-    const child = this.props.children[index];
-    if (child) {
-      this.fireValueChange(child.value);
-    }
+    this.doScrollingComplete(this.zscroller.scroller.getValues().top);
+  },
+
+  getChildMember(child, m) {
+    return child[m];
+  },
+
+  toChildrenArray(children) {
+    return children;
   },
 
   render() {

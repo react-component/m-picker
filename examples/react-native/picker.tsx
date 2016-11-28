@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PickerDemo extends React.Component<{}, {
+export class PickerDemo extends React.Component<{}, {
   value?: string;
   items?: any[];
 }> {

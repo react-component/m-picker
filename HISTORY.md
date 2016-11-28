@@ -1,6 +1,10 @@
 # History
 ----
 
+## 3.5.0 / 2016-11-28
+
+- rewrite picker android
+
 ## 3.4.0 / 2016-09-10
 
 - use zscroller

@@ -24,6 +24,7 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
     const { styles } = props;
     return (
       <Modal
+        animationType="slide-up"
         wrapStyle={styles.modal}
         visible={this.state.visible}
         onClose={this.onDismiss}

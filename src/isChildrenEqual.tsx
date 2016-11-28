@@ -1,4 +1,3 @@
-
 export function isEmptyArray(a) {
   return !a || !a.length;
 }

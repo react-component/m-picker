@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PopupExample extends React.Component<{}, {}> {
+export class PopupExample extends React.Component<{}, {}> {
   render() {
     const popupContent = (<View style={styles.content}><Text>
       popupContent

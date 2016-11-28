@@ -3,6 +3,8 @@ import NativePicker from './NativePicker';
 import { PickerProps } from './PickerTypes';
 import isChildrenEqual from './isChildrenEqual';
 
+const Item = (NativePicker as any).Item;
+
 const Picker = React.createClass<PickerProps, {}>({
   getDefaultProps() {
     return {
@@ -18,7 +20,7 @@ const Picker = React.createClass<PickerProps, {}>({
 
   render() {
     const children = this.props.children.map((c) => {
-      return <NativePicker.Item {...c} key={c.value + ''} />;
+      return <Item {...c} key={c.value + ''} />;
     });
     return <NativePicker {...this.props}>{children}</NativePicker>;
   },
