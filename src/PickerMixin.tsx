@@ -28,6 +28,6 @@ export default {
     const children = this.toChildrenArray(this.props.children);
     index = Math.min(index, children.length - 1);
     const child: any = children[index];
-    this.fireValueChange(child.props.value);
+    this.fireValueChange(this.getChildMember(child, 'value'));
   },
 };
