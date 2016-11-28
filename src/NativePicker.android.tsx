@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1 / ratio,
   } as any,
 
+  scrollView: {
+    height: 0,
+  },
+
   selectedItemText: {
     fontSize: 21,
     fontWeight: 'bold',
@@ -143,6 +147,7 @@ const Picker = React.createClass<PickerProps, any>({
     return (
       <View style={style}>
         <ScrollView
+          style={styles.scrollView}
           ref="scroller"
           onScroll={this.onScroll}
           scrollEventThrottle={16}
