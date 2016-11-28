@@ -3,19 +3,19 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(230);
+	module.exports = __webpack_require__(192);
 
 
 /***/ },
 
-/***/ 230:
+/***/ 192:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(2);
 	
-	var _Picker = __webpack_require__(231);
+	var _Picker = __webpack_require__(193);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -31,7 +31,7 @@ webpackJsonp([1],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/* eslint no-console:0 */
+	/* tslint:disable:no-console */
 	var count = 0;
 	var len = 10;
 	var Test = React.createClass({
@@ -73,14 +73,33 @@ webpackJsonp([1],{
 	        });
 	    },
 	    render: function render() {
-	        return React.createElement("div", { style: { border: '1px solid black', padding: 10 } }, React.createElement("button", { onClick: this.rerender }, "rerender"), " ", React.createElement("button", { onClick: this.disable }, this.state.disabled ? 'enable' : 'disable'), React.createElement(_Picker2.default, { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange }, this.state.items));
+	        return React.createElement(
+	            'div',
+	            { style: { border: '1px solid black', padding: 10 } },
+	            React.createElement(
+	                'button',
+	                { onClick: this.rerender },
+	                'rerender'
+	            ),
+	            '\xA0',
+	            React.createElement(
+	                'button',
+	                { onClick: this.disable },
+	                this.state.disabled ? 'enable' : 'disable'
+	            ),
+	            React.createElement(
+	                _Picker2.default,
+	                { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
+	                this.state.items
+	            )
+	        );
 	    }
 	});
 	ReactDOM.render(React.createElement(Test, null), document.getElementById('__react-content'));
 
 /***/ },
 
-/***/ 231:
+/***/ 193:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89,32 +108,36 @@ webpackJsonp([1],{
 	    value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(232);
-	
-	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-	
 	var _react = __webpack_require__(4);
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _classnames = __webpack_require__(236);
+	var _classnames = __webpack_require__(194);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _isChildrenEqual = __webpack_require__(237);
-	
-	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
-	
-	var _zscroller = __webpack_require__(238);
+	var _zscroller = __webpack_require__(195);
 	
 	var _zscroller2 = _interopRequireDefault(_zscroller);
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	var _PickerMixin = __webpack_require__(198);
+	
+	var _PickerMixin2 = _interopRequireDefault(_PickerMixin);
+	
+	var _isChildrenEqual = __webpack_require__(199);
+	
+	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var Picker = React.createClass({
 	    displayName: 'Picker',
+	
+	    mixins: [_PickerMixin2.default],
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            prefixCls: 'rmc-picker',
@@ -124,10 +147,10 @@ webpackJsonp([1],{
 	    },
 	    getInitialState: function getInitialState() {
 	        var selectedValueState = void 0;
-	        var _props = this.props;
-	        var selectedValue = _props.selectedValue;
-	        var defaultSelectedValue = _props.defaultSelectedValue;
-	        var children = _props.children;
+	        var _props = this.props,
+	            selectedValue = _props.selectedValue,
+	            defaultSelectedValue = _props.defaultSelectedValue,
+	            children = _props.children;
 	
 	        if (selectedValue !== undefined) {
 	            selectedValueState = selectedValue;
@@ -173,21 +196,8 @@ webpackJsonp([1],{
 	    componentWillUnmount: function componentWillUnmount() {
 	        this.zscroller.destroy();
 	    },
-	    selectByIndex: function selectByIndex(index) {
-	        if (index < 0 || index >= this.props.children.length) {
-	            return;
-	        }
-	        this.zscroller.scroller.scrollTo(0, index * this.itemHeight);
-	    },
-	    select: function select(value) {
-	        var children = this.props.children;
-	        for (var i = 0, len = children.length; i < len; i++) {
-	            if (children[i].value === value) {
-	                this.selectByIndex(i);
-	                return;
-	            }
-	        }
-	        this.selectByIndex(0);
+	    scrollTo: function scrollTo(top) {
+	        this.zscroller.scroller.scrollTo(0, top);
 	    },
 	    fireValueChange: function fireValueChange(selectedValue) {
 	        if (selectedValue !== this.state.selectedValue) {
@@ -200,33 +210,45 @@ webpackJsonp([1],{
 	        }
 	    },
 	    scrollingComplete: function scrollingComplete() {
-	        var _zscroller$scroller$g = this.zscroller.scroller.getValues();
-	
-	        var top = _zscroller$scroller$g.top;
-	
-	        var index = Math.round((top - this.itemHeight / 2) / this.itemHeight);
-	        var child = this.props.children[index];
-	        if (child) {
-	            this.fireValueChange(child.value);
-	        }
+	        this.doScrollingComplete(this.zscroller.scroller.getValues().top);
+	    },
+	    getChildMember: function getChildMember(child, m) {
+	        return child[m];
+	    },
+	    toChildrenArray: function toChildrenArray(children) {
+	        return children;
 	    },
 	    render: function render() {
 	        var _pickerCls;
 	
-	        var _props2 = this.props;
-	        var children = _props2.children;
-	        var prefixCls = _props2.prefixCls;
-	        var className = _props2.className;
-	        var itemStyle = _props2.itemStyle;
+	        var _props2 = this.props,
+	            children = _props2.children,
+	            prefixCls = _props2.prefixCls,
+	            className = _props2.className,
+	            itemStyle = _props2.itemStyle;
 	        var selectedValue = this.state.selectedValue;
 	
 	        var itemClassName = prefixCls + '-item';
 	        var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
 	        var items = children.map(function (item) {
-	            return React.createElement("div", { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value }, item.label);
+	            return React.createElement(
+	                'div',
+	                { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
+	                item.label
+	            );
 	        });
-	        var pickerCls = (_pickerCls = {}, (0, _defineProperty3.default)(_pickerCls, className, !!className), (0, _defineProperty3.default)(_pickerCls, prefixCls, true), _pickerCls);
-	        return React.createElement("div", { className: (0, _classnames2.default)(pickerCls) }, React.createElement("div", { className: prefixCls + '-mask' }), React.createElement("div", { className: prefixCls + '-indicator', ref: "indicator" }), React.createElement("div", { className: prefixCls + '-content', ref: "content" }, items));
+	        var pickerCls = (_pickerCls = {}, _defineProperty(_pickerCls, className, !!className), _defineProperty(_pickerCls, prefixCls, true), _pickerCls);
+	        return React.createElement(
+	            'div',
+	            { className: (0, _classnames2.default)(pickerCls) },
+	            React.createElement('div', { className: prefixCls + '-mask' }),
+	            React.createElement('div', { className: prefixCls + '-indicator', ref: 'indicator' }),
+	            React.createElement(
+	                'div',
+	                { className: prefixCls + '-content', ref: 'content' },
+	                items
+	            )
+	        );
 	    }
 	});
 	exports.default = Picker;
@@ -234,64 +256,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 232:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _defineProperty = __webpack_require__(233);
-	
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
-	  }
-	
-	  return obj;
-	};
-
-/***/ },
-
-/***/ 233:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(234), __esModule: true };
-
-/***/ },
-
-/***/ 234:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(235);
-	var $Object = __webpack_require__(183).Object;
-	module.exports = function defineProperty(it, key, desc){
-	  return $Object.defineProperty(it, key, desc);
-	};
-
-/***/ },
-
-/***/ 235:
-/***/ function(module, exports, __webpack_require__) {
-
-	var $export = __webpack_require__(181);
-	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-	$export($export.S + $export.F * !__webpack_require__(191), 'Object', {defineProperty: __webpack_require__(187).f});
-
-/***/ },
-
-/***/ 236:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -346,48 +311,14 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 237:
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.isEmptyArray = isEmptyArray;
-	exports.default = isChildrenEqual;
-	function isEmptyArray(a) {
-	    return !a || !a.length;
-	}
-	function isChildrenEqual(c1, c2, pure) {
-	    if (isEmptyArray(c1) && isEmptyArray(c2)) {
-	        return true;
-	    }
-	    if (pure) {
-	        return c1 === c2;
-	    }
-	    if (c1.length !== c2.length) {
-	        return false;
-	    }
-	    var len = c1.length;
-	    for (var i = 0; i < len; i++) {
-	        if (c1[i].value !== c2[i].value || c1[i].label !== c2[i].label) {
-	            return false;
-	        }
-	    }
-	    return true;
-	}
-
-/***/ },
-
-/***/ 238:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var Scroller = __webpack_require__(239);
+	var Scroller = __webpack_require__(196);
 	var MIN_INDICATOR_SIZE = 8;
 	
 	function setTransform(nodeStyle, value) {
@@ -405,7 +336,7 @@ webpackJsonp([1],{
 	function DOMScroller(content) {
 	  var _this = this;
 	
-	  var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 	
 	  var scrollbars = void 0;
 	  var indicators = void 0;
@@ -422,6 +353,9 @@ webpackJsonp([1],{
 	    scrollingComplete: function scrollingComplete() {
 	      _this.clearScrollbarTimer();
 	      _this.timer = setTimeout(function () {
+	        if (_this._destroyed) {
+	          return;
+	        }
 	        if (options.scrollingComplete) {
 	          options.scrollingComplete();
 	        }
@@ -570,6 +504,7 @@ webpackJsonp([1],{
 	};
 	
 	DOMScroller.prototype.destroy = function destroy() {
+	  this._destroyed = true;
 	  window.removeEventListener('resize', this.onResize, false);
 	  this.container.removeEventListener('touchstart', this.onTouchStart, false);
 	  this.container.removeEventListener('touchmove', this.onTouchMove, false);
@@ -669,7 +604,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 239:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -687,7 +622,7 @@ webpackJsonp([1],{
 	 */
 	
 	var Scroller;
-	var Animate = __webpack_require__(240);
+	var Animate = __webpack_require__(197);
 	
 	var NOOP = function () {
 	};
@@ -2030,7 +1965,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 240:
+/***/ 197:
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*
@@ -2268,6 +2203,83 @@ webpackJsonp([1],{
 	module.exports = Animate;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+
+/***/ 198:
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    select: function select(value) {
+	        var children = this.toChildrenArray(this.props.children);
+	        for (var i = 0, len = children.length; i < len; i++) {
+	            if (this.getChildMember(children[i], 'value') === value) {
+	                this.selectByIndex(i);
+	                return;
+	            }
+	        }
+	        this.selectByIndex(0);
+	    },
+	    selectByIndex: function selectByIndex(index) {
+	        if (index < 0 || index >= this.toChildrenArray(this.props.children).length || !this.itemHeight) {
+	            return;
+	        }
+	        this.scrollTo(index * this.itemHeight);
+	    },
+	    doScrollingComplete: function doScrollingComplete(top) {
+	        var index = top / this.itemHeight;
+	        var floor = Math.floor(index);
+	        if (index - floor > 0.5) {
+	            index = floor + 1;
+	        } else {
+	            index = floor;
+	        }
+	        var children = this.toChildrenArray(this.props.children);
+	        index = Math.min(index, children.length - 1);
+	        var child = children[index];
+	        this.fireValueChange(child.props.value);
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 199:
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.isEmptyArray = isEmptyArray;
+	exports.default = isChildrenEqual;
+	function isEmptyArray(a) {
+	    return !a || !a.length;
+	}
+	function isChildrenEqual(c1, c2, pure) {
+	    if (isEmptyArray(c1) && isEmptyArray(c2)) {
+	        return true;
+	    }
+	    if (pure) {
+	        return c1 === c2;
+	    }
+	    if (c1.length !== c2.length) {
+	        return false;
+	    }
+	    var len = c1.length;
+	    for (var i = 0; i < len; i++) {
+	        if (c1[i].value !== c2[i].value || c1[i].label !== c2[i].label) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
 
 /***/ }
 
