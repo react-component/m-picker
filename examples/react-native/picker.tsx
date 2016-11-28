@@ -24,7 +24,7 @@ export class PickerDemo extends React.Component<{}, {
     super(props);
     this.state = {
       items: this.getItems(count),
-      value: `${count}`,
+      value: `${count + len / 2}`,
     };
   }
 

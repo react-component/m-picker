@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   } as any,
 
   selectedItemText: {
-    fontSize: 28,
+    fontSize: 21,
     fontWeight: 'bold',
     color: '#000',
   } as any,
@@ -71,7 +71,10 @@ const Picker = React.createClass<PickerProps, any>({
           paddingBottom: height * 3,
         },
       });
-      this.select(this.props.selectedValue);
+      // i do no know why!...
+      setTimeout(() => {
+        this.select(this.props.selectedValue);
+      }, 0);
     }
   },
 
