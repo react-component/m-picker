@@ -11,8 +11,8 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
 
   getDefaultProps() {
     return {
-      actionTextUnderlayColor: '#a9d9d4',
-      actionTextActiveOpacity: 0.5,
+      actionTextUnderlayColor: '#ddd',
+      actionTextActiveOpacity: 1,
       triggerType: 'onPress',
       styles: {},
       WrapComponent: View,

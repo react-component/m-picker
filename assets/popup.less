@@ -47,15 +47,11 @@
     background-size: 100% 1px;
     background-repeat: no-repeat;
     position: relative;
-    &-left {
-      position: absolute;
-      left: 16px;
-      top: 0;
-    }
-    &-right {
-      position: absolute;
-      right: 16px;
-      top: 0;
+    display: flex;
+    flex-direction: row;
+    &-left, &-right {
+      padding-left: 15px;
+      padding-right: 15px;
     }
   }
 
@@ -69,9 +65,14 @@
     // flex: 1;
     text-align: center;
     -webkit-tap-highlight-color: transparent;
+
+    &-active {
+      background-color: #ddd;
+    }
   }
 
   &-title {
+    flex: 1;
     color: #666;
     cursor: default;
   }
@@ -82,7 +83,7 @@
     animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
   }
 
-  &-fade-enter,&-fade-appear {
+  &-fade-enter, &-fade-appear {
     opacity: 0;
     .effect();
     animation-play-state: paused;
@@ -93,7 +94,7 @@
     animation-play-state: paused;
   }
 
-  &-fade-enter&-fade-enter-active,&-fade-appear&-fade-appear-active  {
+  &-fade-enter&-fade-enter-active, &-fade-appear&-fade-appear-active {
     animation-name: rmcPopupPickerFadeIn;
     animation-play-state: running;
   }

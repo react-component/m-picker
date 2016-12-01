@@ -1,6 +1,10 @@
 # History
 ----
 
+## 3.5.0 / 2016-12-01
+
+- use rc-touchable
+
 ## 3.5.0 / 2016-11-28
 
 - rewrite picker android

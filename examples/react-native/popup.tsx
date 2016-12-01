@@ -1,4 +1,4 @@
-import {View, TouchableHighlight, StyleSheet, Text} from 'react-native';
+import {View, TouchableHighlight, StyleSheet, Text, ScrollView } from 'react-native';
 import Popup from '../../src/Popup';
 import PopupStyles from '../../src/PopupStyles';
 import React from 'react';
@@ -28,7 +28,9 @@ export class PopupExample extends React.Component<{}, {}> {
       popupContent
     </Text></View>);
 
-    return (<Popup
+    return (<ScrollView style={{flex:1}}>
+      <View style={{height:200}}/>
+      <Popup
       styles={PopupStyles}
       style={styles.root}
       title={'title'}
@@ -37,7 +39,9 @@ export class PopupExample extends React.Component<{}, {}> {
       <TouchableHighlight activeOpacity={0.5} style={[styles.button]} underlayColor="#a9d9d4">
         <Text>show popup</Text>
       </TouchableHighlight>
-    </Popup>);
+    </Popup>
+      <View style={{height:800}}/>
+    </ScrollView>);
   }
 }
 
