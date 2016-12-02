@@ -66,7 +66,6 @@ const Picker = React.createClass<PickerProps, any>({
       this.refs.scroller.setNativeProps({
         style: {
           height: height * 7,
-          overflow: 'hidden',
         },
       });
       this.refs.content.setNativeProps({
