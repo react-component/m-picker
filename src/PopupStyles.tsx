@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   header: {
-    flex: 1,
+    // flex:1, 0.39.0 needs to remove
     height: 44,
     alignItems: 'center',
     flexDirection: 'row',
