@@ -21,11 +21,11 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(37);
+	var _reactDom = __webpack_require__(35);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _Popup = __webpack_require__(175);
+	var _Popup = __webpack_require__(181);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
@@ -89,7 +89,7 @@ webpackJsonp([0],{
 /***/ 3:
 2,
 
-/***/ 175:
+/***/ 181:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102,15 +102,15 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _rcDialog = __webpack_require__(176);
+	var _rcDialog = __webpack_require__(182);
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _PopupMixin = __webpack_require__(191);
+	var _PopupMixin = __webpack_require__(197);
 	
 	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
-	var _rcTouchable = __webpack_require__(192);
+	var _rcTouchable = __webpack_require__(198);
 	
 	var _rcTouchable2 = _interopRequireDefault(_rcTouchable);
 	
@@ -182,7 +182,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 176:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -195,11 +195,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Dialog = __webpack_require__(177);
+	var _Dialog = __webpack_require__(183);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _getContainerRenderMixin = __webpack_require__(190);
+	var _getContainerRenderMixin = __webpack_require__(196);
 	
 	var _getContainerRenderMixin2 = _interopRequireDefault(_getContainerRenderMixin);
 	
@@ -262,7 +262,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 177:
+/***/ 183:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -275,23 +275,23 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(37);
+	var _reactDom = __webpack_require__(35);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(178);
+	var _KeyCode = __webpack_require__(184);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(179);
+	var _rcAnimate = __webpack_require__(185);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(188);
+	var _LazyRenderBox = __webpack_require__(194);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
-	var _getScrollBarSize = __webpack_require__(189);
+	var _getScrollBarSize = __webpack_require__(195);
 	
 	var _getScrollBarSize2 = _interopRequireDefault(_getScrollBarSize);
 	
@@ -405,7 +405,7 @@ webpackJsonp([0],{
 	        this.props.afterClose();
 	    },
 	    onMaskClick: function onMaskClick(e) {
-	        if (e.target === e.currentTarget && this.props.maskClosable) {
+	        if (e.target === e.currentTarget) {
 	            this.close(e);
 	        }
 	    },
@@ -560,17 +560,16 @@ webpackJsonp([0],{
 	    },
 	    render: function render() {
 	        var props = this.props;
-	        var prefixCls = props.prefixCls;
+	        var prefixCls = props.prefixCls,
+	            maskClosable = props.maskClosable;
+	
 	        var style = this.getWrapStyle();
 	        // clear hide display
 	        // and only set display after async anim, not here for hide
 	        if (props.visible) {
 	            style.display = null;
 	        }
-	        return _react2["default"].createElement("div", null, this.getMaskElement(), _react2["default"].createElement("div", __assign({ tabIndex: -1, onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: "wrap", 
-	        onMouseDown: this.onMaskClick,
-	        onTouchStart: this.onMaskClick, 
-	        role: "dialog", "aria-labelledby": props.title ? this.titleId : null, style: style }, props.wrapProps), this.getDialogElement()));
+	        return _react2["default"].createElement("div", null, this.getMaskElement(), _react2["default"].createElement("div", __assign({ tabIndex: -1, onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: "wrap", onMouseDown: maskClosable ? this.onMaskClick : undefined, onTouchStart: maskClosable ? this.onMaskClick : undefined, role: "dialog", "aria-labelledby": props.title ? this.titleId : null, style: style }, props.wrapProps), this.getDialogElement()));
 	    }
 	});
 	exports["default"] = Dialog;
@@ -578,7 +577,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 178:
+/***/ 184:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1104,17 +1103,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 179:
+/***/ 185:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(180);
+	module.exports = __webpack_require__(186);
 
 /***/ },
 
-/***/ 180:
+/***/ 186:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1127,13 +1126,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(181);
+	var _ChildrenUtils = __webpack_require__(187);
 	
-	var _AnimateChild = __webpack_require__(182);
+	var _AnimateChild = __webpack_require__(188);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(187);
+	var _util = __webpack_require__(193);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1447,7 +1446,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 181:
+/***/ 187:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1570,7 +1569,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 182:
+/***/ 188:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1585,15 +1584,15 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(37);
+	var _reactDom = __webpack_require__(35);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(183);
+	var _cssAnimation = __webpack_require__(189);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(187);
+	var _util = __webpack_require__(193);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1682,7 +1681,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 183:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1693,11 +1692,11 @@ webpackJsonp([0],{
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _Event = __webpack_require__(184);
+	var _Event = __webpack_require__(190);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(185);
+	var _componentClasses = __webpack_require__(191);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -1878,7 +1877,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 184:
+/***/ 190:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1972,7 +1971,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 185:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1980,9 +1979,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(186);
+	  var index = __webpack_require__(192);
 	} catch (err) {
-	  var index = __webpack_require__(186);
+	  var index = __webpack_require__(192);
 	}
 	
 	/**
@@ -2170,7 +2169,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 186:
+/***/ 192:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2183,7 +2182,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 187:
+/***/ 193:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2216,7 +2215,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 188:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2267,7 +2266,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 189:
+/***/ 195:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2315,7 +2314,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 190:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2328,7 +2327,7 @@ webpackJsonp([0],{
 	
 	exports["default"] = getContainerRenderMixin;
 	
-	var _reactDom = __webpack_require__(37);
+	var _reactDom = __webpack_require__(35);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -2415,7 +2414,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 191:
+/***/ 197:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2511,7 +2510,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 192:
+/***/ 198:
 /***/ function(module, exports, __webpack_require__) {
 
 	// inspired by react-native
@@ -2529,11 +2528,11 @@ webpackJsonp([0],{
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _reactDom = __webpack_require__(37);
+	var _reactDom = __webpack_require__(35);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _raf = __webpack_require__(193);
+	var _raf = __webpack_require__(199);
 	
 	var _raf2 = _interopRequireDefault(_raf);
 	
@@ -3061,126 +3060,6 @@ webpackJsonp([0],{
 	});
 	exports["default"] = Touchable;
 	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 193:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(194)
-	  , root = typeof window === 'undefined' ? global : window
-	  , vendors = ['moz', 'webkit']
-	  , suffix = 'AnimationFrame'
-	  , raf = root['request' + suffix]
-	  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
-	
-	for(var i = 0; !raf && i < vendors.length; i++) {
-	  raf = root[vendors[i] + 'Request' + suffix]
-	  caf = root[vendors[i] + 'Cancel' + suffix]
-	      || root[vendors[i] + 'CancelRequest' + suffix]
-	}
-	
-	// Some versions of FF have rAF but not cAF
-	if(!raf || !caf) {
-	  var last = 0
-	    , id = 0
-	    , queue = []
-	    , frameDuration = 1000 / 60
-	
-	  raf = function(callback) {
-	    if(queue.length === 0) {
-	      var _now = now()
-	        , next = Math.max(0, frameDuration - (_now - last))
-	      last = next + _now
-	      setTimeout(function() {
-	        var cp = queue.slice(0)
-	        // Clear queue here to prevent
-	        // callbacks from appending listeners
-	        // to the current frame's queue
-	        queue.length = 0
-	        for(var i = 0; i < cp.length; i++) {
-	          if(!cp[i].cancelled) {
-	            try{
-	              cp[i].callback(last)
-	            } catch(e) {
-	              setTimeout(function() { throw e }, 0)
-	            }
-	          }
-	        }
-	      }, Math.round(next))
-	    }
-	    queue.push({
-	      handle: ++id,
-	      callback: callback,
-	      cancelled: false
-	    })
-	    return id
-	  }
-	
-	  caf = function(handle) {
-	    for(var i = 0; i < queue.length; i++) {
-	      if(queue[i].handle === handle) {
-	        queue[i].cancelled = true
-	      }
-	    }
-	  }
-	}
-	
-	module.exports = function(fn) {
-	  // Wrap in a new function to prevent
-	  // `cancel` potentially being assigned
-	  // to the native rAF function
-	  return raf.call(root, fn)
-	}
-	module.exports.cancel = function() {
-	  caf.apply(root, arguments)
-	}
-	module.exports.polyfill = function() {
-	  root.requestAnimationFrame = raf
-	  root.cancelAnimationFrame = caf
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-
-/***/ 194:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
-	(function() {
-	  var getNanoSeconds, hrtime, loadTime;
-	
-	  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
-	    module.exports = function() {
-	      return performance.now();
-	    };
-	  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
-	    module.exports = function() {
-	      return (getNanoSeconds() - loadTime) / 1e6;
-	    };
-	    hrtime = process.hrtime;
-	    getNanoSeconds = function() {
-	      var hr;
-	      hr = hrtime();
-	      return hr[0] * 1e9 + hr[1];
-	    };
-	    loadTime = getNanoSeconds();
-	  } else if (Date.now) {
-	    module.exports = function() {
-	      return Date.now() - loadTime;
-	    };
-	    loadTime = Date.now();
-	  } else {
-	    module.exports = function() {
-	      return new Date().getTime() - loadTime;
-	    };
-	    loadTime = new Date().getTime();
-	  }
-	
-	}).call(this);
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }
 

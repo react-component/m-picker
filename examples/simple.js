@@ -3,19 +3,19 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(195);
+	module.exports = __webpack_require__(201);
 
 
 /***/ },
 
-/***/ 195:
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(2);
 	
-	var _Picker = __webpack_require__(196);
+	var _Picker = __webpack_require__(202);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -23,7 +23,7 @@ webpackJsonp([1],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(37);
+	var _reactDom = __webpack_require__(35);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
@@ -99,7 +99,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 196:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -108,7 +108,7 @@ webpackJsonp([1],{
 	    value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(197);
+	var _defineProperty2 = __webpack_require__(203);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -116,19 +116,19 @@ webpackJsonp([1],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _classnames = __webpack_require__(216);
+	var _classnames = __webpack_require__(222);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _zscroller = __webpack_require__(217);
+	var _zscroller = __webpack_require__(223);
 	
 	var _zscroller2 = _interopRequireDefault(_zscroller);
 	
-	var _PickerMixin = __webpack_require__(220);
+	var _PickerMixin = __webpack_require__(226);
 	
 	var _PickerMixin2 = _interopRequireDefault(_PickerMixin);
 	
-	var _isChildrenEqual = __webpack_require__(221);
+	var _isChildrenEqual = __webpack_require__(227);
 	
 	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
 	
@@ -258,14 +258,14 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 197:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _defineProperty = __webpack_require__(198);
+	var _defineProperty = __webpack_require__(204);
 	
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 	
@@ -288,40 +288,40 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 198:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(199), __esModule: true };
+	module.exports = { "default": __webpack_require__(205), __esModule: true };
 
 /***/ },
 
-/***/ 199:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(200);
-	var $Object = __webpack_require__(203).Object;
+	__webpack_require__(206);
+	var $Object = __webpack_require__(209).Object;
 	module.exports = function defineProperty(it, key, desc){
 	  return $Object.defineProperty(it, key, desc);
 	};
 
 /***/ },
 
-/***/ 200:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
-	var $export = __webpack_require__(201);
+	var $export = __webpack_require__(207);
 	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-	$export($export.S + $export.F * !__webpack_require__(211), 'Object', {defineProperty: __webpack_require__(207).f});
+	$export($export.S + $export.F * !__webpack_require__(217), 'Object', {defineProperty: __webpack_require__(213).f});
 
 /***/ },
 
-/***/ 201:
+/***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
-	var global    = __webpack_require__(202)
-	  , core      = __webpack_require__(203)
-	  , ctx       = __webpack_require__(204)
-	  , hide      = __webpack_require__(206)
+	var global    = __webpack_require__(208)
+	  , core      = __webpack_require__(209)
+	  , ctx       = __webpack_require__(210)
+	  , hide      = __webpack_require__(212)
 	  , PROTOTYPE = 'prototype';
 	
 	var $export = function(type, name, source){
@@ -382,7 +382,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 202:
+/***/ 208:
 /***/ function(module, exports) {
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -392,7 +392,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 203:
+/***/ 209:
 /***/ function(module, exports) {
 
 	var core = module.exports = {version: '2.4.0'};
@@ -400,11 +400,11 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 204:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	// optional / simple context binding
-	var aFunction = __webpack_require__(205);
+	var aFunction = __webpack_require__(211);
 	module.exports = function(fn, that, length){
 	  aFunction(fn);
 	  if(that === undefined)return fn;
@@ -426,7 +426,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 205:
+/***/ 211:
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -436,12 +436,12 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 206:
+/***/ 212:
 /***/ function(module, exports, __webpack_require__) {
 
-	var dP         = __webpack_require__(207)
-	  , createDesc = __webpack_require__(215);
-	module.exports = __webpack_require__(211) ? function(object, key, value){
+	var dP         = __webpack_require__(213)
+	  , createDesc = __webpack_require__(221);
+	module.exports = __webpack_require__(217) ? function(object, key, value){
 	  return dP.f(object, key, createDesc(1, value));
 	} : function(object, key, value){
 	  object[key] = value;
@@ -450,15 +450,15 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 207:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
-	var anObject       = __webpack_require__(208)
-	  , IE8_DOM_DEFINE = __webpack_require__(210)
-	  , toPrimitive    = __webpack_require__(214)
+	var anObject       = __webpack_require__(214)
+	  , IE8_DOM_DEFINE = __webpack_require__(216)
+	  , toPrimitive    = __webpack_require__(220)
 	  , dP             = Object.defineProperty;
 	
-	exports.f = __webpack_require__(211) ? Object.defineProperty : function defineProperty(O, P, Attributes){
+	exports.f = __webpack_require__(217) ? Object.defineProperty : function defineProperty(O, P, Attributes){
 	  anObject(O);
 	  P = toPrimitive(P, true);
 	  anObject(Attributes);
@@ -472,10 +472,10 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 208:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(209);
+	var isObject = __webpack_require__(215);
 	module.exports = function(it){
 	  if(!isObject(it))throw TypeError(it + ' is not an object!');
 	  return it;
@@ -483,7 +483,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 209:
+/***/ 215:
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -492,26 +492,26 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 210:
+/***/ 216:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = !__webpack_require__(211) && !__webpack_require__(212)(function(){
-	  return Object.defineProperty(__webpack_require__(213)('div'), 'a', {get: function(){ return 7; }}).a != 7;
+	module.exports = !__webpack_require__(217) && !__webpack_require__(218)(function(){
+	  return Object.defineProperty(__webpack_require__(219)('div'), 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
 /***/ },
 
-/***/ 211:
+/***/ 217:
 /***/ function(module, exports, __webpack_require__) {
 
 	// Thank's IE8 for his funny defineProperty
-	module.exports = !__webpack_require__(212)(function(){
+	module.exports = !__webpack_require__(218)(function(){
 	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
 /***/ },
 
-/***/ 212:
+/***/ 218:
 /***/ function(module, exports) {
 
 	module.exports = function(exec){
@@ -524,11 +524,11 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 213:
+/***/ 219:
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(209)
-	  , document = __webpack_require__(202).document
+	var isObject = __webpack_require__(215)
+	  , document = __webpack_require__(208).document
 	  // in old IE typeof document.createElement is 'object'
 	  , is = isObject(document) && isObject(document.createElement);
 	module.exports = function(it){
@@ -537,11 +537,11 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 214:
+/***/ 220:
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.1 ToPrimitive(input [, PreferredType])
-	var isObject = __webpack_require__(209);
+	var isObject = __webpack_require__(215);
 	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
 	// and the second argument - flag - preferred type is a string
 	module.exports = function(it, S){
@@ -555,7 +555,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 215:
+/***/ 221:
 /***/ function(module, exports) {
 
 	module.exports = function(bitmap, value){
@@ -569,7 +569,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 216:
+/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -624,14 +624,16 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 217:
+/***/ 223:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var Scroller = __webpack_require__(218);
+	__webpack_require__(199); // vendor check
+	
+	var Scroller = __webpack_require__(224);
 	var MIN_INDICATOR_SIZE = 8;
 	
 	function setTransform(nodeStyle, value) {
@@ -839,85 +841,86 @@ webpackJsonp([1],{
 	    that.reflow();
 	  }, false);
 	
-	  // touch devices bind touch events
-	  if ('ontouchstart' in window) {
-	    this.container.addEventListener('touchstart', this.onTouchStart = function (e) {
-	      // Don't react if initial down happens on a form element
-	      if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
-	        return;
-	      }
-	      _this2.clearScrollbarTimer();
-	      // reflow since the container may have changed
-	      that.reflow();
-	      that.scroller.doTouchStart(e.touches, e.timeStamp);
-	    }, false);
+	  var lockMouse = false;
+	  var releaseLockTimer = void 0;
 	
-	    this.container.addEventListener('touchmove', this.onTouchMove = function (e) {
+	  this.container.addEventListener('touchstart', this.onTouchStart = function (e) {
+	    lockMouse = true;
+	    if (releaseLockTimer) {
+	      clearTimeout(releaseLockTimer);
+	      releaseLockTimer = null;
+	    }
+	    // Don't react if initial down happens on a form element
+	    if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
+	      return;
+	    }
+	    _this2.clearScrollbarTimer();
+	    // reflow since the container may have changed
+	    that.reflow();
+	    that.scroller.doTouchStart(e.touches, e.timeStamp);
+	  }, false);
+	
+	  this.container.addEventListener('touchmove', this.onTouchMove = function (e) {
+	    e.preventDefault();
+	    that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
+	  }, false);
+	
+	  this.container.addEventListener('touchend', this.onTouchEnd = function (e) {
+	    that.scroller.doTouchEnd(e.timeStamp);
+	    releaseLockTimer = setTimeout(function () {
+	      lockMouse = false;
+	    }, 300);
+	  }, false);
+	
+	  this.container.addEventListener('touchcancel', this.onTouchCancel = function (e) {
+	    that.scroller.doTouchEnd(e.timeStamp);
+	    releaseLockTimer = setTimeout(function () {
+	      lockMouse = false;
+	    }, 300);
+	  }, false);
+	
+	  this.onMouseUp = function (e) {
+	    that.scroller.doTouchEnd(e.timeStamp);
+	    document.removeEventListener('mousemove', _this2.onMouseMove, false);
+	    document.removeEventListener('mouseup', _this2.onMouseUp, false);
+	  };
+	
+	  this.onMouseMove = function (e) {
+	    that.scroller.doTouchMove([{
+	      pageX: e.pageX,
+	      pageY: e.pageY
+	    }], e.timeStamp);
+	  };
+	
+	  this.container.addEventListener('mousedown', this.onMouseDown = function (e) {
+	    if (lockMouse || e.target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
+	      return;
+	    }
+	    _this2.clearScrollbarTimer();
+	    that.scroller.doTouchStart([{
+	      pageX: e.pageX,
+	      pageY: e.pageY
+	    }], e.timeStamp);
+	    // reflow since the container may have changed
+	    that.reflow();
+	    e.preventDefault();
+	    document.addEventListener('mousemove', _this2.onMouseMove, false);
+	    document.addEventListener('mouseup', _this2.onMouseUp, false);
+	  }, false);
+	
+	  this.container.addEventListener('mousewheel', this.onMouseWheel = function (e) {
+	    if (that.options.zooming) {
+	      that.scroller.doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);
 	      e.preventDefault();
-	      that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
-	    }, false);
-	
-	    this.container.addEventListener('touchend', this.onTouchEnd = function (e) {
-	      that.scroller.doTouchEnd(e.timeStamp);
-	    }, false);
-	
-	    this.container.addEventListener('touchcancel', this.onTouchCancel = function (e) {
-	      that.scroller.doTouchEnd(e.timeStamp);
-	    }, false);
-	
-	    // non-touch bind mouse events
-	  } else {
-	    (function () {
-	      var mousedown = false;
-	      _this2.container.addEventListener('mousedown', _this2.onMouseDown = function (e) {
-	        if (e.target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
-	          return;
-	        }
-	        _this2.clearScrollbarTimer();
-	        that.scroller.doTouchStart([{
-	          pageX: e.pageX,
-	          pageY: e.pageY
-	        }], e.timeStamp);
-	        mousedown = true;
-	        // reflow since the container may have changed
-	        that.reflow();
-	        e.preventDefault();
-	      }, false);
-	
-	      document.addEventListener('mousemove', _this2.onMouseMove = function (e) {
-	        if (!mousedown) {
-	          return;
-	        }
-	        that.scroller.doTouchMove([{
-	          pageX: e.pageX,
-	          pageY: e.pageY
-	        }], e.timeStamp);
-	        mousedown = true;
-	      }, false);
-	
-	      document.addEventListener('mouseup', _this2.onMouseUp = function (e) {
-	        if (!mousedown) {
-	          return;
-	        }
-	        that.scroller.doTouchEnd(e.timeStamp);
-	        mousedown = false;
-	      }, false);
-	
-	      _this2.container.addEventListener('mousewheel', _this2.onMouseWheel = function (e) {
-	        if (that.options.zooming) {
-	          that.scroller.doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);
-	          e.preventDefault();
-	        }
-	      }, false);
-	    })();
-	  }
+	    }
+	  }, false);
 	};
 	
 	module.exports = DOMScroller;
 
 /***/ },
 
-/***/ 218:
+/***/ 224:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -935,7 +938,7 @@ webpackJsonp([1],{
 	 */
 	
 	var Scroller;
-	var Animate = __webpack_require__(219);
+	var Animate = __webpack_require__(225);
 	
 	var NOOP = function () {
 	};
@@ -2278,8 +2281,8 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 219:
-/***/ function(module, exports) {
+/***/ 225:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*
 	 * Scroller
@@ -2305,6 +2308,7 @@ webpackJsonp([1],{
 	 * rendering. This eases a lot of cases where it might be pretty complex to break down a state
 	 * based on the pure time difference.
 	 */
+	var raf = __webpack_require__(199);
 	
 	var desiredFrames = 60;
 	var millisecondsPerSecond = 1000;
@@ -2317,78 +2321,6 @@ webpackJsonp([1],{
 	}
 	
 	var Animate = {
-	
-	  /**
-	   * A requestAnimationFrame wrapper / polyfill.
-	   *
-	   * @param callback {Function} The callback to be invoked before the next repaint.
-	   * @param root {HTMLElement} The root element for the repaint
-	   */
-	  requestAnimationFrame: (function () {
-	
-	    // Check for request animation Frame support
-	    var requestFrame = win.requestAnimationFrame || win.webkitRequestAnimationFrame || win.mozRequestAnimationFrame || win.oRequestAnimationFrame;
-	    var isNative = !!requestFrame;
-	
-	    if (requestFrame && !/requestAnimationFrame\(\)\s*\{\s*\[native code\]\s*\}/i.test(requestFrame.toString())) {
-	      isNative = false;
-	    }
-	
-	    if (isNative) {
-	      return function (callback, root) {
-	        requestFrame(callback, root)
-	      };
-	    }
-	
-	    var TARGET_FPS = 60;
-	    var requests = {};
-	    var requestCount = 0;
-	    var rafHandle = 1;
-	    var intervalHandle = null;
-	    var lastActive = +new Date();
-	
-	    return function (callback, root) {
-	      var callbackHandle = rafHandle++;
-	
-	      // Store callback
-	      requests[callbackHandle] = callback;
-	      requestCount++;
-	
-	      // Create timeout at first request
-	      if (intervalHandle === null) {
-	
-	        intervalHandle = setInterval(function () {
-	
-	          var time = +new Date();
-	          var currentRequests = requests;
-	
-	          // Reset data structure before executing callbacks
-	          requests = {};
-	          requestCount = 0;
-	
-	          for (var key in currentRequests) {
-	            if (currentRequests.hasOwnProperty(key)) {
-	              currentRequests[key](time);
-	              lastActive = time;
-	            }
-	          }
-	
-	          // Disable the timeout when nothing happens for a certain
-	          // period of time
-	          if (time - lastActive > 2500) {
-	            clearInterval(intervalHandle);
-	            intervalHandle = null;
-	          }
-	
-	        }, 1000 / TARGET_FPS);
-	      }
-	
-	      return callbackHandle;
-	    };
-	
-	  })(),
-	
-	
 	  /**
 	   * Stops the given animation.
 	   *
@@ -2428,21 +2360,14 @@ webpackJsonp([1],{
 	   * @param duration {Integer} Milliseconds to run the animation
 	   * @param easingMethod {Function} Pointer to easing function
 	   *   Signature of the method should be `function(percent) { return modifiedValue; }`
-	   * @param root {Element ? document.body} Render root, when available. Used for internal
-	   *   usage of requestAnimationFrame.
 	   * @return {Integer} Identifier of animation. Can be used to stop it any time.
 	   */
-	  start: function (stepCallback, verifyCallback, completedCallback, duration, easingMethod, root) {
-	
+	  start: function (stepCallback, verifyCallback, completedCallback, duration, easingMethod) {
 	    var start = +new Date();
 	    var lastFrame = start;
 	    var percent = 0;
 	    var dropCounter = 0;
 	    var id = counter++;
-	
-	    if (!root) {
-	      root = document.body;
-	    }
 	
 	    // Compacting running db automatically every few new animations
 	    if (id % 20 === 0) {
@@ -2455,7 +2380,6 @@ webpackJsonp([1],{
 	
 	    // This is the internal step method which is called every few milliseconds
 	    var step = function (virtual) {
-	
 	      // Normalize virtual value
 	      var render = virtual !== true;
 	
@@ -2498,7 +2422,7 @@ webpackJsonp([1],{
 	        completedCallback && completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, percent === 1 || duration == null);
 	      } else if (render) {
 	        lastFrame = now;
-	        Animate.requestAnimationFrame(step, root);
+	        raf(step);
 	      }
 	    };
 	
@@ -2506,7 +2430,7 @@ webpackJsonp([1],{
 	    running[id] = true;
 	
 	    // Init first step
-	    Animate.requestAnimationFrame(step, root);
+	    raf(step);
 	
 	    // Return unique animation ID
 	    return id;
@@ -2519,7 +2443,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 220:
+/***/ 226:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2562,7 +2486,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 221:
+/***/ 227:
 /***/ function(module, exports) {
 
 	"use strict";
