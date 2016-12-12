@@ -147,10 +147,10 @@ webpackJsonp([0],{
 	          { className: prefixCls + '-header' },
 	          React.createElement(
 	            _rcTouchable2.default,
-	            { activeClassName: prefixCls + '-item-active', onPress: this.onDismiss },
+	            { activeClassName: prefixCls + '-item-active' },
 	            React.createElement(
 	              'div',
-	              { className: prefixCls + '-item ' + prefixCls + '-header-left' },
+	              { className: prefixCls + '-item ' + prefixCls + '-header-left', onClick: this.onDismiss },
 	              props.dismissText
 	            )
 	          ),
@@ -161,10 +161,10 @@ webpackJsonp([0],{
 	          ),
 	          React.createElement(
 	            _rcTouchable2.default,
-	            { activeClassName: prefixCls + '-item-active', onPress: this.onOk },
+	            { activeClassName: prefixCls + '-item-active' },
 	            React.createElement(
 	              'div',
-	              { className: prefixCls + '-item ' + prefixCls + '-header-right' },
+	              { className: prefixCls + '-item ' + prefixCls + '-header-right', onClick: this.onOk },
 	              props.okText
 	            )
 	          )
