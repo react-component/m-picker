@@ -34,14 +34,14 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
       >
         <div>
           <div className={`${prefixCls}-header`}>
-            <Touchable activeClassName={`${prefixCls}-item-active`} onPress={this.onDismiss}>
-              <div className={`${prefixCls}-item ${prefixCls}-header-left`}>
+            <Touchable activeClassName={`${prefixCls}-item-active`}>
+              <div className={`${prefixCls}-item ${prefixCls}-header-left`} onClick={this.onDismiss}>
                 {props.dismissText}
               </div>
             </Touchable>
             <div className={`${prefixCls}-item ${prefixCls}-title`}>{props.title}</div>
-            <Touchable activeClassName={`${prefixCls}-item-active`} onPress={this.onOk}>
-              <div className={`${prefixCls}-item ${prefixCls}-header-right`}>
+            <Touchable activeClassName={`${prefixCls}-item-active`}>
+              <div className={`${prefixCls}-item ${prefixCls}-header-right`} onClick={this.onOk}>
                 {props.okText}
               </div>
             </Touchable>
