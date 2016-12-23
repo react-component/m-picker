@@ -823,7 +823,7 @@ webpackJsonp([0],[
 	            selectedValueState = selectedValue;
 	        } else if (defaultSelectedValue !== undefined) {
 	            selectedValueState = defaultSelectedValue;
-	        } else if (children.length) {
+	        } else if (children && children.length) {
 	            selectedValueState = children[0].value;
 	        }
 	        return {
@@ -2896,7 +2896,7 @@ webpackJsonp([0],[
 	    onValueChange: function onValueChange(i, v) {
 	        var value = this.props.selectedValue.concat();
 	        value[i] = v;
-	        this.props.onValueChange(value);
+	        this.props.onValueChange(value, i);
 	    }
 	};
 	module.exports = exports['default'];

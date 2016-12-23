@@ -374,7 +374,7 @@ webpackJsonp([1],{
 	            selectedValueState = selectedValue;
 	        } else if (defaultSelectedValue !== undefined) {
 	            selectedValueState = defaultSelectedValue;
-	        } else if (children.length) {
+	        } else if (children && children.length) {
 	            selectedValueState = children[0].value;
 	        }
 	        return {
