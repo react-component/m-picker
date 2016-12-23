@@ -10,6 +10,9 @@ interface MultiPickerProps {
   selectedValue?: any[];
   disabled?: boolean;
   pure?: boolean;
+  className?: string;
+  pickerItemStyle?: any;
+  rootNativeProps?: any;
   indicatorStyle?: any;
   onValueChange?: (v?: any) => void;
 }

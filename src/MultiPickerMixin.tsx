@@ -13,6 +13,6 @@ export default {
   onValueChange(i, v) {
     const value = this.props.selectedValue.concat();
     value[i] = v;
-    this.props.onValueChange(value);
+    this.props.onValueChange(value, i);
   },
 };
