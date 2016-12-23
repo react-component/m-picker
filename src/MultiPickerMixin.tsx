@@ -10,7 +10,7 @@ export default {
   },
 
   getValue() {
-    if (this.props.selectedValue) {
+    if (this.props.selectedValue && this.props.selectedValue.length) {
       return this.props.selectedValue;
     } else {
       return this.props.children.map(c => {
