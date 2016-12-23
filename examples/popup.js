@@ -413,7 +413,7 @@ webpackJsonp([2],{
 	        };
 	    },
 	    getValue: function getValue() {
-	        if (this.props.selectedValue) {
+	        if (this.props.selectedValue && this.props.selectedValue.length) {
 	            return this.props.selectedValue;
 	        } else {
 	            return this.props.children.map(function (c) {
