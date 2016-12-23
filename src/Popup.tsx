@@ -2,11 +2,11 @@ import {
   View, TouchableHighlight, Text,
 } from 'react-native';
 import React from 'react';
-import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
+import { PopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 import Modal from 'rc-dialog/lib/Modal';
 
-const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
+const PopupPicker = React.createClass<PopupPickerProps, any>({
   mixins: [PopupMixin],
 
   getDefaultProps() {
@@ -50,7 +50,7 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
             <Text style={[styles.actionText]}>{props.okText}</Text>
           </TouchableHighlight>
         </View>
-        {props.content}
+        {this.getContent()}
       </Modal>
     );
   },

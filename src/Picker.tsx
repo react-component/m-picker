@@ -13,6 +13,10 @@ const Picker = React.createClass<PickerProps, {}>({
     };
   },
 
+  getValue() {
+    return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].value;
+  },
+
   shouldComponentUpdate(nextProps) {
     return this.props.selectedValue !== nextProps.selectedValue
       || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
@@ -20,7 +24,7 @@ const Picker = React.createClass<PickerProps, {}>({
 
   render() {
     const children = this.props.children.map((c) => {
-      return <Item {...c} key={c.value + ''} />;
+      return <Item {...c} key={c.value + ''}/>;
     });
     return <NativePicker {...this.props}>{children}</NativePicker>;
   },

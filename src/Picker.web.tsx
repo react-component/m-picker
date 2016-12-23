@@ -97,6 +97,10 @@ const Picker = React.createClass<PickerProps, any>({
     return child[m];
   },
 
+  getValue() {
+    return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].value;
+  },
+
   toChildrenArray(children) {
     return children;
   },

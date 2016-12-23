@@ -14,8 +14,9 @@ const MultiPicker = React.createClass<MultiPickerProps, any>({
       className, rootNativeProps,
       disabled, pickerItemStyle,
       indicatorStyle,
-      pure, children, selectedValue,
+      pure, children,
     } = props;
+    const selectedValue = this.getValue();
     const colElements = children.map((col, i) => {
       return (
         <div key={col.key || i} className={`${prefixCls}-item`}>

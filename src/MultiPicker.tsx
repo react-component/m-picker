@@ -23,21 +23,22 @@ const MultiPicker = React.createClass<MultiPickerProps, any>({
     const props = this.props;
     const {
       disabled, pickerItemStyle,
-      pure, children, selectedValue, style,
+      pure, children, style,
     } = props;
+    const selectedValue = this.getValue();
     const colElements = children.map((col, i) => {
       return (
-          <View key={col.key || i} style={styles.item}>
-            <Picker
-              itemStyle={pickerItemStyle}
-              disabled={disabled}
-              pure={pure}
-              selectedValue={selectedValue[i]}
-              onValueChange={this.onValueChange.bind(this, i)}
-              {...col.props}
-            />
-          </View>
-        );
+        <View key={col.key || i} style={styles.item}>
+          <Picker
+            itemStyle={pickerItemStyle}
+            disabled={disabled}
+            pure={pure}
+            selectedValue={selectedValue[i]}
+            onValueChange={this.onValueChange.bind(this, i)}
+            {...col.props}
+          />
+        </View>
+      );
     });
     return (
       <View style={[styles.root, style]}>

@@ -4,13 +4,18 @@ import 'rmc-picker/assets/index.less';
 import 'rmc-picker/assets/popup.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import Picker from '../src/Picker';
+import MultiPicker from '../src/MultiPicker';
 
 import Popup from '../src/Popup.web';
+
+const colData = [{ label: '1', value: '1' }, { label: '2', value: '2' }];
 
 const Demo = React.createClass({
   getInitialState() {
     return {
       disabled: false,
+      value: null,
     };
   },
   disable() {
@@ -18,8 +23,11 @@ const Demo = React.createClass({
       disabled: !this.state.disabled,
     });
   },
-  onOk() {
-    console.log('onOk');
+  onOk(value) {
+    console.log('onOk', value);
+    this.setState({
+      value,
+    });
   },
   onDismiss() {
     console.log('onDismiss');
@@ -34,11 +42,12 @@ const Demo = React.createClass({
             className="fortest"
             transitionName="rmc-picker-popup-slide-fade"
             maskTransitionName="rmc-picker-popup-fade"
-            content="popup"
+            picker={<MultiPicker>{[{props:{children:colData}},{props:{children:colData}}]}</MultiPicker>}
             title="Picker"
             disabled={this.state.disabled}
             onDismiss={this.onDismiss}
             onOk={this.onOk}
+            value={this.state.value}
           >
             <button disabled={this.state.disabled}>{'open'}</button>
           </Popup>

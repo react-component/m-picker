@@ -1,6 +1,8 @@
 import React from 'react';
 
 export interface PopupPickerProps {
+  picker?: any;
+  value?: any;
   triggerType?: string;
   WrapComponent?: any;
   dismissText?: string|React.ReactElement<any>; // React.ReactElement only for web
@@ -24,12 +26,10 @@ export interface PopupPickerProps {
   /** web only */
   prefixCls?: string;
   className?: string;
+  pickerValueProp?: string;
+  pickerValueChangeProp?: string;
   /** web only */
   transitionName?: string;
   /** web only */
   maskTransitionName?: string;
-}
-
-export interface PopupPickerState {
-  visible: boolean;
 }

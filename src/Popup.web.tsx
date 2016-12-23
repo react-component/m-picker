@@ -1,10 +1,10 @@
 import React from 'react';
 import Modal from 'rc-dialog';
-import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
+import { PopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 import Touchable from 'rc-touchable';
 
-const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
+const PopupPicker = React.createClass<PopupPickerProps, any>({
   mixins: [PopupMixin],
 
   getDefaultProps() {
@@ -46,7 +46,7 @@ const PopupPicker = React.createClass<PopupPickerProps, PopupPickerState>({
               </div>
             </Touchable>
           </div>
-          {this.props.content}
+          {this.getContent()}
         </div>
       </Modal>
     );
