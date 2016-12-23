@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-picker@3.7.1</title>
+  <title>popup.js - example - rmc-picker@3.8.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-picker@3.7.1</h1>
+      <h1>rmc-picker@3.8.0</h1>
 
       <p>React Mobile Picker Component(web and react-native)</p>
     </div>
@@ -275,13 +275,18 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/popup.css'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-comment">// import Picker from '../src/Picker';</span>
+<span class="hljs-keyword">import</span> MultiPicker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/MultiPicker'</span>;
 
 <span class="hljs-keyword">import</span> Popup <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Popup.web'</span>;
+
+<span class="hljs-keyword">const</span> colData = [{ label: <span class="hljs-string">'1'</span>, value: <span class="hljs-string">'1'</span> }, { label: <span class="hljs-string">'2'</span>, value: <span class="hljs-string">'2'</span> }];
 
 <span class="hljs-keyword">const</span> Demo = React.createClass({
   getInitialState() {
     <span class="hljs-keyword">return</span> {
       disabled: <span class="hljs-literal">false</span>,
+      value: <span class="hljs-literal">null</span>,
     };
   },
   disable() {
@@ -289,8 +294,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       disabled: !<span class="hljs-keyword">this</span>.state.disabled,
     });
   },
-  onOk() {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onOk'</span>);
+  onOk(value) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onOk'</span>, value);
+    <span class="hljs-keyword">this</span>.setState({
+      value,
+    });
   },
   onDismiss() {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
@@ -305,12 +313,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             <span class="hljs-attribute">className</span>=<span class="hljs-value">"fortest"</span>
             <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"rmc-picker-popup-slide-fade"</span>
             <span class="hljs-attribute">maskTransitionName</span>=<span class="hljs-value">"rmc-picker-popup-fade"</span>
-            <span class="hljs-attribute">content</span>=<span class="hljs-value">"popup"</span>
-            <span class="hljs-attribute">title</span>=<span class="hljs-value">"Picker"</span>
-            <span class="hljs-attribute">disabled</span>=<span class="hljs-value">{this.state.disabled}</span>
-            <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
-            <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span>
-          &gt;</span>
+            <span class="hljs-attribute">picker</span>=<span class="hljs-value">{&lt;MultiPicker</span>&gt;</span>{[{props:{children:colData}},{props:{children:colData}}]}<span class="hljs-tag">&lt;/<span class="hljs-title">MultiPicker</span>&gt;</span>}
+            title="Picker"
+            disabled={this.state.disabled}
+            onDismiss={this.onDismiss}
+            onOk={this.onOk}
+            value={this.state.value}
+          &gt;
             <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">disabled</span>=<span class="hljs-value">{this.state.disabled}</span>&gt;</span>{'open'}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-title">Popup</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
