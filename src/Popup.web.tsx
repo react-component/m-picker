@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Modal from 'rc-dialog';
 import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import ZScroller from 'zscroller';
 import { PickerProps } from './PickerTypes';
@@ -87,7 +87,10 @@ const Picker = React.createClass<PickerProps, any>({
   },
 
   scrollingComplete() {
-    this.doScrollingComplete(this.zscroller.scroller.getValues().top);
+    const { top } = this.zscroller.scroller.getValues();
+    if (top >= 0) {
+      this.doScrollingComplete(top);
+    }
   },
 
   getChildMember(child, m) {
@@ -99,7 +102,11 @@ const Picker = React.createClass<PickerProps, any>({
   },
 
   render() {
-    const { children, prefixCls, className, itemStyle } = this.props;
+    const {
+      children, prefixCls,
+      className, itemStyle,
+      indicatorStyle,
+    } = this.props;
     const { selectedValue } = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
@@ -122,8 +129,8 @@ const Picker = React.createClass<PickerProps, any>({
       <div
         className={classNames(pickerCls)}
       >
-        <div className={`${prefixCls}-mask`} />
-        <div className={`${prefixCls}-indicator`} ref="indicator" />
+        <div className={`${prefixCls}-mask`}/>
+        <div className={`${prefixCls}-indicator`} ref="indicator" style={indicatorStyle}/>
         <div className={`${prefixCls}-content`} ref="content">
           {items}
         </div>

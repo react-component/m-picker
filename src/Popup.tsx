@@ -1,7 +1,7 @@
 import {
   View, TouchableHighlight, Text,
 } from 'react-native';
-import * as React from 'react';
+import React from 'react';
 import { PopupPickerProps, PopupPickerState } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 import Modal from 'rc-dialog/lib/Modal';

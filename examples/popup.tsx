@@ -2,8 +2,8 @@
 
 import 'rmc-picker/assets/index.less';
 import 'rmc-picker/assets/popup.less';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Popup from '../src/Popup.web';
 

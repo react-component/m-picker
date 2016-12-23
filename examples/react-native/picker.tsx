@@ -2,7 +2,7 @@
 
 import { View, TouchableHighlight, StyleSheet, Text } from 'react-native';
 import Picker from '../../src/Picker';
-import * as React from 'react';
+import React from 'react';
 
 let count = 0;
 const len = 10;

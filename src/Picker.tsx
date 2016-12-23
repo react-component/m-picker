@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import NativePicker from './NativePicker';
 import { PickerProps } from './PickerTypes';
 import isChildrenEqual from './isChildrenEqual';

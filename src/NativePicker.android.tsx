@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ScrollView, View, StyleSheet, PixelRatio, Text } from 'react-native';
 import PickerMixin from './PickerMixin';
 import { PickerProps } from './PickerTypes';

@@ -11,6 +11,7 @@ export interface PickerProps {
   onValueChange?: (value: any) => void;
   /** web only */
   prefixCls?: string;
+  indicatorStyle?: any;
   className?: string;
   /** web only */
   defaultSelectedValue?: any;
