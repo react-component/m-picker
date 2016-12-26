@@ -520,11 +520,19 @@ webpackJsonp([0],[
 	        };
 	    },
 	    getValue: function getValue() {
-	        if (this.props.selectedValue && this.props.selectedValue.length) {
-	            return this.props.selectedValue;
+	        var _props = this.props,
+	            children = _props.children,
+	            selectedValue = _props.selectedValue;
+	
+	        if (selectedValue && selectedValue.length) {
+	            return selectedValue;
 	        } else {
-	            return this.props.children.map(function (c) {
-	                return c.props.children[0].value;
+	            if (!children) {
+	                return [];
+	            }
+	            return children.map(function (c) {
+	                var cc = c.props.children;
+	                return cc && cc[0] && cc[0].value;
 	            });
 	        }
 	    },

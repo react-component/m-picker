@@ -413,11 +413,19 @@ webpackJsonp([2],{
 	        };
 	    },
 	    getValue: function getValue() {
-	        if (this.props.selectedValue && this.props.selectedValue.length) {
-	            return this.props.selectedValue;
+	        var _props = this.props,
+	            children = _props.children,
+	            selectedValue = _props.selectedValue;
+	
+	        if (selectedValue && selectedValue.length) {
+	            return selectedValue;
 	        } else {
-	            return this.props.children.map(function (c) {
-	                return c.props.children[0].value;
+	            if (!children) {
+	                return [];
+	            }
+	            return children.map(function (c) {
+	                var cc = c.props.children;
+	                return cc && cc[0] && cc[0].value;
 	            });
 	        }
 	    },
@@ -2895,8 +2903,12 @@ webpackJsonp([2],{
 	            this.setState({
 	                pickerValue: pickerValue
 	            });
-	            if (this.picker && this.picker.props[this.props.pickerValueChangeProp]) {
-	                this.picker.props[this.props.pickerValueChangeProp](pickerValue);
+	            var _props = this.props,
+	                picker = _props.picker,
+	                pickerValueChangeProp = _props.pickerValueChangeProp;
+	
+	            if (picker && picker.props[pickerValueChangeProp]) {
+	                picker.props[pickerValueChangeProp](pickerValue);
 	            }
 	        }
 	    },
@@ -2927,9 +2939,9 @@ webpackJsonp([2],{
 	        if (!children) {
 	            return this.getModal();
 	        }
-	        var _props = this.props,
-	            WrapComponent = _props.WrapComponent,
-	            disabled = _props.disabled;
+	        var _props2 = this.props,
+	            WrapComponent = _props2.WrapComponent,
+	            disabled = _props2.disabled;
 	
 	        var child = children;
 	        var newChildProps = {};
