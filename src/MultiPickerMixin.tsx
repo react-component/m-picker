@@ -10,11 +10,16 @@ export default {
   },
 
   getValue() {
-    if (this.props.selectedValue && this.props.selectedValue.length) {
-      return this.props.selectedValue;
+    const { children, selectedValue } = this.props;
+    if (selectedValue && selectedValue.length) {
+      return selectedValue;
     } else {
-      return this.props.children.map(c => {
-        return c.props.children[0].value;
+      if (!children) {
+        return [];
+      }
+      return children.map(c => {
+        const cc = c.props.children;
+        return cc && cc[0] && cc[0].value;
       });
     }
   },

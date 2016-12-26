@@ -35,8 +35,9 @@ export default {
       this.setState({
         pickerValue,
       });
-      if (this.picker && this.picker.props[this.props.pickerValueChangeProp]) {
-        this.picker.props[this.props.pickerValueChangeProp](pickerValue);
+      const { picker, pickerValueChangeProp } = this.props;
+      if (picker && picker.props[pickerValueChangeProp]) {
+        picker.props[pickerValueChangeProp](pickerValue);
       }
     }
   },
