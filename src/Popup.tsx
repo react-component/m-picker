@@ -21,7 +21,18 @@ const PopupPicker = React.createClass<PopupPickerProps, any>({
 
   getModal() {
     const { props } = this;
-    const { styles } = props;
+    const { styles, title, okText, dismissText } = props;
+
+    const titleEl = typeof title === 'string' ?
+      <Text style={[styles.title]}>{title}</Text> :
+      title;
+    const okEl = typeof okText === 'string' ?
+      <Text style={[styles.actionText]}>{okText}</Text> :
+      okText;
+    const dismissEl = typeof dismissText === 'string' ?
+      <Text style={[styles.actionText]}>{dismissText}</Text> :
+      dismissText;
+
     return (
       <Modal
         animationType="slide-up"
@@ -36,10 +47,10 @@ const PopupPicker = React.createClass<PopupPickerProps, any>({
             activeOpacity={props.actionTextActiveOpacity}
             underlayColor={props.actionTextUnderlayColor}
           >
-            <Text style={[styles.actionText]}>{props.dismissText}</Text>
+            {dismissEl}
           </TouchableHighlight>
           <View style={[styles.headerItem]}>
-            <Text style={[styles.title]}>{props.title}</Text>
+            {titleEl}
           </View>
           <TouchableHighlight
             onPress={this.onOk}
@@ -47,7 +58,7 @@ const PopupPicker = React.createClass<PopupPickerProps, any>({
             activeOpacity={props.actionTextActiveOpacity}
             underlayColor={props.actionTextUnderlayColor}
           >
-            <Text style={[styles.actionText]}>{props.okText}</Text>
+            {okEl}
           </TouchableHighlight>
         </View>
         {this.getContent()}
