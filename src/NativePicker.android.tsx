@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, PixelRatio, Text } from 'react-native';
 import PickerMixin from './PickerMixin';
-import { PickerProps } from './PickerTypes';
+import { IPickerProps } from './PickerTypes';
 
 const ratio = PixelRatio.get();
 const styles = StyleSheet.create({
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   } as any,
 });
 
-const Picker = React.createClass<PickerProps, any>({
+const Picker = React.createClass<IPickerProps, any>({
   mixins: [PickerMixin],
 
   getDefaultProps() {
@@ -55,7 +55,7 @@ const Picker = React.createClass<PickerProps, any>({
           styles.indicator,
           {
             top: height * 3,
-            height: height,
+            height,
             width,
           },
         ],

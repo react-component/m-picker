@@ -16,24 +16,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export class PickerDemo extends React.Component<{}, {
-  value?: string;
-  items?: any[];
-}> {
-  constructor(props) {
-    super(props);
-    this.state = {
+const PickerDemo = React.createClass({
+  getInitialState() {
+    return {
       items: this.getItems(count),
       value: `${count + len / 2}`,
     };
-  }
+  },
 
-  onChange = (value) => {
+  onChange(value) {
     console.log('onChange', value);
     this.setState({
       value,
     });
-  };
+  },
 
   getItems(start) {
     const items: any[] = [];
@@ -44,16 +40,16 @@ export class PickerDemo extends React.Component<{}, {
       });
     }
     return items;
-  }
+  },
 
-  rerender = () => {
+  rerender() {
     count += len;
     const items = this.getItems(count);
     this.setState({
       items,
       value: String(count),
     });
-  };
+  },
 
   render() {
     return (<View style={{ padding: 10 }}>
@@ -68,8 +64,8 @@ export class PickerDemo extends React.Component<{}, {
         {this.state.items}
       </Picker>
     </View>);
-  }
-}
+  },
+});
 
 export const Demo = PickerDemo;
 export const title = 'picker';

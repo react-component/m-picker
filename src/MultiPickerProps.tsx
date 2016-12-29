@@ -1,12 +1,12 @@
-export interface PickerCol {
+export interface IPickerCol {
   key?: string;
   props?: any;
 }
 
-interface MultiPickerProps {
+interface IMultiPickerProps {
   prefixCls?: string;
   pickerPrefixCls?: string;
-  cols?: PickerCol[];
+  cols?: IPickerCol[];
   selectedValue?: any[];
   disabled?: boolean;
   pure?: boolean;
@@ -17,4 +17,4 @@ interface MultiPickerProps {
   onValueChange?: (v?: any) => void;
 }
 
-export default MultiPickerProps;
+export default IMultiPickerProps;

@@ -1,10 +1,10 @@
-export interface PickerItem {
+export interface IPickerItem {
   value: string|number;
   label: string;
 }
 
-export interface PickerProps {
-  children?: PickerItem[];
+export interface IPickerProps {
+  children?: IPickerItem[];
   pure?: boolean;
   disabled?: boolean;
   selectedValue?: any;
