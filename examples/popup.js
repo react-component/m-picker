@@ -466,6 +466,7 @@ webpackJsonp([2],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// import Picker from '../src/Picker';
 	/* tslint:disable:no-console */
 	var colData = [{ label: '1', value: '1' }, { label: '2', value: '2' }];
 	var Demo = _react2.default.createClass({
@@ -813,6 +814,7 @@ webpackJsonp([2],{
 	        if (props.visible) {
 	            // first show
 	            if (!prevProps.visible) {
+	                this.openTime = Date.now();
 	                this.lastOutSideFocusNode = document.activeElement;
 	                this.addScrollingEffect();
 	                this.refs.wrap.focus();
@@ -835,6 +837,11 @@ webpackJsonp([2],{
 	            }
 	        }
 	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        if (this.props.visible) {
+	            this.removeScrollingEffect();
+	        }
+	    },
 	    onAnimateLeave: function onAnimateLeave() {
 	        // need demo?
 	        // https://github.com/react-component/dialog/pull/28
@@ -845,6 +852,10 @@ webpackJsonp([2],{
 	        this.props.afterClose();
 	    },
 	    onMaskClick: function onMaskClick(e) {
+	        // android trigger click on open (fastclick??)
+	        if (Date.now() - this.openTime < 300) {
+	            return;
+	        }
 	        if (e.target === e.currentTarget) {
 	            this.close(e);
 	        }
@@ -895,7 +906,7 @@ webpackJsonp([2],{
 	        }
 	        var style = (0, _objectAssign2["default"])({}, props.style, dest);
 	        var transitionName = this.getTransitionName();
-	        var dialogElement = _react2["default"].createElement(_LazyRenderBox2["default"], { role: "document", ref: "dialog", style: style, className: prefixCls + ' ' + (props.className || ''), visible: props.visible }, _react2["default"].createElement("div", { className: prefixCls + '-content' }, closer, header, _react2["default"].createElement("div", __assign({ className: prefixCls + '-body', style: props.bodyStyle, ref: "body" }, props.bodyProps), props.children), footer), _react2["default"].createElement("div", { tabIndex: 0, ref: "sentinel", style: { width: 0, height: 0, overflow: 'hidden' } }, "sentinel"));
+	        var dialogElement = _react2["default"].createElement(_LazyRenderBox2["default"], { key: "dialog-element", role: "document", ref: "dialog", style: style, className: prefixCls + ' ' + (props.className || ''), visible: props.visible }, _react2["default"].createElement("div", { className: prefixCls + '-content' }, closer, header, _react2["default"].createElement("div", __assign({ className: prefixCls + '-body', style: props.bodyStyle, ref: "body" }, props.bodyProps), props.children), footer), _react2["default"].createElement("div", { tabIndex: 0, ref: "sentinel", style: { width: 0, height: 0, overflow: 'hidden' } }, "sentinel"));
 	        return _react2["default"].createElement(_rcAnimate2["default"], { key: "dialog", showProp: "visible", onLeave: this.onAnimateLeave, transitionName: transitionName, component: "", transitionAppear: true }, dialogElement);
 	    },
 	    getZIndexStyle: function getZIndexStyle() {
@@ -1009,7 +1020,7 @@ webpackJsonp([2],{
 	        if (props.visible) {
 	            style.display = null;
 	        }
-	        return _react2["default"].createElement("div", null, this.getMaskElement(), _react2["default"].createElement("div", __assign({ tabIndex: -1, onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: "wrap", onMouseDown: maskClosable ? this.onMaskClick : undefined, onTouchStart: maskClosable ? this.onMaskClick : undefined, role: "dialog", "aria-labelledby": props.title ? this.titleId : null, style: style }, props.wrapProps), this.getDialogElement()));
+	        return _react2["default"].createElement("div", null, this.getMaskElement(), _react2["default"].createElement("div", __assign({ tabIndex: -1, onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: "wrap", onClick: maskClosable ? this.onMaskClick : undefined, role: "dialog", "aria-labelledby": props.title ? this.titleId : null, style: style }, props.wrapProps), this.getDialogElement()));
 	    }
 	});
 	exports["default"] = Dialog;
@@ -3010,10 +3021,6 @@ webpackJsonp([2],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _raf = __webpack_require__(80);
-	
-	var _raf2 = _interopRequireDefault(_raf);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
 	function keyMirror(obj) {
@@ -3022,24 +3029,19 @@ webpackJsonp([2],{
 	    });
 	    return obj;
 	}
+	function copy(from, list) {
+	    var to = {};
+	    list.forEach(function (k) {
+	        to[k] = from[k];
+	    });
+	    return to;
+	}
 	function extractSingleTouch(nativeEvent) {
 	    var touches = nativeEvent.touches;
 	    var changedTouches = nativeEvent.changedTouches;
 	    var hasTouches = touches && touches.length > 0;
 	    var hasChangedTouches = changedTouches && changedTouches.length > 0;
 	    return !hasTouches && hasChangedTouches ? changedTouches[0] : hasTouches ? touches[0] : nativeEvent;
-	}
-	function _bindEvents(el, events) {
-	    Object.keys(events).forEach(function (event) {
-	        var listener = events[event];
-	        el.addEventListener(event, listener, false);
-	    });
-	    return function () {
-	        Object.keys(events).forEach(function (event) {
-	            var listener = events[event];
-	            el.removeEventListener(event, listener, false);
-	        });
-	    };
 	}
 	/**
 	 * Touchable states.
@@ -3170,6 +3172,12 @@ webpackJsonp([2],{
 	var LONG_PRESS_THRESHOLD = 500;
 	var LONG_PRESS_DELAY_MS = LONG_PRESS_THRESHOLD - HIGHLIGHT_DELAY_MS;
 	var LONG_PRESS_ALLOWED_MOVEMENT = 10;
+	var lastClickTime = 0;
+	var pressDelay = 200;
+	function isAllowPress() {
+	    // avoid click penetration
+	    return Date.now() - lastClickTime >= pressDelay;
+	}
 	var Touchable = _react2["default"].createClass({
 	    displayName: 'Touchable',
 	    getDefaultProps: function getDefaultProps() {
@@ -3197,44 +3205,12 @@ webpackJsonp([2],{
 	        this.touchable = { touchState: undefined };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-	
 	        this.root = _reactDom2["default"].findDOMNode(this);
-	        this.eventsToBeBinded = {
-	            touchstart: function touchstart(e) {
-	                _this.lockMouse = true;
-	                if (_this.releaseLockTimer) {
-	                    clearTimeout(_this.releaseLockTimer);
-	                }
-	                _this.touchableHandleResponderGrant(e);
-	            },
-	            touchmove: this.touchableHandleResponderMove,
-	            touchend: function touchend(e) {
-	                _this.releaseLockTimer = setTimeout(function () {
-	                    _this.lockMouse = false;
-	                }, 300);
-	                _this.touchableHandleResponderRelease(e);
-	            },
-	            touchcancel: function touchcancel(e) {
-	                _this.releaseLockTimer = setTimeout(function () {
-	                    _this.lockMouse = false;
-	                }, 300);
-	                _this.touchableHandleResponderTerminate(e);
-	            },
-	            mousedown: this.onMouseDown
-	        };
-	        this.bindEvents();
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
 	        this.root = _reactDom2["default"].findDOMNode(this);
-	        this.bindEvents();
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
-	        this.clearRaf();
-	        if (this.eventsReleaseHandle) {
-	            this.eventsReleaseHandle();
-	            this.eventsReleaseHandle = null;
-	        }
 	        if (this.releaseLockTimer) {
 	            clearTimeout(this.releaseLockTimer);
 	        }
@@ -3248,11 +3224,48 @@ webpackJsonp([2],{
 	            clearTimeout(this.pressOutDelayTimeout);
 	        }
 	    },
+	    callChildEvent: function callChildEvent(event, e) {
+	        var childHandle = this.props.children.props[event];
+	        if (childHandle) {
+	            childHandle(e);
+	        }
+	    },
+	    onTouchStart: function onTouchStart(e) {
+	        this.callChildEvent('onTouchStart', e);
+	        this.lockMouse = true;
+	        if (this.releaseLockTimer) {
+	            clearTimeout(this.releaseLockTimer);
+	        }
+	        this.touchableHandleResponderGrant(e.nativeEvent);
+	    },
+	    onTouchMove: function onTouchMove(e) {
+	        this.callChildEvent('onTouchMove', e);
+	        this.touchableHandleResponderMove(e.nativeEvent);
+	    },
+	    onTouchEnd: function onTouchEnd(e) {
+	        var _this = this;
+	
+	        this.callChildEvent('onTouchEnd', e);
+	        this.releaseLockTimer = setTimeout(function () {
+	            _this.lockMouse = false;
+	        }, 300);
+	        this.touchableHandleResponderRelease(e.nativeEvent);
+	    },
+	    onTouchCancel: function onTouchCancel(e) {
+	        var _this2 = this;
+	
+	        this.callChildEvent('onTouchCancel', e);
+	        this.releaseLockTimer = setTimeout(function () {
+	            _this2.lockMouse = false;
+	        }, 300);
+	        this.touchableHandleResponderTerminate(e.nativeEvent);
+	    },
 	    onMouseDown: function onMouseDown(e) {
+	        this.callChildEvent('onMouseDown', e);
 	        if (this.lockMouse) {
 	            return;
 	        }
-	        this.touchableHandleResponderGrant(e);
+	        this.touchableHandleResponderGrant(e.nativeEvent);
 	        document.addEventListener('mousemove', this.touchableHandleResponderMove, false);
 	        document.addEventListener('mouseup', this.onMouseUp, false);
 	    },
@@ -3261,76 +3274,82 @@ webpackJsonp([2],{
 	        document.removeEventListener('mouseup', this.onMouseUp, false);
 	        this.touchableHandleResponderRelease(e);
 	    },
-	    bindEvents: function bindEvents() {
+	    _remeasureMetricsOnInit: function _remeasureMetricsOnInit(e) {
 	        var root = this.root;
-	        var disabled = this.props.disabled;
 	
-	        if (disabled && this.eventsReleaseHandle) {
-	            this.eventsReleaseHandle();
-	            this.eventsReleaseHandle = null;
-	        } else if (!disabled && !this.eventsReleaseHandle) {
-	            this.eventsReleaseHandle = _bindEvents(root, this.eventsToBeBinded);
-	        }
+	        var touch = extractSingleTouch(e);
+	        var boundingRect = root.getBoundingClientRect();
+	        this.touchable = {
+	            touchState: this.touchable.touchState,
+	            startMouse: {
+	                pageX: touch.pageX,
+	                pageY: touch.pageY
+	            },
+	            positionOnGrant: {
+	                left: boundingRect.left + window.pageXOffset,
+	                top: boundingRect.top + window.pageYOffset,
+	                width: boundingRect.width,
+	                height: boundingRect.height,
+	                clientLeft: boundingRect.left,
+	                clientTop: boundingRect.top
+	            }
+	        };
 	    },
 	    touchableHandleResponderGrant: function touchableHandleResponderGrant(e) {
-	        var _this2 = this;
+	        var _this3 = this;
 	
+	        this.touchable.touchState = States.NOT_RESPONDER;
 	        if (this.pressOutDelayTimeout) {
 	            clearTimeout(this.pressOutDelayTimeout);
 	            this.pressOutDelayTimeout = null;
 	        }
-	        this.touchable.touchState = States.NOT_RESPONDER;
+	        if (!isAllowPress()) {
+	            return;
+	        }
+	        this._remeasureMetricsOnInit(e);
 	        this._receiveSignal(Signals.RESPONDER_GRANT, e);
 	        var delayMS = this.props.delayPressIn;
 	        if (delayMS) {
 	            this.touchableDelayTimeout = setTimeout(function () {
-	                _this2._handleDelay(e);
+	                _this3._handleDelay(e);
 	            }, delayMS);
 	        } else {
 	            this._handleDelay(e);
 	        }
 	        var longDelayMS = this.props.delayLongPress;
 	        this.longPressDelayTimeout = setTimeout(function () {
-	            _this2._handleLongDelay(e);
+	            _this3._handleLongDelay(e);
 	        }, longDelayMS + delayMS);
 	    },
-	    clearRaf: function clearRaf() {
-	        if (this.rafHandle) {
-	            _raf2["default"].cancel(this.rafHandle);
-	            this.rafHandle = null;
+	    checkScroll: function checkScroll(e) {
+	        var positionOnGrant = this.touchable.positionOnGrant;
+	        // container or window scroll
+	        var boundingRect = this.root.getBoundingClientRect();
+	        if (boundingRect.left !== positionOnGrant.clientLeft || boundingRect.top !== positionOnGrant.clientTop) {
+	            this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
+	            return false;
 	        }
 	    },
 	    touchableHandleResponderRelease: function touchableHandleResponderRelease(e) {
-	        this.clearRaf();
+	        if (!isAllowPress()) {
+	            this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
+	            return;
+	        }
+	        var touch = extractSingleTouch(e);
+	        if (Math.abs(touch.pageX - this.touchable.startMouse.pageX) > 30 || Math.abs(touch.pageY - this.touchable.startMouse.pageY) > 30) {
+	            this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
+	            return;
+	        }
+	        if (this.checkScroll(e) === false) {
+	            return;
+	        }
 	        this._receiveSignal(Signals.RESPONDER_RELEASE, e);
 	    },
 	    touchableHandleResponderTerminate: function touchableHandleResponderTerminate(e) {
-	        this.clearRaf();
 	        this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
 	    },
-	    checkScroll: function checkScroll(e) {
-	        var positionOnActivate = this.touchable.positionOnActivate;
-	        if (positionOnActivate) {
-	            // container or window scroll
-	            var boundingRect = this.root.getBoundingClientRect();
-	            if (boundingRect.left !== positionOnActivate.clientLeft || boundingRect.top !== positionOnActivate.clientTop) {
-	                this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
-	            }
-	        }
-	    },
-	    touchableHandleResponderMove: function touchableHandleResponderMove(e) {
-	        // Measurement may not have returned yet.
-	        if (!this.touchable.positionOnActivate || this.touchable.touchState === States.NOT_RESPONDER) {
-	            return;
-	        }
-	        this.rafHandle = (0, _raf2["default"])(this.checkScroll);
-	        var positionOnActivate = this.touchable.positionOnActivate;
-	        // Not enough time elapsed yet, wait for highlight -
-	        // this is just a perf optimization.
-	        if (this.touchable.touchState === States.RESPONDER_INACTIVE_PRESS_IN) {
-	            return;
-	        }
-	        var dimensionsOnActivate = this.touchable.dimensionsOnActivate;
+	    checkTouchWithinActive: function checkTouchWithinActive(e) {
+	        var positionOnGrant = this.touchable.positionOnGrant;
 	        var _props = this.props,
 	            pressRetentionOffset = _props.pressRetentionOffset,
 	            hitSlop = _props.hitSlop;
@@ -3348,14 +3367,28 @@ webpackJsonp([2],{
 	        var touch = extractSingleTouch(e);
 	        var pageX = touch && touch.pageX;
 	        var pageY = touch && touch.pageY;
+	        return pageX > positionOnGrant.left - pressExpandLeft && pageY > positionOnGrant.top - pressExpandTop && pageX < positionOnGrant.left + positionOnGrant.width + pressExpandRight && pageY < positionOnGrant.top + positionOnGrant.height + pressExpandBottom;
+	    },
+	    touchableHandleResponderMove: function touchableHandleResponderMove(e) {
+	        // Measurement may not have returned yet.
+	        if (!this.touchable.dimensionsOnActivate || this.touchable.touchState === States.NOT_RESPONDER) {
+	            return;
+	        }
+	        // Not enough time elapsed yet, wait for highlight -
+	        // this is just a perf optimization.
+	        if (this.touchable.touchState === States.RESPONDER_INACTIVE_PRESS_IN) {
+	            return;
+	        }
+	        var touch = extractSingleTouch(e);
+	        var pageX = touch && touch.pageX;
+	        var pageY = touch && touch.pageY;
 	        if (this.pressInLocation) {
 	            var movedDistance = this._getDistanceBetweenPoints(pageX, pageY, this.pressInLocation.pageX, this.pressInLocation.pageY);
 	            if (movedDistance > LONG_PRESS_ALLOWED_MOVEMENT) {
 	                this._cancelLongPressDelayTimeout();
 	            }
 	        }
-	        var isTouchWithinActive = pageX > positionOnActivate.left - pressExpandLeft && pageY > positionOnActivate.top - pressExpandTop && pageX < positionOnActivate.left + dimensionsOnActivate.width + pressExpandRight && pageY < positionOnActivate.top + dimensionsOnActivate.height + pressExpandBottom;
-	        if (isTouchWithinActive) {
+	        if (this.checkTouchWithinActive(e)) {
 	            this._receiveSignal(Signals.ENTER_PRESS_RECT, e);
 	            var curState = this.touchable.touchState;
 	            if (curState === States.RESPONDER_INACTIVE_PRESS_IN) {
@@ -3382,6 +3415,7 @@ webpackJsonp([2],{
 	        if (this.props.onPress) {
 	            this.props.onPress(e);
 	        }
+	        lastClickTime = Date.now();
 	    },
 	    touchableHandleLongPress: function touchableHandleLongPress(e) {
 	        if (this.props.onLongPress) {
@@ -3396,19 +3430,7 @@ webpackJsonp([2],{
 	        }
 	    },
 	    _remeasureMetricsOnActivation: function _remeasureMetricsOnActivation() {
-	        var root = this.root;
-	
-	        var boundingRect = root.getBoundingClientRect();
-	        this.touchable.positionOnActivate = {
-	            left: boundingRect.left + window.pageXOffset,
-	            top: boundingRect.top + window.pageYOffset,
-	            clientLeft: boundingRect.left,
-	            clientTop: boundingRect.top
-	        };
-	        this.touchable.dimensionsOnActivate = {
-	            width: boundingRect.width,
-	            height: boundingRect.height
-	        };
+	        this.touchable.dimensionsOnActivate = this.touchable.positionOnGrant;
 	    },
 	    _handleDelay: function _handleDelay(e) {
 	        this.touchableDelayTimeout = null;
@@ -3499,24 +3521,29 @@ webpackJsonp([2],{
 	        this.touchableHandleActivePressIn(e);
 	    },
 	    _endHighlight: function _endHighlight(e) {
-	        var _this3 = this;
+	        var _this4 = this;
 	
 	        if (this.props.delayPressOut) {
 	            this.pressOutDelayTimeout = setTimeout(function () {
-	                _this3.touchableHandleActivePressOut(e);
+	                _this4.touchableHandleActivePressOut(e);
 	            }, this.props.delayPressOut);
 	        } else {
 	            this.touchableHandleActivePressOut(e);
 	        }
 	    },
 	    render: function render() {
-	        var child = _react2["default"].Children.only(this.props.children);
+	        var _props2 = this.props,
+	            children = _props2.children,
+	            disabled = _props2.disabled,
+	            activeStyle = _props2.activeStyle,
+	            activeClassName = _props2.activeClassName;
+	
+	        var events = disabled ? undefined : copy(this, ['onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel', 'onMouseDown']);
+	        var child = _react2["default"].Children.only(children);
 	        if (this.state.active) {
-	            var style = child.props.style;
-	            var className = child.props.className;
-	            var _props2 = this.props,
-	                activeStyle = _props2.activeStyle,
-	                activeClassName = _props2.activeClassName;
+	            var _child$props = child.props,
+	                style = _child$props.style,
+	                className = _child$props.className;
 	
 	            if (activeStyle) {
 	                style = (0, _objectAssign2["default"])({}, style, activeStyle);
@@ -3528,12 +3555,12 @@ webpackJsonp([2],{
 	                    className = activeClassName;
 	                }
 	            }
-	            return _react2["default"].cloneElement(child, {
+	            return _react2["default"].cloneElement(child, (0, _objectAssign2["default"])({
 	                className: className,
 	                style: style
-	            });
+	            }, events));
 	        }
-	        return child;
+	        return _react2["default"].cloneElement(child, events);
 	    }
 	});
 	exports["default"] = Touchable;

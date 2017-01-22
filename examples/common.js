@@ -1051,12 +1051,18 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
+	var validateFormat = function validateFormat(format) {};
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  validateFormat = function validateFormat(format) {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
 	    }
-	  }
+	  };
+	}
+	
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  validateFormat(format);
 	
 	  if (!condition) {
 	    var error;
@@ -6540,6 +6546,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	/* tslint:disable:no-console */
 	exports.default = {
 	    select: function select(value) {
 	        var children = this.toChildrenArray(this.props.children);
@@ -6568,7 +6575,11 @@
 	        var children = this.toChildrenArray(this.props.children);
 	        index = Math.min(index, children.length - 1);
 	        var child = children[index];
-	        this.fireValueChange(this.getChildMember(child, 'value'));
+	        if (child) {
+	            this.fireValueChange(this.getChildMember(child, 'value'));
+	        } else if (console.warn) {
+	            console.warn('child not found', children, index);
+	        }
 	    }
 	};
 	module.exports = exports['default'];
