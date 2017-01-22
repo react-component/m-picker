@@ -1,3 +1,5 @@
+/* tslint:disable:no-console */
+
 export default {
   select(value) {
     const children: any = this.toChildrenArray(this.props.children);
@@ -28,6 +30,10 @@ export default {
     const children = this.toChildrenArray(this.props.children);
     index = Math.min(index, children.length - 1);
     const child: any = children[index];
-    this.fireValueChange(this.getChildMember(child, 'value'));
+    if (child) {
+      this.fireValueChange(this.getChildMember(child, 'value'));
+    } else if (console.warn) {
+      console.warn('child not found', children, index);
+    }
   },
 };
