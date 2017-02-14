@@ -32,3 +32,4 @@ ios/
 android/
 xcuserdata
 yarn.lock
+_ts2js
