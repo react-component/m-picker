@@ -28,8 +28,8 @@ export class PopupExample extends React.Component<{}, {}> {
       popupContent
     </Text></View>);
 
-    return (<ScrollView style={{flex:1}}>
-      <View style={{height:200}}/>
+    return (<ScrollView style={{flex: 1}}>
+      <View style={{height: 200}}/>
       <Popup
       styles={PopupStyles}
       style={styles.root}
@@ -40,7 +40,7 @@ export class PopupExample extends React.Component<{}, {}> {
         <Text>show popup</Text>
       </TouchableHighlight>
     </Popup>
-      <View style={{height:800}}/>
+      <View style={{height: 800}}/>
     </ScrollView>);
   }
 }
