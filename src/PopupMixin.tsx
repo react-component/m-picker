@@ -25,6 +25,10 @@ export default {
   },
 
   componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...this.state,
+      pickerValue: nextProps.value
+    });
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
