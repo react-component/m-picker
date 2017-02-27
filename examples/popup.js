@@ -803,6 +803,7 @@ webpackJsonp([2],{
 	        };
 	    },
 	    componentWillMount: function componentWillMount() {
+	        this.inTransition = false;
 	        this.titleId = 'rcDialogTitle' + uuid++;
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -827,6 +828,7 @@ webpackJsonp([2],{
 	                }
 	            }
 	        } else if (prevProps.visible) {
+	            this.inTransition = true;
 	            if (props.mask && this.lastOutSideFocusNode) {
 	                try {
 	                    this.lastOutSideFocusNode.focus();
@@ -838,7 +840,7 @@ webpackJsonp([2],{
 	        }
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
-	        if (this.props.visible) {
+	        if (this.props.visible || this.inTransition) {
 	            this.removeScrollingEffect();
 	        }
 	    },
@@ -848,6 +850,7 @@ webpackJsonp([2],{
 	        if (this.refs.wrap) {
 	            this.refs.wrap.style.display = 'none';
 	        }
+	        this.inTransition = false;
 	        this.removeScrollingEffect();
 	        this.props.afterClose();
 	    },
@@ -2141,7 +2144,7 @@ webpackJsonp([2],{
 	  value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _Event = __webpack_require__(245);
 	
@@ -2162,8 +2165,8 @@ webpackJsonp([2],{
 	var prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
 	
 	function getStyleProperty(node, name) {
-	  var style = window.getComputedStyle(node);
-	
+	  // old ff need null, https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+	  var style = window.getComputedStyle(node, null);
 	  var ret = '';
 	  for (var i = 0; i < prefixes.length; i++) {
 	    ret = style.getPropertyValue(prefixes[i] + name);
@@ -2900,11 +2903,16 @@ webpackJsonp([2],{
 	    },
 	    getInitialState: function getInitialState() {
 	        return {
-	            pickerValue: null,
+	            pickerValue: 'value' in this.props ? this.props.value : null,
 	            visible: this.props.visible || false
 	        };
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if ('value' in nextProps) {
+	            this.setState({
+	                pickerValue: nextProps.value
+	            });
+	        }
 	        if ('visible' in nextProps) {
 	            this.setVisibleState(nextProps.visible);
 	        }
@@ -2982,7 +2990,7 @@ webpackJsonp([2],{
 	        if (this.props.picker) {
 	            var _React$cloneElement;
 	
-	            return _react2.default.cloneElement(this.props.picker, (_React$cloneElement = {}, (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueProp, this.state.pickerValue || this.props.value), (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), (0, _defineProperty3.default)(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
+	            return _react2.default.cloneElement(this.props.picker, (_React$cloneElement = {}, (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueProp, this.state.pickerValue), (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), (0, _defineProperty3.default)(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
 	        } else {
 	            return this.props.content;
 	        }
@@ -3303,7 +3311,7 @@ webpackJsonp([2],{
 	            clearTimeout(this.pressOutDelayTimeout);
 	            this.pressOutDelayTimeout = null;
 	        }
-	        if (!isAllowPress()) {
+	        if (this.props.fixClickPenetration && !isAllowPress()) {
 	            return;
 	        }
 	        this._remeasureMetricsOnInit(e);
@@ -3331,8 +3339,7 @@ webpackJsonp([2],{
 	        }
 	    },
 	    touchableHandleResponderRelease: function touchableHandleResponderRelease(e) {
-	        if (!isAllowPress()) {
-	            this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
+	        if (!this.touchable.startMouse) {
 	            return;
 	        }
 	        var touch = extractSingleTouch(e);
@@ -3346,6 +3353,9 @@ webpackJsonp([2],{
 	        this._receiveSignal(Signals.RESPONDER_RELEASE, e);
 	    },
 	    touchableHandleResponderTerminate: function touchableHandleResponderTerminate(e) {
+	        if (!this.touchable.startMouse) {
+	            return;
+	        }
 	        this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
 	    },
 	    checkTouchWithinActive: function checkTouchWithinActive(e) {
@@ -3370,6 +3380,9 @@ webpackJsonp([2],{
 	        return pageX > positionOnGrant.left - pressExpandLeft && pageY > positionOnGrant.top - pressExpandTop && pageX < positionOnGrant.left + positionOnGrant.width + pressExpandRight && pageY < positionOnGrant.top + positionOnGrant.height + pressExpandBottom;
 	    },
 	    touchableHandleResponderMove: function touchableHandleResponderMove(e) {
+	        if (!this.touchable.startMouse) {
+	            return;
+	        }
 	        // Measurement may not have returned yet.
 	        if (!this.touchable.dimensionsOnActivate || this.touchable.touchState === States.NOT_RESPONDER) {
 	            return;
