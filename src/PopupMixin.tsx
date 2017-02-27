@@ -19,12 +19,17 @@ export default {
 
   getInitialState() {
     return {
-      pickerValue: null,
+      pickerValue: 'value' in this.props ? this.props.value : null,
       visible: this.props.visible || false,
     };
   },
 
   componentWillReceiveProps(nextProps) {
+    if ('value' in nextProps) {
+      this.setState({
+        pickerValue: nextProps.value,
+      });
+    }
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
@@ -101,7 +106,7 @@ export default {
   getContent() {
     if (this.props.picker) {
       return React.cloneElement(this.props.picker, ({
-        [this.props.pickerValueProp]: this.state.pickerValue || this.props.value,
+        [this.props.pickerValueProp]: this.state.pickerValue,
         [this.props.pickerValueChangeProp]: this.onPickerChange,
         ref: this.saveRef,
       }));
