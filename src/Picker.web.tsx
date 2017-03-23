@@ -33,7 +33,7 @@ const Picker = React.createClass<IPickerProps, any>({
   },
 
   componentDidMount() {
-    this.itemHeight = this.refs.indicator.offsetHeight;
+    this.itemHeight = this.refs.indicator.getBoundingClientRect().height;
     // compact
     this.refs.content.style.padding = `${this.itemHeight * 3}px 0`;
     this.zscroller = new ZScroller(this.refs.content, {
