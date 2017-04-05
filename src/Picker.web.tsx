@@ -33,6 +33,7 @@ const Picker = React.createClass<IPickerProps, any>({
   },
 
   componentDidMount() {
+    // https://github.com/react-component/m-picker/issues/18
     this.itemHeight = this.refs.indicator.getBoundingClientRect().height;
     // compact
     this.refs.content.style.padding = `${this.itemHeight * 3}px 0`;
