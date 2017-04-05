@@ -4458,7 +4458,8 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        this.itemHeight = this.refs.indicator.offsetHeight;
+	        // https://github.com/react-component/m-picker/issues/18
+	        this.itemHeight = this.refs.indicator.getBoundingClientRect().height;
 	        // compact
 	        this.refs.content.style.padding = this.itemHeight * 3 + 'px 0';
 	        this.zscroller = new _zscroller2.default(this.refs.content, {
