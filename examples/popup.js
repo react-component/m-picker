@@ -667,6 +667,14 @@ webpackJsonp([2],{
 	        autoDestroy: false,
 	        getComponent: function getComponent(instance, extra) {
 	            return _react2["default"].createElement(_Dialog2["default"], __assign({}, instance.props, extra, { key: "dialog" }));
+	        },
+	        getContainer: function getContainer(instance) {
+	            if (instance.props.getContainer) {
+	                return instance.props.getContainer();
+	            }
+	            var container = document.createElement('div');
+	            document.body.appendChild(container);
+	            return container;
 	        }
 	    })],
 	    getDefaultProps: function getDefaultProps() {
@@ -1036,6 +1044,9 @@ webpackJsonp([2],{
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * @ignore
 	 * some key-codes definition and utils from closure-library
@@ -1553,7 +1564,8 @@ webpackJsonp([2],{
 	  }
 	};
 	
-	module.exports = KeyCode;
+	exports["default"] = KeyCode;
+	module.exports = exports['default'];
 
 /***/ },
 
@@ -1575,6 +1587,8 @@ webpackJsonp([2],{
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _react = __webpack_require__(42);
 	
@@ -1616,6 +1630,7 @@ webpackJsonp([2],{
 	
 	  propTypes: {
 	    component: _react2["default"].PropTypes.any,
+	    componentProps: _react2["default"].PropTypes.object,
 	    animation: _react2["default"].PropTypes.object,
 	    transitionName: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.object]),
 	    transitionEnter: _react2["default"].PropTypes.bool,
@@ -1633,6 +1648,7 @@ webpackJsonp([2],{
 	    return {
 	      animation: {},
 	      component: 'span',
+	      componentProps: {},
 	      transitionEnter: true,
 	      transitionLeave: true,
 	      transitionAppear: false,
@@ -1880,10 +1896,10 @@ webpackJsonp([2],{
 	    if (Component) {
 	      var passedProps = props;
 	      if (typeof Component === 'string') {
-	        passedProps = {
+	        passedProps = _extends({
 	          className: props.className,
 	          style: props.style
-	        };
+	        }, props.componentProps);
 	      }
 	      return _react2["default"].createElement(
 	        Component,
@@ -2032,7 +2048,7 @@ webpackJsonp([2],{
 	  value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _react = __webpack_require__(42);
 	
@@ -2725,6 +2741,10 @@ webpackJsonp([2],{
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = getScrollBarSize;
 	var cached = void 0;
 	
 	function getScrollBarSize(fresh) {
@@ -2763,8 +2783,7 @@ webpackJsonp([2],{
 	  }
 	  return cached;
 	}
-	
-	module.exports = getScrollBarSize;
+	module.exports = exports['default'];
 
 /***/ },
 
@@ -2794,14 +2813,14 @@ webpackJsonp([2],{
 	}
 	
 	function getContainerRenderMixin(config) {
-	  var _config$autoMount = config.autoMount;
-	  var autoMount = _config$autoMount === undefined ? true : _config$autoMount;
-	  var _config$autoDestroy = config.autoDestroy;
-	  var autoDestroy = _config$autoDestroy === undefined ? true : _config$autoDestroy;
-	  var isVisible = config.isVisible;
-	  var getComponent = config.getComponent;
-	  var _config$getContainer = config.getContainer;
-	  var getContainer = _config$getContainer === undefined ? defaultGetContainer : _config$getContainer;
+	  var _config$autoMount = config.autoMount,
+	      autoMount = _config$autoMount === undefined ? true : _config$autoMount,
+	      _config$autoDestroy = config.autoDestroy,
+	      autoDestroy = _config$autoDestroy === undefined ? true : _config$autoDestroy,
+	      isVisible = config.isVisible,
+	      getComponent = config.getComponent,
+	      _config$getContainer = config.getContainer,
+	      getContainer = _config$getContainer === undefined ? defaultGetContainer : _config$getContainer;
 	
 	
 	  var mixin = void 0;
@@ -2811,7 +2830,13 @@ webpackJsonp([2],{
 	      if (!instance._container) {
 	        instance._container = getContainer(instance);
 	      }
-	      _reactDom2["default"].unstable_renderSubtreeIntoContainer(instance, getComponent(instance, componentArg), instance._container, function callback() {
+	      var component = void 0;
+	      if (instance.getComponent) {
+	        component = instance.getComponent(componentArg);
+	      } else {
+	        component = getComponent(instance, componentArg);
+	      }
+	      _reactDom2["default"].unstable_renderSubtreeIntoContainer(instance, component, instance._container, function callback() {
 	        instance._component = this;
 	        if (ready) {
 	          ready.call(this);
@@ -2990,7 +3015,12 @@ webpackJsonp([2],{
 	        if (this.props.picker) {
 	            var _React$cloneElement;
 	
-	            return _react2.default.cloneElement(this.props.picker, (_React$cloneElement = {}, (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueProp, this.state.pickerValue), (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), (0, _defineProperty3.default)(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
+	            var pickerValue = this.state.pickerValue;
+	
+	            if (pickerValue === null) {
+	                pickerValue = this.props.value;
+	            }
+	            return _react2.default.cloneElement(this.props.picker, (_React$cloneElement = {}, (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueProp, pickerValue), (0, _defineProperty3.default)(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), (0, _defineProperty3.default)(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
 	        } else {
 	            return this.props.content;
 	        }
@@ -3215,6 +3245,14 @@ webpackJsonp([2],{
 	    componentDidMount: function componentDidMount() {
 	        this.root = _reactDom2["default"].findDOMNode(this);
 	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        // disabled auto clear active state
+	        if (nextProps.disabled && this.state.active) {
+	            this.setState({
+	                active: false
+	            });
+	        }
+	    },
 	    componentDidUpdate: function componentDidUpdate() {
 	        this.root = _reactDom2["default"].findDOMNode(this);
 	    },
@@ -3412,28 +3450,25 @@ webpackJsonp([2],{
 	            this._receiveSignal(Signals.LEAVE_PRESS_RECT, e);
 	        }
 	    },
+	    callProp: function callProp(name, e) {
+	        if (this.props[name] && !this.props.disabled) {
+	            this.props[name](e);
+	        }
+	    },
 	    touchableHandleActivePressIn: function touchableHandleActivePressIn(e) {
 	        this.setActive(true);
-	        if (this.props.onPressIn) {
-	            this.props.onPressIn(e);
-	        }
+	        this.callProp('onPressIn', e);
 	    },
 	    touchableHandleActivePressOut: function touchableHandleActivePressOut(e) {
 	        this.setActive(false);
-	        if (this.props.onPressOut) {
-	            this.props.onPressOut(e);
-	        }
+	        this.callProp('onPressOut', e);
 	    },
 	    touchableHandlePress: function touchableHandlePress(e) {
-	        if (this.props.onPress) {
-	            this.props.onPress(e);
-	        }
+	        this.callProp('onPress', e);
 	        lastClickTime = Date.now();
 	    },
 	    touchableHandleLongPress: function touchableHandleLongPress(e) {
-	        if (this.props.onLongPress) {
-	            this.props.onLongPress(e);
-	        }
+	        this.callProp('onLongPress', e);
 	    },
 	    setActive: function setActive(active) {
 	        if (this.props.activeClassName || this.props.activeStyle) {
@@ -3553,7 +3588,7 @@ webpackJsonp([2],{
 	
 	        var events = disabled ? undefined : copy(this, ['onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel', 'onMouseDown']);
 	        var child = _react2["default"].Children.only(children);
-	        if (this.state.active) {
+	        if (!disabled && this.state.active) {
 	            var _child$props = child.props,
 	                style = _child$props.style,
 	                className = _child$props.className;
