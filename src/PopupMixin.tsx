@@ -105,8 +105,12 @@ export default {
 
   getContent() {
     if (this.props.picker) {
+      let { pickerValue } = this.state;
+      if (pickerValue === null) {
+        pickerValue = this.props.value;
+      }
       return React.cloneElement(this.props.picker, ({
-        [this.props.pickerValueProp]: this.state.pickerValue,
+        [this.props.pickerValueProp]: pickerValue,
         [this.props.pickerValueChangeProp]: this.onPickerChange,
         ref: this.saveRef,
       }));
