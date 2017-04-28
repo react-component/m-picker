@@ -1,8 +1,20 @@
 import React from 'react';
-import classnames from 'classnames';
-import Picker from './Picker.web';
+import { View, StyleSheet } from 'react-native';
+import Picker from './Picker';
 import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
+
+const styles = StyleSheet.create({
+  item: {
+    flex: 1,
+  },
+  root: {
+    flexDirection: 'row' as any,
+    alignItems: 'center' as any,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+});
 
 const MultiPicker = React.createClass<MultiPickerProps, any>({
   mixins: [MultiPickerMixin],
@@ -10,33 +22,28 @@ const MultiPicker = React.createClass<MultiPickerProps, any>({
   render() {
     const props = this.props;
     const {
-      prefixCls, pickerPrefixCls,
-      className, rootNativeProps,
       disabled, pickerItemStyle,
-      indicatorStyle,
-      pure, children,
+      pure, children, style,
     } = props;
     const selectedValue = this.getValue();
     const colElements = children.map((col, i) => {
       return (
-        <div key={col.key || i} className={`${prefixCls}-item`}>
+        <View key={col.key || i} style={styles.item}>
           <Picker
             itemStyle={pickerItemStyle}
             disabled={disabled}
             pure={pure}
-            indicatorStyle={indicatorStyle}
-            prefixCls={pickerPrefixCls}
             selectedValue={selectedValue[i]}
             onValueChange={this.onValueChange.bind(this, i)}
             {...col.props}
           />
-        </div>
+        </View>
       );
     });
     return (
-      <div {...rootNativeProps} className={classnames(className, prefixCls)}>
+      <View style={[styles.root, style]}>
         {colElements}
-      </div>
+      </View>
     );
   },
 });

@@ -1,8 +1,5 @@
 /* tslint:disable:no-console */
-
-/* tslint:disable:no-console */
-
-import MultiPicker from '../../src/MultiPicker';
+import MultiPicker from '../src/MultiPicker';
 import React from 'react';
 import { View } from 'react-native';
 

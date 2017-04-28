@@ -1,67 +1,53 @@
-import {
-  View, TouchableHighlight, Text,
-} from 'react-native';
 import React from 'react';
+import Modal from 'rc-dialog';
 import { IPopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
-import Modal from 'rc-dialog/lib/Modal';
+import Touchable from 'rc-touchable';
 
 const PopupPicker = React.createClass<IPopupPickerProps, any>({
   mixins: [PopupMixin],
 
   getDefaultProps() {
     return {
-      actionTextUnderlayColor: '#ddd',
-      actionTextActiveOpacity: 1,
-      triggerType: 'onPress',
-      styles: {},
-      WrapComponent: View,
+      prefixCls: 'rmc-picker-popup',
+      triggerType: 'onClick',
+      WrapComponent: 'span',
     };
   },
 
   getModal() {
-    const { props } = this;
-    const { styles, title, okText, dismissText } = props;
-
-    const titleEl = typeof title === 'string' ?
-      <Text style={[styles.title]}>{title}</Text> :
-      title;
-    const okEl = typeof okText === 'string' ?
-      <Text style={[styles.actionText]}>{okText}</Text> :
-      okText;
-    const dismissEl = typeof dismissText === 'string' ?
-      <Text style={[styles.actionText]}>{dismissText}</Text> :
-      dismissText;
-
+    const props = this.props;
+    if (!this.state.visible) {
+      return null;
+    }
+    const { prefixCls } = props;
     return (
       <Modal
-        animationType="slide-up"
-        wrapStyle={styles.modal}
-        visible={this.state.visible}
-        onClose={this.onDismiss}
+        prefixCls={`${prefixCls}`}
+        className={props.className || ''}
+        visible
+        closable={false}
+        transitionName={props.transitionName || props.popupTransitionName}
+        maskTransitionName={props.maskTransitionName}
+        onClose={this.hide}
+        style={props.style}
       >
-        <View style={[styles.header]}>
-          <TouchableHighlight
-            onPress={this.onDismiss}
-            style={[styles.headerItem]}
-            activeOpacity={props.actionTextActiveOpacity}
-            underlayColor={props.actionTextUnderlayColor}
-          >
-            {dismissEl}
-          </TouchableHighlight>
-          <View style={[styles.headerItem]}>
-            {titleEl}
-          </View>
-          <TouchableHighlight
-            onPress={this.onOk}
-            style={[styles.headerItem]}
-            activeOpacity={props.actionTextActiveOpacity}
-            underlayColor={props.actionTextUnderlayColor}
-          >
-            {okEl}
-          </TouchableHighlight>
-        </View>
-        {this.getContent()}
+        <div>
+          <div className={`${prefixCls}-header`}>
+            <Touchable activeClassName={`${prefixCls}-item-active`}>
+              <div className={`${prefixCls}-item ${prefixCls}-header-left`} onClick={this.onDismiss}>
+                {props.dismissText}
+              </div>
+            </Touchable>
+            <div className={`${prefixCls}-item ${prefixCls}-title`}>{props.title}</div>
+            <Touchable activeClassName={`${prefixCls}-item-active`}>
+              <div className={`${prefixCls}-item ${prefixCls}-header-right`} onClick={this.onOk}>
+                {props.okText}
+              </div>
+            </Touchable>
+          </div>
+          {this.getContent()}
+        </div>
       </Modal>
     );
   },

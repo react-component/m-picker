@@ -1,3 +1,2 @@
+// export this package's api
 export { default } from './Picker';
-export { default as Popup } from './Popup';
-export { default as PopupStyles } from './PopupStyles';

@@ -1,6 +1,6 @@
 import {View, TouchableHighlight, StyleSheet, Text, ScrollView } from 'react-native';
-import Popup from '../../src/Popup';
-import PopupStyles from '../../src/PopupStyles';
+import Popup from '../src/Popup';
+import PopupStyles from '../src/PopupStyles';
 import React from 'react';
 
 const styles = StyleSheet.create({

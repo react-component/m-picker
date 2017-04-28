@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 
 import 'rmc-picker/assets/index.less';
-import MultiPicker from '../src/MultiPicker.web';
+import MultiPicker from '../src/MultiPicker';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

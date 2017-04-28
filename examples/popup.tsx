@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 // import Picker from '../src/Picker';
 import MultiPicker from '../src/MultiPicker';
 
-import Popup from '../src/Popup.web';
+import Popup from '../src/Popup';
 
 const colData = [{ label: '1', value: '1' }, { label: '2', value: '2' }];
 

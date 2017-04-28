@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 
 import { View, TouchableHighlight, StyleSheet, Text } from 'react-native';
-import Picker from '../../src/Picker';
+import Picker from '../src/Picker';
 import React from 'react';
 
 let count = 0;
