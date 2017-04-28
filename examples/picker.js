@@ -1,21 +1,21 @@
 webpackJsonp([1],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(233);
+	module.exports = __webpack_require__(237);
 
 
-/***/ },
+/***/ }),
 
-/***/ 233:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 237:
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	__webpack_require__(2);
 	
-	var _Picker = __webpack_require__(74);
+	var _Picker = __webpack_require__(78);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -23,7 +23,7 @@ webpackJsonp([1],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(87);
+	var _reactDom = __webpack_require__(91);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -95,7 +95,7 @@ webpackJsonp([1],{
 	});
 	_reactDom2.default.render(_react2.default.createElement(Test, null), document.getElementById('__react-content'));
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=picker.js.map

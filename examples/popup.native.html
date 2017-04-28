@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>picker.js - example - rmc-picker@3.9.0</title>
+  <title>popup.native.js - example - rmc-picker@3.9.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -269,73 +269,56 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     </div>
     <div class="example" id="__react-content"></div>
 
-    <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* tslint:disable:no-console */</span>
-
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
-<span class="hljs-keyword">import</span> Picker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Picker'</span>;
+    <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> {View, TouchableHighlight, StyleSheet, Text, ScrollView } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<span class="hljs-keyword">import</span> Popup <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Popup'</span>;
+<span class="hljs-keyword">import</span> PopupStyles <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/PopupStyles'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
-<span class="hljs-keyword">let</span> count = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">const</span> len = <span class="hljs-number">10</span>;
-
-<span class="hljs-keyword">const</span> Test = React.createClass({
-  getInitialState() {
-    <span class="hljs-keyword">return</span> {
-      disabled: <span class="hljs-literal">false</span>,
-      items: <span class="hljs-keyword">this</span>.getItems(count),
-      value: <span class="hljs-string">`<span class="hljs-subst">${count}</span>`</span>,
-    };
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  button: {
+    borderWidth: <span class="hljs-number">1</span>,
+    borderColor: <span class="hljs-string">'red'</span>,
+    padding: <span class="hljs-number">5</span>,
+    width: <span class="hljs-number">100</span>,
   },
-  onChange(value) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChange'</span>, value);
-    <span class="hljs-keyword">this</span>.setState({
-      value,
-    });
+  root: {
+    paddingTop: <span class="hljs-number">100</span>,
+    flexDirection: <span class="hljs-string">'row'</span>,
+    justifyContent: <span class="hljs-string">'center'</span>,
   },
-  disable() {
-    <span class="hljs-keyword">this</span>.setState({
-      disabled: !<span class="hljs-keyword">this</span>.state.disabled,
-    });
-  },
-  getItems(start) {
-    <span class="hljs-keyword">const</span> items: any[] = [];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = start; i &lt; start + len; i++) {
-      items.push({
-        value: <span class="hljs-built_in">String</span>(i),
-        label: <span class="hljs-string">`<span class="hljs-subst">${count}</span> <span class="hljs-subst">${i}</span>`</span>,
-      });
-    }
-    <span class="hljs-keyword">return</span> items;
-  },
-  rerender() {
-    count += len;
-    <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">this</span>.getItems(count);
-    <span class="hljs-keyword">this</span>.setState({
-      items,
-      value: <span class="hljs-built_in">String</span>(count),
-    });
-  },
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">black</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.rerender}</span>&gt;</span>rerender<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        &amp;nbsp;
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.disable}</span>&gt;</span>{this.state.disabled ? 'enable' : 'disable'}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span>
-          <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{this.state.value}</span>
-          <span class="hljs-attribute">disabled</span>=<span class="hljs-value">{this.state.disabled}</span>
-          <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onChange}</span>
-        &gt;</span>
-          {this.state.items}
-        <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    )</span>;
+  content: {
+    padding: <span class="hljs-number">100</span>,
+    justifyContent: <span class="hljs-string">'center'</span> <span class="hljs-keyword">as</span> React.FlexJustifyType,
+    alignItems: <span class="hljs-string">'center'</span> <span class="hljs-keyword">as</span> React.FlexAlignType,
   },
 });
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Test</span> /&gt;</span>, document.getElementById('__react-content'));
-</span></code></pre></div>
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PopupExample</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span>&lt;</span>{}, {}&gt; {
+  render() {
+    <span class="hljs-keyword">const</span> popupContent = (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">View</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{styles.content}</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">Text</span>&gt;</span>
+      popupContent
+    <span class="hljs-tag">&lt;/<span class="hljs-title">Text</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">View</span>&gt;</span>)</span>;
+
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollView</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{flex:</span> <span class="hljs-attribute">1</span>}}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">View</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{height:</span> <span class="hljs-attribute">200</span>}}/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Popup</span>
+      <span class="hljs-attribute">styles</span>=<span class="hljs-value">{PopupStyles}</span>
+      <span class="hljs-attribute">style</span>=<span class="hljs-value">{styles.root}</span>
+      <span class="hljs-attribute">title</span>=<span class="hljs-value">{'title'}</span>
+      <span class="hljs-attribute">content</span>=<span class="hljs-value">{popupContent}</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">TouchableHighlight</span> <span class="hljs-attribute">activeOpacity</span>=<span class="hljs-value">{0.5}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{[styles.button]}</span> <span class="hljs-attribute">underlayColor</span>=<span class="hljs-value">"#a9d9d4"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Text</span>&gt;</span>show popup<span class="hljs-tag">&lt;/<span class="hljs-title">Text</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">TouchableHighlight</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">Popup</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">View</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{height:</span> <span class="hljs-attribute">800</span>}}/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollView</span>&gt;</span>)</span>;
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Demo = PopupExample;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> title = <span class="hljs-string">'popup'</span>;
+</code></pre></div>
   </div>
   <a href="https://github.com/react-component/m-picker">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -345,7 +328,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="common.js?nowrap"></script>
-  <script src="picker.js?nowrap"></script>
+  <script src="popup.native.js?nowrap"></script>
 </body>
 
 </html>
