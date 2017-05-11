@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.9.1",
+  "version": "3.9.3",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -22,16 +22,18 @@
   },
   "files": [
     "lib",
+    "es",
     "assets/*.css"
   ],
   "licenses": "MIT",
-  "main": "./lib/index.web",
+  "main": "./lib/index",
+  "module": "./es/index",
   "config": {
     "port": 8021
   },
   "scripts": {
     "watch-tsc": "rc-tools run watch-tsc",
-    "compile": "rc-tools run compile",
+    "compile": "rc-tools run compile --babel-runtime",
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
