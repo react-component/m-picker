@@ -24,10 +24,6 @@ const styles = StyleSheet.create({
     color: '#000',
   } as any,
 
-  item: {
-    height: 36,
-  },
-
   itemText: {
     fontSize: 20,
     color: '#aaa',
@@ -128,13 +124,13 @@ const Picker = React.createClass<IPickerProps, any>({
   render() {
     const { children, itemStyle, selectedValue, style } = this.props;
     const items = React.Children.map(children, (item: any, index) => {
-      const totalStyle = [itemStyle, styles.itemText];
+      const totalStyle = [styles.itemText];
       if (selectedValue === item.props.value) {
         totalStyle.push(styles.selectedItemText);
       }
+      totalStyle.push(itemStyle);
       return (
         <View
-          style={styles.item}
           ref={`item${index}`}
           onLayout={index === 0 ? this.onItemLayout : undefined}
           key={item.key}
