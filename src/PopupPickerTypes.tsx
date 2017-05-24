@@ -10,7 +10,7 @@ export interface IPopupPickerProps {
   title?: string|React.ReactElement<any>; // React.ReactElement only for web
   visible?: boolean;
   disabled?: boolean;
-  onOk?: () => void;
+  onOk?: (value?: any) => void;
   style?: any;
   onVisibleChange?: (visible: boolean) => void;
   content?: React.ReactElement<any>|string;
@@ -32,4 +32,5 @@ export interface IPopupPickerProps {
   transitionName?: string;
   /** web only */
   maskTransitionName?: string;
+  [key: string]: any;
 }
