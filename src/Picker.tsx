@@ -40,6 +40,7 @@ const Picker = React.createClass<IPickerProps, any>({
     this.zscroller = new ZScroller(this.refs.content, {
       scrollingX: false,
       snapping: true,
+      locking: false,
       penetrationDeceleration: .1,
       minVelocityToKeepDecelerating: 0.5,
       scrollingComplete: this.scrollingComplete,
