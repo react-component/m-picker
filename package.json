@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.9.4",
+  "version": "3.10.0",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -48,7 +48,7 @@
     "object-assign": "4.x",
     "rc-dialog": "^6.4.0",
     "rc-touchable": "^1.0.2",
-    "zscroller": "~0.2.0"
+    "zscroller": "~0.3.0"
   },
   "devDependencies": {
     "@types/mocha": "~2.2.32",
