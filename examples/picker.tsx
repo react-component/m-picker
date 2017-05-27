@@ -4,11 +4,12 @@ import 'rmc-picker/assets/index.less';
 import Picker from '../src/Picker';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import createReactClass from 'create-react-class';
 
 let count = 0;
 const len = 10;
 
-const Test = React.createClass({
+const Test = createReactClass({
   getInitialState() {
     return {
       disabled: false,

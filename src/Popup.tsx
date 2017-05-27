@@ -1,10 +1,11 @@
 import React from 'react';
 import Modal from 'rc-dialog';
+import createReactClass from 'create-react-class';
 import { IPopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 import Touchable from 'rc-touchable';
 
-const PopupPicker = React.createClass<IPopupPickerProps, any>({
+const PopupPicker = createReactClass<IPopupPickerProps, any>({
   mixins: [PopupMixin],
 
   getDefaultProps() {

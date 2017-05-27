@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import classNames from 'classnames';
 import ZScroller from 'zscroller';
 import { IPickerProps } from './PickerTypes';
 import PickerMixin from './PickerMixin';
 import isChildrenEqual from './isChildrenEqual';
 
-const Picker = React.createClass<IPickerProps, any>({
+const Picker = createReactClass<IPickerProps, any>({
   mixins: [PickerMixin],
 
   getDefaultProps() {

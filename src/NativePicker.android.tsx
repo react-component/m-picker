@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, PixelRatio, Text } from 'react-native';
+import createReactClass from 'create-react-class';
 import PickerMixin from './PickerMixin';
 import { IPickerProps } from './PickerTypes';
 
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
   } as any,
 });
 
-const Picker = React.createClass<IPickerProps, any>({
+const Picker = createReactClass<IPickerProps, any>({
   mixins: [PickerMixin],
 
   getDefaultProps() {

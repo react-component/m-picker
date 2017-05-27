@@ -4,6 +4,7 @@ import 'rmc-picker/assets/index.less';
 import MultiPicker from '../src/MultiPicker';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import createReactClass from 'create-react-class';
 
 const cols = [
   {
@@ -38,7 +39,7 @@ const cols = [
   },
 ];
 
-const Test = React.createClass({
+const Test = createReactClass({
   getInitialState() {
     return {
       value: ['1', '2'],

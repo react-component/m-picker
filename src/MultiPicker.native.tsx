@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import createReactClass from 'create-react-class';
 import Picker from './Picker';
 import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const MultiPicker = React.createClass<MultiPickerProps, any>({
+const MultiPicker = createReactClass<MultiPickerProps, any>({
   mixins: [MultiPickerMixin],
 
   render() {

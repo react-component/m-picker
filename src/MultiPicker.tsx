@@ -1,10 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
+import createReactClass from 'create-react-class';
 import Picker from './Picker';
 import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
 
-const MultiPicker = React.createClass<MultiPickerProps, any>({
+const MultiPicker = createReactClass<MultiPickerProps, any>({
   mixins: [MultiPickerMixin],
 
   render() {

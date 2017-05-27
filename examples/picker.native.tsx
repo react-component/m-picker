@@ -3,6 +3,7 @@
 import { View, TouchableHighlight, StyleSheet, Text } from 'react-native';
 import Picker from '../src/Picker';
 import React from 'react';
+import createReactClass from 'create-react-class';
 
 let count = 0;
 const len = 10;
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PickerDemo = React.createClass({
+const PickerDemo = createReactClass({
   getInitialState() {
     return {
       items: this.getItems(count),

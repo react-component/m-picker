@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import NativePicker from './NativePicker';
 import { IPickerProps } from './PickerTypes';
 import isChildrenEqual from './isChildrenEqual';
 
 const Item = (NativePicker as any).Item;
 
-const Picker = React.createClass<IPickerProps, {}>({
+const Picker = createReactClass<IPickerProps, {}>({
   getDefaultProps() {
     return {
       pure: true,

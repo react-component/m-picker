@@ -4,6 +4,7 @@ import 'rmc-picker/assets/index.less';
 import 'rmc-picker/assets/popup.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import createReactClass from 'create-react-class';
 // import Picker from '../src/Picker';
 import MultiPicker from '../src/MultiPicker';
 
@@ -11,7 +12,7 @@ import Popup from '../src/Popup';
 
 const colData = [{ label: '1', value: '1' }, { label: '2', value: '2' }];
 
-const Demo = React.createClass({
+const Demo = createReactClass({
   getInitialState() {
     return {
       disabled: false,
