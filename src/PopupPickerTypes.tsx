@@ -30,6 +30,7 @@ export interface IPopupPickerProps {
   pickerValueChangeProp?: string;
   /** web only */
   transitionName?: string;
+  popupTransitionName?: string;
   /** web only */
   maskTransitionName?: string;
 }

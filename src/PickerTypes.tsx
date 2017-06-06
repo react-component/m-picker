@@ -1,10 +1,4 @@
-export interface IPickerItem {
-  value: string|number;
-  label: string;
-}
-
 export interface IPickerProps {
-  children?: IPickerItem[];
   pure?: boolean;
   disabled?: boolean;
   selectedValue?: any;
@@ -15,4 +9,5 @@ export interface IPickerProps {
   indicatorStyle?: any;
   className?: string;
   defaultSelectedValue?: any;
+  style?: any;
 }

@@ -3,7 +3,6 @@
 import { View, TouchableHighlight, StyleSheet, Text } from 'react-native';
 import Picker from '../src/Picker';
 import React from 'react';
-import createReactClass from 'create-react-class';
 
 let count = 0;
 const len = 10;
@@ -17,20 +16,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const PickerDemo = createReactClass({
-  getInitialState() {
-    return {
-      items: this.getItems(count),
-      value: `${count + len / 2}`,
-    };
-  },
+export class PickerDemo extends React.Component<any, any> {
+  state = {
+    items: this.getItems(count),
+    value: `${count + len / 2}`,
+  };
 
-  onChange(value) {
+  onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
     });
-  },
+  }
 
   getItems(start) {
     const items: any[] = [];
@@ -41,16 +38,16 @@ const PickerDemo = createReactClass({
       });
     }
     return items;
-  },
+  }
 
-  rerender() {
+  rerender = () => {
     count += len;
     const items = this.getItems(count);
     this.setState({
       items,
       value: String(count),
     });
-  },
+  }
 
   render() {
     return (<View style={{ padding: 10 }}>
@@ -65,8 +62,8 @@ const PickerDemo = createReactClass({
         {this.state.items}
       </Picker>
     </View>);
-  },
-});
+  }
+}
 
 export const Demo = PickerDemo;
 export const title = 'picker';

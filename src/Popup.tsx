@@ -1,20 +1,22 @@
 import React from 'react';
 import Modal from 'rc-dialog';
-import createReactClass from 'create-react-class';
+import reactMixin from 'react-mixin';
 import { IPopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
 import Touchable from 'rc-touchable';
 
-const PopupPicker = createReactClass<IPopupPickerProps, any>({
-  mixins: [PopupMixin],
+class PopupPicker extends React.Component<IPopupPickerProps, any> {
+  static defaultProps = {
+    prefixCls: 'rmc-picker-popup',
+    triggerType: 'onClick',
+    WrapComponent: 'span',
+  };
 
-  getDefaultProps() {
-    return {
-      prefixCls: 'rmc-picker-popup',
-      triggerType: 'onClick',
-      WrapComponent: 'span',
-    };
-  },
+  hide: () => void;
+  onDismiss: () => void;
+  onOk: () => void;
+  getContent: () => any;
+  getRender: () => any;
 
   getModal() {
     const props = this.props;
@@ -30,19 +32,19 @@ const PopupPicker = createReactClass<IPopupPickerProps, any>({
         closable={false}
         transitionName={props.transitionName || props.popupTransitionName}
         maskTransitionName={props.maskTransitionName}
-        onClose={this.hide}
+        onClose={this.hide.bind(this)}
         style={props.style}
       >
         <div>
           <div className={`${prefixCls}-header`}>
             <Touchable activeClassName={`${prefixCls}-item-active`}>
-              <div className={`${prefixCls}-item ${prefixCls}-header-left`} onClick={this.onDismiss}>
+              <div className={`${prefixCls}-item ${prefixCls}-header-left`} onClick={this.onDismiss.bind(this)}>
                 {props.dismissText}
               </div>
             </Touchable>
             <div className={`${prefixCls}-item ${prefixCls}-title`}>{props.title}</div>
             <Touchable activeClassName={`${prefixCls}-item-active`}>
-              <div className={`${prefixCls}-item ${prefixCls}-header-right`} onClick={this.onOk}>
+              <div className={`${prefixCls}-item ${prefixCls}-header-right`} onClick={this.onOk.bind(this)}>
                 {props.okText}
               </div>
             </Touchable>
@@ -51,11 +53,13 @@ const PopupPicker = createReactClass<IPopupPickerProps, any>({
         </div>
       </Modal>
     );
-  },
+  }
 
   render() {
     return this.getRender();
-  },
-});
+  }
+}
+
+reactMixin.onClass(PopupPicker, PopupMixin);
 
 export default PopupPicker;

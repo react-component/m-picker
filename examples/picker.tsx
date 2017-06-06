@@ -4,30 +4,30 @@ import 'rmc-picker/assets/index.less';
 import Picker from '../src/Picker';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createReactClass from 'create-react-class';
 
 let count = 0;
 const len = 10;
 
-const Test = createReactClass({
-  getInitialState() {
-    return {
-      disabled: false,
-      items: this.getItems(count),
-      value: `${count}`,
-    };
-  },
-  onChange(value) {
+class PickerDemo extends React.Component<any, any> {
+  state =  {
+    disabled: false,
+    items: this.getItems(count),
+    value: `${count}`,
+  };
+
+  onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
     });
-  },
-  disable() {
+  }
+
+  disable = () => {
     this.setState({
       disabled: !this.state.disabled,
     });
-  },
+  }
+
   getItems(start) {
     const items: any[] = [];
     for (let i = start; i < start + len; i++) {
@@ -37,15 +37,17 @@ const Test = createReactClass({
       });
     }
     return items;
-  },
-  rerender() {
+  }
+
+  rerender = () => {
     count += len;
     const items = this.getItems(count);
     this.setState({
       items,
       value: String(count),
     });
-  },
+  }
+
   render() {
     return (
       <div style={{ border: '1px solid black', padding: 10 }}>
@@ -61,7 +63,7 @@ const Test = createReactClass({
         </Picker>
       </div>
     );
-  },
-});
+  }
+}
 
-ReactDOM.render(<Test />, document.getElementById('__react-content'));
+ReactDOM.render(<PickerDemo />, document.getElementById('__react-content'));

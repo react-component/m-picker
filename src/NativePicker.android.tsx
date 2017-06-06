@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, PixelRatio, Text } from 'react-native';
-import createReactClass from 'create-react-class';
+import reactMixin from 'react-mixin';
 import PickerMixin from './PickerMixin';
 import { IPickerProps } from './PickerTypes';
 
@@ -32,22 +32,24 @@ const styles = StyleSheet.create({
   } as any,
 });
 
-const Picker = createReactClass<IPickerProps, any>({
-  mixins: [PickerMixin],
+class Picker extends React.Component<IPickerProps, any> {
+  static defaultProps = {
+    onValueChange() {
+    },
+  };
 
-  getDefaultProps() {
-    return {
-      onValueChange() {
-      },
-    };
-  },
+  itemHeight: number;
+  itemWidth: number;
+  select: (selectedValue: string | number) => void;
+  scrollBuffer: any;
+  doScrollingComplete: (y: number) => void;
 
   onItemLayout(e) {
     const { height, width } = e.nativeEvent.layout;
     // console.log('onItemLayout', height);
     if (this.itemHeight !== height || this.itemWidth !== width) {
       this.itemWidth = width;
-      this.refs.indicator.setNativeProps({
+      (this.refs as any).indicator.setNativeProps({
         style: [
           styles.indicator,
           {
@@ -60,12 +62,12 @@ const Picker = createReactClass<IPickerProps, any>({
     }
     if (this.itemHeight !== height) {
       this.itemHeight = height;
-      this.refs.scroller.setNativeProps({
+      (this.refs as any).scroller.setNativeProps({
         style: {
           height: height * 7,
         },
       });
-      this.refs.content.setNativeProps({
+      (this.refs as any).content.setNativeProps({
         style: {
           paddingTop: height * 3,
           paddingBottom: height * 3,
@@ -76,34 +78,34 @@ const Picker = createReactClass<IPickerProps, any>({
         this.select(this.props.selectedValue);
       }, 0);
     }
-  },
+  }
 
   componentDidUpdate() {
     this.select(this.props.selectedValue);
-  },
+  }
 
   componentWillUnMount() {
     this.clearScrollBuffer();
-  },
+  }
 
   clearScrollBuffer() {
     if (this.scrollBuffer) {
       clearTimeout(this.scrollBuffer);
     }
-  },
+  }
 
   scrollTo(y) {
-    this.refs.scroller.scrollTo({
+    (this.refs as any).scroller.scrollTo({
       y,
       animated: false,
     });
-  },
+  }
 
   fireValueChange(selectedValue) {
-    if (this.props.selectedValue !== selectedValue) {
+    if (this.props.selectedValue !== selectedValue && this.props.onValueChange) {
       this.props.onValueChange(selectedValue);
     }
-  },
+  }
 
   onScroll(e) {
     const { y } = e.nativeEvent.contentOffset;
@@ -112,15 +114,15 @@ const Picker = createReactClass<IPickerProps, any>({
       this.clearScrollBuffer();
       this.doScrollingComplete(y);
     }, 100);
-  },
+  }
 
   getChildMember(child, m) {
     return child.props[m];
-  },
+  }
 
   toChildrenArray(children) {
     return React.Children.toArray(children);
-  },
+  }
 
   render() {
     const { children, itemStyle, selectedValue, style } = this.props;
@@ -156,11 +158,11 @@ const Picker = createReactClass<IPickerProps, any>({
         <View ref="indicator" style={styles.indicator} />
       </View>
     );
-  },
-});
+  }
+}
 
-(Picker as any).Item = function Item() {
+(Picker as any).Item = function Item() { };
 
-};
+reactMixin.onClass(Picker, PickerMixin);
 
 export default Picker;

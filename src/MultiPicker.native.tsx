@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import createReactClass from 'create-react-class';
+import reactMixin from 'react-mixin';
 import Picker from './Picker';
 import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
@@ -17,8 +17,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const MultiPicker = createReactClass<MultiPickerProps, any>({
-  mixins: [MultiPickerMixin],
+class MultiPicker extends React.Component<MultiPickerProps, any> {
+  getValue: () => any;
+  onValueChange: (i: number) => any;
 
   render() {
     const props = this.props;
@@ -46,7 +47,9 @@ const MultiPicker = createReactClass<MultiPickerProps, any>({
         {colElements}
       </View>
     );
-  },
-});
+  }
+}
+
+reactMixin.onClass(MultiPicker, MultiPickerMixin);
 
 export default MultiPicker;

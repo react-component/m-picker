@@ -2,7 +2,6 @@
 import MultiPicker from '../src/MultiPicker';
 import React from 'react';
 import { View } from 'react-native';
-import createReactClass from 'create-react-class';
 
 const cols = [
   {
@@ -37,18 +36,18 @@ const cols = [
   },
 ];
 
-const Test = createReactClass({
-  getInitialState() {
-    return {
+export class Test extends React.Component<any, any> {
+  state = {
       value: ['1', '2'],
-    };
-  },
-  onChange(value) {
+  };
+
+  onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
     });
-  },
+  }
+
   render() {
     return (
       <View style={{ borderWidth: 2, padding: 10 }}>
@@ -60,8 +59,8 @@ const Test = createReactClass({
         </MultiPicker>
       </View>
     );
-  },
-});
+  }
+}
 
 export const Demo = Test;
 export const title = 'multi-picker';
