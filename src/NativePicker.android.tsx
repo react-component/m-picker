@@ -135,7 +135,7 @@ const Picker = React.createClass<IPickerProps, any>({
           onLayout={index === 0 ? this.onItemLayout : undefined}
           key={item.key}
         >
-          <Text style={totalStyle}>{item.props.label}</Text>
+          <Text style={totalStyle} numberOfLines={1}>{item.props.label}</Text>
         </View>
       );
     });
