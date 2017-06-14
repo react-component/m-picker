@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>picker.js - example - rmc-picker@3.10.2</title>
+  <title>picker.js - example - rmc-picker@3.10.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-picker@3.10.2</h1>
+      <h1>rmc-picker@3.10.3</h1>
 
       <p>React Mobile Picker Component(web and react-native)</p>
     </div>
@@ -279,25 +279,26 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">let</span> count = <span class="hljs-number">0</span>;
 <span class="hljs-keyword">const</span> len = <span class="hljs-number">10</span>;
 
-<span class="hljs-keyword">const</span> Test = React.createClass({
-  getInitialState() {
-    <span class="hljs-keyword">return</span> {
-      disabled: <span class="hljs-literal">false</span>,
-      items: <span class="hljs-keyword">this</span>.getItems(count),
-      value: <span class="hljs-string">`<span class="hljs-subst">${count}</span>`</span>,
-    };
-  },
-  onChange(value) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PickerDemo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">any</span>&gt; </span>{
+  state =  {
+    disabled: <span class="hljs-literal">false</span>,
+    items: <span class="hljs-keyword">this</span>.getItems(count),
+    value: <span class="hljs-string">`<span class="hljs-subst">${count}</span>`</span>,
+  };
+
+  onChange = (value) =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChange'</span>, value);
     <span class="hljs-keyword">this</span>.setState({
       value,
     });
-  },
-  disable() {
+  }
+
+  disable = () =&gt; {
     <span class="hljs-keyword">this</span>.setState({
       disabled: !<span class="hljs-keyword">this</span>.state.disabled,
     });
-  },
+  }
+
   getItems(start) {
     <span class="hljs-keyword">const</span> items: any[] = [];
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = start; i &lt; start + len; i++) {
@@ -307,15 +308,17 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       });
     }
     <span class="hljs-keyword">return</span> items;
-  },
-  rerender() {
+  }
+
+  rerender = () =&gt; {
     count += len;
     <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">this</span>.getItems(count);
     <span class="hljs-keyword">this</span>.setState({
       items,
       value: <span class="hljs-built_in">String</span>(count),
     });
-  },
+  }
+
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">black</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
@@ -331,10 +334,10 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>;
-  },
-});
+  }
+}
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Test</span> /&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">PickerDemo</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
   </div>
   <a href="https://github.com/react-component/m-picker">
