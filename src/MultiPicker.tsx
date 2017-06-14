@@ -1,21 +1,22 @@
 import React from 'react';
 import classnames from 'classnames';
+import reactMixin from 'react-mixin';
 import Picker from './Picker';
 import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
 
-const MultiPicker = React.createClass<MultiPickerProps, any>({
-  mixins: [MultiPickerMixin],
+class MultiPicker extends React.Component<MultiPickerProps, any> {
+  getValue: () => any;
+  onValueChange: (i: number) => any;
 
   render() {
-    const props = this.props;
     const {
       prefixCls, pickerPrefixCls,
       className, rootNativeProps,
       disabled, pickerItemStyle,
       indicatorStyle,
       pure, children,
-    } = props;
+    } = this.props;
     const selectedValue = this.getValue();
     const colElements = children.map((col, i) => {
       return (
@@ -38,7 +39,9 @@ const MultiPicker = React.createClass<MultiPickerProps, any>({
         {colElements}
       </div>
     );
-  },
-});
+  }
+}
+
+reactMixin.onClass(MultiPicker, MultiPickerMixin);
 
 export default MultiPicker;

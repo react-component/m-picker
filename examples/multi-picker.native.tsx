@@ -36,18 +36,18 @@ const cols = [
   },
 ];
 
-const Test = React.createClass({
-  getInitialState() {
-    return {
+export class Test extends React.Component<any, any> {
+  state = {
       value: ['1', '2'],
-    };
-  },
-  onChange(value) {
+  };
+
+  onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
     });
-  },
+  }
+
   render() {
     return (
       <View style={{ borderWidth: 2, padding: 10 }}>
@@ -59,8 +59,8 @@ const Test = React.createClass({
         </MultiPicker>
       </View>
     );
-  },
-});
+  }
+}
 
 export const Demo = Test;
 export const title = 'multi-picker';

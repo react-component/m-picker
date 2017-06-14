@@ -8,25 +8,26 @@ import ReactDOM from 'react-dom';
 let count = 0;
 const len = 10;
 
-const Test = React.createClass({
-  getInitialState() {
-    return {
-      disabled: false,
-      items: this.getItems(count),
-      value: `${count}`,
-    };
-  },
-  onChange(value) {
+class PickerDemo extends React.Component<any, any> {
+  state =  {
+    disabled: false,
+    items: this.getItems(count),
+    value: `${count}`,
+  };
+
+  onChange = (value) => {
     console.log('onChange', value);
     this.setState({
       value,
     });
-  },
-  disable() {
+  }
+
+  disable = () => {
     this.setState({
       disabled: !this.state.disabled,
     });
-  },
+  }
+
   getItems(start) {
     const items: any[] = [];
     for (let i = start; i < start + len; i++) {
@@ -36,15 +37,17 @@ const Test = React.createClass({
       });
     }
     return items;
-  },
-  rerender() {
+  }
+
+  rerender = () => {
     count += len;
     const items = this.getItems(count);
     this.setState({
       items,
       value: String(count),
     });
-  },
+  }
+
   render() {
     return (
       <div style={{ border: '1px solid black', padding: 10 }}>
@@ -60,7 +63,7 @@ const Test = React.createClass({
         </Picker>
       </div>
     );
-  },
-});
+  }
+}
 
-ReactDOM.render(<Test />, document.getElementById('__react-content'));
+ReactDOM.render(<PickerDemo />, document.getElementById('__react-content'));

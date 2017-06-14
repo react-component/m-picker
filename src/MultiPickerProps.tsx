@@ -15,6 +15,8 @@ interface IMultiPickerProps {
   rootNativeProps?: any;
   indicatorStyle?: any;
   onValueChange?: (v?: any) => void;
+  children?: any;
+  style?: any;
 }
 
 export default IMultiPickerProps;

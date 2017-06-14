@@ -11,27 +11,29 @@ import Popup from '../src/Popup';
 
 const colData = [{ label: '1', value: '1' }, { label: '2', value: '2' }];
 
-const Demo = React.createClass({
-  getInitialState() {
-    return {
-      disabled: false,
-      value: null,
-    };
-  },
-  disable() {
+class Demo extends React.Component<any, any> {
+  state = {
+    disabled: false,
+    value: null,
+  };
+
+  disable = () => {
     this.setState({
       disabled: !this.state.disabled,
     });
-  },
-  onOk(value) {
+  }
+
+  onOk = (value) => {
     console.log('onOk', value);
     this.setState({
       value,
     });
-  },
-  onDismiss() {
+  }
+
+  onDismiss = () => {
     console.log('onDismiss');
-  },
+  }
+
   render() {
     return (
       <div style={{ margin: '10px 30px' }}>
@@ -54,7 +56,7 @@ const Demo = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDOM.render(<Demo />, document.getElementById('__react-content'));
