@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "3.10.2",
+  "version": "3.10.3",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -60,7 +60,7 @@
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
-    "rc-test": "6.x",
+    "rc-test": "6.0.3",
     "rc-tools": "6.x",
     "react": "15.5.x",
     "react-dom": "15.5.x",
