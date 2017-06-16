@@ -44,7 +44,7 @@ class Picker extends React.Component<IPickerProps, any> {
   scrollBuffer: any;
   doScrollingComplete: (y: number) => void;
 
-  onItemLayout(e) {
+  onItemLayout = (e) => {
     const { height, width } = e.nativeEvent.layout;
     // console.log('onItemLayout', height);
     if (this.itemHeight !== height || this.itemWidth !== width) {
@@ -107,7 +107,7 @@ class Picker extends React.Component<IPickerProps, any> {
     }
   }
 
-  onScroll(e) {
+  onScroll = (e) => {
     const { y } = e.nativeEvent.contentOffset;
     this.clearScrollBuffer();
     this.scrollBuffer = setTimeout(() => {
