@@ -115,7 +115,8 @@ class Picker extends React.Component<IPickerProps, any> {
   }
 
   toChildrenArray(children) {
-    if (Array.isArray(children)) {
+    // when use preact，when the children is [] will change to undeined
+    if (children !== undefined) {
       return children;
     }
     return [];
