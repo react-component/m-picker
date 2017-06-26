@@ -115,7 +115,11 @@ class Picker extends React.Component<IPickerProps, any> {
   }
 
   toChildrenArray(children) {
-    return children;
+    // when use preact，when the children is [] will change to undeined
+    if (children !== undefined) {
+      return children;
+    }
+    return [];
   }
 
   render() {
@@ -127,7 +131,7 @@ class Picker extends React.Component<IPickerProps, any> {
     const { selectedValue } = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
-    const items = (children as IPickerItem[]).map((item) => {
+    const items = (this.toChildrenArray(children) as IPickerItem[]).map((item) => {
       return (
         <div
           style={itemStyle}
