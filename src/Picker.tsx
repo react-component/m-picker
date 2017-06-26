@@ -1,5 +1,5 @@
 import React from 'react';
-import reactMixin from 'react-mixin';
+import createClass from 'create-react-class';
 import classNames from 'classnames';
 import ZScroller from 'zscroller';
 import { IPickerProps } from './PickerTypes';
@@ -7,28 +7,23 @@ import PickerMixin from './PickerMixin';
 import isChildrenEqual from './isChildrenEqual';
 
 export interface IPickerItem {
-  value: string|number;
+  value: string | number;
   label: string;
 }
 
-class Picker extends React.Component<IPickerProps, any> {
-  static defaultProps = {
-    prefixCls: 'rmc-picker',
-    pure: true,
-    onValueChange() {
-    },
-  };
+const Picker = createClass<IPickerProps, any>({
+  mixins: [PickerMixin],
 
-  itemHeight: number;
-  zscroller: any;
-  select: (selectedValue: string | number) => void;
-  // scrollBuffer: any;
-  doScrollingComplete: (y: number) => void;
+  getDefaultProps() {
+    return {
+      prefixCls: 'rmc-picker',
+      pure: true,
+    };
+  },
 
-  constructor(props) {
-    super(props);
+  getInitialState() {
     let selectedValueState;
-    const { selectedValue, defaultSelectedValue, children } = props;
+    const { selectedValue, defaultSelectedValue, children } = this.props;
     if (selectedValue !== undefined) {
       selectedValueState = selectedValue;
     } else if (defaultSelectedValue !== undefined) {
@@ -36,10 +31,10 @@ class Picker extends React.Component<IPickerProps, any> {
     } else if (children && children.length) {
       selectedValueState = children[0].value;
     }
-    this.state = {
+    return {
       selectedValue: selectedValueState,
     };
-  }
+  },
 
   componentDidMount() {
     // https://github.com/react-component/m-picker/issues/18
@@ -57,7 +52,7 @@ class Picker extends React.Component<IPickerProps, any> {
     this.zscroller.setDisabled(this.props.disabled);
     this.zscroller.scroller.setSnapSize(0, this.itemHeight);
     this.select(this.state.selectedValue);
-  }
+  },
 
   componentWillReceiveProps(nextProps) {
     if ('selectedValue' in nextProps) {
@@ -66,25 +61,25 @@ class Picker extends React.Component<IPickerProps, any> {
       });
     }
     this.zscroller.setDisabled(nextProps.disabled);
-  }
+  },
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.state.selectedValue !== nextState.selectedValue
       || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
-  }
+  },
 
   componentDidUpdate() {
     this.zscroller.reflow();
     this.select(this.state.selectedValue);
-  }
+  },
 
   componentWillUnmount() {
     this.zscroller.destroy();
-  }
+  },
 
   scrollTo(top) {
     this.zscroller.scroller.scrollTo(0, top);
-  }
+  },
 
   fireValueChange(selectedValue) {
     if (selectedValue !== this.state.selectedValue) {
@@ -97,30 +92,27 @@ class Picker extends React.Component<IPickerProps, any> {
         this.props.onValueChange(selectedValue);
       }
     }
-  }
+  },
 
-  scrollingComplete = () => {
+  scrollingComplete() {
     const { top } = this.zscroller.scroller.getValues();
     if (top >= 0) {
       this.doScrollingComplete(top);
     }
-  }
+  },
 
   getChildMember(child, m) {
     return child[m];
-  }
+  },
 
   getValue() {
     return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].value;
-  }
+  },
 
   toChildrenArray(children) {
     // when use preact，when the children is [] will change to undeined
-    if (children !== undefined) {
-      return children;
-    }
-    return [];
-  }
+    return children || [];
+  },
 
   render() {
     const {
@@ -157,9 +149,7 @@ class Picker extends React.Component<IPickerProps, any> {
         </div>
       </div>
     );
-  }
-}
-
-reactMixin.onClass(Picker, PickerMixin);
+  },
+});
 
 export default Picker;

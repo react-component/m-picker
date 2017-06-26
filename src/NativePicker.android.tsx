@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, PixelRatio, Text } from 'react-native';
-import reactMixin from 'react-mixin';
+import createClass from 'create-react-class';
 import PickerMixin from './PickerMixin';
 import { IPickerProps } from './PickerTypes';
 
@@ -32,19 +32,15 @@ const styles = StyleSheet.create({
   } as any,
 });
 
-class Picker extends React.Component<IPickerProps, any> {
-  static defaultProps = {
-    onValueChange() {
+const Picker = createClass<IPickerProps, any>({
+  mixins: [PickerMixin],
+
+  statics: {
+    Item() {
     },
-  };
+  },
 
-  itemHeight: number;
-  itemWidth: number;
-  select: (selectedValue: string | number) => void;
-  scrollBuffer: any;
-  doScrollingComplete: (y: number) => void;
-
-  onItemLayout = (e) => {
+  onItemLayout(e) {
     const { height, width } = e.nativeEvent.layout;
     // console.log('onItemLayout', height);
     if (this.itemHeight !== height || this.itemWidth !== width) {
@@ -78,51 +74,51 @@ class Picker extends React.Component<IPickerProps, any> {
         this.select(this.props.selectedValue);
       }, 0);
     }
-  }
+  },
 
   componentDidUpdate() {
     this.select(this.props.selectedValue);
-  }
+  },
 
   componentWillUnMount() {
     this.clearScrollBuffer();
-  }
+  },
 
   clearScrollBuffer() {
     if (this.scrollBuffer) {
       clearTimeout(this.scrollBuffer);
     }
-  }
+  },
 
   scrollTo(y) {
     (this.refs as any).scroller.scrollTo({
       y,
       animated: false,
     });
-  }
+  },
 
   fireValueChange(selectedValue) {
     if (this.props.selectedValue !== selectedValue && this.props.onValueChange) {
       this.props.onValueChange(selectedValue);
     }
-  }
+  },
 
-  onScroll = (e) => {
+  onScroll(e) {
     const { y } = e.nativeEvent.contentOffset;
     this.clearScrollBuffer();
     this.scrollBuffer = setTimeout(() => {
       this.clearScrollBuffer();
       this.doScrollingComplete(y);
     }, 100);
-  }
+  },
 
   getChildMember(child, m) {
     return child.props[m];
-  }
+  },
 
   toChildrenArray(children) {
     return React.Children.toArray(children);
-  }
+  },
 
   render() {
     const { children, itemStyle, selectedValue, style } = this.props;
@@ -155,14 +151,10 @@ class Picker extends React.Component<IPickerProps, any> {
             {items}
           </View>
         </ScrollView>
-        <View ref="indicator" style={styles.indicator} />
+        <View ref="indicator" style={styles.indicator}/>
       </View>
     );
-  }
-}
-
-(Picker as any).Item = function Item() { };
-
-reactMixin.onClass(Picker, PickerMixin);
+  },
+});
 
 export default Picker;

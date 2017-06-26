@@ -81,7 +81,7 @@ export default {
     const child = children;
     const newChildProps = {};
     if (!disabled) {
-      newChildProps[props.triggerType] = this.onTriggerClick.bind(this);
+      newChildProps[props.triggerType] = this.onTriggerClick;
     }
     return (<WrapComponent style={props.wrapStyle}>
       {React.cloneElement(child, newChildProps)}
@@ -111,8 +111,8 @@ export default {
       }
       return React.cloneElement(this.props.picker, ({
         [this.props.pickerValueProp]: pickerValue,
-        [this.props.pickerValueChangeProp]: this.onPickerChange.bind(this),
-        ref: this.saveRef.bind(this),
+        [this.props.pickerValueChangeProp]: this.onPickerChange,
+        ref: this.saveRef,
       }));
     } else {
       return this.props.content;
