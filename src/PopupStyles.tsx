@@ -1,5 +1,4 @@
-import {StyleSheet} from 'react-native';
-import assign from 'object-assign';
+import { StyleSheet } from 'react-native';
 
 const textStyle = {
   color: '#0ae',
@@ -28,9 +27,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   actionText: textStyle,
-  title: assign({}, textStyle, {
+  title: {
+    ...textStyle,
     color: '#666',
-  }),
+  },
 });
 
 export default styles;
