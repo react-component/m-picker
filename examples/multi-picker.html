@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>multi-picker.js - example - rmc-picker@3.10.7</title>
+  <title>multi-picker.js - example - rmc-picker@4.0.0-beta.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,13 +257,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
   }
   </script>
-  <link rel="stylesheet" href="../common.css" />
+  <link rel="stylesheet" href="multi-picker.css" />
 </head>
 
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-picker@3.10.7</h1>
+      <h1>rmc-picker@4.0.0-beta.0</h1>
 
       <p>React Mobile Picker Component(web and react-native)</p>
     </div>
@@ -271,47 +271,15 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* tslint:disable:no-console */</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./multi-picker.less'</span>;
 <span class="hljs-keyword">import</span> MultiPicker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/MultiPicker'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-
-<span class="hljs-keyword">const</span> cols = [
-  {
-    key: <span class="hljs-string">'col1'</span>,
-    props: {
-      children: [
-        {
-          label: <span class="hljs-string">'one'</span>,
-          value: <span class="hljs-string">'1'</span>,
-        },
-        {
-          label: <span class="hljs-string">'two'</span>,
-          value: <span class="hljs-string">'2'</span>,
-        },
-      ],
-    },
-  },
-  {
-    key: <span class="hljs-string">'col2'</span>,
-    props: {
-      children: [
-        {
-          label: <span class="hljs-string">'一'</span>,
-          value: <span class="hljs-string">'1'</span>,
-        },
-        {
-          label: <span class="hljs-string">'二'</span>,
-          value: <span class="hljs-string">'2'</span>,
-        },
-      ],
-    },
-  },
-];
+<span class="hljs-keyword">import</span> Picker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Picker'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">any</span>&gt; </span>{
   state = {
-      value: [<span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>],
+    value: [<span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>],
   };
 
   onChange = (value) =&gt; {
@@ -323,12 +291,31 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
   render() {
     <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">black</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">background:</span> '#<span class="hljs-attribute">f5f5f9</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">MultiPicker</span>
           <span class="hljs-attribute">selectedValue</span>=<span class="hljs-value">{this.state.value}</span>
           <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onChange}</span>
         &gt;</span>
-          {cols}
+          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">indicatorClassName</span>=<span class="hljs-value">"my-picker-indicator"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"1"</span>&gt;</span>one<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"2"</span>&gt;</span>two<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"3"</span>&gt;</span>three<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"4"</span>&gt;</span>four<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"5"</span>&gt;</span>five<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"6"</span>&gt;</span>six<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"7"</span>&gt;</span>seven<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"8"</span>&gt;</span>eight<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Picker</span> <span class="hljs-attribute">indicatorClassName</span>=<span class="hljs-value">"my-picker-indicator"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"11"</span>&gt;</span>eleven<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"12"</span>&gt;</span>twelve<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"13"</span>&gt;</span>thirteen<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"14"</span>&gt;</span>fourteen<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"15"</span>&gt;</span>fifteen<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"16"</span>&gt;</span>sixteen<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"17"</span>&gt;</span>seventeen<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"my-picker-view-item"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"18"</span>&gt;</span>eighteen<span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-title">Picker</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">MultiPicker</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>;

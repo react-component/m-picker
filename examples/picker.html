@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>picker.js - example - rmc-picker@3.10.7</title>
+  <title>picker.js - example - rmc-picker@4.0.0-beta.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,13 +257,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
   }
   </script>
-  <link rel="stylesheet" href="../common.css" />
+  <link rel="stylesheet" href="picker.css" />
 </head>
 
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-picker@3.10.7</h1>
+      <h1>rmc-picker@4.0.0-beta.0</h1>
 
       <p>React Mobile Picker Component(web and react-native)</p>
     </div>
@@ -302,10 +302,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   getItems(start) {
     <span class="hljs-keyword">const</span> items: any[] = [];
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = start; i &lt; start + len; i++) {
-      items.push({
-        value: <span class="hljs-built_in">String</span>(i),
-        label: <span class="hljs-string">`<span class="hljs-subst">${count}</span> <span class="hljs-subst">${i}</span>`</span>,
-      });
+      items.push(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Picker.Item</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{i}</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span>&gt;</span>
+        {count} {i}
+      <span class="hljs-tag">&lt;/<span class="hljs-title">Picker.Item</span>&gt;</span>)</span>;
     }
     <span class="hljs-keyword">return</span> items;
   }
