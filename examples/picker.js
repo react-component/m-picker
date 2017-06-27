@@ -1,10 +1,1038 @@
 webpackJsonp([2],{
 
-/***/ 100:
+/***/ 146:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Animate__ = __webpack_require__(98);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_Picker__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/* tslint:disable:no-console */
+
+
+
+
+var count = 0;
+var len = 10;
+
+var PickerDemo = function (_React$Component) {
+    _inherits(PickerDemo, _React$Component);
+
+    function PickerDemo() {
+        _classCallCheck(this, PickerDemo);
+
+        var _this = _possibleConstructorReturn(this, (PickerDemo.__proto__ || Object.getPrototypeOf(PickerDemo)).apply(this, arguments));
+
+        _this.state = {
+            disabled: false,
+            items: _this.getItems(count),
+            value: '' + count
+        };
+        _this.onChange = function (value) {
+            console.log('onChange', value);
+            _this.setState({
+                value: value
+            });
+        };
+        _this.disable = function () {
+            _this.setState({
+                disabled: !_this.state.disabled
+            });
+        };
+        _this.rerender = function () {
+            count += len;
+            var items = _this.getItems(count);
+            _this.setState({
+                items: items,
+                value: String(count)
+            });
+        };
+        return _this;
+    }
+
+    _createClass(PickerDemo, [{
+        key: 'getItems',
+        value: function getItems(start) {
+            var items = [];
+            for (var i = start; i < start + len; i++) {
+                items.push(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1__src_Picker__["a" /* default */].Item,
+                    { value: i, key: i },
+                    count,
+                    ' ',
+                    i
+                ));
+            }
+            return items;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                'div',
+                { style: { background: '#f5f5f9', padding: 10 } },
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    'button',
+                    { onClick: this.rerender },
+                    'rerender'
+                ),
+                '\xA0',
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    'button',
+                    { onClick: this.disable },
+                    this.state.disabled ? 'enable' : 'disable'
+                ),
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1__src_Picker__["a" /* default */],
+                    { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
+                    this.state.items
+                )
+            );
+        }
+    }]);
+
+    return PickerDemo;
+}(__WEBPACK_IMPORTED_MODULE_2_react___default.a.Component);
+
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(PickerDemo, null), document.getElementById('__react-content'));
+
+/***/ }),
+
+/***/ 309:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(146);
+
+
+/***/ }),
+
+/***/ 45:
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 47:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+			return classNames;
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+
+/***/ }),
+
+/***/ 58:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_create_react_class__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_create_react_class__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_zscroller__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PickerMixin__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__isChildrenEqual__ = __webpack_require__(60);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+var Picker = __WEBPACK_IMPORTED_MODULE_1_create_react_class___default()({
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__PickerMixin__["a" /* default */]],
+    statics: {
+        Item: function Item() {}
+    },
+    getDefaultProps: function getDefaultProps() {
+        return {
+            prefixCls: 'rmc-picker'
+        };
+    },
+    getInitialState: function getInitialState() {
+        var selectedValueState = void 0;
+        var _props = this.props,
+            selectedValue = _props.selectedValue,
+            defaultSelectedValue = _props.defaultSelectedValue,
+            children = _props.children;
+
+        if (selectedValue !== undefined) {
+            selectedValueState = selectedValue;
+        } else if (defaultSelectedValue !== undefined) {
+            selectedValueState = defaultSelectedValue;
+        } else if (children && children.length) {
+            selectedValueState = children[0].value;
+        }
+        return {
+            selectedValue: selectedValueState
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var _refs = this.refs,
+            content = _refs.content,
+            indicator = _refs.indicator,
+            mask = _refs.mask,
+            root = _refs.root;
+
+        var rootHeight = root.getBoundingClientRect().height;
+        // https://github.com/react-component/m-picker/issues/18
+        var itemHeight = this.itemHeight = indicator.getBoundingClientRect().height;
+        var num = Math.floor(rootHeight / itemHeight);
+        if (num % 2 === 0) {
+            num--;
+        }
+        num--;
+        num /= 2;
+        content.style.padding = itemHeight * num + 'px 0';
+        indicator.style.top = itemHeight * num + 'px';
+        mask.style.backgroundSize = '100% ' + itemHeight * num + 'px';
+        this.zscroller = new __WEBPACK_IMPORTED_MODULE_3_zscroller__["a" /* default */](content, {
+            scrollingX: false,
+            snapping: true,
+            locking: false,
+            penetrationDeceleration: .1,
+            minVelocityToKeepDecelerating: 0.5,
+            scrollingComplete: this.scrollingComplete
+        });
+        this.zscroller.setDisabled(this.props.disabled);
+        this.zscroller.scroller.setSnapSize(0, itemHeight);
+        this.select(this.state.selectedValue);
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        if ('selectedValue' in nextProps) {
+            this.setState({
+                selectedValue: nextProps.selectedValue
+            });
+        }
+        this.zscroller.setDisabled(nextProps.disabled);
+    },
+    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+        return this.state.selectedValue !== nextState.selectedValue || !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__isChildrenEqual__["a" /* default */])(this.props.children, nextProps.children);
+    },
+    componentDidUpdate: function componentDidUpdate() {
+        this.zscroller.reflow();
+        this.select(this.state.selectedValue);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        this.zscroller.destroy();
+    },
+    scrollTo: function scrollTo(top) {
+        this.zscroller.scroller.scrollTo(0, top);
+    },
+    fireValueChange: function fireValueChange(selectedValue) {
+        if (selectedValue !== this.state.selectedValue) {
+            if (!('selectedValue' in this.props)) {
+                this.setState({
+                    selectedValue: selectedValue
+                });
+            }
+            if (this.props.onValueChange) {
+                this.props.onValueChange(selectedValue);
+            }
+        }
+    },
+    scrollingComplete: function scrollingComplete() {
+        var _zscroller$scroller$g = this.zscroller.scroller.getValues(),
+            top = _zscroller$scroller$g.top;
+
+        if (top >= 0) {
+            this.doScrollingComplete(top);
+        }
+    },
+    getValue: function getValue() {
+        return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].props.value;
+    },
+    render: function render() {
+        var _pickerCls;
+
+        var props = this.props;
+        var prefixCls = props.prefixCls,
+            itemStyle = props.itemStyle,
+            indicatorStyle = props.indicatorStyle,
+            _props$indicatorClass = props.indicatorClassName,
+            indicatorClassName = _props$indicatorClass === undefined ? '' : _props$indicatorClass;
+        var selectedValue = this.state.selectedValue;
+
+        var itemClassName = prefixCls + '-item';
+        var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
+        var items = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.map(props.children, function (item) {
+            var _item$props = item.props,
+                _item$props$className = _item$props.className,
+                className = _item$props$className === undefined ? '' : _item$props$className,
+                style = _item$props.style,
+                value = _item$props.value,
+                children = _item$props.children;
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { style: _extends({}, itemStyle, style), className: (selectedValue === value ? selectedItemClassName : itemClassName) + ' ' + className, key: value },
+                children
+            );
+        });
+        var pickerCls = (_pickerCls = {}, _defineProperty(_pickerCls, props.className, !!props.className), _defineProperty(_pickerCls, prefixCls, true), _pickerCls);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()(pickerCls), ref: 'root', style: this.props.style },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: prefixCls + '-mask', ref: 'mask' }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: prefixCls + '-indicator ' + indicatorClassName, ref: 'indicator', style: indicatorStyle }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: prefixCls + '-content', ref: 'content' },
+                items
+            )
+        );
+    }
+});
+/* harmony default export */ __webpack_exports__["a"] = (Picker);
+
+/***/ }),
+
+/***/ 59:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* tslint:disable:no-console */
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    select: function select(value) {
+        var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(this.props.children);
+        for (var i = 0, len = children.length; i < len; i++) {
+            if (children[i].props.value === value) {
+                this.selectByIndex(i);
+                return;
+            }
+        }
+        this.selectByIndex(0);
+    },
+    selectByIndex: function selectByIndex(index) {
+        if (index < 0 || index >= __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.count(this.props.children) || !this.itemHeight) {
+            return;
+        }
+        this.scrollTo(index * this.itemHeight);
+    },
+    doScrollingComplete: function doScrollingComplete(top) {
+        var index = top / this.itemHeight;
+        var floor = Math.floor(index);
+        if (index - floor > 0.5) {
+            index = floor + 1;
+        } else {
+            index = floor;
+        }
+        var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(this.props.children);
+        index = Math.min(index, children.length - 1);
+        var child = children[index];
+        if (child) {
+            this.fireValueChange(child.props.value);
+        } else if (console.warn) {
+            console.warn('child not found', children, index);
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 60:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isChildrenEqual;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+function isChildrenEqual(_c1, _c2) {
+    if (_c1 === _c1) {
+        return true;
+    }
+    var c1 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_c1);
+    var c2 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_c2);
+    if (c1.length !== c2.length) {
+        return false;
+    }
+    var len = c1.length;
+    for (var i = 0; i < len; i++) {
+        if (c1[i].props.value !== c2[i].props.value || c1[i].props.children !== c2[i].props.children) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/***/ }),
+
+/***/ 78:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(79)
+  , root = typeof window === 'undefined' ? global : window
+  , vendors = ['moz', 'webkit']
+  , suffix = 'AnimationFrame'
+  , raf = root['request' + suffix]
+  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
+
+for(var i = 0; !raf && i < vendors.length; i++) {
+  raf = root[vendors[i] + 'Request' + suffix]
+  caf = root[vendors[i] + 'Cancel' + suffix]
+      || root[vendors[i] + 'CancelRequest' + suffix]
+}
+
+// Some versions of FF have rAF but not cAF
+if(!raf || !caf) {
+  var last = 0
+    , id = 0
+    , queue = []
+    , frameDuration = 1000 / 60
+
+  raf = function(callback) {
+    if(queue.length === 0) {
+      var _now = now()
+        , next = Math.max(0, frameDuration - (_now - last))
+      last = next + _now
+      setTimeout(function() {
+        var cp = queue.slice(0)
+        // Clear queue here to prevent
+        // callbacks from appending listeners
+        // to the current frame's queue
+        queue.length = 0
+        for(var i = 0; i < cp.length; i++) {
+          if(!cp[i].cancelled) {
+            try{
+              cp[i].callback(last)
+            } catch(e) {
+              setTimeout(function() { throw e }, 0)
+            }
+          }
+        }
+      }, Math.round(next))
+    }
+    queue.push({
+      handle: ++id,
+      callback: callback,
+      cancelled: false
+    })
+    return id
+  }
+
+  caf = function(handle) {
+    for(var i = 0; i < queue.length; i++) {
+      if(queue[i].handle === handle) {
+        queue[i].cancelled = true
+      }
+    }
+  }
+}
+
+module.exports = function(fn) {
+  // Wrap in a new function to prevent
+  // `cancel` potentially being assigned
+  // to the native rAF function
+  return raf.call(root, fn)
+}
+module.exports.cancel = function() {
+  caf.apply(root, arguments)
+}
+module.exports.polyfill = function() {
+  root.requestAnimationFrame = raf
+  root.cancelAnimationFrame = caf
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)))
+
+/***/ }),
+
+/***/ 79:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.12.2
+(function() {
+  var getNanoSeconds, hrtime, loadTime, moduleLoadTime, nodeLoadTime, upTime;
+
+  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
+    module.exports = function() {
+      return performance.now();
+    };
+  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
+    module.exports = function() {
+      return (getNanoSeconds() - nodeLoadTime) / 1e6;
+    };
+    hrtime = process.hrtime;
+    getNanoSeconds = function() {
+      var hr;
+      hr = hrtime();
+      return hr[0] * 1e9 + hr[1];
+    };
+    moduleLoadTime = getNanoSeconds();
+    upTime = process.uptime() * 1e9;
+    nodeLoadTime = moduleLoadTime - upTime;
+  } else if (Date.now) {
+    module.exports = function() {
+      return Date.now() - loadTime;
+    };
+    loadTime = Date.now();
+  } else {
+    module.exports = function() {
+      return new Date().getTime() - loadTime;
+    };
+    loadTime = new Date().getTime();
+  }
+
+}).call(this);
+
+//# sourceMappingURL=performance-now.js.map
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+
+/***/ 97:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_raf__);
+/*
+ * Scroller
+ * http://github.com/zynga/scroller
+ *
+ * Copyright 2011, Zynga Inc.
+ * Licensed under the MIT License.
+ * https://raw.github.com/zynga/scroller/master/MIT-LICENSE.txt
+ *
+ * Based on the work of: Unify Project (unify-project.org)
+ * http://unify-project.org
+ * Copyright 2011, Deutsche Telekom AG
+ * License: MIT + Apache (V2)
+ */
+
+/**
+ * Generic animation class with support for dropped frames both optional easing and duration.
+ *
+ * Optional duration is useful when the lifetime is defined by another condition than time
+ * e.g. speed of an animating object, etc.
+ *
+ * Dropped frame logic allows to keep using the same updater logic independent from the actual
+ * rendering. This eases a lot of cases where it might be pretty complex to break down a state
+ * based on the pure time difference.
+ */
+
+
+var desiredFrames = 60;
+var millisecondsPerSecond = 1000;
+var running = {};
+var counter = 1;
+var win = typeof window !== 'undefined' ? window : undefined;
+
+if (!win) {
+  win = typeof global !== 'undefined' ? global : {};
+}
+
+var Animate = {
+  /**
+   * Stops the given animation.
+   *
+   * @param id {Integer} Unique animation ID
+   * @return {Boolean} Whether the animation was stopped (aka, was running before)
+   */
+  stop: function stop(id) {
+    var cleared = running[id] != null;
+    if (cleared) {
+      running[id] = null;
+    }
+
+    return cleared;
+  },
+
+  /**
+   * Whether the given animation is still running.
+   *
+   * @param id {Integer} Unique animation ID
+   * @return {Boolean} Whether the animation is still running
+   */
+  isRunning: function isRunning(id) {
+    return running[id] != null;
+  },
+
+  /**
+   * Start the animation.
+   *
+   * @param stepCallback {Function} Pointer to function which is executed on every step.
+   *   Signature of the method should be `function(percent, now, virtual) { return continueWithAnimation; }`
+   * @param verifyCallback {Function} Executed before every animation step.
+   *   Signature of the method should be `function() { return continueWithAnimation; }`
+   * @param completedCallback {Function}
+   *   Signature of the method should be `function(droppedFrames, finishedAnimation) {}`
+   * @param duration {Integer} Milliseconds to run the animation
+   * @param easingMethod {Function} Pointer to easing function
+   *   Signature of the method should be `function(percent) { return modifiedValue; }`
+   * @return {Integer} Identifier of animation. Can be used to stop it any time.
+   */
+  start: function start(stepCallback, verifyCallback, completedCallback, duration, easingMethod) {
+    var start = +new Date();
+    var lastFrame = start;
+    var percent = 0;
+    var dropCounter = 0;
+    var id = counter++;
+
+    // Compacting running db automatically every few new animations
+    if (id % 20 === 0) {
+      var newRunning = {};
+      for (var usedId in running) {
+        newRunning[usedId] = true;
+      }
+      running = newRunning;
+    }
+
+    // This is the internal step method which is called every few milliseconds
+    var step = function step(virtual) {
+      // Normalize virtual value
+      var render = virtual !== true;
+
+      // Get current time
+      var now = +new Date();
+
+      // Verification is executed before next animation step
+      if (!running[id] || verifyCallback && !verifyCallback(id)) {
+
+        running[id] = null;
+        completedCallback && completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, false);
+        return;
+      }
+
+      // For the current rendering to apply let's update omitted steps in memory.
+      // This is important to bring internal state variables up-to-date with progress in time.
+      if (render) {
+
+        var droppedFrames = Math.round((now - lastFrame) / (millisecondsPerSecond / desiredFrames)) - 1;
+        for (var j = 0; j < Math.min(droppedFrames, 4); j++) {
+          step(true);
+          dropCounter++;
+        }
+      }
+
+      // Compute percent value
+      if (duration) {
+        percent = (now - start) / duration;
+        if (percent > 1) {
+          percent = 1;
+        }
+      }
+
+      // Execute step callback, then...
+      var value = easingMethod ? easingMethod(percent) : percent;
+      if ((stepCallback(value, now, render) === false || percent === 1) && render) {
+        running[id] = null;
+        completedCallback && completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, percent === 1 || duration == null);
+      } else if (render) {
+        lastFrame = now;
+        __WEBPACK_IMPORTED_MODULE_0_raf___default()(step);
+      }
+    };
+
+    // Mark as running
+    running[id] = true;
+
+    // Init first step
+    __WEBPACK_IMPORTED_MODULE_0_raf___default()(step);
+
+    // Return unique animation ID
+    return id;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Animate);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(45)))
+
+/***/ }),
+
+/***/ 98:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scroller__ = __webpack_require__(99);
+
+
+
+var MIN_INDICATOR_SIZE = 8;
+
+function setTransform(nodeStyle, value) {
+  nodeStyle.transform = value;
+  nodeStyle.webkitTransform = value;
+  nodeStyle.MozTransform = value;
+}
+
+function setTransformOrigin(nodeStyle, value) {
+  nodeStyle.transformOrigin = value;
+  nodeStyle.webkitTransformOrigin = value;
+  nodeStyle.MozTransformOrigin = value;
+}
+
+function DOMScroller(content) {
+  var _this = this;
+
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var scrollbars = void 0;
+  var indicators = void 0;
+  var indicatorsSize = void 0;
+  var scrollbarsSize = void 0;
+  var indicatorsPos = void 0;
+  var scrollbarsOpacity = void 0;
+  var contentSize = void 0;
+  var clientSize = void 0;
+
+  this.content = content;
+  this.container = content.parentNode;
+  this.options = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, options, {
+    scrollingComplete: function scrollingComplete() {
+      _this.clearScrollbarTimer();
+      _this.timer = setTimeout(function () {
+        if (_this._destroyed) {
+          return;
+        }
+        if (options.scrollingComplete) {
+          options.scrollingComplete();
+        }
+        if (scrollbars) {
+          ['x', 'y'].forEach(function (k) {
+            if (scrollbars[k]) {
+              _this.setScrollbarOpacity(k, 0);
+            }
+          });
+        }
+      }, 0);
+    }
+  });
+
+  if (this.options.scrollbars) {
+    scrollbars = this.scrollbars = {};
+    indicators = this.indicators = {};
+    indicatorsSize = this.indicatorsSize = {};
+    scrollbarsSize = this.scrollbarsSize = {};
+    indicatorsPos = this.indicatorsPos = {};
+    scrollbarsOpacity = this.scrollbarsOpacity = {};
+    contentSize = this.contentSize = {};
+    clientSize = this.clientSize = {};
+
+    ['x', 'y'].forEach(function (k) {
+      var optionName = k === 'x' ? 'scrollingX' : 'scrollingY';
+      if (_this.options[optionName] !== false) {
+        scrollbars[k] = document.createElement('div');
+        scrollbars[k].className = 'zscroller-scrollbar-' + k;
+        indicators[k] = document.createElement('div');
+        indicators[k].className = 'zscroller-indicator-' + k;
+        scrollbars[k].appendChild(indicators[k]);
+        indicatorsSize[k] = -1;
+        scrollbarsOpacity[k] = 0;
+        indicatorsPos[k] = 0;
+        _this.container.appendChild(scrollbars[k]);
+      }
+    });
+  }
+
+  var init = true;
+  var contentStyle = content.style;
+
+  // create Scroller instance
+  this.scroller = new __WEBPACK_IMPORTED_MODULE_1__Scroller__["a" /* default */](function (left, top, zoom) {
+    if (!init && options.onScroll) {
+      options.onScroll();
+    }
+    setTransform(contentStyle, 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')');
+    if (scrollbars) {
+      ['x', 'y'].forEach(function (k) {
+        if (scrollbars[k]) {
+          var pos = k === 'x' ? left : top;
+          if (clientSize[k] >= contentSize[k]) {
+            _this.setScrollbarOpacity(k, 0);
+          } else {
+            if (!init) {
+              _this.setScrollbarOpacity(k, 1);
+            }
+            var normalIndicatorSize = clientSize[k] / contentSize[k] * scrollbarsSize[k];
+            var size = normalIndicatorSize;
+            var indicatorPos = void 0;
+            if (pos < 0) {
+              size = Math.max(normalIndicatorSize + pos, MIN_INDICATOR_SIZE);
+              indicatorPos = 0;
+            } else if (pos > contentSize[k] - clientSize[k]) {
+              size = Math.max(normalIndicatorSize + contentSize[k] - clientSize[k] - pos, MIN_INDICATOR_SIZE);
+              indicatorPos = scrollbarsSize[k] - size;
+            } else {
+              indicatorPos = pos / contentSize[k] * scrollbarsSize[k];
+            }
+            _this.setIndicatorSize(k, size);
+            _this.setIndicatorPos(k, indicatorPos);
+          }
+        }
+      });
+    }
+    init = false;
+  }, this.options);
+
+  // bind events
+  this.bindEvents();
+
+  // the content element needs a correct transform origin for zooming
+  setTransformOrigin(content.style, 'left top');
+
+  // reflow for the first time
+  this.reflow();
+}
+
+DOMScroller.prototype.setDisabled = function setDisabled(disabled) {
+  this.disabled = disabled;
+};
+
+DOMScroller.prototype.clearScrollbarTimer = function clearScrollbarTimer() {
+  if (this.timer) {
+    clearTimeout(this.timer);
+    this.timer = null;
+  }
+};
+
+DOMScroller.prototype.setScrollbarOpacity = function setScrollbarOpacity(axis, opacity) {
+  if (this.scrollbarsOpacity[axis] !== opacity) {
+    this.scrollbars[axis].style.opacity = opacity;
+    this.scrollbarsOpacity[axis] = opacity;
+  }
+};
+
+DOMScroller.prototype.setIndicatorPos = function setIndicatorPos(axis, value) {
+  if (this.indicatorsPos[axis] !== value) {
+    if (axis === 'x') {
+      setTransform(this.indicators[axis].style, 'translate3d(' + value + 'px,0,0)');
+    } else {
+      setTransform(this.indicators[axis].style, 'translate3d(0, ' + value + 'px,0)');
+    }
+    this.indicatorsPos[axis] = value;
+  }
+};
+
+DOMScroller.prototype.setIndicatorSize = function setIndicatorSize(axis, value) {
+  if (this.indicatorsSize[axis] !== value) {
+    this.indicators[axis].style[axis === 'x' ? 'width' : 'height'] = value + 'px';
+    this.indicatorsSize[axis] = value;
+  }
+};
+
+DOMScroller.prototype.reflow = function reflow() {
+  if (this.scrollbars) {
+    this.contentSize.x = this.content.offsetWidth;
+    this.contentSize.y = this.content.offsetHeight;
+    this.clientSize.x = this.container.clientWidth;
+    this.clientSize.y = this.container.clientHeight;
+    if (this.scrollbars.x) {
+      this.scrollbarsSize.x = this.scrollbars.x.offsetWidth;
+    }
+    if (this.scrollbars.y) {
+      this.scrollbarsSize.y = this.scrollbars.y.offsetHeight;
+    }
+  }
+  // set the right scroller dimensions
+  this.scroller.setDimensions(this.container.clientWidth, this.container.clientHeight, this.content.offsetWidth, this.content.offsetHeight);
+
+  // refresh the position for zooming purposes
+  var rect = this.container.getBoundingClientRect();
+  this.scroller.setPosition(rect.x + this.container.clientLeft, rect.y + this.container.clientTop);
+};
+
+DOMScroller.prototype.destroy = function destroy() {
+  this._destroyed = true;
+  window.removeEventListener('resize', this.onResize, false);
+  this.container.removeEventListener('touchstart', this.onTouchStart, false);
+  this.container.removeEventListener('touchmove', this.onTouchMove, false);
+  this.container.removeEventListener('touchend', this.onTouchEnd, false);
+  this.container.removeEventListener('touchcancel', this.onTouchCancel, false);
+  this.container.removeEventListener('mousedown', this.onMouseDown, false);
+  document.removeEventListener('mousemove', this.onMouseMove, false);
+  document.removeEventListener('mouseup', this.onMouseUp, false);
+  this.container.removeEventListener('mousewheel', this.onMouseWheel, false);
+};
+
+DOMScroller.prototype.bindEvents = function bindEvents() {
+  var _this2 = this;
+
+  var that = this;
+
+  // reflow handling
+  window.addEventListener('resize', this.onResize = function () {
+    that.reflow();
+  }, false);
+
+  var lockMouse = false;
+  var releaseLockTimer = void 0;
+
+  this.container.addEventListener('touchstart', this.onTouchStart = function (e) {
+    lockMouse = true;
+    if (releaseLockTimer) {
+      clearTimeout(releaseLockTimer);
+      releaseLockTimer = null;
+    }
+    // Don't react if initial down happens on a form element
+    if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
+      return;
+    }
+    _this2.clearScrollbarTimer();
+    // reflow since the container may have changed
+    that.reflow();
+    that.scroller.doTouchStart(e.touches, e.timeStamp);
+  }, false);
+
+  this.container.addEventListener('touchmove', this.onTouchMove = function (e) {
+    e.preventDefault();
+    that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
+  }, false);
+
+  this.container.addEventListener('touchend', this.onTouchEnd = function (e) {
+    that.scroller.doTouchEnd(e.timeStamp);
+    releaseLockTimer = setTimeout(function () {
+      lockMouse = false;
+    }, 300);
+  }, false);
+
+  this.container.addEventListener('touchcancel', this.onTouchCancel = function (e) {
+    that.scroller.doTouchEnd(e.timeStamp);
+    releaseLockTimer = setTimeout(function () {
+      lockMouse = false;
+    }, 300);
+  }, false);
+
+  this.onMouseUp = function (e) {
+    that.scroller.doTouchEnd(e.timeStamp);
+    document.removeEventListener('mousemove', _this2.onMouseMove, false);
+    document.removeEventListener('mouseup', _this2.onMouseUp, false);
+  };
+
+  this.onMouseMove = function (e) {
+    that.scroller.doTouchMove([{
+      pageX: e.pageX,
+      pageY: e.pageY
+    }], e.timeStamp);
+  };
+
+  this.container.addEventListener('mousedown', this.onMouseDown = function (e) {
+    if (lockMouse || e.target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
+      return;
+    }
+    _this2.clearScrollbarTimer();
+    that.scroller.doTouchStart([{
+      pageX: e.pageX,
+      pageY: e.pageY
+    }], e.timeStamp);
+    // reflow since the container may have changed
+    that.reflow();
+    e.preventDefault();
+    document.addEventListener('mousemove', _this2.onMouseMove, false);
+    document.addEventListener('mouseup', _this2.onMouseUp, false);
+  }, false);
+
+  this.container.addEventListener('mousewheel', this.onMouseWheel = function (e) {
+    if (that.options.zooming) {
+      that.scroller.doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);
+      e.preventDefault();
+    }
+  }, false);
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (DOMScroller);
+
+/***/ }),
+
+/***/ 99:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Animate__ = __webpack_require__(97);
 /*
  * Scroller
  * http://github.com/zynga/scroller
@@ -1302,1048 +2330,7 @@ for (var key in members) {
 
 /* harmony default export */ __webpack_exports__["a"] = (Scroller);
 
-/***/ }),
-
-/***/ 147:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_Picker__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
-
-
-
-
-/* tslint:disable:no-console */
-
-
-
-
-var count = 0;
-var len = 10;
-
-var PickerDemo = function (_React$Component) {
-    __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(PickerDemo, _React$Component);
-
-    function PickerDemo() {
-        __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default()(this, PickerDemo);
-
-        var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (PickerDemo.__proto__ || Object.getPrototypeOf(PickerDemo)).apply(this, arguments));
-
-        _this.state = {
-            disabled: false,
-            items: _this.getItems(count),
-            value: '' + count
-        };
-        _this.onChange = function (value) {
-            console.log('onChange', value);
-            _this.setState({
-                value: value
-            });
-        };
-        _this.disable = function () {
-            _this.setState({
-                disabled: !_this.state.disabled
-            });
-        };
-        _this.rerender = function () {
-            count += len;
-            var items = _this.getItems(count);
-            _this.setState({
-                items: items,
-                value: String(count)
-            });
-        };
-        return _this;
-    }
-
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(PickerDemo, [{
-        key: 'getItems',
-        value: function getItems(start) {
-            var items = [];
-            for (var i = start; i < start + len; i++) {
-                items.push(__WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_5__src_Picker__["a" /* default */].Item,
-                    { value: i, key: i },
-                    count,
-                    ' ',
-                    i
-                ));
-            }
-            return items;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                'div',
-                { style: { border: '1px solid black', padding: 10 } },
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    'button',
-                    { onClick: this.rerender },
-                    'rerender'
-                ),
-                '\xA0',
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    'button',
-                    { onClick: this.disable },
-                    this.state.disabled ? 'enable' : 'disable'
-                ),
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_5__src_Picker__["a" /* default */],
-                    { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
-                    this.state.items
-                )
-            );
-        }
-    }]);
-
-    return PickerDemo;
-}(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
-
-__WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(PickerDemo, null), document.getElementById('__react-content'));
-
-/***/ }),
-
-/***/ 310:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(147);
-
-
-/***/ }),
-
-/***/ 46:
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 48:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2016 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				classes.push(classNames.apply(null, arg));
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = classNames;
-	} else if (true) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-			return classNames;
-		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {
-		window.classNames = classNames;
-	}
-}());
-
-
-/***/ }),
-
-/***/ 59:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_create_react_class__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_create_react_class__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_classnames__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_zscroller__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__PickerMixin__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__isChildrenEqual__ = __webpack_require__(61);
-
-
-
-
-
-
-
-
-var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
-    mixins: [__WEBPACK_IMPORTED_MODULE_6__PickerMixin__["a" /* default */]],
-    statics: {
-        Item: function Item() {}
-    },
-    getDefaultProps: function getDefaultProps() {
-        return {
-            prefixCls: 'rmc-picker'
-        };
-    },
-    getInitialState: function getInitialState() {
-        var selectedValueState = void 0;
-        var _props = this.props,
-            selectedValue = _props.selectedValue,
-            defaultSelectedValue = _props.defaultSelectedValue,
-            children = _props.children;
-
-        if (selectedValue !== undefined) {
-            selectedValueState = selectedValue;
-        } else if (defaultSelectedValue !== undefined) {
-            selectedValueState = defaultSelectedValue;
-        } else if (children && children.length) {
-            selectedValueState = children[0].value;
-        }
-        return {
-            selectedValue: selectedValueState
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var _refs = this.refs,
-            content = _refs.content,
-            indicator = _refs.indicator,
-            mask = _refs.mask,
-            root = _refs.root;
-
-        var rootHeight = root.getBoundingClientRect().height;
-        // https://github.com/react-component/m-picker/issues/18
-        var itemHeight = this.itemHeight = indicator.getBoundingClientRect().height;
-        var num = Math.floor(rootHeight / itemHeight);
-        if (num % 2 === 0) {
-            num--;
-        }
-        num--;
-        num /= 2;
-        content.style.padding = itemHeight * num + 'px 0';
-        indicator.style.top = itemHeight * num + 'px';
-        mask.style.backgroundSize = '100% ' + itemHeight * num + 'px';
-        this.zscroller = new __WEBPACK_IMPORTED_MODULE_5_zscroller__["a" /* default */](content, {
-            scrollingX: false,
-            snapping: true,
-            locking: false,
-            penetrationDeceleration: .1,
-            minVelocityToKeepDecelerating: 0.5,
-            scrollingComplete: this.scrollingComplete
-        });
-        this.zscroller.setDisabled(this.props.disabled);
-        this.zscroller.scroller.setSnapSize(0, itemHeight);
-        this.select(this.state.selectedValue);
-    },
-    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-        if ('selectedValue' in nextProps) {
-            this.setState({
-                selectedValue: nextProps.selectedValue
-            });
-        }
-        this.zscroller.setDisabled(nextProps.disabled);
-    },
-    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
-        return this.state.selectedValue !== nextState.selectedValue || !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__isChildrenEqual__["a" /* default */])(this.props.children, nextProps.children);
-    },
-    componentDidUpdate: function componentDidUpdate() {
-        this.zscroller.reflow();
-        this.select(this.state.selectedValue);
-    },
-    componentWillUnmount: function componentWillUnmount() {
-        this.zscroller.destroy();
-    },
-    scrollTo: function scrollTo(top) {
-        this.zscroller.scroller.scrollTo(0, top);
-    },
-    fireValueChange: function fireValueChange(selectedValue) {
-        if (selectedValue !== this.state.selectedValue) {
-            if (!('selectedValue' in this.props)) {
-                this.setState({
-                    selectedValue: selectedValue
-                });
-            }
-            if (this.props.onValueChange) {
-                this.props.onValueChange(selectedValue);
-            }
-        }
-    },
-    scrollingComplete: function scrollingComplete() {
-        var _zscroller$scroller$g = this.zscroller.scroller.getValues(),
-            top = _zscroller$scroller$g.top;
-
-        if (top >= 0) {
-            this.doScrollingComplete(top);
-        }
-    },
-    getValue: function getValue() {
-        return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].props.value;
-    },
-    render: function render() {
-        var _pickerCls;
-
-        var props = this.props;
-        var prefixCls = props.prefixCls,
-            itemStyle = props.itemStyle,
-            indicatorStyle = props.indicatorStyle,
-            _props$indicatorClass = props.indicatorClassName,
-            indicatorClassName = _props$indicatorClass === undefined ? '' : _props$indicatorClass;
-        var selectedValue = this.state.selectedValue;
-
-        var itemClassName = prefixCls + '-item';
-        var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
-        var items = __WEBPACK_IMPORTED_MODULE_2_react___default.a.Children.map(props.children, function (item) {
-            var _item$props = item.props,
-                _item$props$className = _item$props.className,
-                className = _item$props$className === undefined ? '' : _item$props$className,
-                style = _item$props.style,
-                value = _item$props.value,
-                children = _item$props.children;
-
-            return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
-                'div',
-                { style: __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, itemStyle, style), className: (selectedValue === value ? selectedItemClassName : itemClassName) + ' ' + className, key: value },
-                children
-            );
-        });
-        var pickerCls = (_pickerCls = {}, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_pickerCls, props.className, !!props.className), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_pickerCls, prefixCls, true), _pickerCls);
-        return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
-            'div',
-            { className: __WEBPACK_IMPORTED_MODULE_4_classnames___default()(pickerCls), ref: 'root', style: this.props.style },
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement('div', { className: prefixCls + '-mask', ref: 'mask' }),
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement('div', { className: prefixCls + '-indicator ' + indicatorClassName, ref: 'indicator', style: indicatorStyle }),
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
-                'div',
-                { className: prefixCls + '-content', ref: 'content' },
-                items
-            )
-        );
-    }
-});
-/* harmony default export */ __webpack_exports__["a"] = (Picker);
-
-/***/ }),
-
-/***/ 60:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* tslint:disable:no-console */
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    select: function select(value) {
-        var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(this.props.children);
-        for (var i = 0, len = children.length; i < len; i++) {
-            if (children[i].props.value === value) {
-                this.selectByIndex(i);
-                return;
-            }
-        }
-        this.selectByIndex(0);
-    },
-    selectByIndex: function selectByIndex(index) {
-        if (index < 0 || index >= __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.count(this.props.children) || !this.itemHeight) {
-            return;
-        }
-        this.scrollTo(index * this.itemHeight);
-    },
-    doScrollingComplete: function doScrollingComplete(top) {
-        var index = top / this.itemHeight;
-        var floor = Math.floor(index);
-        if (index - floor > 0.5) {
-            index = floor + 1;
-        } else {
-            index = floor;
-        }
-        var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(this.props.children);
-        index = Math.min(index, children.length - 1);
-        var child = children[index];
-        if (child) {
-            this.fireValueChange(child.props.value);
-        } else if (console.warn) {
-            console.warn('child not found', children, index);
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 61:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = isChildrenEqual;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-
-function isChildrenEqual(_c1, _c2) {
-    if (_c1 === _c1) {
-        return true;
-    }
-    var c1 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_c1);
-    var c2 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_c2);
-    if (c1.length !== c2.length) {
-        return false;
-    }
-    var len = c1.length;
-    for (var i = 0; i < len; i++) {
-        if (c1[i].props.value !== c2[i].props.value || c1[i].props.children !== c2[i].props.children) {
-            return false;
-        }
-    }
-    return true;
-}
-
-/***/ }),
-
-/***/ 76:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 79:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(80)
-  , root = typeof window === 'undefined' ? global : window
-  , vendors = ['moz', 'webkit']
-  , suffix = 'AnimationFrame'
-  , raf = root['request' + suffix]
-  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
-
-for(var i = 0; !raf && i < vendors.length; i++) {
-  raf = root[vendors[i] + 'Request' + suffix]
-  caf = root[vendors[i] + 'Cancel' + suffix]
-      || root[vendors[i] + 'CancelRequest' + suffix]
-}
-
-// Some versions of FF have rAF but not cAF
-if(!raf || !caf) {
-  var last = 0
-    , id = 0
-    , queue = []
-    , frameDuration = 1000 / 60
-
-  raf = function(callback) {
-    if(queue.length === 0) {
-      var _now = now()
-        , next = Math.max(0, frameDuration - (_now - last))
-      last = next + _now
-      setTimeout(function() {
-        var cp = queue.slice(0)
-        // Clear queue here to prevent
-        // callbacks from appending listeners
-        // to the current frame's queue
-        queue.length = 0
-        for(var i = 0; i < cp.length; i++) {
-          if(!cp[i].cancelled) {
-            try{
-              cp[i].callback(last)
-            } catch(e) {
-              setTimeout(function() { throw e }, 0)
-            }
-          }
-        }
-      }, Math.round(next))
-    }
-    queue.push({
-      handle: ++id,
-      callback: callback,
-      cancelled: false
-    })
-    return id
-  }
-
-  caf = function(handle) {
-    for(var i = 0; i < queue.length; i++) {
-      if(queue[i].handle === handle) {
-        queue[i].cancelled = true
-      }
-    }
-  }
-}
-
-module.exports = function(fn) {
-  // Wrap in a new function to prevent
-  // `cancel` potentially being assigned
-  // to the native rAF function
-  return raf.call(root, fn)
-}
-module.exports.cancel = function() {
-  caf.apply(root, arguments)
-}
-module.exports.polyfill = function() {
-  root.requestAnimationFrame = raf
-  root.cancelAnimationFrame = caf
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(46)))
-
-/***/ }),
-
-/***/ 80:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.12.2
-(function() {
-  var getNanoSeconds, hrtime, loadTime, moduleLoadTime, nodeLoadTime, upTime;
-
-  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
-    module.exports = function() {
-      return performance.now();
-    };
-  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
-    module.exports = function() {
-      return (getNanoSeconds() - nodeLoadTime) / 1e6;
-    };
-    hrtime = process.hrtime;
-    getNanoSeconds = function() {
-      var hr;
-      hr = hrtime();
-      return hr[0] * 1e9 + hr[1];
-    };
-    moduleLoadTime = getNanoSeconds();
-    upTime = process.uptime() * 1e9;
-    nodeLoadTime = moduleLoadTime - upTime;
-  } else if (Date.now) {
-    module.exports = function() {
-      return Date.now() - loadTime;
-    };
-    loadTime = Date.now();
-  } else {
-    module.exports = function() {
-      return new Date().getTime() - loadTime;
-    };
-    loadTime = new Date().getTime();
-  }
-
-}).call(this);
-
-//# sourceMappingURL=performance-now.js.map
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-
-/***/ 98:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_raf__);
-/*
- * Scroller
- * http://github.com/zynga/scroller
- *
- * Copyright 2011, Zynga Inc.
- * Licensed under the MIT License.
- * https://raw.github.com/zynga/scroller/master/MIT-LICENSE.txt
- *
- * Based on the work of: Unify Project (unify-project.org)
- * http://unify-project.org
- * Copyright 2011, Deutsche Telekom AG
- * License: MIT + Apache (V2)
- */
-
-/**
- * Generic animation class with support for dropped frames both optional easing and duration.
- *
- * Optional duration is useful when the lifetime is defined by another condition than time
- * e.g. speed of an animating object, etc.
- *
- * Dropped frame logic allows to keep using the same updater logic independent from the actual
- * rendering. This eases a lot of cases where it might be pretty complex to break down a state
- * based on the pure time difference.
- */
-
-
-var desiredFrames = 60;
-var millisecondsPerSecond = 1000;
-var running = {};
-var counter = 1;
-var win = typeof window !== 'undefined' ? window : undefined;
-
-if (!win) {
-  win = typeof global !== 'undefined' ? global : {};
-}
-
-var Animate = {
-  /**
-   * Stops the given animation.
-   *
-   * @param id {Integer} Unique animation ID
-   * @return {Boolean} Whether the animation was stopped (aka, was running before)
-   */
-  stop: function stop(id) {
-    var cleared = running[id] != null;
-    if (cleared) {
-      running[id] = null;
-    }
-
-    return cleared;
-  },
-
-  /**
-   * Whether the given animation is still running.
-   *
-   * @param id {Integer} Unique animation ID
-   * @return {Boolean} Whether the animation is still running
-   */
-  isRunning: function isRunning(id) {
-    return running[id] != null;
-  },
-
-  /**
-   * Start the animation.
-   *
-   * @param stepCallback {Function} Pointer to function which is executed on every step.
-   *   Signature of the method should be `function(percent, now, virtual) { return continueWithAnimation; }`
-   * @param verifyCallback {Function} Executed before every animation step.
-   *   Signature of the method should be `function() { return continueWithAnimation; }`
-   * @param completedCallback {Function}
-   *   Signature of the method should be `function(droppedFrames, finishedAnimation) {}`
-   * @param duration {Integer} Milliseconds to run the animation
-   * @param easingMethod {Function} Pointer to easing function
-   *   Signature of the method should be `function(percent) { return modifiedValue; }`
-   * @return {Integer} Identifier of animation. Can be used to stop it any time.
-   */
-  start: function start(stepCallback, verifyCallback, completedCallback, duration, easingMethod) {
-    var start = +new Date();
-    var lastFrame = start;
-    var percent = 0;
-    var dropCounter = 0;
-    var id = counter++;
-
-    // Compacting running db automatically every few new animations
-    if (id % 20 === 0) {
-      var newRunning = {};
-      for (var usedId in running) {
-        newRunning[usedId] = true;
-      }
-      running = newRunning;
-    }
-
-    // This is the internal step method which is called every few milliseconds
-    var step = function step(virtual) {
-      // Normalize virtual value
-      var render = virtual !== true;
-
-      // Get current time
-      var now = +new Date();
-
-      // Verification is executed before next animation step
-      if (!running[id] || verifyCallback && !verifyCallback(id)) {
-
-        running[id] = null;
-        completedCallback && completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, false);
-        return;
-      }
-
-      // For the current rendering to apply let's update omitted steps in memory.
-      // This is important to bring internal state variables up-to-date with progress in time.
-      if (render) {
-
-        var droppedFrames = Math.round((now - lastFrame) / (millisecondsPerSecond / desiredFrames)) - 1;
-        for (var j = 0; j < Math.min(droppedFrames, 4); j++) {
-          step(true);
-          dropCounter++;
-        }
-      }
-
-      // Compute percent value
-      if (duration) {
-        percent = (now - start) / duration;
-        if (percent > 1) {
-          percent = 1;
-        }
-      }
-
-      // Execute step callback, then...
-      var value = easingMethod ? easingMethod(percent) : percent;
-      if ((stepCallback(value, now, render) === false || percent === 1) && render) {
-        running[id] = null;
-        completedCallback && completedCallback(desiredFrames - dropCounter / ((now - start) / millisecondsPerSecond), id, percent === 1 || duration == null);
-      } else if (render) {
-        lastFrame = now;
-        __WEBPACK_IMPORTED_MODULE_0_raf___default()(step);
-      }
-    };
-
-    // Mark as running
-    running[id] = true;
-
-    // Init first step
-    __WEBPACK_IMPORTED_MODULE_0_raf___default()(step);
-
-    // Return unique animation ID
-    return id;
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Animate);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(46)))
-
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scroller__ = __webpack_require__(100);
-
-
-
-var MIN_INDICATOR_SIZE = 8;
-
-function setTransform(nodeStyle, value) {
-  nodeStyle.transform = value;
-  nodeStyle.webkitTransform = value;
-  nodeStyle.MozTransform = value;
-}
-
-function setTransformOrigin(nodeStyle, value) {
-  nodeStyle.transformOrigin = value;
-  nodeStyle.webkitTransformOrigin = value;
-  nodeStyle.MozTransformOrigin = value;
-}
-
-function DOMScroller(content) {
-  var _this = this;
-
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  var scrollbars = void 0;
-  var indicators = void 0;
-  var indicatorsSize = void 0;
-  var scrollbarsSize = void 0;
-  var indicatorsPos = void 0;
-  var scrollbarsOpacity = void 0;
-  var contentSize = void 0;
-  var clientSize = void 0;
-
-  this.content = content;
-  this.container = content.parentNode;
-  this.options = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, options, {
-    scrollingComplete: function scrollingComplete() {
-      _this.clearScrollbarTimer();
-      _this.timer = setTimeout(function () {
-        if (_this._destroyed) {
-          return;
-        }
-        if (options.scrollingComplete) {
-          options.scrollingComplete();
-        }
-        if (scrollbars) {
-          ['x', 'y'].forEach(function (k) {
-            if (scrollbars[k]) {
-              _this.setScrollbarOpacity(k, 0);
-            }
-          });
-        }
-      }, 0);
-    }
-  });
-
-  if (this.options.scrollbars) {
-    scrollbars = this.scrollbars = {};
-    indicators = this.indicators = {};
-    indicatorsSize = this.indicatorsSize = {};
-    scrollbarsSize = this.scrollbarsSize = {};
-    indicatorsPos = this.indicatorsPos = {};
-    scrollbarsOpacity = this.scrollbarsOpacity = {};
-    contentSize = this.contentSize = {};
-    clientSize = this.clientSize = {};
-
-    ['x', 'y'].forEach(function (k) {
-      var optionName = k === 'x' ? 'scrollingX' : 'scrollingY';
-      if (_this.options[optionName] !== false) {
-        scrollbars[k] = document.createElement('div');
-        scrollbars[k].className = 'zscroller-scrollbar-' + k;
-        indicators[k] = document.createElement('div');
-        indicators[k].className = 'zscroller-indicator-' + k;
-        scrollbars[k].appendChild(indicators[k]);
-        indicatorsSize[k] = -1;
-        scrollbarsOpacity[k] = 0;
-        indicatorsPos[k] = 0;
-        _this.container.appendChild(scrollbars[k]);
-      }
-    });
-  }
-
-  var init = true;
-  var contentStyle = content.style;
-
-  // create Scroller instance
-  this.scroller = new __WEBPACK_IMPORTED_MODULE_1__Scroller__["a" /* default */](function (left, top, zoom) {
-    if (!init && options.onScroll) {
-      options.onScroll();
-    }
-    setTransform(contentStyle, 'translate3d(' + -left + 'px,' + -top + 'px,0) scale(' + zoom + ')');
-    if (scrollbars) {
-      ['x', 'y'].forEach(function (k) {
-        if (scrollbars[k]) {
-          var pos = k === 'x' ? left : top;
-          if (clientSize[k] >= contentSize[k]) {
-            _this.setScrollbarOpacity(k, 0);
-          } else {
-            if (!init) {
-              _this.setScrollbarOpacity(k, 1);
-            }
-            var normalIndicatorSize = clientSize[k] / contentSize[k] * scrollbarsSize[k];
-            var size = normalIndicatorSize;
-            var indicatorPos = void 0;
-            if (pos < 0) {
-              size = Math.max(normalIndicatorSize + pos, MIN_INDICATOR_SIZE);
-              indicatorPos = 0;
-            } else if (pos > contentSize[k] - clientSize[k]) {
-              size = Math.max(normalIndicatorSize + contentSize[k] - clientSize[k] - pos, MIN_INDICATOR_SIZE);
-              indicatorPos = scrollbarsSize[k] - size;
-            } else {
-              indicatorPos = pos / contentSize[k] * scrollbarsSize[k];
-            }
-            _this.setIndicatorSize(k, size);
-            _this.setIndicatorPos(k, indicatorPos);
-          }
-        }
-      });
-    }
-    init = false;
-  }, this.options);
-
-  // bind events
-  this.bindEvents();
-
-  // the content element needs a correct transform origin for zooming
-  setTransformOrigin(content.style, 'left top');
-
-  // reflow for the first time
-  this.reflow();
-}
-
-DOMScroller.prototype.setDisabled = function setDisabled(disabled) {
-  this.disabled = disabled;
-};
-
-DOMScroller.prototype.clearScrollbarTimer = function clearScrollbarTimer() {
-  if (this.timer) {
-    clearTimeout(this.timer);
-    this.timer = null;
-  }
-};
-
-DOMScroller.prototype.setScrollbarOpacity = function setScrollbarOpacity(axis, opacity) {
-  if (this.scrollbarsOpacity[axis] !== opacity) {
-    this.scrollbars[axis].style.opacity = opacity;
-    this.scrollbarsOpacity[axis] = opacity;
-  }
-};
-
-DOMScroller.prototype.setIndicatorPos = function setIndicatorPos(axis, value) {
-  if (this.indicatorsPos[axis] !== value) {
-    if (axis === 'x') {
-      setTransform(this.indicators[axis].style, 'translate3d(' + value + 'px,0,0)');
-    } else {
-      setTransform(this.indicators[axis].style, 'translate3d(0, ' + value + 'px,0)');
-    }
-    this.indicatorsPos[axis] = value;
-  }
-};
-
-DOMScroller.prototype.setIndicatorSize = function setIndicatorSize(axis, value) {
-  if (this.indicatorsSize[axis] !== value) {
-    this.indicators[axis].style[axis === 'x' ? 'width' : 'height'] = value + 'px';
-    this.indicatorsSize[axis] = value;
-  }
-};
-
-DOMScroller.prototype.reflow = function reflow() {
-  if (this.scrollbars) {
-    this.contentSize.x = this.content.offsetWidth;
-    this.contentSize.y = this.content.offsetHeight;
-    this.clientSize.x = this.container.clientWidth;
-    this.clientSize.y = this.container.clientHeight;
-    if (this.scrollbars.x) {
-      this.scrollbarsSize.x = this.scrollbars.x.offsetWidth;
-    }
-    if (this.scrollbars.y) {
-      this.scrollbarsSize.y = this.scrollbars.y.offsetHeight;
-    }
-  }
-  // set the right scroller dimensions
-  this.scroller.setDimensions(this.container.clientWidth, this.container.clientHeight, this.content.offsetWidth, this.content.offsetHeight);
-
-  // refresh the position for zooming purposes
-  var rect = this.container.getBoundingClientRect();
-  this.scroller.setPosition(rect.x + this.container.clientLeft, rect.y + this.container.clientTop);
-};
-
-DOMScroller.prototype.destroy = function destroy() {
-  this._destroyed = true;
-  window.removeEventListener('resize', this.onResize, false);
-  this.container.removeEventListener('touchstart', this.onTouchStart, false);
-  this.container.removeEventListener('touchmove', this.onTouchMove, false);
-  this.container.removeEventListener('touchend', this.onTouchEnd, false);
-  this.container.removeEventListener('touchcancel', this.onTouchCancel, false);
-  this.container.removeEventListener('mousedown', this.onMouseDown, false);
-  document.removeEventListener('mousemove', this.onMouseMove, false);
-  document.removeEventListener('mouseup', this.onMouseUp, false);
-  this.container.removeEventListener('mousewheel', this.onMouseWheel, false);
-};
-
-DOMScroller.prototype.bindEvents = function bindEvents() {
-  var _this2 = this;
-
-  var that = this;
-
-  // reflow handling
-  window.addEventListener('resize', this.onResize = function () {
-    that.reflow();
-  }, false);
-
-  var lockMouse = false;
-  var releaseLockTimer = void 0;
-
-  this.container.addEventListener('touchstart', this.onTouchStart = function (e) {
-    lockMouse = true;
-    if (releaseLockTimer) {
-      clearTimeout(releaseLockTimer);
-      releaseLockTimer = null;
-    }
-    // Don't react if initial down happens on a form element
-    if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
-      return;
-    }
-    _this2.clearScrollbarTimer();
-    // reflow since the container may have changed
-    that.reflow();
-    that.scroller.doTouchStart(e.touches, e.timeStamp);
-  }, false);
-
-  this.container.addEventListener('touchmove', this.onTouchMove = function (e) {
-    e.preventDefault();
-    that.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
-  }, false);
-
-  this.container.addEventListener('touchend', this.onTouchEnd = function (e) {
-    that.scroller.doTouchEnd(e.timeStamp);
-    releaseLockTimer = setTimeout(function () {
-      lockMouse = false;
-    }, 300);
-  }, false);
-
-  this.container.addEventListener('touchcancel', this.onTouchCancel = function (e) {
-    that.scroller.doTouchEnd(e.timeStamp);
-    releaseLockTimer = setTimeout(function () {
-      lockMouse = false;
-    }, 300);
-  }, false);
-
-  this.onMouseUp = function (e) {
-    that.scroller.doTouchEnd(e.timeStamp);
-    document.removeEventListener('mousemove', _this2.onMouseMove, false);
-    document.removeEventListener('mouseup', _this2.onMouseUp, false);
-  };
-
-  this.onMouseMove = function (e) {
-    that.scroller.doTouchMove([{
-      pageX: e.pageX,
-      pageY: e.pageY
-    }], e.timeStamp);
-  };
-
-  this.container.addEventListener('mousedown', this.onMouseDown = function (e) {
-    if (lockMouse || e.target.tagName.match(/input|textarea|select/i) || _this2.disabled) {
-      return;
-    }
-    _this2.clearScrollbarTimer();
-    that.scroller.doTouchStart([{
-      pageX: e.pageX,
-      pageY: e.pageY
-    }], e.timeStamp);
-    // reflow since the container may have changed
-    that.reflow();
-    e.preventDefault();
-    document.addEventListener('mousemove', _this2.onMouseMove, false);
-    document.addEventListener('mouseup', _this2.onMouseUp, false);
-  }, false);
-
-  this.container.addEventListener('mousewheel', this.onMouseWheel = function (e) {
-    if (that.options.zooming) {
-      that.scroller.doMouseZoom(e.wheelDelta, e.timeStamp, e.pageX, e.pageY);
-      e.preventDefault();
-    }
-  }, false);
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (DOMScroller);
-
 /***/ })
 
-},[310]);
+},[309]);
 //# sourceMappingURL=picker.js.map
