@@ -1,6 +1,6 @@
 /* tslint:disable:no-console */
 
-import './multi-picker.less';
+import '../assets/index.less';
 import MultiPicker from '../src/MultiPicker';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -8,7 +8,7 @@ import Picker from '../src/Picker';
 
 class Test extends React.Component<any, any> {
   state = {
-    value: ['1', '2'],
+    value: ['1', '11'],
   };
 
   onChange = (value) => {

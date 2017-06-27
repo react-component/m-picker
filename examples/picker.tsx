@@ -49,7 +49,7 @@ class PickerDemo extends React.Component<any, any> {
 
   render() {
     return (
-      <div style={{ border: '1px solid black', padding: 10 }}>
+      <div style={{ background: '#f5f5f9', padding: 10 }}>
         <button onClick={this.rerender}>rerender</button>
         &nbsp;
         <button onClick={this.disable}>{this.state.disabled ? 'enable' : 'disable'}</button>
