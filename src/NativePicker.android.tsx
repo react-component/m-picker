@@ -112,14 +112,6 @@ const Picker = createClass<IPickerProps, any>({
     }, 100);
   },
 
-  getChildMember(child, m) {
-    return child.props[m];
-  },
-
-  toChildrenArray(children) {
-    return React.Children.toArray(children);
-  },
-
   render() {
     const { children, itemStyle, selectedValue, style } = this.props;
     const items = React.Children.map(children, (item: any, index) => {

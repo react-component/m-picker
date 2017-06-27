@@ -3,31 +3,29 @@ import NativePicker from './NativePicker';
 import { IPickerProps } from './PickerTypes';
 import isChildrenEqual from './isChildrenEqual';
 
-export interface IPickerItem {
-  value: string|number;
-  label: string;
-}
-
 const Item = (NativePicker as any).Item;
 
 class Picker extends React.Component<IPickerProps, {}> {
   static defaultProps = {
-    pure: true,
     children: [],
   };
 
-  getValue() {
-    return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].value;
+  static Item() {
   }
 
-  shouldComponentUpdate(nextProps) {
+  getValue() {
+    return this.props.selectedValue ||
+      this.props.children && this.props.children[0] && this.props.children[0].props.value;
+  }
+
+  shouldComponentUpdate(nextProps: any) {
     return this.props.selectedValue !== nextProps.selectedValue
-      || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
+      || !isChildrenEqual(this.props.children, nextProps.children);
   }
 
   render() {
-    const children = (this.props.children as IPickerItem[]).map((c) => {
-      return <Item {...c} key={c.value + ''}/>;
+    const children = React.Children.map(this.props.children, (c: any) => {
+      return <Item label={c.props.label} key={c.props.value + ''}/>;
     });
     return <NativePicker {...this.props}>{children}</NativePicker>;
   }

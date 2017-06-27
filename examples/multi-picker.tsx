@@ -1,46 +1,14 @@
 /* tslint:disable:no-console */
 
-import 'rmc-picker/assets/index.less';
+import './multi-picker.less';
 import MultiPicker from '../src/MultiPicker';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-const cols = [
-  {
-    key: 'col1',
-    props: {
-      children: [
-        {
-          label: 'one',
-          value: '1',
-        },
-        {
-          label: 'two',
-          value: '2',
-        },
-      ],
-    },
-  },
-  {
-    key: 'col2',
-    props: {
-      children: [
-        {
-          label: '一',
-          value: '1',
-        },
-        {
-          label: '二',
-          value: '2',
-        },
-      ],
-    },
-  },
-];
+import Picker from '../src/Picker';
 
 class Test extends React.Component<any, any> {
   state = {
-      value: ['1', '2'],
+    value: ['1', '2'],
   };
 
   onChange = (value) => {
@@ -52,12 +20,31 @@ class Test extends React.Component<any, any> {
 
   render() {
     return (
-      <div style={{ border: '1px solid black', padding: 10 }}>
+      <div style={{ background: '#f5f5f9', padding: 10 }}>
         <MultiPicker
           selectedValue={this.state.value}
           onValueChange={this.onChange}
         >
-          {cols}
+          <Picker indicatorClassName="my-picker-indicator">
+            <Picker.Item className="my-picker-view-item" value="1">one</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="2">two</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="3">three</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="4">four</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="5">five</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="6">six</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="7">seven</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="8">eight</Picker.Item>
+          </Picker>
+          <Picker indicatorClassName="my-picker-indicator">
+            <Picker.Item className="my-picker-view-item" value="11">eleven</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="12">twelve</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="13">thirteen</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="14">fourteen</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="15">fifteen</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="16">sixteen</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="17">seventeen</Picker.Item>
+            <Picker.Item className="my-picker-view-item" value="18">eighteen</Picker.Item>
+          </Picker>
         </MultiPicker>
       </div>
     );

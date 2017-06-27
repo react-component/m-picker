@@ -32,10 +32,9 @@ export class PickerDemo extends React.Component<any, any> {
   getItems(start) {
     const items: any[] = [];
     for (let i = start; i < start + len; i++) {
-      items.push({
-        value: String(i),
-        label: `${count} ${i}`,
-      });
+      items.push(<Picker.Item value={i} key={i}>
+        {count} {i}
+      </Picker.Item>);
     }
     return items;
   }

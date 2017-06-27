@@ -1,6 +1,11 @@
 # History
 ----
 
+## 4.0.0 / 2017-06-27
+
+- refactor using element api
+- more props for multi-picker
+
 ## 3.5.0 / 2016-12-01
 
 - use rc-touchable

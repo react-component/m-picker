@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default {
   getDefaultProps() {
     return {
@@ -17,9 +19,9 @@ export default {
       if (!children) {
         return [];
       }
-      return children.map(c => {
-        const cc = c.props.children;
-        return cc && cc[0] && cc[0].value;
+      return React.Children.map(children, (c: any) => {
+        const cc: any = React.Children.toArray(c.props.children);
+        return cc && cc[0] && cc[0].props.value;
       });
     }
   },

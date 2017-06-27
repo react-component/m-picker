@@ -8,16 +8,22 @@ import isChildrenEqual from './isChildrenEqual';
 
 export interface IPickerItem {
   value: string | number;
-  label: string;
+  label: any;
+  className?: string;
+  style?: any;
 }
 
 const Picker = createClass<IPickerProps, any>({
   mixins: [PickerMixin],
 
+  statics: {
+    Item() {
+    },
+  },
+
   getDefaultProps() {
     return {
       prefixCls: 'rmc-picker',
-      pure: true,
     };
   },
 
@@ -37,11 +43,20 @@ const Picker = createClass<IPickerProps, any>({
   },
 
   componentDidMount() {
+    const { content, indicator, mask, root } = this.refs;
+    const rootHeight = root.getBoundingClientRect().height;
     // https://github.com/react-component/m-picker/issues/18
-    this.itemHeight = (this.refs as any).indicator.getBoundingClientRect().height;
-    // compact
-    (this.refs as any).content.style.padding = `${this.itemHeight * 3}px 0`;
-    this.zscroller = new ZScroller((this.refs as any).content, {
+    const itemHeight = this.itemHeight = indicator.getBoundingClientRect().height;
+    let num = Math.floor(rootHeight / itemHeight);
+    if (num % 2 === 0) {
+      num--;
+    }
+    num--;
+    num /= 2;
+    content.style.padding = `${itemHeight * num}px 0`;
+    indicator.style.top = `${itemHeight * num}px`;
+    mask.style.backgroundSize = `100% ${itemHeight * num}px`;
+    this.zscroller = new ZScroller(content, {
       scrollingX: false,
       snapping: true,
       locking: false,
@@ -50,7 +65,7 @@ const Picker = createClass<IPickerProps, any>({
       scrollingComplete: this.scrollingComplete,
     });
     this.zscroller.setDisabled(this.props.disabled);
-    this.zscroller.scroller.setSnapSize(0, this.itemHeight);
+    this.zscroller.scroller.setSnapSize(0, itemHeight);
     this.select(this.state.selectedValue);
   },
 
@@ -65,7 +80,7 @@ const Picker = createClass<IPickerProps, any>({
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.state.selectedValue !== nextState.selectedValue
-      || !isChildrenEqual(this.props.children, nextProps.children, this.props.pure);
+      || !isChildrenEqual(this.props.children, nextProps.children);
   },
 
   componentDidUpdate() {
@@ -101,49 +116,42 @@ const Picker = createClass<IPickerProps, any>({
     }
   },
 
-  getChildMember(child, m) {
-    return child[m];
-  },
-
   getValue() {
-    return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].value;
-  },
-
-  toChildrenArray(children) {
-    // when use preact，when the children is [] will change to undeined
-    return children || [];
+    return this.props.selectedValue ||
+      this.props.children && this.props.children[0] && this.props.children[0].props.value;
   },
 
   render() {
+    const { props } = this;
     const {
-      children, prefixCls,
-      className, itemStyle,
+      prefixCls,
+      itemStyle,
       indicatorStyle,
-    } = this.props;
+      indicatorClassName = '',
+    } = props;
     const { selectedValue } = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
-    const items = (this.toChildrenArray(children) as IPickerItem[]).map((item) => {
+    const items = React.Children.map(props.children, (item: any) => {
+      const { className = '', style, value, children } = item.props;
       return (
         <div
-          style={itemStyle}
-          className={selectedValue === item.value ? selectedItemClassName : itemClassName}
-          key={item.value}
+          style={{ ...itemStyle, ...style }}
+          className={`${selectedValue === value ? selectedItemClassName : itemClassName} ${className}`}
+          key={value}
         >
-          {item.label}
+          {children}
         </div>
       );
     });
     const pickerCls = {
-      [className as string]: !!className,
+      [props.className as string]: !!props.className,
       [prefixCls as string]: true,
     };
     return (
-      <div
-        className={classNames(pickerCls)}
-      >
-        <div className={`${prefixCls}-mask`}/>
-        <div className={`${prefixCls}-indicator`} ref="indicator" style={indicatorStyle}/>
+      <div className={classNames(pickerCls)} ref="root" style={this.props.style}>
+        <div className={`${prefixCls}-mask`} ref="mask"/>
+        <div className={`${prefixCls}-indicator ${indicatorClassName}`} ref="indicator" style={indicatorStyle}/>
         <div className={`${prefixCls}-content`} ref="content">
           {items}
         </div>

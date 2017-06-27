@@ -4,12 +4,7 @@ import 'rmc-picker/assets/index.less';
 import 'rmc-picker/assets/popup.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Picker from '../src/Picker';
-import MultiPicker from '../src/MultiPicker';
-
 import Popup from '../src/Popup';
-
-const colData = [{ label: '1', value: '1' }, { label: '2', value: '2' }];
 
 class Demo extends React.Component<any, any> {
   state = {
@@ -44,7 +39,7 @@ class Demo extends React.Component<any, any> {
             className="fortest"
             transitionName="rmc-picker-popup-slide-fade"
             maskTransitionName="rmc-picker-popup-fade"
-            picker={<MultiPicker>{[{props: {children: colData}}, {props: {children: colData}}]}</MultiPicker>}
+            content={<div>ok</div>}
             title="Picker"
             disabled={this.state.disabled}
             onDismiss={this.onDismiss}

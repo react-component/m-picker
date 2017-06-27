@@ -15,16 +15,6 @@ function isEq(t1, t2) {
 }
 
 describe('m-picker', () => {
-  const items = [
-    {
-      value: '1',
-      label: 'a',
-    },
-    {
-      value: '2',
-      label: 'b',
-    },
-  ];
   let div;
   let component;
   let indicator;
@@ -32,7 +22,8 @@ describe('m-picker', () => {
     div = document.createElement('div');
     document.body.appendChild(div);
     component = ReactDOM.render(<Picker>
-      {items}
+      <Picker.Item value="1">a</Picker.Item>
+      <Picker.Item value="2">b</Picker.Item>
     </Picker>, div);
     indicator = TestUtils.scryRenderedDOMComponentsWithClass(component,
       'rmc-picker-indicator')[0];
@@ -50,7 +41,8 @@ describe('m-picker', () => {
   });
   it('selectedValue works', () => {
     ReactDOM.render(<Picker selectedValue="2">
-      {items}
+      <Picker.Item value="1">a</Picker.Item>
+      <Picker.Item value="2">b</Picker.Item>
     </Picker>, div);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(component,
       'rmc-picker-item').length).to.be(2);
