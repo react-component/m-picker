@@ -33,7 +33,7 @@ export class PickerDemo extends React.Component<any, any> {
     const items: any[] = [];
     for (let i = start; i < start + len; i++) {
       items.push(<Picker.Item value={i} key={i}>
-        {count} {i}
+        {count + '' + i}
       </Picker.Item>);
     }
     return items;

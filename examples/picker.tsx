@@ -9,10 +9,10 @@ let count = 0;
 const len = 10;
 
 class PickerDemo extends React.Component<any, any> {
-  state =  {
+  state = {
     disabled: false,
     items: this.getItems(count),
-    value: `${count}`,
+    value: `${count + len / 2}`,
   };
 
   onChange = (value) => {
@@ -31,7 +31,7 @@ class PickerDemo extends React.Component<any, any> {
   getItems(start) {
     const items: any[] = [];
     for (let i = start; i < start + len; i++) {
-      items.push(<Picker.Item value={i} key={i}>
+      items.push(<Picker.Item value={i + ''} key={i}>
         {count} {i}
       </Picker.Item>);
     }

@@ -4,14 +4,6 @@ import classNames from 'classnames';
 import ZScroller from 'zscroller';
 import { IPickerProps } from './PickerTypes';
 import PickerMixin from './PickerMixin';
-import isChildrenEqual from './isChildrenEqual';
-
-export interface IPickerItem {
-  value: string | number;
-  label: any;
-  className?: string;
-  style?: any;
-}
 
 const Picker = createClass<IPickerProps, any>({
   mixins: [PickerMixin],
@@ -29,13 +21,14 @@ const Picker = createClass<IPickerProps, any>({
 
   getInitialState() {
     let selectedValueState;
-    const { selectedValue, defaultSelectedValue, children } = this.props;
+    const { selectedValue, defaultSelectedValue } = this.props;
     if (selectedValue !== undefined) {
       selectedValueState = selectedValue;
     } else if (defaultSelectedValue !== undefined) {
       selectedValueState = defaultSelectedValue;
-    } else if (children && children.length) {
-      selectedValueState = children[0].value;
+    } else {
+      const children: any = React.Children.toArray(this.props.children);
+      selectedValueState = children && children[0] && children[0].props.value;
     }
     return {
       selectedValue: selectedValueState,
@@ -80,7 +73,7 @@ const Picker = createClass<IPickerProps, any>({
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.state.selectedValue !== nextState.selectedValue
-      || !isChildrenEqual(this.props.children, nextProps.children);
+      || this.props.children !== nextProps.children;
   },
 
   componentDidUpdate() {
@@ -117,8 +110,11 @@ const Picker = createClass<IPickerProps, any>({
   },
 
   getValue() {
-    return this.props.selectedValue ||
-      this.props.children && this.props.children[0] && this.props.children[0].props.value;
+    if (this.props.selectedValue) {
+      return this.props.selectedValue;
+    }
+    const children: any = React.Children.toArray(this.props.children);
+    return children && children[0] && children[0].props.value;
   },
 
   render() {

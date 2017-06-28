@@ -1,11 +1,12 @@
 /* tslint:disable:no-console */
 import MultiPicker from '../src/MultiPicker';
+import Picker from '../src/Picker';
 import React from 'react';
 import { View } from 'react-native';
 
 export class Test extends React.Component<any, any> {
   state = {
-    value: ['1', '2'],
+    value: ['1', '11'],
   };
 
   onChange = (value) => {

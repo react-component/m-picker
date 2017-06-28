@@ -1,7 +1,6 @@
 import React from 'react';
 import NativePicker from './NativePicker';
 import { IPickerProps } from './PickerTypes';
-import isChildrenEqual from './isChildrenEqual';
 
 const Item = (NativePicker as any).Item;
 
@@ -14,18 +13,21 @@ class Picker extends React.Component<IPickerProps, {}> {
   }
 
   getValue() {
-    return this.props.selectedValue ||
-      this.props.children && this.props.children[0] && this.props.children[0].props.value;
+    if (this.props.selectedValue) {
+      return this.props.selectedValue;
+    }
+    const children: any = React.Children.toArray(this.props.children);
+    return children && children[0] && children[0].props.value;
   }
 
   shouldComponentUpdate(nextProps: any) {
     return this.props.selectedValue !== nextProps.selectedValue
-      || !isChildrenEqual(this.props.children, nextProps.children);
+      || this.props.children !== nextProps.children;
   }
 
   render() {
     const children = React.Children.map(this.props.children, (c: any) => {
-      return <Item label={c.props.label} key={c.props.value + ''}/>;
+      return <Item label={c.props.children + ''} value={c.props.value + ''} key={c.key}/>;
     });
     return <NativePicker {...this.props}>{children}</NativePicker>;
   }
