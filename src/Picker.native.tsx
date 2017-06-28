@@ -13,7 +13,7 @@ class Picker extends React.Component<IPickerProps, {}> {
   }
 
   getValue() {
-    if (this.props.selectedValue) {
+    if ('selectedValue' in this.props) {
       return this.props.selectedValue;
     }
     const children: any = React.Children.toArray(this.props.children);

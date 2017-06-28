@@ -110,7 +110,7 @@ const Picker = createClass<IPickerProps, any>({
   },
 
   getValue() {
-    if (this.props.selectedValue) {
+    if ('selectedValue' in this.props) {
       return this.props.selectedValue;
     }
     const children: any = React.Children.toArray(this.props.children);
