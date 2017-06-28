@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.native.js - example - rmc-picker@4.0.0-beta.0</title>
+  <title>popup.native.js - example - rmc-picker@4.0.0-beta.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,13 +263,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-picker@4.0.0-beta.0</h1>
+      <h1>rmc-picker@4.0.0-beta.1</h1>
 
       <p>React Mobile Picker Component(web and react-native)</p>
     </div>
     <div class="example" id="__react-content"></div>
 
-    <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> {View, TouchableHighlight, StyleSheet, Text, ScrollView } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+    <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> { View, TouchableHighlight, StyleSheet, Text, ScrollView } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
 <span class="hljs-keyword">import</span> Popup <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Popup'</span>;
 <span class="hljs-keyword">import</span> PopupStyles <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/PopupStyles'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -288,8 +288,8 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   },
   content: {
     padding: <span class="hljs-number">100</span>,
-    justifyContent: <span class="hljs-string">'center'</span> <span class="hljs-keyword">as</span> React.FlexJustifyType,
-    alignItems: <span class="hljs-string">'center'</span> <span class="hljs-keyword">as</span> React.FlexAlignType,
+    justifyContent: <span class="hljs-string">'center'</span> <span class="hljs-keyword">as</span> any,
+    alignItems: <span class="hljs-string">'center'</span> <span class="hljs-keyword">as</span> any,
   },
 });
 
@@ -299,19 +299,19 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       popupContent
     <span class="hljs-tag">&lt;/<span class="hljs-title">Text</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">View</span>&gt;</span>)</span>;
 
-    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollView</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{flex:</span> <span class="hljs-attribute">1</span>}}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">View</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{height:</span> <span class="hljs-attribute">200</span>}}/&gt;</span>
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ScrollView</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">flex:</span> <span class="hljs-attribute">1</span> }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">View</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">200</span> }}/&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">Popup</span>
-      <span class="hljs-attribute">styles</span>=<span class="hljs-value">{PopupStyles}</span>
-      <span class="hljs-attribute">style</span>=<span class="hljs-value">{styles.root}</span>
-      <span class="hljs-attribute">title</span>=<span class="hljs-value">{'title'}</span>
-      <span class="hljs-attribute">content</span>=<span class="hljs-value">{popupContent}</span>
-    &gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">TouchableHighlight</span> <span class="hljs-attribute">activeOpacity</span>=<span class="hljs-value">{0.5}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{[styles.button]}</span> <span class="hljs-attribute">underlayColor</span>=<span class="hljs-value">"#a9d9d4"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">Text</span>&gt;</span>show popup<span class="hljs-tag">&lt;/<span class="hljs-title">Text</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">TouchableHighlight</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">Popup</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">View</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{height:</span> <span class="hljs-attribute">800</span>}}/&gt;</span>
+        <span class="hljs-attribute">styles</span>=<span class="hljs-value">{PopupStyles}</span>
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{styles.root}</span>
+        <span class="hljs-attribute">title</span>=<span class="hljs-value">{'title'}</span>
+        <span class="hljs-attribute">content</span>=<span class="hljs-value">{popupContent}</span>
+      &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TouchableHighlight</span> <span class="hljs-attribute">activeOpacity</span>=<span class="hljs-value">{0.5}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{[styles.button]}</span> <span class="hljs-attribute">underlayColor</span>=<span class="hljs-value">"#a9d9d4"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Text</span>&gt;</span>show popup<span class="hljs-tag">&lt;/<span class="hljs-title">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">TouchableHighlight</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">Popup</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">View</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">800</span> }}/&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">ScrollView</span>&gt;</span>)</span>;
   }
 }

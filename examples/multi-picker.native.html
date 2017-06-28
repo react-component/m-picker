@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>multi-picker.native.js - example - rmc-picker@4.0.0-beta.0</title>
+  <title>multi-picker.native.js - example - rmc-picker@4.0.0-beta.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-picker@4.0.0-beta.0</h1>
+      <h1>rmc-picker@4.0.0-beta.1</h1>
 
       <p>React Mobile Picker Component(web and react-native)</p>
     </div>
@@ -271,12 +271,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* tslint:disable:no-console */</span>
 <span class="hljs-keyword">import</span> MultiPicker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/MultiPicker'</span>;
+<span class="hljs-keyword">import</span> Picker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Picker'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> { View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">any</span>&gt; </span>{
   state = {
-    value: [<span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>],
+    value: [<span class="hljs-string">'1'</span>, <span class="hljs-string">'11'</span>],
   };
 
   onChange = (value) =&gt; {
