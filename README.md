@@ -57,6 +57,8 @@ react-native run-ios
 [![rmc-picker](https://nodei.co/npm/rmc-picker.png)](https://npmjs.org/package/rmc-picker)
 
 
+# 4.x beta docs
+
 ## Usage
 ```jsx
 <MultiPicker
