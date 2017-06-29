@@ -30,6 +30,12 @@ class Demo extends React.Component<any, any> {
   }
 
   render() {
+    const popupContent = (
+      <div style={{ height: 160, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        popup content
+      </div>
+    );
+
     return (
       <div style={{ margin: '10px 30px' }}>
         <h2>popup date picker</h2>
@@ -39,7 +45,7 @@ class Demo extends React.Component<any, any> {
             className="fortest"
             transitionName="rmc-picker-popup-slide-fade"
             maskTransitionName="rmc-picker-popup-fade"
-            content={<div>ok</div>}
+            content={popupContent}
             title="Picker"
             disabled={this.state.disabled}
             onDismiss={this.onDismiss}
