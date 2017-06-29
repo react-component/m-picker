@@ -1,28 +1,24 @@
 webpackJsonp([2],{
 
-/***/ 146:
+/***/ 145:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_Picker__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_Picker__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /* tslint:disable:no-console */
 
@@ -33,12 +29,12 @@ var count = 0;
 var len = 10;
 
 var PickerDemo = function (_React$Component) {
-    __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(PickerDemo, _React$Component);
+    _inherits(PickerDemo, _React$Component);
 
     function PickerDemo() {
-        __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default()(this, PickerDemo);
+        _classCallCheck(this, PickerDemo);
 
-        var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (PickerDemo.__proto__ || Object.getPrototypeOf(PickerDemo)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (PickerDemo.__proto__ || Object.getPrototypeOf(PickerDemo)).apply(this, arguments));
 
         _this.state = {
             disabled: false,
@@ -67,13 +63,13 @@ var PickerDemo = function (_React$Component) {
         return _this;
     }
 
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(PickerDemo, [{
+    _createClass(PickerDemo, [{
         key: 'getItems',
         value: function getItems(start) {
             var items = [];
             for (var i = start; i < start + len; i++) {
-                items.push(__WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_5__src_Picker__["a" /* default */].Item,
+                items.push(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1__src_Picker__["a" /* default */].Item,
                     { value: i + '', key: i },
                     count,
                     ' ',
@@ -85,22 +81,22 @@ var PickerDemo = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
                 'div',
                 { style: { background: '#f5f5f9', padding: 10 } },
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
                     'button',
                     { onClick: this.rerender },
                     'rerender'
                 ),
                 '\xA0',
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
                     'button',
                     { onClick: this.disable },
                     this.state.disabled ? 'enable' : 'disable'
                 ),
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_5__src_Picker__["a" /* default */],
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1__src_Picker__["a" /* default */],
                     { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange },
                     this.state.items
                 )
@@ -109,21 +105,21 @@ var PickerDemo = function (_React$Component) {
     }]);
 
     return PickerDemo;
-}(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
+}(__WEBPACK_IMPORTED_MODULE_2_react___default.a.Component);
 
-__WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(PickerDemo, null), document.getElementById('__react-content'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(PickerDemo, null), document.getElementById('__react-content'));
 
 /***/ }),
 
 /***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(146);
+module.exports = __webpack_require__(145);
 
 
 /***/ }),
 
-/***/ 46:
+/***/ 45:
 /***/ (function(module, exports) {
 
 var g;
@@ -151,7 +147,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 48:
+/***/ 47:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -207,31 +203,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 59:
+/***/ 58:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_create_react_class__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_create_react_class__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_classnames__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_zscroller__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__PickerMixin__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_create_react_class__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_create_react_class__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_zscroller__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PickerMixin__ = __webpack_require__(59);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
 
-
-var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
-    mixins: [__WEBPACK_IMPORTED_MODULE_6__PickerMixin__["a" /* default */]],
+var Picker = __WEBPACK_IMPORTED_MODULE_1_create_react_class___default()({
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__PickerMixin__["a" /* default */]],
     statics: {
         Item: function Item() {}
     },
@@ -251,7 +245,7 @@ var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
         } else if (defaultSelectedValue !== undefined) {
             selectedValueState = defaultSelectedValue;
         } else {
-            var children = __WEBPACK_IMPORTED_MODULE_2_react___default.a.Children.toArray(this.props.children);
+            var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(this.props.children);
             selectedValueState = children && children[0] && children[0].props.value;
         }
         return {
@@ -277,7 +271,7 @@ var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
         content.style.padding = itemHeight * num + 'px 0';
         indicator.style.top = itemHeight * num + 'px';
         mask.style.backgroundSize = '100% ' + itemHeight * num + 'px';
-        this.zscroller = new __WEBPACK_IMPORTED_MODULE_5_zscroller__["a" /* default */](content, {
+        this.zscroller = new __WEBPACK_IMPORTED_MODULE_3_zscroller__["a" /* default */](content, {
             scrollingX: false,
             snapping: true,
             locking: false,
@@ -331,10 +325,10 @@ var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
         }
     },
     getValue: function getValue() {
-        if (this.props.selectedValue) {
+        if ('selectedValue' in this.props) {
             return this.props.selectedValue;
         }
-        var children = __WEBPACK_IMPORTED_MODULE_2_react___default.a.Children.toArray(this.props.children);
+        var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(this.props.children);
         return children && children[0] && children[0].props.value;
     },
     render: function render() {
@@ -350,7 +344,7 @@ var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
 
         var itemClassName = prefixCls + '-item';
         var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
-        var items = __WEBPACK_IMPORTED_MODULE_2_react___default.a.Children.map(props.children, function (item) {
+        var items = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.map(props.children, function (item) {
             var _item$props = item.props,
                 _item$props$className = _item$props.className,
                 className = _item$props$className === undefined ? '' : _item$props$className,
@@ -358,19 +352,19 @@ var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
                 value = _item$props.value,
                 children = _item$props.children;
 
-            return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { style: __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, itemStyle, style), className: (selectedValue === value ? selectedItemClassName : itemClassName) + ' ' + className, key: value },
+                { style: _extends({}, itemStyle, style), className: (selectedValue === value ? selectedItemClassName : itemClassName) + ' ' + className, key: value },
                 children
             );
         });
-        var pickerCls = (_pickerCls = {}, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_pickerCls, props.className, !!props.className), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_pickerCls, prefixCls, true), _pickerCls);
-        return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+        var pickerCls = (_pickerCls = {}, _defineProperty(_pickerCls, props.className, !!props.className), _defineProperty(_pickerCls, prefixCls, true), _pickerCls);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: __WEBPACK_IMPORTED_MODULE_4_classnames___default()(pickerCls), ref: 'root', style: this.props.style },
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement('div', { className: prefixCls + '-mask', ref: 'mask' }),
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement('div', { className: prefixCls + '-indicator ' + indicatorClassName, ref: 'indicator', style: indicatorStyle }),
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+            { className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()(pickerCls), ref: 'root', style: this.props.style },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: prefixCls + '-mask', ref: 'mask' }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: prefixCls + '-indicator ' + indicatorClassName, ref: 'indicator', style: indicatorStyle }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: prefixCls + '-content', ref: 'content' },
                 items
@@ -382,7 +376,7 @@ var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
 
 /***/ }),
 
-/***/ 60:
+/***/ 59:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -428,10 +422,10 @@ var Picker = __WEBPACK_IMPORTED_MODULE_3_create_react_class___default()({
 
 /***/ }),
 
-/***/ 78:
+/***/ 77:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(79)
+/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(78)
   , root = typeof window === 'undefined' ? global : window
   , vendors = ['moz', 'webkit']
   , suffix = 'AnimationFrame'
@@ -504,11 +498,11 @@ module.exports.polyfill = function() {
   root.cancelAnimationFrame = caf
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(46)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)))
 
 /***/ }),
 
-/***/ 79:
+/***/ 78:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.12.2
@@ -552,11 +546,11 @@ module.exports.polyfill = function() {
 
 /***/ }),
 
-/***/ 97:
+/***/ 96:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(78);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_raf__);
 /*
  * Scroller
@@ -708,17 +702,17 @@ var Animate = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Animate);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(46)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(45)))
 
 /***/ }),
 
-/***/ 98:
+/***/ 97:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scroller__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scroller__ = __webpack_require__(98);
 
 
 
@@ -1008,11 +1002,11 @@ DOMScroller.prototype.bindEvents = function bindEvents() {
 
 /***/ }),
 
-/***/ 99:
+/***/ 98:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Animate__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Animate__ = __webpack_require__(96);
 /*
  * Scroller
  * http://github.com/zynga/scroller

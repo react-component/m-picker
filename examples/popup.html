@@ -301,6 +301,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   }
 
   render() {
+    <span class="hljs-keyword">const</span> popupContent = (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">160</span>, <span class="hljs-attribute">display:</span> '<span class="hljs-attribute">flex</span>', <span class="hljs-attribute">justifyContent:</span> '<span class="hljs-attribute">center</span>', <span class="hljs-attribute">alignItems:</span> '<span class="hljs-attribute">center</span>' }}&gt;</span>
+        popup content
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    )</span>;
+
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>' }}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>popup date picker<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
@@ -310,13 +316,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             <span class="hljs-attribute">className</span>=<span class="hljs-value">"fortest"</span>
             <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">"rmc-picker-popup-slide-fade"</span>
             <span class="hljs-attribute">maskTransitionName</span>=<span class="hljs-value">"rmc-picker-popup-fade"</span>
-            <span class="hljs-attribute">content</span>=<span class="hljs-value">{&lt;div</span>&gt;</span>ok<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>}
-            title="Picker"
-            disabled={this.state.disabled}
-            onDismiss={this.onDismiss}
-            onOk={this.onOk}
-            value={this.state.value}
-          &gt;
+            <span class="hljs-attribute">content</span>=<span class="hljs-value">{popupContent}</span>
+            <span class="hljs-attribute">title</span>=<span class="hljs-value">"Picker"</span>
+            <span class="hljs-attribute">disabled</span>=<span class="hljs-value">{this.state.disabled}</span>
+            <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
+            <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span>
+            <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
+          &gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">disabled</span>=<span class="hljs-value">{this.state.disabled}</span>&gt;</span>{'open'}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-title">Popup</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
