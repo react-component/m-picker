@@ -5,13 +5,8 @@ export interface IPickerCol {
 
 interface IMultiPickerProps {
   prefixCls?: string;
-  pickerPrefixCls?: string;
-  cols?: IPickerCol[];
   selectedValue?: any[];
-  disabled?: boolean;
-  pure?: boolean;
   className?: string;
-  pickerItemStyle?: any;
   rootNativeProps?: any;
   indicatorStyle?: any;
   onValueChange?: (v?: any, i?: number) => void;

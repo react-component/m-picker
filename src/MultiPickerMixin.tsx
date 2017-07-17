@@ -4,10 +4,8 @@ export default {
   getDefaultProps() {
     return {
       prefixCls: 'rmc-multi-picker',
-      pickerPrefixCls: 'rmc-picker',
       onValueChange() {
       },
-      disabled: false,
     };
   },
 
