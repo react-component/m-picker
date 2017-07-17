@@ -44,7 +44,7 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(208)();
+  module.exports = __webpack_require__(212)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -92,15 +92,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rmc_picker_assets_popup_less__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rmc_picker_assets_popup_less__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rmc_picker_assets_popup_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rmc_picker_assets_popup_less__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_Popup__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_Popup__ = __webpack_require__(150);
 
 
 
@@ -186,7 +186,218 @@ __WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 153:
+/***/ 150:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rc_dialog__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_create_react_class__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_create_react_class__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PopupMixin__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_touchable__ = __webpack_require__(220);
+
+
+
+
+
+var PopupPicker = __WEBPACK_IMPORTED_MODULE_2_create_react_class___default()({
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__PopupMixin__["a" /* default */]],
+  getDefaultProps: function getDefaultProps() {
+    return {
+      prefixCls: 'rmc-picker-popup',
+      triggerType: 'onClick',
+      WrapComponent: 'span'
+    };
+  },
+  getModal: function getModal() {
+    var props = this.props;
+    if (!this.state.visible) {
+      return null;
+    }
+    var prefixCls = props.prefixCls;
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1_rc_dialog__["a" /* default */],
+      { prefixCls: '' + prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: prefixCls + '-header' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_4_rc_touchable__["a" /* default */],
+            { activeClassName: prefixCls + '-item-active' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: prefixCls + '-item ' + prefixCls + '-header-left', onClick: this.onDismiss },
+              props.dismissText
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: prefixCls + '-item ' + prefixCls + '-title' },
+            props.title
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_4_rc_touchable__["a" /* default */],
+            { activeClassName: prefixCls + '-item-active' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: prefixCls + '-item ' + prefixCls + '-header-right', onClick: this.onOk },
+              props.okText
+            )
+          )
+        ),
+        this.getContent()
+      )
+    );
+  },
+  render: function render() {
+    return this.getRender();
+  }
+});
+/* harmony default export */ __webpack_exports__["a"] = (PopupPicker);
+
+/***/ }),
+
+/***/ 151:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+
+
+function noop() {}
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getDefaultProps: function getDefaultProps() {
+        return {
+            onVisibleChange: noop,
+            okText: 'Ok',
+            pickerValueProp: 'selectedValue',
+            pickerValueChangeProp: 'onValueChange',
+            dismissText: 'Dismiss',
+            title: '',
+            onOk: noop,
+            onDismiss: noop
+        };
+    },
+    getInitialState: function getInitialState() {
+        return {
+            pickerValue: 'value' in this.props ? this.props.value : null,
+            visible: this.props.visible || false
+        };
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        if ('value' in nextProps) {
+            this.setState({
+                pickerValue: nextProps.value
+            });
+        }
+        if ('visible' in nextProps) {
+            this.setVisibleState(nextProps.visible);
+        }
+    },
+    onPickerChange: function onPickerChange(pickerValue) {
+        if (this.state.pickerValue !== pickerValue) {
+            this.setState({
+                pickerValue: pickerValue
+            });
+            var _props = this.props,
+                picker = _props.picker,
+                pickerValueChangeProp = _props.pickerValueChangeProp;
+
+            if (picker && picker.props[pickerValueChangeProp]) {
+                picker.props[pickerValueChangeProp](pickerValue);
+            }
+        }
+    },
+    saveRef: function saveRef(picker) {
+        this.picker = picker;
+    },
+    setVisibleState: function setVisibleState(visible) {
+        this.setState({
+            visible: visible
+        });
+        if (!visible) {
+            this.setState({
+                pickerValue: null
+            });
+        }
+    },
+    fireVisibleChange: function fireVisibleChange(visible) {
+        if (this.state.visible !== visible) {
+            if (!('visible' in this.props)) {
+                this.setVisibleState(visible);
+            }
+            this.props.onVisibleChange(visible);
+        }
+    },
+    getRender: function getRender() {
+        var props = this.props;
+        var children = props.children;
+        if (!children) {
+            return this.getModal();
+        }
+        var _props2 = this.props,
+            WrapComponent = _props2.WrapComponent,
+            disabled = _props2.disabled;
+
+        var child = children;
+        var newChildProps = {};
+        if (!disabled) {
+            newChildProps[props.triggerType] = this.onTriggerClick;
+        }
+        return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+            WrapComponent,
+            { style: props.wrapStyle },
+            __WEBPACK_IMPORTED_MODULE_1_react___default.a.cloneElement(child, newChildProps),
+            this.getModal()
+        );
+    },
+    onTriggerClick: function onTriggerClick(e) {
+        var child = this.props.children;
+        var childProps = child.props || {};
+        if (childProps[this.props.triggerType]) {
+            childProps[this.props.triggerType](e);
+        }
+        this.fireVisibleChange(!this.state.visible);
+    },
+    onOk: function onOk() {
+        this.props.onOk(this.picker && this.picker.getValue());
+        this.fireVisibleChange(false);
+    },
+    getContent: function getContent() {
+        if (this.props.picker) {
+            var _React$cloneElement;
+
+            var pickerValue = this.state.pickerValue;
+
+            if (pickerValue === null) {
+                pickerValue = this.props.value;
+            }
+            return __WEBPACK_IMPORTED_MODULE_1_react___default.a.cloneElement(this.props.picker, (_React$cloneElement = {}, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_React$cloneElement, this.props.pickerValueProp, pickerValue), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
+        } else {
+            return this.props.content;
+        }
+    },
+    onDismiss: function onDismiss() {
+        this.props.onDismiss();
+        this.fireVisibleChange(false);
+    },
+    hide: function hide() {
+        this.fireVisibleChange(false);
+    }
+});
+
+/***/ }),
+
+/***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -384,7 +595,7 @@ ClassList.prototype.contains = function(name){
 
 /***/ }),
 
-/***/ 190:
+/***/ 194:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -479,7 +690,7 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 191:
+/***/ 195:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -491,11 +702,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _Event = __webpack_require__(190);
+var _Event = __webpack_require__(194);
 
 var _Event2 = _interopRequireDefault(_Event);
 
-var _componentClasses = __webpack_require__(153);
+var _componentClasses = __webpack_require__(157);
 
 var _componentClasses2 = _interopRequireDefault(_componentClasses);
 
@@ -676,14 +887,14 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 192:
+/***/ 196:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 208:
+/***/ 212:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -700,7 +911,7 @@ module.exports = exports['default'];
 
 var emptyFunction = __webpack_require__(9);
 var invariant = __webpack_require__(1);
-var ReactPropTypesSecret = __webpack_require__(75);
+var ReactPropTypesSecret = __webpack_require__(77);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -750,7 +961,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 209:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -770,8 +981,8 @@ module.exports = function() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ChildrenUtils__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__AnimateChild__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ChildrenUtils__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__AnimateChild__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__util__ = __webpack_require__(119);
 
 
@@ -1126,11 +1337,11 @@ var _initialiseProps = function _initialiseProps() {
 
 /***/ }),
 
-/***/ 210:
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
@@ -1146,7 +1357,7 @@ var _initialiseProps = function _initialiseProps() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_css_animation__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_css_animation__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_css_animation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_css_animation__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util__ = __webpack_require__(119);
 
@@ -1264,7 +1475,7 @@ AnimateChild.propTypes = {
 
 /***/ }),
 
-/***/ 211:
+/***/ 215:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1380,7 +1591,7 @@ function mergeChildren(prev, next) {
 
 /***/ }),
 
-/***/ 212:
+/***/ 216:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1397,8 +1608,8 @@ function mergeChildren(prev, next) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_dom__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rc_util_es_KeyCode__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rc_animate__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__LazyRenderBox__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rc_animate__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__LazyRenderBox__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_util_lib_getScrollBarSize__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_util_lib_getScrollBarSize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rc_util_lib_getScrollBarSize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_object_assign__ = __webpack_require__(4);
@@ -1715,7 +1926,7 @@ Dialog.defaultProps = {
 
 /***/ }),
 
-/***/ 213:
+/***/ 217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1723,7 +1934,7 @@ Dialog.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_create_react_class__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_create_react_class__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Dialog__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Dialog__ = __webpack_require__(216);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rc_util_es_getContainerRenderMixin__ = __webpack_require__(222);
 var __assign = this && this.__assign || Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1791,7 +2002,7 @@ var DialogWrap = __WEBPACK_IMPORTED_MODULE_1_create_react_class___default()({
 
 /***/ }),
 
-/***/ 214:
+/***/ 218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1856,217 +2067,6 @@ var LazyRenderBox = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_4_react___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["a"] = (LazyRenderBox);
-
-/***/ }),
-
-/***/ 217:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rc_dialog__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_create_react_class__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_create_react_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_create_react_class__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PopupMixin__ = __webpack_require__(218);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_touchable__ = __webpack_require__(220);
-
-
-
-
-
-var PopupPicker = __WEBPACK_IMPORTED_MODULE_2_create_react_class___default()({
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__PopupMixin__["a" /* default */]],
-  getDefaultProps: function getDefaultProps() {
-    return {
-      prefixCls: 'rmc-picker-popup',
-      triggerType: 'onClick',
-      WrapComponent: 'span'
-    };
-  },
-  getModal: function getModal() {
-    var props = this.props;
-    if (!this.state.visible) {
-      return null;
-    }
-    var prefixCls = props.prefixCls;
-
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_1_rc_dialog__["a" /* default */],
-      { prefixCls: '' + prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: prefixCls + '-header' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_4_rc_touchable__["a" /* default */],
-            { activeClassName: prefixCls + '-item-active' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: prefixCls + '-item ' + prefixCls + '-header-left', onClick: this.onDismiss },
-              props.dismissText
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: prefixCls + '-item ' + prefixCls + '-title' },
-            props.title
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_4_rc_touchable__["a" /* default */],
-            { activeClassName: prefixCls + '-item-active' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: prefixCls + '-item ' + prefixCls + '-header-right', onClick: this.onOk },
-              props.okText
-            )
-          )
-        ),
-        this.getContent()
-      )
-    );
-  },
-  render: function render() {
-    return this.getRender();
-  }
-});
-/* harmony default export */ __webpack_exports__["a"] = (PopupPicker);
-
-/***/ }),
-
-/***/ 218:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-
-
-function noop() {}
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getDefaultProps: function getDefaultProps() {
-        return {
-            onVisibleChange: noop,
-            okText: 'Ok',
-            pickerValueProp: 'selectedValue',
-            pickerValueChangeProp: 'onValueChange',
-            dismissText: 'Dismiss',
-            title: '',
-            onOk: noop,
-            onDismiss: noop
-        };
-    },
-    getInitialState: function getInitialState() {
-        return {
-            pickerValue: 'value' in this.props ? this.props.value : null,
-            visible: this.props.visible || false
-        };
-    },
-    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-        if ('value' in nextProps) {
-            this.setState({
-                pickerValue: nextProps.value
-            });
-        }
-        if ('visible' in nextProps) {
-            this.setVisibleState(nextProps.visible);
-        }
-    },
-    onPickerChange: function onPickerChange(pickerValue) {
-        if (this.state.pickerValue !== pickerValue) {
-            this.setState({
-                pickerValue: pickerValue
-            });
-            var _props = this.props,
-                picker = _props.picker,
-                pickerValueChangeProp = _props.pickerValueChangeProp;
-
-            if (picker && picker.props[pickerValueChangeProp]) {
-                picker.props[pickerValueChangeProp](pickerValue);
-            }
-        }
-    },
-    saveRef: function saveRef(picker) {
-        this.picker = picker;
-    },
-    setVisibleState: function setVisibleState(visible) {
-        this.setState({
-            visible: visible
-        });
-        if (!visible) {
-            this.setState({
-                pickerValue: null
-            });
-        }
-    },
-    fireVisibleChange: function fireVisibleChange(visible) {
-        if (this.state.visible !== visible) {
-            if (!('visible' in this.props)) {
-                this.setVisibleState(visible);
-            }
-            this.props.onVisibleChange(visible);
-        }
-    },
-    getRender: function getRender() {
-        var props = this.props;
-        var children = props.children;
-        if (!children) {
-            return this.getModal();
-        }
-        var _props2 = this.props,
-            WrapComponent = _props2.WrapComponent,
-            disabled = _props2.disabled;
-
-        var child = children;
-        var newChildProps = {};
-        if (!disabled) {
-            newChildProps[props.triggerType] = this.onTriggerClick;
-        }
-        return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-            WrapComponent,
-            { style: props.wrapStyle },
-            __WEBPACK_IMPORTED_MODULE_1_react___default.a.cloneElement(child, newChildProps),
-            this.getModal()
-        );
-    },
-    onTriggerClick: function onTriggerClick(e) {
-        var child = this.props.children;
-        var childProps = child.props || {};
-        if (childProps[this.props.triggerType]) {
-            childProps[this.props.triggerType](e);
-        }
-        this.fireVisibleChange(!this.state.visible);
-    },
-    onOk: function onOk() {
-        this.props.onOk(this.picker && this.picker.getValue());
-        this.fireVisibleChange(false);
-    },
-    getContent: function getContent() {
-        if (this.props.picker) {
-            var _React$cloneElement;
-
-            var pickerValue = this.state.pickerValue;
-
-            if (pickerValue === null) {
-                pickerValue = this.props.value;
-            }
-            return __WEBPACK_IMPORTED_MODULE_1_react___default.a.cloneElement(this.props.picker, (_React$cloneElement = {}, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_React$cloneElement, this.props.pickerValueProp, pickerValue), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
-        } else {
-            return this.props.content;
-        }
-    },
-    onDismiss: function onDismiss() {
-        this.props.onDismiss();
-        this.fireVisibleChange(false);
-    },
-    hide: function hide() {
-        this.fireVisibleChange(false);
-    }
-});
 
 /***/ }),
 
