@@ -25,7 +25,12 @@
   "main": "./lib/index",
   "module": "./es/index",
   "config": {
-    "port": 8021
+    "port": 8021,
+    "entry": [
+      "./src/index.tsx",
+      "./assets/index.less",
+      "./assets/popup.less"
+    ]
   },
   "scripts": {
     "watch-tsc": "rc-tools run watch-tsc",

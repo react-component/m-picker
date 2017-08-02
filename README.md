@@ -59,6 +59,9 @@ react-native run-ios
 
 # 4.x beta docs
 
+> If you are looking for 3.x doc, please see [rmc-picker@3.x](https://github.com/react-component/m-picker/tree/3.x)
+
+
 ## Usage
 ```jsx
 <MultiPicker
@@ -111,8 +114,8 @@ react-native run-ios
 |selectedValue | current selected values | string/number |  |
 |onValueChange | fire when picker change | Function(value) |  |
 |disabled     | whether picker is disabled | bool | false
-|indicatorClassName     | className of indicator | String | 
-|indicatorStyle     | style of indicator | object | 
+|indicatorClassName     | className of indicator | String |
+|indicatorStyle     | style of indicator | object |
 
 ### Picker.Item props
 | name     | description    | type     | default      |
