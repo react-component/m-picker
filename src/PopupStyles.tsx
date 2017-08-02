@@ -6,7 +6,7 @@ const textStyle = {
   textAlign: 'center',
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create<any>({
   modal: {
     flexDirection: 'column',
     justifyContent: 'flex-end',

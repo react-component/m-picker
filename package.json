@@ -45,7 +45,8 @@
     "test": "rc-test run test",
     "chrome-test": "rc-test run chrome-test",
     "coverage": "rc-test run coverage",
-    "rn-start": "node node_modules/react-native/local-cli/cli.js start"
+    "rn-start": "node node_modules/react-native/local-cli/cli.js start",
+    "rn-init": "rc-tools run react-native-init"
   },
   "dependencies": {
     "babel-runtime": "6.x",
@@ -57,8 +58,9 @@
   },
   "devDependencies": {
     "@types/mocha": "~2.2.32",
-    "@types/react": "^15.0.27",
-    "@types/react-dom": "^15.5.0",
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^15.5.1",
+    "@types/react-native": "^0.46.9",
     "array-tree-filter": "1.x",
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
@@ -67,8 +69,8 @@
     "rc-tools": "6.x",
     "react": "15.5.x",
     "react-dom": "15.5.x",
-    "react-native": "0.41.x",
-    "react-native-index-page": "~0.2.0"
+    "react-native": "~0.42.0",
+    "react-native-index-page": "~0.2.1"
   },
   "typings": "./lib/index.d.ts",
   "pre-commit": [

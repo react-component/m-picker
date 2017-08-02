@@ -46,7 +46,7 @@ online example: http://react-component.github.io/m-picker/
 ## react-native
 
 ```
-./node_modules/rc-tools run react-native-init
+npm run rn-init
 npm run watch-tsc
 react-native start
 react-native run-ios
