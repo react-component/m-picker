@@ -128,18 +128,21 @@ const Picker = createClass<IPickerProps, any>({
     const { selectedValue } = this.state;
     const itemClassName = `${prefixCls}-item`;
     const selectedItemClassName = `${itemClassName} ${prefixCls}-item-selected`;
-    const items = React.Children.map(props.children, (item: any) => {
-      const { className = '', style, value, children } = item.props;
+
+    // compatibility for preact
+    const items = [].concat(props.children).map((item: any) => {
+      const { className = '', style, value } = item.props;
       return (
         <div
           style={{ ...itemStyle, ...style }}
           className={`${selectedValue === value ? selectedItemClassName : itemClassName} ${className}`}
           key={value}
         >
-          {children}
+          {item.children || item.props.children}
         </div>
       );
     });
+
     const pickerCls = {
       [props.className as string]: !!props.className,
       [prefixCls as string]: true,
