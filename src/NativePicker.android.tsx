@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 
   selectedItemText: {
-    fontSize: 21,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
   } as any,
@@ -138,6 +138,7 @@ const Picker = createClass<IPickerProps, any>({
           onScroll={this.onScroll}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
+          overScrollMode="never"
         >
           <View ref="content">
             {items}
