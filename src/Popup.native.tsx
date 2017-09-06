@@ -5,7 +5,7 @@ import {
 import createClass from 'create-react-class';
 import { IPopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
-import Modal from 'rc-dialog/lib/Modal';
+import Modal from 'rmc-dialog/lib/Modal';
 
 const PopupPicker = createClass<IPopupPickerProps, any>({
   mixins: [PopupMixin],

@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from 'rc-dialog';
+import Modal from 'rmc-dialog';
 import createClass from 'create-react-class';
 import { IPopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
