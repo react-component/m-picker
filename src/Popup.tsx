@@ -3,7 +3,7 @@ import Modal from 'rmc-dialog';
 import createClass from 'create-react-class';
 import { IPopupPickerProps } from './PopupPickerTypes';
 import PopupMixin from './PopupMixin';
-import Touchable from 'rc-touchable';
+import Touchable from 'rmc-feedback';
 
 const PopupPicker = createClass<IPopupPickerProps, any>({
   mixins: [PopupMixin],
