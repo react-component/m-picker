@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface IPopupPickerProps {
+export type IPopupPickerProps = {
   picker?: any;
   value?: any;
   triggerType?: string;
@@ -17,20 +17,15 @@ export interface IPopupPickerProps {
   onDismiss?: () => void;
   /** react-native only */
   styles?: any;
-  /** react-native only */
   actionTextUnderlayColor?: string;
-  /** react-native only */
   actionTextActiveOpacity?: number;
   /** web only */
   wrapStyle?: React.CSSProperties;
-  /** web only */
   prefixCls?: string;
   className?: string;
   pickerValueProp?: string;
   pickerValueChangeProp?: string;
-  /** web only */
   transitionName?: string;
   popupTransitionName?: string;
-  /** web only */
   maskTransitionName?: string;
 }
