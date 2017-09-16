@@ -1,25 +1,29 @@
 import React from 'react';
-import createClass from 'create-react-class';
 import classNames from 'classnames';
 import ZScroller from 'zscroller';
 import { IPickerProps } from './PickerTypes';
 import PickerMixin from './PickerMixin';
 
-const Picker = createClass<IPickerProps, any>({
-  mixins: [PickerMixin],
+type IPickerProp = {
+  select: Function;
+  doScrollingComplete: Function;
+};
 
-  statics: {
-    Item() {
-    },
-  },
+class Picker extends React.Component<IPickerProp & IPickerProps, any> {
+  static defaultProps = {
+    prefixCls: 'rmc-picker',
+  };
 
-  getDefaultProps() {
-    return {
-      prefixCls: 'rmc-picker',
-    };
-  },
+  rootRef: any;
+  maskRef: any;
+  contentRef: any;
+  indicatorRef: any;
+  itemHeight: number;
+  zscroller: any;
 
-  getInitialState() {
+  constructor(props) {
+    super(props);
+
     let selectedValueState;
     const { selectedValue, defaultSelectedValue } = this.props;
     if (selectedValue !== undefined) {
@@ -30,26 +34,26 @@ const Picker = createClass<IPickerProps, any>({
       const children: any = React.Children.toArray(this.props.children);
       selectedValueState = children && children[0] && children[0].props.value;
     }
-    return {
+    this.state = {
       selectedValue: selectedValueState,
     };
-  },
+  }
 
   componentDidMount() {
-    const { content, indicator, mask, root } = this.refs;
-    const rootHeight = root.getBoundingClientRect().height;
+    const { contentRef, indicatorRef, maskRef, rootRef } = this;
+    const rootHeight = rootRef.getBoundingClientRect().height;
     // https://github.com/react-component/m-picker/issues/18
-    const itemHeight = this.itemHeight = indicator.getBoundingClientRect().height;
+    const itemHeight = this.itemHeight = indicatorRef.getBoundingClientRect().height;
     let num = Math.floor(rootHeight / itemHeight);
     if (num % 2 === 0) {
       num--;
     }
     num--;
     num /= 2;
-    content.style.padding = `${itemHeight * num}px 0`;
-    indicator.style.top = `${itemHeight * num}px`;
-    mask.style.backgroundSize = `100% ${itemHeight * num}px`;
-    this.zscroller = new ZScroller(content, {
+    contentRef.style.padding = `${itemHeight * num}px 0`;
+    indicatorRef.style.top = `${itemHeight * num}px`;
+    maskRef.style.backgroundSize = `100% ${itemHeight * num}px`;
+    this.zscroller = new ZScroller(contentRef, {
       scrollingX: false,
       snapping: true,
       locking: false,
@@ -59,8 +63,8 @@ const Picker = createClass<IPickerProps, any>({
     });
     this.zscroller.setDisabled(this.props.disabled);
     this.zscroller.scroller.setSnapSize(0, itemHeight);
-    this.select(this.state.selectedValue);
-  },
+    this.props.select(this.state.selectedValue, this.itemHeight, this.scrollTo);
+  }
 
   componentWillReceiveProps(nextProps) {
     if ('selectedValue' in nextProps) {
@@ -69,27 +73,27 @@ const Picker = createClass<IPickerProps, any>({
       });
     }
     this.zscroller.setDisabled(nextProps.disabled);
-  },
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.state.selectedValue !== nextState.selectedValue
       || this.props.children !== nextProps.children;
-  },
+  }
 
   componentDidUpdate() {
     this.zscroller.reflow();
-    this.select(this.state.selectedValue);
-  },
+    this.props.select(this.state.selectedValue, this.itemHeight, this.scrollTo);
+  }
 
   componentWillUnmount() {
     this.zscroller.destroy();
-  },
+  }
 
-  scrollTo(top) {
+  scrollTo = (top) => {
     this.zscroller.scroller.scrollTo(0, top);
-  },
+  }
 
-  fireValueChange(selectedValue) {
+  fireValueChange = (selectedValue) => {
     if (selectedValue !== this.state.selectedValue) {
       if (!('selectedValue' in this.props)) {
         this.setState({
@@ -100,14 +104,14 @@ const Picker = createClass<IPickerProps, any>({
         this.props.onValueChange(selectedValue);
       }
     }
-  },
+  }
 
-  scrollingComplete() {
+  scrollingComplete = () => {
     const { top } = this.zscroller.scroller.getValues();
     if (top >= 0) {
-      this.doScrollingComplete(top);
+      this.props.doScrollingComplete(top, this.itemHeight, this.fireValueChange);
     }
-  },
+  }
 
   getValue() {
     if ('selectedValue' in this.props) {
@@ -115,7 +119,7 @@ const Picker = createClass<IPickerProps, any>({
     }
     const children: any = React.Children.toArray(this.props.children);
     return children && children[0] && children[0].props.value;
-  },
+  }
 
   render() {
     const { props } = this;
@@ -142,22 +146,26 @@ const Picker = createClass<IPickerProps, any>({
       );
     };
     // compatibility for preact
-    const items = React.Children ? React.Children.map(children, map) : [].concat(children).map(map);
+    const items = React.Children ? React.Children.map(children, map) : ([] as any[]).concat(children).map(map);
 
     const pickerCls = {
       [props.className as string]: !!props.className,
       [prefixCls as string]: true,
     };
     return (
-      <div className={classNames(pickerCls)} ref="root" style={this.props.style}>
-        <div className={`${prefixCls}-mask`} ref="mask"/>
-        <div className={`${prefixCls}-indicator ${indicatorClassName}`} ref="indicator" style={indicatorStyle}/>
-        <div className={`${prefixCls}-content`} ref="content">
+      <div className={classNames(pickerCls)} ref={el => this.rootRef = el} style={this.props.style}>
+        <div className={`${prefixCls}-mask`} ref={el => this.maskRef = el}/>
+        <div
+          className={`${prefixCls}-indicator ${indicatorClassName}`}
+          ref={el => this.indicatorRef = el}
+          style={indicatorStyle}
+        />
+        <div className={`${prefixCls}-content`} ref={el => this.contentRef = el}>
           {items}
         </div>
       </div>
     );
-  },
-});
+  }
+}
 
-export default Picker;
+export default PickerMixin(Picker);

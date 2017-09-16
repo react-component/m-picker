@@ -1,40 +1,62 @@
 /* tslint:disable:no-console */
 import React from 'react';
+import { IPickerProps } from './PickerTypes';
 
-export default {
-  select(value) {
-    const children: any = React.Children.toArray(this.props.children);
-    for (let i = 0, len = children.length; i < len; i++) {
-      if (children[i].props.value === value) {
-        this.selectByIndex(i);
+type IItemProps = {
+  className?: string;
+  value: any;
+};
+
+const Item = (_props: IItemProps) => null;
+
+export default function(ComposedComponent) {
+  return class extends React.Component<IPickerProps, any> {
+    static Item = Item;
+
+    select = (value, itemHeight, scrollTo) => {
+      const children: any = React.Children.toArray(this.props.children);
+      for (let i = 0, len = children.length; i < len; i++) {
+        if (children[i].props.value === value) {
+          this.selectByIndex(i, itemHeight, scrollTo);
+          return;
+        }
+      }
+      this.selectByIndex(0, itemHeight, scrollTo);
+    }
+
+    selectByIndex(index, itemHeight, zscrollTo) {
+      if (index < 0 || index >= React.Children.count(this.props.children) || !itemHeight) {
         return;
       }
+      zscrollTo(index * itemHeight);
     }
-    this.selectByIndex(0);
-  },
 
-  selectByIndex(index) {
-    if (index < 0 || index >= React.Children.count(this.props.children) || !this.itemHeight) {
-      return;
+    doScrollingComplete = (top, itemHeight, fireValueChange) => {
+      let index = top / itemHeight;
+      const floor = Math.floor(index);
+      if (index - floor > 0.5) {
+        index = floor + 1;
+      } else {
+        index = floor;
+      }
+      const children = React.Children.toArray(this.props.children);
+      index = Math.min(index, children.length - 1);
+      const child: any = children[index];
+      if (child) {
+        fireValueChange(child.props.value);
+      } else if (console.warn) {
+        console.warn('child not found', children, index);
+      }
     }
-    this.scrollTo(index * this.itemHeight);
-  },
 
-  doScrollingComplete(top) {
-    let index = top / this.itemHeight;
-    const floor = Math.floor(index);
-    if (index - floor > 0.5) {
-      index = floor + 1;
-    } else {
-      index = floor;
+    render() {
+      return (
+        <ComposedComponent
+          {...this.props}
+          doScrollingComplete={this.doScrollingComplete}
+          select={this.select}
+        />
+      );
     }
-    const children = React.Children.toArray(this.props.children);
-    index = Math.min(index, children.length - 1);
-    const child: any = children[index];
-    if (child) {
-      this.fireValueChange(child.props.value);
-    } else if (console.warn) {
-      console.warn('child not found', children, index);
-    }
-  },
-};
+  };
+}

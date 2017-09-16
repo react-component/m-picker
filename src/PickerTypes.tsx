@@ -1,4 +1,4 @@
-export interface IPickerProps {
+export type IPickerProps = {
   disabled?: boolean;
   selectedValue?: any;
   onValueChange?: (value: any) => void;
@@ -6,7 +6,8 @@ export interface IPickerProps {
   /** web only */
   prefixCls?: string;
   indicatorStyle?: any;
+  indicatorClassName?: string;
   className?: string;
   defaultSelectedValue?: any;
   style?: any;
-}
+};
