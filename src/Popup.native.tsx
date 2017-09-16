@@ -47,7 +47,7 @@ const getModal = (props, visible, { getContent, hide, onDismiss, onOk }) => {
       {getContent()}
     </Modal>
   );
-}
+};
 
 export default PopupMixin(getModal, {
   actionTextUnderlayColor: '#ddd',

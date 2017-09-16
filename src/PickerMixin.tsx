@@ -1,24 +1,34 @@
 /* tslint:disable:no-console */
 import React from 'react';
+import { IPickerProps } from './PickerTypes';
 
-export default function (ComposedComponent) {
-  return class extends React.Component<any, any> {
+type IItemProps = {
+  className?: string;
+  value: any;
+};
+
+const Item = (_props: IItemProps) => null;
+
+export default function(ComposedComponent) {
+  return class extends React.Component<IPickerProps, any> {
+    static Item = Item;
+
     select = (value, itemHeight, scrollTo) => {
       const children: any = React.Children.toArray(this.props.children);
       for (let i = 0, len = children.length; i < len; i++) {
         if (children[i].props.value === value) {
-          this.selectByIndex(i, itemHeight);
+          this.selectByIndex(i, itemHeight, scrollTo);
           return;
         }
       }
-      this.selectByIndex(0, itemHeight);
+      this.selectByIndex(0, itemHeight, scrollTo);
     }
 
-    selectByIndex(index, itemHeight) {
+    selectByIndex(index, itemHeight, zscrollTo) {
       if (index < 0 || index >= React.Children.count(this.props.children) || !itemHeight) {
         return;
       }
-      scrollTo(index * itemHeight, 0);
+      zscrollTo(index * itemHeight);
     }
 
     doScrollingComplete = (top, itemHeight, fireValueChange) => {
@@ -48,5 +58,5 @@ export default function (ComposedComponent) {
         />
       );
     }
-  }
+  };
 }

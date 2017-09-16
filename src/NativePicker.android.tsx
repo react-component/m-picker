@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, PixelRatio, Text } from 'react-native';
-import createClass from 'create-react-class';
 import PickerMixin from './PickerMixin';
 import { IPickerProps } from './PickerTypes';
 
@@ -32,20 +31,25 @@ const styles = StyleSheet.create({
   } as any,
 });
 
-const Picker = createClass<IPickerProps, any>({
-  mixins: [PickerMixin],
+export interface IPickerProp {
+  select: Function;
+  doScrollingComplete: Function;
+}
 
-  statics: {
-    Item() {
-    },
-  },
+class Picker extends React.Component<IPickerProp & IPickerProps, any> {
+  itemHeight: number;
+  itemWidth: number;
+  scrollBuffer: any;
+  scrollerRef: any;
+  contentRef: any;
+  indicatorRef: any;
 
-  onItemLayout(e) {
+  onItemLayout = (e) => {
     const { height, width } = e.nativeEvent.layout;
     // console.log('onItemLayout', height);
     if (this.itemHeight !== height || this.itemWidth !== width) {
       this.itemWidth = width;
-      (this.refs as any).indicator.setNativeProps({
+      this.indicatorRef.setNativeProps({
         style: [
           styles.indicator,
           {
@@ -58,12 +62,12 @@ const Picker = createClass<IPickerProps, any>({
     }
     if (this.itemHeight !== height) {
       this.itemHeight = height;
-      (this.refs as any).scroller.setNativeProps({
+      this.scrollerRef.setNativeProps({
         style: {
           height: height * 7,
         },
       });
-      (this.refs as any).content.setNativeProps({
+      this.contentRef.setNativeProps({
         style: {
           paddingTop: height * 3,
           paddingBottom: height * 3,
@@ -71,46 +75,46 @@ const Picker = createClass<IPickerProps, any>({
       });
       // i do no know why!...
       setTimeout(() => {
-        this.select(this.props.selectedValue);
+        this.props.select(this.props.selectedValue, this.itemHeight, this.scrollTo);
       }, 0);
     }
-  },
+  }
 
   componentDidUpdate() {
-    this.select(this.props.selectedValue);
-  },
+    this.props.select(this.props.selectedValue, this.itemHeight, this.scrollTo);
+  }
 
   componentWillUnMount() {
     this.clearScrollBuffer();
-  },
+  }
 
   clearScrollBuffer() {
     if (this.scrollBuffer) {
       clearTimeout(this.scrollBuffer);
     }
-  },
+  }
 
-  scrollTo(y) {
-    (this.refs as any).scroller.scrollTo({
+  scrollTo = (y) => {
+    this.scrollerRef.scrollTo({
       y,
       animated: false,
     });
-  },
+  }
 
-  fireValueChange(selectedValue) {
+  fireValueChange = (selectedValue) => {
     if (this.props.selectedValue !== selectedValue && this.props.onValueChange) {
       this.props.onValueChange(selectedValue);
     }
-  },
+  }
 
-  onScroll(e) {
+  onScroll = (e) => {
     const { y } = e.nativeEvent.contentOffset;
     this.clearScrollBuffer();
     this.scrollBuffer = setTimeout(() => {
       this.clearScrollBuffer();
-      this.doScrollingComplete(y);
+      this.props.doScrollingComplete(y, this.itemHeight, this.fireValueChange);
     }, 100);
-  },
+  }
 
   render() {
     const { children, itemStyle, selectedValue, style } = this.props;
@@ -122,7 +126,7 @@ const Picker = createClass<IPickerProps, any>({
       totalStyle.push(itemStyle);
       return (
         <View
-          ref={`item${index}`}
+          ref={el => this[`item${index}`] = el}
           onLayout={index === 0 ? this.onItemLayout : undefined}
           key={item.key}
         >
@@ -134,20 +138,20 @@ const Picker = createClass<IPickerProps, any>({
       <View style={style}>
         <ScrollView
           style={styles.scrollView}
-          ref="scroller"
+          ref={el => this.scrollerRef = el}
           onScroll={this.onScroll}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
           overScrollMode="never"
         >
-          <View ref="content">
+          <View ref={el => this.contentRef = el}>
             {items}
           </View>
         </ScrollView>
-        <View ref="indicator" style={styles.indicator}/>
+        <View ref={el => this.indicatorRef = el} style={styles.indicator}/>
       </View>
     );
-  },
-});
+  }
+}
 
-export default Picker;
+export default PickerMixin(Picker);

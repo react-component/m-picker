@@ -4,11 +4,11 @@ import { IPopupPickerProps } from './PopupPickerTypes';
 export default function PopupMixin(getModal, platformProps) {
   return class extends React.Component<IPopupPickerProps, any> {
     static defaultProps = {
-      onVisibleChange(_){},
+      onVisibleChange(_) { },
       okText: 'Ok',
       dismissText: 'Dismiss',
       title: '',
-      onOk(_){ },
+      onOk(_) { },
       onDismiss() { },
       ...platformProps,
     };
@@ -138,7 +138,7 @@ export default function PopupMixin(getModal, platformProps) {
     }
 
     render() {
-      return this.getRender()
+      return this.getRender();
     }
-  }
+  };
 }

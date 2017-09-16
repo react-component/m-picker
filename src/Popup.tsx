@@ -37,7 +37,7 @@ const getModal = (props, visible, { getContent, hide, onDismiss, onOk }) => {
       </div>
     </Modal>
   );
-}
+};
 
 export default PopupMixin(getModal, {
   prefixCls: 'rmc-picker-popup',

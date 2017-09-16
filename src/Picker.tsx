@@ -1,29 +1,25 @@
 import React from 'react';
-import createClass from 'create-react-class';
 import classNames from 'classnames';
 import ZScroller from 'zscroller';
 import { IPickerProps } from './PickerTypes';
 import PickerMixin from './PickerMixin';
 
-class Picker extends React.Component<IPickerProps, any> {
-  // mixins: [PickerMixin],
+type IPickerProp = {
+  select: Function;
+  doScrollingComplete: Function;
+};
 
-//   statics: {
-//     Item() {
-//     },
-// },
-
-  static Item = {};
-
+class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   static defaultProps = {
     prefixCls: 'rmc-picker',
   };
 
-  // getDefaultProps() {
-  //   return {
-  //     prefixCls: 'rmc-picker',
-  //   };
-  // }
+  rootRef: any;
+  maskRef: any;
+  contentRef: any;
+  indicatorRef: any;
+  itemHeight: number;
+  zscroller: any;
 
   constructor(props) {
     super(props);
@@ -43,37 +39,21 @@ class Picker extends React.Component<IPickerProps, any> {
     };
   }
 
-  // getInitialState() {
-  //   let selectedValueState;
-  //   const { selectedValue, defaultSelectedValue } = this.props;
-  //   if (selectedValue !== undefined) {
-  //     selectedValueState = selectedValue;
-  //   } else if (defaultSelectedValue !== undefined) {
-  //     selectedValueState = defaultSelectedValue;
-  //   } else {
-  //     const children: any = React.Children.toArray(this.props.children);
-  //     selectedValueState = children && children[0] && children[0].props.value;
-  //   }
-  //   return {
-  //     selectedValue: selectedValueState,
-  //   };
-  // }
-
   componentDidMount() {
-    const { content, indicator, mask, root } = this.refs;
-    const rootHeight = root.getBoundingClientRect().height;
+    const { contentRef, indicatorRef, maskRef, rootRef } = this;
+    const rootHeight = rootRef.getBoundingClientRect().height;
     // https://github.com/react-component/m-picker/issues/18
-    const itemHeight = this.itemHeight = indicator.getBoundingClientRect().height;
+    const itemHeight = this.itemHeight = indicatorRef.getBoundingClientRect().height;
     let num = Math.floor(rootHeight / itemHeight);
     if (num % 2 === 0) {
       num--;
     }
     num--;
     num /= 2;
-    content.style.padding = `${itemHeight * num}px 0`;
-    indicator.style.top = `${itemHeight * num}px`;
-    mask.style.backgroundSize = `100% ${itemHeight * num}px`;
-    this.zscroller = new ZScroller(content, {
+    contentRef.style.padding = `${itemHeight * num}px 0`;
+    indicatorRef.style.top = `${itemHeight * num}px`;
+    maskRef.style.backgroundSize = `100% ${itemHeight * num}px`;
+    this.zscroller = new ZScroller(contentRef, {
       scrollingX: false,
       snapping: true,
       locking: false,
@@ -109,7 +89,7 @@ class Picker extends React.Component<IPickerProps, any> {
     this.zscroller.destroy();
   }
 
-  scrollTo(top) {
+  scrollTo = (top) => {
     this.zscroller.scroller.scrollTo(0, top);
   }
 
@@ -166,17 +146,21 @@ class Picker extends React.Component<IPickerProps, any> {
       );
     };
     // compatibility for preact
-    const items = React.Children ? React.Children.map(children, map) : [].concat(children).map(map);
+    const items = React.Children ? React.Children.map(children, map) : ([] as any[]).concat(children).map(map);
 
     const pickerCls = {
       [props.className as string]: !!props.className,
       [prefixCls as string]: true,
     };
     return (
-      <div className={classNames(pickerCls)} ref="root" style={this.props.style}>
-        <div className={`${prefixCls}-mask`} ref="mask"/>
-        <div className={`${prefixCls}-indicator ${indicatorClassName}`} ref="indicator" style={indicatorStyle}/>
-        <div className={`${prefixCls}-content`} ref="content">
+      <div className={classNames(pickerCls)} ref={el => this.rootRef = el} style={this.props.style}>
+        <div className={`${prefixCls}-mask`} ref={el => this.maskRef = el}/>
+        <div
+          className={`${prefixCls}-indicator ${indicatorClassName}`}
+          ref={el => this.indicatorRef = el}
+          style={indicatorStyle}
+        />
+        <div className={`${prefixCls}-content`} ref={el => this.contentRef = el}>
           {items}
         </div>
       </div>
