@@ -18,7 +18,7 @@ export default function(ComposedComponent) {
           return [];
         }
         return React.Children.map(children, (c: any) => {
-          const cc: any = React.Children.toArray(c.props.children);
+          const cc: any = React.Children.toArray(c.children || c.props.children);
           return cc && cc[0] && cc[0].props.value;
         });
       }
