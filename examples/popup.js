@@ -389,7 +389,12 @@ function PopupMixin(getModal, platformProps) {
                 var props = this.props;
                 var children = props.children;
                 if (!children) {
-                    return getModal(props, this.state.visible, this.getContent);
+                    return getModal(props, this.state.visible, {
+                        getContent: this.getContent,
+                        onOk: this.onOk,
+                        hide: this.hide,
+                        onDismiss: this.onDismiss
+                    });
                 }
                 var _props = this.props,
                     WrapComponent = _props.WrapComponent,
