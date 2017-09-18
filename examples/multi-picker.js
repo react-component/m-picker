@@ -249,7 +249,7 @@ var MultiPicker = function MultiPicker(props) {
                         return [];
                     }
                     return __WEBPACK_IMPORTED_MODULE_5_react___default.a.Children.map(children, function (c) {
-                        var cc = __WEBPACK_IMPORTED_MODULE_5_react___default.a.Children.toArray(c.props.children);
+                        var cc = __WEBPACK_IMPORTED_MODULE_5_react___default.a.Children.toArray(c.children || c.props.children);
                         return cc && cc[0] && cc[0].props.value;
                     });
                 }
