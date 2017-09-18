@@ -8,7 +8,6 @@ interface IMultiPickerProps {
   selectedValue?: any[];
   className?: string;
   rootNativeProps?: any;
-  indicatorStyle?: any;
   onValueChange?: (v?: any, i?: number) => void;
   children?: any;
   style?: any;

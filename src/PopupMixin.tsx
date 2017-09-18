@@ -75,7 +75,12 @@ export default function PopupMixin(getModal, platformProps) {
       const props = this.props;
       const children = props.children;
       if (!children) {
-        return getModal(props, this.state.visible, this.getContent);
+        return getModal(props, this.state.visible, {
+          getContent: this.getContent,
+          onOk: this.onOk,
+          hide: this.hide,
+          onDismiss: this.onDismiss,
+        });
       }
       const { WrapComponent, disabled } = this.props;
       const child = children;
