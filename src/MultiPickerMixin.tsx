@@ -1,7 +1,7 @@
 import React from 'react';
 import MultiPickerProps from './MultiPickerProps';
 
-export default function (ComposedComponent) {
+export default function(ComposedComponent) {
   return class extends React.Component<MultiPickerProps, any> {
     static defaultProps = {
       prefixCls: 'rmc-multi-picker',
@@ -24,16 +24,18 @@ export default function (ComposedComponent) {
       }
     }
 
-    onValueChange = (i, v) => {
+    onChange = (i, v, cb) => {
       const value = this.getValue().concat();
       value[i] = v;
-      this.props.onValueChange!(value, i);
+      cb!(value, i);
+    }
+
+    onValueChange = (i, v) => {
+      this.onChange(i, v, this.props.onValueChange);
     }
 
     onScrollChange = (i, v) => {
-      const value = this.getValue().concat();
-      value[i] = v;
-      this.props.onScrollChange!(value, i);
+      this.onChange(i, v, this.props.onScrollChange);
     }
 
     render() {
