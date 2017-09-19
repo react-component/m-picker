@@ -10,4 +10,5 @@ export type IPickerProps = {
   className?: string;
   defaultSelectedValue?: any;
   style?: any;
+  onScrollChange?: (value: any) => void;
 };

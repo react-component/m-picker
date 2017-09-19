@@ -22,6 +22,10 @@ class PickerDemo extends React.Component<any, any> {
     });
   }
 
+  onScrollChange = (value) => {
+    console.log('onScrollChange', value);
+  }
+
   disable = () => {
     this.setState({
       disabled: !this.state.disabled,
@@ -57,6 +61,7 @@ class PickerDemo extends React.Component<any, any> {
           selectedValue={this.state.value}
           disabled={this.state.disabled}
           onValueChange={this.onChange}
+          onScrollChange={this.onScrollChange}
         >
           {this.state.items}
         </Picker>

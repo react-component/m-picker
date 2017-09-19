@@ -7,6 +7,7 @@ import PickerMixin from './PickerMixin';
 type IPickerProp = {
   select: Function;
   doScrollingComplete: Function;
+  coumputeChildIndex: Function;
 };
 
 class Picker extends React.Component<IPickerProp & IPickerProps, any> {
@@ -20,6 +21,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   indicatorRef: any;
   itemHeight: number;
   zscroller: any;
+  scrollValue: any;
 
   constructor(props) {
     super(props);
@@ -60,6 +62,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       penetrationDeceleration: .1,
       minVelocityToKeepDecelerating: 0.5,
       scrollingComplete: this.scrollingComplete,
+      onScroll: this.props.onScrollChange && this.onScrollChange,
     });
     this.zscroller.setDisabled(this.props.disabled);
     this.zscroller.scroller.setSnapSize(0, itemHeight);
@@ -102,6 +105,23 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       }
       if (this.props.onValueChange) {
         this.props.onValueChange(selectedValue);
+      }
+    }
+  }
+
+  onScrollChange = () => {
+    const { top } = this.zscroller.scroller.getValues();
+    if (top >= 0) {
+      const children = React.Children.toArray(this.props.children);
+      const index = this.props.coumputeChildIndex(top, this.itemHeight, children.length);
+      if (this.scrollValue !== index) {
+        this.scrollValue = index;
+        const child: any = children[index];
+        if (child && this.props.onScrollChange) {
+          this.props.onScrollChange(child.props.value);
+        } else if (console.warn) {
+          console.warn('child not found', children, index);
+        }
       }
     }
   }
@@ -154,7 +174,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     };
     return (
       <div className={classNames(pickerCls)} ref={el => this.rootRef = el} style={this.props.style}>
-        <div className={`${prefixCls}-mask`} ref={el => this.maskRef = el}/>
+        <div className={`${prefixCls}-mask`} ref={el => this.maskRef = el} />
         <div
           className={`${prefixCls}-indicator ${indicatorClassName}`}
           ref={el => this.indicatorRef = el}

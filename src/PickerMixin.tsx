@@ -9,7 +9,7 @@ type IItemProps = {
 
 const Item = (_props: IItemProps) => null;
 
-export default function(ComposedComponent) {
+export default function (ComposedComponent) {
   return class extends React.Component<IPickerProps, any> {
     static Item = Item;
 
@@ -31,7 +31,7 @@ export default function(ComposedComponent) {
       zscrollTo(index * itemHeight);
     }
 
-    doScrollingComplete = (top, itemHeight, fireValueChange) => {
+    coumputeChildIndex(top, itemHeight, childrenLength) {
       let index = top / itemHeight;
       const floor = Math.floor(index);
       if (index - floor > 0.5) {
@@ -39,8 +39,12 @@ export default function(ComposedComponent) {
       } else {
         index = floor;
       }
+      return Math.min(index, childrenLength - 1);
+    }
+
+    doScrollingComplete = (top, itemHeight, fireValueChange) => {
       const children = React.Children.toArray(this.props.children);
-      index = Math.min(index, children.length - 1);
+      const index = this.coumputeChildIndex(top, itemHeight, children.length);
       const child: any = children[index];
       if (child) {
         fireValueChange(child.props.value);
@@ -54,6 +58,7 @@ export default function(ComposedComponent) {
         <ComposedComponent
           {...this.props}
           doScrollingComplete={this.doScrollingComplete}
+          coumputeChildIndex={this.coumputeChildIndex}
           select={this.select}
         />
       );
