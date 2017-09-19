@@ -20,6 +20,7 @@ const MultiPicker = (props: IMultiPickerProp & MultiPickerProps) => {
     return React.cloneElement(col, {
       selectedValue: selectedValue[i],
       onValueChange: (...args) => props.onValueChange!(i, ...args),
+      onScrollChange: (...args) => props.onScrollChange!(i, ...args),
     });
   });
   return (
