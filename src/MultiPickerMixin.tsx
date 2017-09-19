@@ -24,15 +24,30 @@ export default function(ComposedComponent) {
       }
     }
 
-    onValueChange = (i, v) => {
+    onChange = (i, v, cb) => {
       const value = this.getValue().concat();
       value[i] = v;
-      this.props.onValueChange!(value, i);
+      if (cb) {
+        cb(value, i);
+      }
+    }
+
+    onValueChange = (i, v) => {
+      this.onChange(i, v, this.props.onValueChange);
+    }
+
+    onScrollChange = (i, v) => {
+      this.onChange(i, v, this.props.onScrollChange);
     }
 
     render() {
       return (
-        <ComposedComponent {...this.props} getValue={this.getValue} onValueChange={this.onValueChange} />
+        <ComposedComponent
+          {...this.props}
+          getValue={this.getValue}
+          onValueChange={this.onValueChange}
+          onScrollChange={this.props.onScrollChange && this.onScrollChange}
+        />
       );
     }
   };

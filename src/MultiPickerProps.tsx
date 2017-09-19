@@ -11,6 +11,7 @@ interface IMultiPickerProps {
   onValueChange?: (v?: any, i?: number) => void;
   children?: any;
   style?: any;
+  onScrollChange?: (v?: any, i?: number) => void;
 }
 
 export default IMultiPickerProps;
