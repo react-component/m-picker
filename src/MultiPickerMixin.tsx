@@ -27,7 +27,9 @@ export default function(ComposedComponent) {
     onChange = (i, v, cb) => {
       const value = this.getValue().concat();
       value[i] = v;
-      cb && cb(value, i);
+      if (cb) {
+        cb(value, i);
+      }
     }
 
     onValueChange = (i, v) => {
