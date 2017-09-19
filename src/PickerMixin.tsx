@@ -9,7 +9,7 @@ type IItemProps = {
 
 const Item = (_props: IItemProps) => null;
 
-export default function (ComposedComponent) {
+export default function(ComposedComponent) {
   return class extends React.Component<IPickerProps, any> {
     static Item = Item;
 
