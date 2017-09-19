@@ -46,7 +46,7 @@ export default function(ComposedComponent) {
           {...this.props}
           getValue={this.getValue}
           onValueChange={this.onValueChange}
-          onScrollChange={this.onScrollChange}
+          onScrollChange={this.props.onScrollChange && this.onScrollChange}
         />
       );
     }
