@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 144:
+/***/ 147:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15,7 +15,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_index_less__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_MultiPicker__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_MultiPicker__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(40);
@@ -49,6 +49,9 @@ var Test = function (_React$Component) {
                 value: value
             });
         };
+        _this.onScrollChange = function (value) {
+            console.log('onScrollChange', value);
+        };
         return _this;
     }
 
@@ -60,7 +63,7 @@ var Test = function (_React$Component) {
                 { style: { background: '#f5f5f9', padding: 10 } },
                 __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_5__src_MultiPicker__["a" /* default */],
-                    { selectedValue: this.state.value, onValueChange: this.onChange },
+                    { selectedValue: this.state.value, onValueChange: this.onChange, onScrollChange: this.onScrollChange },
                     __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_8__src_Picker__["a" /* default */],
                         { indicatorClassName: 'my-picker-indicator' },
@@ -161,7 +164,7 @@ __WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 147:
+/***/ 150:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -171,7 +174,7 @@ __WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MultiPickerMixin__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MultiPickerMixin__ = __webpack_require__(151);
 
 
 
@@ -193,6 +196,13 @@ var MultiPicker = function MultiPicker(props) {
                 }
 
                 return props.onValueChange.apply(props, [i].concat(args));
+            },
+            onScrollChange: props.onScrollChange && function () {
+                for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+                    args[_key2] = arguments[_key2];
+                }
+
+                return props.onScrollChange.apply(props, [i].concat(args));
             }
         });
     });
@@ -206,7 +216,7 @@ var MultiPicker = function MultiPicker(props) {
 
 /***/ }),
 
-/***/ 148:
+/***/ 151:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -254,10 +264,18 @@ var MultiPicker = function MultiPicker(props) {
                     });
                 }
             };
-            _this.onValueChange = function (i, v) {
+            _this.onChange = function (i, v, cb) {
                 var value = _this.getValue().concat();
                 value[i] = v;
-                _this.props.onValueChange(value, i);
+                if (cb) {
+                    cb(value, i);
+                }
+            };
+            _this.onValueChange = function (i, v) {
+                _this.onChange(i, v, _this.props.onValueChange);
+            };
+            _this.onScrollChange = function (i, v) {
+                _this.onChange(i, v, _this.props.onScrollChange);
             };
             return _this;
         }
@@ -265,7 +283,7 @@ var MultiPicker = function MultiPicker(props) {
         __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(_a, [{
             key: 'render',
             value: function render() {
-                return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(ComposedComponent, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props, { getValue: this.getValue, onValueChange: this.onValueChange }));
+                return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(ComposedComponent, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props, { getValue: this.getValue, onValueChange: this.onValueChange, onScrollChange: this.props.onScrollChange && this.onScrollChange }));
             }
         }]);
 
@@ -280,10 +298,10 @@ var MultiPicker = function MultiPicker(props) {
 
 /***/ }),
 
-/***/ 301:
+/***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(144);
+module.exports = __webpack_require__(147);
 
 
 /***/ }),
@@ -372,9 +390,27 @@ var Picker = function (_React$Component) {
                 }
             }
         };
-        _this.scrollingComplete = function () {
+        _this.onScrollChange = function () {
             var _this$zscroller$scrol = _this.zscroller.scroller.getValues(),
                 top = _this$zscroller$scrol.top;
+
+            if (top >= 0) {
+                var children = __WEBPACK_IMPORTED_MODULE_6_react___default.a.Children.toArray(_this.props.children);
+                var index = _this.props.coumputeChildIndex(top, _this.itemHeight, children.length);
+                if (_this.scrollValue !== index) {
+                    _this.scrollValue = index;
+                    var child = children[index];
+                    if (child && _this.props.onScrollChange) {
+                        _this.props.onScrollChange(child.props.value);
+                    } else if (console.warn) {
+                        console.warn('child not found', children, index);
+                    }
+                }
+            }
+        };
+        _this.scrollingComplete = function () {
+            var _this$zscroller$scrol2 = _this.zscroller.scroller.getValues(),
+                top = _this$zscroller$scrol2.top;
 
             if (top >= 0) {
                 _this.props.doScrollingComplete(top, _this.itemHeight, _this.fireValueChange);
@@ -425,7 +461,8 @@ var Picker = function (_React$Component) {
                 locking: false,
                 penetrationDeceleration: .1,
                 minVelocityToKeepDecelerating: 0.5,
-                scrollingComplete: this.scrollingComplete
+                scrollingComplete: this.scrollingComplete,
+                onScroll: this.props.onScrollChange && this.onScrollChange
             });
             this.zscroller.setDisabled(this.props.disabled);
             this.zscroller.scroller.setSnapSize(0, itemHeight);
@@ -577,15 +614,8 @@ var Item = function Item(_props) {
                 _this.selectByIndex(0, itemHeight, scrollTo);
             };
             _this.doScrollingComplete = function (top, itemHeight, fireValueChange) {
-                var index = top / itemHeight;
-                var floor = Math.floor(index);
-                if (index - floor > 0.5) {
-                    index = floor + 1;
-                } else {
-                    index = floor;
-                }
                 var children = __WEBPACK_IMPORTED_MODULE_5_react___default.a.Children.toArray(_this.props.children);
-                index = Math.min(index, children.length - 1);
+                var index = _this.coumputeChildIndex(top, itemHeight, children.length);
                 var child = children[index];
                 if (child) {
                     fireValueChange(child.props.value);
@@ -605,9 +635,21 @@ var Item = function Item(_props) {
                 zscrollTo(index * itemHeight);
             }
         }, {
+            key: 'coumputeChildIndex',
+            value: function coumputeChildIndex(top, itemHeight, childrenLength) {
+                var index = top / itemHeight;
+                var floor = Math.floor(index);
+                if (index - floor > 0.5) {
+                    index = floor + 1;
+                } else {
+                    index = floor;
+                }
+                return Math.min(index, childrenLength - 1);
+            }
+        }, {
             key: 'render',
             value: function render() {
-                return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(ComposedComponent, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props, { doScrollingComplete: this.doScrollingComplete, select: this.select }));
+                return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(ComposedComponent, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props, { doScrollingComplete: this.doScrollingComplete, coumputeChildIndex: this.coumputeChildIndex, select: this.select }));
             }
         }]);
 
@@ -2504,5 +2546,5 @@ for (var key in members) {
 
 /***/ })
 
-},[301]);
+},[308]);
 //# sourceMappingURL=multi-picker.js.map
