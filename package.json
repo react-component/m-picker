@@ -1,6 +1,6 @@
 {
   "name": "rmc-picker",
-  "version": "5.0.0-alpha.5",
+  "version": "5.0.0-alpha.6",
   "description": "React Mobile Picker Component(web and react-native)",
   "keywords": [
     "react",
@@ -52,7 +52,7 @@
     "babel-runtime": "6.x",
     "classnames": "^2.2.0",
     "rmc-feedback": "^1.0.0",
-    "rmc-dialog": "^0.0.1-alpha.2",
+    "rmc-dialog": "^1.0.1",
     "zscroller": "~0.3.0"
   },
   "devDependencies": {
