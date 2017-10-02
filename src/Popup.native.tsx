@@ -1,75 +1,58 @@
 import React from 'react';
-import {
-  View, TouchableHighlight, Text,
-} from 'react-native';
-import createClass from 'create-react-class';
-import { IPopupPickerProps } from './PopupPickerTypes';
+import { View, TouchableHighlight, Text } from 'react-native';
 import PopupMixin from './PopupMixin';
-import Modal from 'rc-dialog/lib/Modal';
+import Modal from 'rmc-dialog/lib/Modal';
 
-const PopupPicker = createClass<IPopupPickerProps, any>({
-  mixins: [PopupMixin],
+const getModal = (props, visible, { getContent, hide, onDismiss, onOk }) => {
+  const { styles, title, okText, dismissText } = props;
 
-  getDefaultProps() {
-    return {
-      actionTextUnderlayColor: '#ddd',
-      actionTextActiveOpacity: 1,
-      triggerType: 'onPress',
-      styles: {},
-      WrapComponent: View,
-    };
-  },
+  const titleEl = typeof title === 'string' ?
+    <Text style={[styles.title]}>{title}</Text> :
+    title;
+  const okEl = typeof okText === 'string' ?
+    <Text style={[styles.actionText]}>{okText}</Text> :
+    okText;
+  const dismissEl = typeof dismissText === 'string' ?
+    <Text style={[styles.actionText]}>{dismissText}</Text> :
+    dismissText;
 
-  getModal() {
-    const { props } = this;
-    const { styles, title, okText, dismissText } = props;
-
-    const titleEl = typeof title === 'string' ?
-      <Text style={[styles.title]}>{title}</Text> :
-      title;
-    const okEl = typeof okText === 'string' ?
-      <Text style={[styles.actionText]}>{okText}</Text> :
-      okText;
-    const dismissEl = typeof dismissText === 'string' ?
-      <Text style={[styles.actionText]}>{dismissText}</Text> :
-      dismissText;
-
-    return (
-      <Modal
-        animationType="slide-up"
-        wrapStyle={styles.modal}
-        visible={this.state.visible}
-        onClose={this.onDismiss}
-      >
-        <View style={[styles.header]}>
-          <TouchableHighlight
-            onPress={this.onDismiss}
-            style={[styles.headerItem]}
-            activeOpacity={props.actionTextActiveOpacity}
-            underlayColor={props.actionTextUnderlayColor}
-          >
-            {dismissEl}
-          </TouchableHighlight>
-          <View style={[styles.headerItem]}>
-            {titleEl}
-          </View>
-          <TouchableHighlight
-            onPress={this.onOk}
-            style={[styles.headerItem]}
-            activeOpacity={props.actionTextActiveOpacity}
-            underlayColor={props.actionTextUnderlayColor}
-          >
-            {okEl}
-          </TouchableHighlight>
+  return (
+    <Modal
+      animationType="slide-up"
+      wrapStyle={styles.modal}
+      visible={visible}
+      onClose={hide}
+    >
+      <View style={[styles.header]}>
+        <TouchableHighlight
+          onPress={onDismiss}
+          style={[styles.headerItem]}
+          activeOpacity={props.actionTextActiveOpacity}
+          underlayColor={props.actionTextUnderlayColor}
+        >
+          {dismissEl}
+        </TouchableHighlight>
+        <View style={[styles.headerItem]}>
+          {titleEl}
         </View>
-        {this.getContent()}
-      </Modal>
-    );
-  },
+        <TouchableHighlight
+          onPress={onOk}
+          style={[styles.headerItem]}
+          activeOpacity={props.actionTextActiveOpacity}
+          underlayColor={props.actionTextUnderlayColor}
+        >
+          {okEl}
+        </TouchableHighlight>
+      </View>
+      {getContent()}
+    </Modal>
+  );
+};
 
-  render() {
-    return this.getRender();
-  },
+export default PopupMixin(getModal, {
+  actionTextUnderlayColor: '#ddd',
+  actionTextActiveOpacity: 1,
+  triggerType: 'onPress',
+  styles: {},
+  WrapComponent: View,
 });
-
-export default PopupPicker;

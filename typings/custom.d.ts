@@ -1,4 +1,9 @@
-declare module "rc-dialog" {
+declare module "rmc-dialog" {
+  var Ret: any;
+  export default Ret;
+}
+
+declare module "rmc-feedback" {
   var Ret: any;
   export default Ret;
 }
@@ -9,16 +14,6 @@ declare module "classnames" {
 }
 
 declare module "zscroller" {
-  var Ret: any;
-  export default Ret;
-}
-
-declare module "react-hammerjs" {
-  var Ret: any;
-  export default Ret;
-}
-
-declare module "object-assign" {
   var Ret: any;
   export default Ret;
 }

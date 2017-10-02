@@ -1,130 +1,149 @@
 import React from 'react';
+import { IPopupPickerProps } from './PopupPickerTypes';
 
-function noop() {
-}
-
-export default {
-  getDefaultProps() {
-    return {
-      onVisibleChange: noop,
+export default function PopupMixin(getModal, platformProps) {
+  return class extends React.Component<IPopupPickerProps, any> {
+    static defaultProps = {
+      onVisibleChange(_) { },
       okText: 'Ok',
-      pickerValueProp: 'selectedValue',
-      pickerValueChangeProp: 'onValueChange',
       dismissText: 'Dismiss',
       title: '',
-      onOk: noop,
-      onDismiss: noop,
+      onOk(_) { },
+      onDismiss() { },
+      ...platformProps,
     };
-  },
 
-  getInitialState() {
-    return {
-      pickerValue: 'value' in this.props ? this.props.value : null,
-      visible: this.props.visible || false,
-    };
-  },
+    picker: any;
 
-  componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps) {
-      this.setState({
-        pickerValue: nextProps.value,
-      });
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        pickerValue: 'value' in this.props ? this.props.value : null,
+        visible: this.props.visible || false,
+      };
     }
-    if ('visible' in nextProps) {
-      this.setVisibleState(nextProps.visible);
-    }
-  },
 
-  onPickerChange(pickerValue) {
-    if (this.state.pickerValue !== pickerValue) {
-      this.setState({
-        pickerValue,
-      });
-      const { picker, pickerValueChangeProp } = this.props;
-      if (picker && picker.props[pickerValueChangeProp]) {
-        picker.props[pickerValueChangeProp](pickerValue);
+    componentWillReceiveProps(nextProps) {
+      if ('value' in nextProps) {
+        this.setState({
+          pickerValue: nextProps.value,
+        });
+      }
+      if ('visible' in nextProps) {
+        this.setVisibleState(nextProps.visible);
       }
     }
-  },
 
-  saveRef(picker) {
-    this.picker = picker;
-  },
+    onPickerChange = (pickerValue) => {
+      if (this.state.pickerValue !== pickerValue) {
+        this.setState({
+          pickerValue,
+        });
+        const { picker, pickerValueChangeProp } = this.props;
+        if (picker && picker.props[pickerValueChangeProp!]) {
+          picker.props[pickerValueChangeProp!](pickerValue);
+        }
+      }
+    }
 
-  setVisibleState(visible) {
-    this.setState({
-      visible,
-    });
-    if (!visible) {
+    saveRef = (picker) => {
+      this.picker = picker;
+    }
+
+    setVisibleState(visible) {
       this.setState({
-        pickerValue: null,
+        visible,
       });
-    }
-  },
-
-  fireVisibleChange(visible) {
-    if (this.state.visible !== visible) {
-      if (!('visible' in this.props)) {
-        this.setVisibleState(visible);
+      if (!visible) {
+        this.setState({
+          pickerValue: null,
+        });
       }
-      this.props.onVisibleChange(visible);
     }
-  },
 
-  getRender() {
-    const props = this.props;
-    const children = props.children;
-    if (!children) {
-      return this.getModal();
-    }
-    const { WrapComponent, disabled } = this.props;
-    const child = children;
-    const newChildProps = {};
-    if (!disabled) {
-      newChildProps[props.triggerType] = this.onTriggerClick;
-    }
-    return (<WrapComponent style={props.wrapStyle}>
-      {React.cloneElement(child, newChildProps)}
-      {this.getModal()}
-    </WrapComponent>);
-  },
-
-  onTriggerClick(e) {
-    const child = this.props.children;
-    const childProps = child.props || {};
-    if (childProps[this.props.triggerType]) {
-      childProps[this.props.triggerType](e);
-    }
-    this.fireVisibleChange(!this.state.visible);
-  },
-
-  onOk() {
-    this.props.onOk(this.picker && this.picker.getValue());
-    this.fireVisibleChange(false);
-  },
-
-  getContent() {
-    if (this.props.picker) {
-      let { pickerValue } = this.state;
-      if (pickerValue === null) {
-        pickerValue = this.props.value;
+    fireVisibleChange(visible) {
+      if (this.state.visible !== visible) {
+        if (!('visible' in this.props)) {
+          this.setVisibleState(visible);
+        }
+        this.props.onVisibleChange!(visible);
       }
-      return React.cloneElement(this.props.picker, ({
-        [this.props.pickerValueProp]: pickerValue,
-        [this.props.pickerValueChangeProp]: this.onPickerChange,
-        ref: this.saveRef,
-      }));
-    } else {
-      return this.props.content;
     }
-  },
 
-  onDismiss() {
-    this.props.onDismiss();
-    this.fireVisibleChange(false);
-  },
+    getRender() {
+      const props = this.props;
+      const children = props.children;
+      if (!children) {
+        return getModal(props, this.state.visible, {
+          getContent: this.getContent,
+          onOk: this.onOk,
+          hide: this.hide,
+          onDismiss: this.onDismiss,
+        });
+      }
+      const { WrapComponent, disabled } = this.props;
+      const child = children;
+      const newChildProps = {};
+      if (!disabled) {
+        newChildProps[props.triggerType!] = this.onTriggerClick;
+      }
+      return (
+        <WrapComponent style={props.wrapStyle}>
+          {React.cloneElement(child as any, newChildProps)}
+          {
+            getModal(props, this.state.visible, {
+              getContent: this.getContent,
+              onOk: this.onOk,
+              hide: this.hide,
+              onDismiss: this.onDismiss,
+            })
+          }
+        </WrapComponent>
+      );
+    }
 
-  hide() {
-    this.fireVisibleChange(false);
-  },
-};
+    onTriggerClick = (e) => {
+      const child: any = this.props.children;
+      const childProps = child.props || {};
+      if (childProps[this.props.triggerType!]) {
+        childProps[this.props.triggerType!](e);
+      }
+      this.fireVisibleChange(!this.state.visible);
+    }
+
+    onOk = () => {
+      this.props.onOk!(this.picker && this.picker.getValue());
+      this.fireVisibleChange(false);
+    }
+
+    getContent = () => {
+      if (this.props.picker) {
+        let { pickerValue } = this.state;
+        if (pickerValue === null) {
+          pickerValue = this.props.value;
+        }
+        return React.cloneElement(this.props.picker, ({
+          [this.props.pickerValueProp!]: pickerValue,
+          [this.props.pickerValueChangeProp!]: this.onPickerChange,
+          ref: this.saveRef,
+        }));
+      } else {
+        return this.props.content;
+      }
+    }
+
+    onDismiss = () => {
+      this.props.onDismiss!();
+      this.fireVisibleChange(false);
+    }
+
+    hide = () => {
+      this.fireVisibleChange(false);
+    }
+
+    render() {
+      return this.getRender();
+    }
+  };
+}

@@ -18,12 +18,17 @@ class Test extends React.Component<any, any> {
     });
   }
 
+  onScrollChange = (value) => {
+    console.log('onScrollChange', value);
+  }
+
   render() {
     return (
       <div style={{ background: '#f5f5f9', padding: 10 }}>
         <MultiPicker
           selectedValue={this.state.value}
           onValueChange={this.onChange}
+          onScrollChange={this.onScrollChange}
         >
           <Picker indicatorClassName="my-picker-indicator">
             <Picker.Item className="my-picker-view-item" value="1">one</Picker.Item>

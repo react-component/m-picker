@@ -1,35 +1,37 @@
 import React from 'react';
 import classnames from 'classnames';
-import createClass from 'create-react-class';
 import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
 
-const MultiPicker = createClass<MultiPickerProps, any>({
-  mixins: [MultiPickerMixin],
-  render() {
-    const {
-      prefixCls,
-      className,
-      rootNativeProps,
-      children,
-    } = this.props;
-    const selectedValue = this.getValue();
-    const colElements = React.Children.map(children, (col: any, i) => {
-      return React.cloneElement(col, {
-        selectedValue: selectedValue[i],
-        onValueChange: (...args) => this.onValueChange(i, ...args),
-      });
-    });
-    return (
-      <div
-        {...rootNativeProps}
-        style={this.props.style}
-        className={classnames(className, prefixCls)}
-      >
-        {colElements}
-      </div>
-    );
-  },
-});
+export interface IMultiPickerProp {
+  getValue: Function;
+}
 
-export default MultiPicker;
+const MultiPicker = (props: IMultiPickerProp & MultiPickerProps) => {
+  const {
+    prefixCls,
+    className,
+    rootNativeProps,
+    children,
+    style,
+  } = props;
+  const selectedValue = props.getValue();
+  const colElements = React.Children.map(children, (col: any, i) => {
+    return React.cloneElement(col, {
+      selectedValue: selectedValue[i],
+      onValueChange: (...args) => props.onValueChange!(i, ...args),
+      onScrollChange: props.onScrollChange && ((...args) => props.onScrollChange!(i, ...args)),
+    });
+  });
+  return (
+    <div
+      {...rootNativeProps}
+      style={style}
+      className={classnames(className, prefixCls)}
+    >
+      {colElements}
+    </div>
+  );
+};
+
+export default MultiPickerMixin(MultiPicker);
