@@ -41,14 +41,16 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     const scrollTo = (x, y, time = .3) => {
       if (scrollY !== y) {
         scrollY = y;
-        setTransition(this.contentRef.style, `cubic-bezier(0,0,0.2,1.15) ${time}s`);
-        requestAnimationFrame(() => {
-          setTransform(this.contentRef.style, `translate3d(0,${-y}px,0)`);
-          setTimeout(() => {
-            this.scrollingComplete();
+        if (time && !this.props.noAnimate) {
+          setTransition(this.contentRef.style, `cubic-bezier(0,0,0.2,1.15) ${time}s`);
+        }
+        setTransform(this.contentRef.style, `translate3d(0,${-y}px,0)`);
+        setTimeout(() => {
+          this.scrollingComplete();
+          if (this.contentRef) {
             setTransition(this.contentRef.style, '');
-          }, +time * 1000);
-        });
+          }
+        }, +time * 1000);
       }
     };
 
