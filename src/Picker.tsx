@@ -80,6 +80,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     const onFinish = () => {
       isMoving = false;
       let targetY = lastY + delta;
+      delta = 0;
 
       const height = ((this.props.children as any).length - 1) * this.itemHeight;
 
@@ -104,7 +105,6 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
 
       scrollTo(0, targetY, time < .3 ? .3 : time);
       this.onScrollChange();
-      delta = 0;
     };
 
     const onStart = (y: number) => {
