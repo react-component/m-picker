@@ -25,7 +25,6 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     let scrollY = 0;
     let lastY = 0;
     let startY = 0;
-    let delta = 0;
     let scrollDisabled = false;
     let isMoving = false;
 
@@ -41,7 +40,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
 
     const scrollTo = (x, y, time = .3) => {
       if (scrollY !== y) {
-        scrollY = lastY = y;
+        scrollY = y;
         setTransition(this.contentRef.style, `cubic-bezier(0,0,0.2,1.15) ${time}s`);
         requestAnimationFrame(() => {
           setTransform(this.contentRef.style, `translate3d(0,${-y}px,0)`);
@@ -79,8 +78,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
 
     const onFinish = () => {
       isMoving = false;
-      let targetY = lastY + delta;
-      delta = 0;
+      let targetY = scrollY;
 
       const height = ((this.props.children as any).length - 1) * this.itemHeight;
 
@@ -114,7 +112,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
 
       isMoving = true;
       startY = y;
-      delta = 0;
+      lastY = scrollY;
     };
 
     const onMove = (y: number) => {
@@ -122,8 +120,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
         return;
       }
 
-      delta = - y + startY;
-      scrollY = lastY + delta;
+      scrollY = lastY - y + startY;
       Velocity.record(scrollY);
 
       this.onScrollChange();
@@ -145,7 +142,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       touchcancel: () => onFinish(),
       mouseup: () => onFinish(),
       getValue: () => {
-        return lastY + delta;
+        return scrollY;
       },
       scrollTo,
       setDisabled: (disabled: boolean = false) => {
