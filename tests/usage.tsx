@@ -40,7 +40,7 @@ describe('m-picker', () => {
         'rmc-picker-item')[0]))).to.be(true);
   });
   it('selectedValue works', () => {
-    ReactDOM.render(<Picker selectedValue="2">
+    ReactDOM.render(<Picker selectedValue="2" noAnimate>
       <Picker.Item value="1">a</Picker.Item>
       <Picker.Item value="2">b</Picker.Item>
     </Picker>, div);

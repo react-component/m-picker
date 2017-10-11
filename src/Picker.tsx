@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import ZScroller from 'zscroller';
 import { IPickerProps } from './PickerTypes';
 import PickerMixin from './PickerMixin';
 
@@ -20,8 +19,139 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   contentRef: any;
   indicatorRef: any;
   itemHeight: number;
-  zscroller: any;
   scrollValue: any;
+
+  scrollHanders = (() => {
+    let scrollY = 0;
+    let lastY = 0;
+    let startY = 0;
+    let scrollDisabled = false;
+    let isMoving = false;
+
+    const setTransform = (nodeStyle: CSSStyleDeclaration, value: any) => {
+      nodeStyle.transform = value;
+      nodeStyle.webkitTransform = value;
+    };
+
+    const setTransition = (nodeStyle: CSSStyleDeclaration, value: any) => {
+      nodeStyle.transition = value;
+      nodeStyle.webkitTransition = value;
+    };
+
+    const scrollTo = (x, y, time = .3) => {
+      if (scrollY !== y) {
+        scrollY = y;
+        if (time && !this.props.noAnimate) {
+          setTransition(this.contentRef.style, `cubic-bezier(0,0,0.2,1.15) ${time}s`);
+        }
+        setTransform(this.contentRef.style, `translate3d(0,${-y}px,0)`);
+        setTimeout(() => {
+          this.scrollingComplete();
+          if (this.contentRef) {
+            setTransition(this.contentRef.style, '');
+          }
+        }, +time * 1000);
+      }
+    };
+
+    const Velocity = ((minInterval = 30, maxInterval = 100) => {
+      let _time = 0;
+      let _y = 0;
+      let _velocity = 0;
+      const recorder = {
+        record: (y) => {
+          const now = +new Date();
+          _velocity = (y - _y) / (now - _time);
+          if (now - _time >= minInterval) {
+            _velocity = now - _time <= maxInterval ? _velocity : 0;
+            _y = y;
+            _time = now;
+          }
+        },
+        getVelocity: (y) => {
+          if (y !== _y) {
+            recorder.record(y);
+          }
+          return _velocity;
+        },
+      };
+      return recorder;
+    })();
+
+    const onFinish = () => {
+      isMoving = false;
+      let targetY = scrollY;
+
+      const height = ((this.props.children as any).length - 1) * this.itemHeight;
+
+      const now = +new Date();
+      let time = .3;
+
+      const velocity = Velocity.getVelocity(targetY) * 4;
+      if (velocity) {
+        targetY = velocity * 40 + targetY;
+        time = Math.abs(velocity) * .1;
+      }
+
+      if (targetY % this.itemHeight !== 0) {
+        targetY = Math.round(targetY / this.itemHeight) * this.itemHeight;
+      }
+
+      if (targetY < 0) {
+        targetY = 0;
+      } else if (targetY > height) {
+        targetY = height;
+      }
+
+      scrollTo(0, targetY, time < .3 ? .3 : time);
+      this.onScrollChange();
+    };
+
+    const onStart = (y: number) => {
+      if (scrollDisabled) {
+        return;
+      }
+
+      isMoving = true;
+      startY = y;
+      lastY = scrollY;
+    };
+
+    const onMove = (y: number) => {
+      if (scrollDisabled || !isMoving) {
+        return;
+      }
+
+      scrollY = lastY - y + startY;
+      Velocity.record(scrollY);
+
+      this.onScrollChange();
+      setTransform(this.contentRef.style, `translate3d(0,${-scrollY}px,0)`);
+    };
+
+    return {
+      touchstart: (evt: React.TouchEvent<HTMLDivElement>) => onStart(evt.touches[0].screenY),
+      mousedown: (evt: React.MouseEvent<HTMLDivElement>) => onStart(evt.screenY),
+      touchmove: (evt: React.TouchEvent<HTMLDivElement>) => {
+        evt.preventDefault();
+        onMove(evt.touches[0].screenY);
+      },
+      mousemove: (evt: React.MouseEvent<HTMLDivElement>) => {
+        evt.preventDefault();
+        onMove(evt.screenY);
+      },
+      touchend: () => onFinish(),
+      touchcancel: () => onFinish(),
+      mouseup: () => onFinish(),
+      getValue: () => {
+        return scrollY;
+      },
+      scrollTo,
+      setDisabled: (disabled: boolean = false) => {
+        scrollDisabled = disabled;
+      },
+    };
+  })();
 
   constructor(props) {
     super(props);
@@ -55,18 +185,40 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     contentRef.style.padding = `${itemHeight * num}px 0`;
     indicatorRef.style.top = `${itemHeight * num}px`;
     maskRef.style.backgroundSize = `100% ${itemHeight * num}px`;
-    this.zscroller = new ZScroller(contentRef, {
-      scrollingX: false,
-      snapping: true,
-      locking: false,
-      penetrationDeceleration: .1,
-      minVelocityToKeepDecelerating: 0.5,
-      scrollingComplete: this.scrollingComplete,
-      onScroll: this.props.onScrollChange && this.onScrollChange,
-    });
-    this.zscroller.setDisabled(this.props.disabled);
-    this.zscroller.scroller.setSnapSize(0, itemHeight);
+    this.scrollHanders.setDisabled(this.props.disabled);
     this.props.select(this.state.selectedValue, this.itemHeight, this.scrollTo);
+
+    const passiveSupported = this.passiveSupported();
+    const willPreventDefault = passiveSupported ? { passive: false } : false;
+    const willNotPreventDefault = passiveSupported ? { passive: true } : false;
+    Object.keys(this.scrollHanders).forEach(key => {
+      if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
+        const pd = key.indexOf('move') >= 0 ? willPreventDefault : willNotPreventDefault;
+        (rootRef as HTMLDivElement).addEventListener(key, this.scrollHanders[key], pd as any);
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    Object.keys(this.scrollHanders).forEach(key => {
+      if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
+        (this.rootRef as HTMLDivElement).removeEventListener(key, this.scrollHanders[key]);
+      }
+    });
+  }
+
+  passiveSupported() {
+    let passiveSupported = false;
+
+    try {
+      const options = Object.defineProperty({}, 'passive', {
+        get: () => {
+          passiveSupported = true;
+        },
+      });
+      window.addEventListener('test', null as any, options);
+    } catch (err) { }
+    return passiveSupported;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -75,7 +227,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
         selectedValue: nextProps.selectedValue,
       });
     }
-    this.zscroller.setDisabled(nextProps.disabled);
+    this.scrollHanders.setDisabled(nextProps.disabled);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -84,16 +236,11 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   componentDidUpdate() {
-    this.zscroller.reflow();
     this.props.select(this.state.selectedValue, this.itemHeight, this.scrollTo);
   }
 
-  componentWillUnmount() {
-    this.zscroller.destroy();
-  }
-
   scrollTo = (top) => {
-    this.zscroller.scroller.scrollTo(0, top);
+    this.scrollHanders.scrollTo(0, top);
   }
 
   fireValueChange = (selectedValue) => {
@@ -110,7 +257,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   onScrollChange = () => {
-    const { top } = this.zscroller.scroller.getValues();
+    const top = this.scrollHanders.getValue();
     if (top >= 0) {
       const children = React.Children.toArray(this.props.children);
       const index = this.props.coumputeChildIndex(top, this.itemHeight, children.length);
@@ -127,7 +274,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   scrollingComplete = () => {
-    const { top } = this.zscroller.scroller.getValues();
+    const top = this.scrollHanders.getValue();
     if (top >= 0) {
       this.props.doScrollingComplete(top, this.itemHeight, this.fireValueChange);
     }
