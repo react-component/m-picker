@@ -84,7 +84,6 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
 
       const height = ((this.props.children as any).length - 1) * this.itemHeight;
 
-      const now = +new Date();
       let time = .3;
 
       const velocity = Velocity.getVelocity(targetY) * 4;
