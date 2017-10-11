@@ -10,10 +10,10 @@ const getModal = (props, visible, { getContent, hide, onDismiss, onOk }) => {
     <Text style={[styles.title]}>{title}</Text> :
     title;
   const okEl = typeof okText === 'string' ?
-    <Text style={[styles.actionText]}>{okText}</Text> :
+    <Text style={[styles.actionText, styles.okText]}>{okText}</Text> :
     okText;
   const dismissEl = typeof dismissText === 'string' ?
-    <Text style={[styles.actionText]}>{dismissText}</Text> :
+    <Text style={[styles.actionText, styles.dismissText]}>{dismissText}</Text> :
     dismissText;
 
   return (

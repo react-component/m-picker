@@ -27,6 +27,8 @@ const styles = StyleSheet.create<any>({
     flex: 1,
   },
   actionText: textStyle,
+  okText: {},
+  dismissText: {},
   title: {
     ...textStyle,
     color: '#666',
