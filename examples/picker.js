@@ -118,7 +118,7 @@ __WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 300:
+/***/ 296:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(139);
@@ -132,7 +132,7 @@ module.exports = __webpack_require__(139);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
@@ -298,6 +298,9 @@ var Picker = function (_React$Component) {
         _this.scrollTo = function (top) {
             _this.scrollHanders.scrollTo(0, top);
         };
+        _this.scrollToWithoutAnimation = function (top) {
+            _this.scrollHanders.scrollTo(0, top, 0);
+        };
         _this.fireValueChange = function (selectedValue) {
             if (selectedValue !== _this.state.selectedValue) {
                 if (!('selectedValue' in _this.props)) {
@@ -414,9 +417,12 @@ var Picker = function (_React$Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if ('selectedValue' in nextProps) {
-                this.setState({
-                    selectedValue: nextProps.selectedValue
-                });
+                if (this.state.selectedValue !== nextProps.selectedValue) {
+                    this.props.select(nextProps.selectedValue, this.itemHeight, nextProps.noAnimate ? this.scrollToWithoutAnimation : this.scrollTo);
+                    this.setState({
+                        selectedValue: nextProps.selectedValue
+                    });
+                }
             }
             this.scrollHanders.setDisabled(nextProps.disabled);
         }
@@ -428,7 +434,7 @@ var Picker = function (_React$Component) {
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
-            this.props.select(this.state.selectedValue, this.itemHeight, this.scrollTo);
+            this.props.select(this.state.selectedValue, this.itemHeight, this.scrollToWithoutAnimation);
         }
     }, {
         key: 'getValue',
@@ -508,7 +514,7 @@ Picker.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
@@ -596,5 +602,5 @@ var Item = function Item(_props) {
 
 /***/ })
 
-},[300]);
+},[296]);
 //# sourceMappingURL=picker.js.map
