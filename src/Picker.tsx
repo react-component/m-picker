@@ -22,7 +22,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   scrollValue: any;
 
   scrollHanders = (() => {
-    let scrollY = 0;
+    let scrollY = -1;
     let lastY = 0;
     let startY = 0;
     let scrollDisabled = false;
