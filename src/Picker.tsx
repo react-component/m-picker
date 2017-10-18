@@ -223,13 +223,14 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   componentWillReceiveProps(nextProps: IPickerProp & IPickerProps) {
     if ('selectedValue' in nextProps) {
       if (this.state.selectedValue !== nextProps.selectedValue) {
-        this.props.select(
-          nextProps.selectedValue,
-          this.itemHeight,
-          nextProps.noAnimate ? this.scrollToWithoutAnimation : this.scrollTo,
-        );
         this.setState({
           selectedValue: nextProps.selectedValue,
+        }, () => {
+          this.props.select(
+            nextProps.selectedValue,
+            this.itemHeight,
+            nextProps.noAnimate ? this.scrollToWithoutAnimation : this.scrollTo,
+          );
         });
       }
     }
