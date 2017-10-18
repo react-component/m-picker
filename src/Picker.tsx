@@ -220,11 +220,18 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     return passiveSupported;
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: IPickerProp & IPickerProps) {
     if ('selectedValue' in nextProps) {
-      this.setState({
-        selectedValue: nextProps.selectedValue,
-      });
+      if (this.state.selectedValue !== nextProps.selectedValue) {
+        this.props.select(
+          nextProps.selectedValue,
+          this.itemHeight,
+          nextProps.noAnimate ? this.scrollToWithoutAnimation : this.scrollTo,
+        );
+        this.setState({
+          selectedValue: nextProps.selectedValue,
+        });
+      }
     }
     this.scrollHanders.setDisabled(nextProps.disabled);
   }
@@ -235,11 +242,15 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   componentDidUpdate() {
-    this.props.select(this.state.selectedValue, this.itemHeight, this.scrollTo);
+    this.props.select(this.state.selectedValue, this.itemHeight, this.scrollToWithoutAnimation);
   }
 
   scrollTo = (top) => {
     this.scrollHanders.scrollTo(0, top);
+  }
+
+  scrollToWithoutAnimation = (top) => {
+    this.scrollHanders.scrollTo(0, top, 0);
   }
 
   fireValueChange = (selectedValue) => {
