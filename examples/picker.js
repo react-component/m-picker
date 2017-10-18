@@ -166,7 +166,7 @@ var Picker = function (_React$Component) {
         var _this = __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Picker.__proto__ || Object.getPrototypeOf(Picker)).call(this, props));
 
         _this.scrollHanders = function () {
-            var scrollY = 0;
+            var scrollY = -1;
             var lastY = 0;
             var startY = 0;
             var scrollDisabled = false;
