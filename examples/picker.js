@@ -416,11 +416,14 @@ var Picker = function (_React$Component) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
+            var _this4 = this;
+
             if ('selectedValue' in nextProps) {
                 if (this.state.selectedValue !== nextProps.selectedValue) {
-                    this.props.select(nextProps.selectedValue, this.itemHeight, nextProps.noAnimate ? this.scrollToWithoutAnimation : this.scrollTo);
                     this.setState({
                         selectedValue: nextProps.selectedValue
+                    }, function () {
+                        _this4.props.select(nextProps.selectedValue, _this4.itemHeight, nextProps.noAnimate ? _this4.scrollToWithoutAnimation : _this4.scrollTo);
                     });
                 }
             }
@@ -449,7 +452,7 @@ var Picker = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _pickerCls,
-                _this4 = this;
+                _this5 = this;
 
             var props = this.props;
             var prefixCls = props.prefixCls,
@@ -481,18 +484,18 @@ var Picker = function (_React$Component) {
             return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
                 'div',
                 { className: __WEBPACK_IMPORTED_MODULE_7_classnames___default()(pickerCls), ref: function ref(el) {
-                        return _this4.rootRef = el;
+                        return _this5.rootRef = el;
                     }, style: this.props.style },
                 __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { className: prefixCls + '-mask', ref: function ref(el) {
-                        return _this4.maskRef = el;
+                        return _this5.maskRef = el;
                     } }),
                 __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { className: prefixCls + '-indicator ' + indicatorClassName, ref: function ref(el) {
-                        return _this4.indicatorRef = el;
+                        return _this5.indicatorRef = el;
                     }, style: indicatorStyle }),
                 __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
                     'div',
                     { className: prefixCls + '-content', ref: function ref(el) {
-                            return _this4.contentRef = el;
+                            return _this5.contentRef = el;
                         } },
                     items
                 )
