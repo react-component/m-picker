@@ -277,7 +277,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
         const child: any = children[index];
         if (child && this.props.onScrollChange) {
           this.props.onScrollChange(child.props.value);
-        } else if (console.warn) {
+        } else if (!child && console.warn) {
           console.warn('child not found', children, index);
         }
       }
