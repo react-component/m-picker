@@ -21,7 +21,7 @@ describe('m-picker', () => {
   beforeEach(() => {
     div = document.createElement('div');
     document.body.appendChild(div);
-    component = ReactDOM.render(<Picker>
+    component = ReactDOM.render(<Picker noAnimate>
       <Picker.Item value="1">a</Picker.Item>
       <Picker.Item value="2">b</Picker.Item>
     </Picker>, div);
