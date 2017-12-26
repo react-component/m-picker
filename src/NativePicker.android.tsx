@@ -136,6 +136,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     });
     return (
       <View style={style}>
+        <View ref={el => this.indicatorRef = el} style={styles.indicator}/>
         <ScrollView
           style={styles.scrollView}
           ref={el => this.scrollerRef = el}
@@ -148,7 +149,6 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
             {items}
           </View>
         </ScrollView>
-        <View ref={el => this.indicatorRef = el} style={styles.indicator}/>
       </View>
     );
   }
