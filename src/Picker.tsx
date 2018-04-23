@@ -6,7 +6,7 @@ import PickerMixin from './PickerMixin';
 type IPickerProp = {
   select: Function;
   doScrollingComplete: Function;
-  coumputeChildIndex: Function;
+  computeChildIndex: Function;
 };
 
 class Picker extends React.Component<IPickerProp & IPickerProps, any> {
@@ -271,7 +271,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     const top = this.scrollHanders.getValue();
     if (top >= 0) {
       const children = React.Children.toArray(this.props.children);
-      const index = this.props.coumputeChildIndex(top, this.itemHeight, children.length);
+      const index = this.props.computeChildIndex(top, this.itemHeight, children.length);
       if (this.scrollValue !== index) {
         this.scrollValue = index;
         const child: any = children[index];
