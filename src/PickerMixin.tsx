@@ -24,21 +24,16 @@ export default function(ComposedComponent) {
       this.selectByIndex(0, itemHeight, scrollTo);
     }
 
-    selectByIndex(index, itemHeight, zscrollTo) {
+    selectByIndex(index, itemHeight, scrollTo) {
       if (index < 0 || index >= React.Children.count(this.props.children) || !itemHeight) {
         return;
       }
-      zscrollTo(index * itemHeight);
+      scrollTo(index * itemHeight);
     }
 
     computeChildIndex(top, itemHeight, childrenLength) {
-      let index = top / itemHeight;
-      const floor = Math.floor(index);
-      if (index - floor > 0.5) {
-        index = floor + 1;
-      } else {
-        index = floor;
-      }
+      // 恰好多出0.5的情况，向下取整，但这点误差无伤大雅
+      let index = Math.round(top / itemHeight);
       return Math.min(index, childrenLength - 1);
     }
 

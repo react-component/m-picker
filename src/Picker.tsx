@@ -19,10 +19,11 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   contentRef: any;
   indicatorRef: any;
   itemHeight: number;
+  // children的索引值
   scrollValue: any;
 
   scrollHanders = (() => {
-    let scrollY = -1;
+    let scrollY = -1; // 滚动的距离
     let lastY = 0;
     let startY = 0;
     let scrollDisabled = false;
@@ -59,6 +60,9 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       let _y = 0;
       let _velocity = 0;
       const recorder = {
+        /**
+         * @param {number} y 滚动的距离
+         * */
         record: (y) => {
           const now = +new Date();
           _velocity = (y - _y) / (now - _time);
@@ -87,7 +91,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       let time = .3;
 
       const velocity = Velocity.getVelocity(targetY) * 4;
-      if (velocity) {
+      if (velocity) { // 过滤点击
         targetY = velocity * 40 + targetY;
         time = Math.abs(velocity) * .1;
       }
@@ -106,6 +110,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       this.onScrollChange();
     };
 
+    // 记录开始坐标，开启move状态，暂存最后一次的坐标
     const onStart = (y: number) => {
       if (scrollDisabled) {
         return;
@@ -116,18 +121,26 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       lastY = scrollY;
     };
 
+    /**
+     * 记录滚动距离，速度信息
+     * 调用 this.onScrollChange -> 设置滚动后的child索引，并触发 props.onScrollChange的回调
+     * 调用setTransform，设置滚动的距离
+     * */
     const onMove = (y: number) => {
       if (scrollDisabled || !isMoving) {
         return;
       }
 
+      // 滚动的距离
       scrollY = lastY - y + startY;
+      // 记录当前速度信息
       Velocity.record(scrollY);
 
       this.onScrollChange();
       setTransform(this.contentRef.style, `translate3d(0,${-scrollY}px,0)`);
     };
 
+    // 手机（touch）兼容 PC（mouse）
     return {
       touchstart: (evt: React.TouchEvent<HTMLDivElement>) => onStart(evt.touches[0].screenY),
       mousedown: (evt: React.MouseEvent<HTMLDivElement>) => onStart(evt.screenY),
@@ -152,6 +165,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     };
   })();
 
+  // 初始化默认选中值
   constructor(props) {
     super(props);
 
@@ -170,8 +184,11 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     };
   }
 
+  // 初始化root容器
   componentDidMount() {
     const { contentRef, indicatorRef, maskRef, rootRef } = this;
+
+    // 设置滚动区域，样式，indicator栏的定位
     const rootHeight = rootRef.getBoundingClientRect().height;
     // https://github.com/react-component/m-picker/issues/18
     const itemHeight = this.itemHeight = indicatorRef.getBoundingClientRect().height;
@@ -184,12 +201,22 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     contentRef.style.padding = `${itemHeight * num}px 0`;
     indicatorRef.style.top = `${itemHeight * num}px`;
     maskRef.style.backgroundSize = `100% ${itemHeight * num}px`;
+
+    // 是否禁用滚动
     this.scrollHanders.setDisabled(this.props.disabled);
+    // 初始化滚动位置
     this.props.select(this.state.selectedValue, this.itemHeight, this.scrollTo);
 
+    /**
+     * 判断是否支持addEventListener的options.passive 禁用preventDefault优化滚动体验
+     * 参考：http://www.cnblogs.com/ziyunfei/p/5545439.html
+     * */
     const passiveSupported = this.passiveSupported();
+
     const willPreventDefault = passiveSupported ? { passive: false } : false;
     const willNotPreventDefault = passiveSupported ? { passive: true } : false;
+
+    // 为root容器绑定各类监听事件
     Object.keys(this.scrollHanders).forEach(key => {
       if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
         const pd = key.indexOf('move') >= 0 ? willPreventDefault : willNotPreventDefault;
@@ -198,6 +225,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     });
   }
 
+  // 移除监听
   componentWillUnmount() {
     Object.keys(this.scrollHanders).forEach(key => {
       if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
@@ -242,18 +270,22 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       || this.props.children !== nextProps.children;
   }
 
+  // 用户外部修改selectValue
   componentDidUpdate() {
     this.props.select(this.state.selectedValue, this.itemHeight, this.scrollToWithoutAnimation);
   }
 
+  // 有动画的滚动
   scrollTo = (top) => {
     this.scrollHanders.scrollTo(0, top);
   }
 
+  // 无动画的滚动
   scrollToWithoutAnimation = (top) => {
     this.scrollHanders.scrollTo(0, top, 0);
   }
 
+  // 设置state.selectedValue选中的值,触发props.onValueChange
   fireValueChange = (selectedValue) => {
     if (selectedValue !== this.state.selectedValue) {
       if (!('selectedValue' in this.props)) {
@@ -267,10 +299,13 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     }
   }
 
+  // 设置滚动后的child索引，并触发 props.onScrollChange的回调
   onScrollChange = () => {
+    // 滚动的距离
     const top = this.scrollHanders.getValue();
     if (top >= 0) {
       const children = React.Children.toArray(this.props.children);
+      // 计算选中状态的child索引，滚动超出最大children.length时，取它们之间的min值
       const index = this.props.computeChildIndex(top, this.itemHeight, children.length);
       if (this.scrollValue !== index) {
         this.scrollValue = index;
@@ -284,6 +319,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     }
   }
 
+  // 为了触发this.fireValueChange
   scrollingComplete = () => {
     const top = this.scrollHanders.getValue();
     if (top >= 0) {
