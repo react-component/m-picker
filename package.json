@@ -71,7 +71,5 @@
     "react-native-index-page": "~0.2.1"
   },
   "typings": "./lib/index.d.ts",
-  "pre-commit": [
-    "lint"
-  ]
+  "pre-commit": []
 }

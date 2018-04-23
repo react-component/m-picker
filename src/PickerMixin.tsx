@@ -24,27 +24,22 @@ export default function(ComposedComponent) {
       this.selectByIndex(0, itemHeight, scrollTo);
     }
 
-    selectByIndex(index, itemHeight, zscrollTo) {
+    selectByIndex(index, itemHeight, scrollTo) {
       if (index < 0 || index >= React.Children.count(this.props.children) || !itemHeight) {
         return;
       }
-      zscrollTo(index * itemHeight);
+      scrollTo(index * itemHeight);
     }
 
-    coumputeChildIndex(top, itemHeight, childrenLength) {
-      let index = top / itemHeight;
-      const floor = Math.floor(index);
-      if (index - floor > 0.5) {
-        index = floor + 1;
-      } else {
-        index = floor;
-      }
+    computeChildIndex(top, itemHeight, childrenLength) {
+      // 恰好多出0.5的情况，向下取整，但这点误差无伤大雅
+      let index = Math.round(top / itemHeight);
       return Math.min(index, childrenLength - 1);
     }
 
     doScrollingComplete = (top, itemHeight, fireValueChange) => {
       const children = React.Children.toArray(this.props.children);
-      const index = this.coumputeChildIndex(top, itemHeight, children.length);
+      const index = this.computeChildIndex(top, itemHeight, children.length);
       const child: any = children[index];
       if (child) {
         fireValueChange(child.props.value);
@@ -58,7 +53,7 @@ export default function(ComposedComponent) {
         <ComposedComponent
           {...this.props}
           doScrollingComplete={this.doScrollingComplete}
-          coumputeChildIndex={this.coumputeChildIndex}
+          computeChildIndex={this.computeChildIndex}
           select={this.select}
         />
       );
