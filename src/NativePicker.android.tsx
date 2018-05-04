@@ -95,7 +95,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     this.props.select(this.props.selectedValue, this.itemHeight, this.scrollTo);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     this.clearScrollBuffer();
   }
 
@@ -158,7 +158,6 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
           style={styles.scrollView}
           ref={el => (this.scrollerRef = el)}
           onScroll={this.onScroll}
-          scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
           overScrollMode="never"
         >
