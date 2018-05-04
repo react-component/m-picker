@@ -32,7 +32,13 @@ export default function(ComposedComponent) {
     }
 
     coumputeChildIndex(top, itemHeight, childrenLength) {
-      const index = Math.round(top / itemHeight);
+      let index = top / itemHeight;
+      const floor = Math.floor(index);
+      if (index - floor > 0.5) {
+        index = floor + 1;
+      } else {
+        index = floor;
+      }
       return Math.min(index, childrenLength - 1);
     }
 
