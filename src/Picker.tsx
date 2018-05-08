@@ -38,7 +38,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       nodeStyle.webkitTransition = value;
     };
 
-    const scrollTo = (x, y, time = .3) => {
+    const scrollTo = (_x, y, time = .3) => {
       if (scrollY !== y) {
         scrollY = y;
         if (time && !this.props.noAnimate) {
