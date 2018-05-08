@@ -1,28 +1,24 @@
 webpackJsonp([2],{
 
-/***/ 139:
+/***/ 138:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rmc_picker_assets_index_less__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_Picker__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rmc_picker_assets_index_less__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_Picker__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /* tslint:disable:no-console */
 
@@ -33,12 +29,12 @@ var count = 0;
 var len = 10;
 
 var PickerDemo = function (_React$Component) {
-    __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(PickerDemo, _React$Component);
+    _inherits(PickerDemo, _React$Component);
 
     function PickerDemo() {
-        __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default()(this, PickerDemo);
+        _classCallCheck(this, PickerDemo);
 
-        var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (PickerDemo.__proto__ || Object.getPrototypeOf(PickerDemo)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (PickerDemo.__proto__ || Object.getPrototypeOf(PickerDemo)).apply(this, arguments));
 
         _this.state = {
             disabled: false,
@@ -70,13 +66,13 @@ var PickerDemo = function (_React$Component) {
         return _this;
     }
 
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(PickerDemo, [{
+    _createClass(PickerDemo, [{
         key: 'getItems',
         value: function getItems(start) {
             var items = [];
             for (var i = start; i < start + len; i++) {
-                items.push(__WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_5__src_Picker__["a" /* default */].Item,
+                items.push(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1__src_Picker__["a" /* default */].Item,
                     { value: i + '', key: i },
                     count,
                     ' ',
@@ -88,22 +84,22 @@ var PickerDemo = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
                 'div',
                 { style: { background: '#f5f5f9', padding: 10 } },
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
                     'button',
                     { onClick: this.rerender },
                     'rerender'
                 ),
                 '\xA0',
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
                     'button',
                     { onClick: this.disable },
                     this.state.disabled ? 'enable' : 'disable'
                 ),
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_5__src_Picker__["a" /* default */],
+                __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1__src_Picker__["a" /* default */],
                     { selectedValue: this.state.value, disabled: this.state.disabled, onValueChange: this.onChange, onScrollChange: this.onScrollChange },
                     this.state.items
                 )
@@ -112,16 +108,16 @@ var PickerDemo = function (_React$Component) {
     }]);
 
     return PickerDemo;
-}(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
+}(__WEBPACK_IMPORTED_MODULE_2_react___default.a.Component);
 
-__WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(PickerDemo, null), document.getElementById('__react-content'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(PickerDemo, null), document.getElementById('__react-content'));
 
 /***/ }),
 
 /***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(139);
+module.exports = __webpack_require__(138);
 
 
 /***/ }),
@@ -130,40 +126,34 @@ module.exports = __webpack_require__(139);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_classnames__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__PickerMixin__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_classnames__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PickerMixin__ = __webpack_require__(59);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
 
 
 var Picker = function (_React$Component) {
-    __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits___default()(Picker, _React$Component);
+    _inherits(Picker, _React$Component);
 
     function Picker(props) {
-        __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default()(this, Picker);
+        _classCallCheck(this, Picker);
 
-        var _this = __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Picker.__proto__ || Object.getPrototypeOf(Picker)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Picker.__proto__ || Object.getPrototypeOf(Picker)).call(this, props));
 
         _this.scrollHanders = function () {
             var scrollY = -1;
@@ -179,7 +169,7 @@ var Picker = function (_React$Component) {
                 nodeStyle.transition = value;
                 nodeStyle.webkitTransition = value;
             };
-            var scrollTo = function scrollTo(x, y) {
+            var scrollTo = function scrollTo(_x, y) {
                 var time = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : .3;
 
                 if (scrollY !== y) {
@@ -316,8 +306,8 @@ var Picker = function (_React$Component) {
         _this.onScrollChange = function () {
             var top = _this.scrollHanders.getValue();
             if (top >= 0) {
-                var children = __WEBPACK_IMPORTED_MODULE_6_react___default.a.Children.toArray(_this.props.children);
-                var index = _this.props.coumputeChildIndex(top, _this.itemHeight, children.length);
+                var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_this.props.children);
+                var index = _this.props.computeChildIndex(top, _this.itemHeight, children.length);
                 if (_this.scrollValue !== index) {
                     _this.scrollValue = index;
                     var child = children[index];
@@ -345,7 +335,7 @@ var Picker = function (_React$Component) {
         } else if (defaultSelectedValue !== undefined) {
             selectedValueState = defaultSelectedValue;
         } else {
-            var children = __WEBPACK_IMPORTED_MODULE_6_react___default.a.Children.toArray(_this.props.children);
+            var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_this.props.children);
             selectedValueState = children && children[0] && children[0].props.value;
         }
         _this.state = {
@@ -354,7 +344,7 @@ var Picker = function (_React$Component) {
         return _this;
     }
 
-    __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default()(Picker, [{
+    _createClass(Picker, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             var _this2 = this;
@@ -445,7 +435,7 @@ var Picker = function (_React$Component) {
             if ('selectedValue' in this.props) {
                 return this.props.selectedValue;
             }
-            var children = __WEBPACK_IMPORTED_MODULE_6_react___default.a.Children.toArray(this.props.children);
+            var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(this.props.children);
             return children && children[0] && children[0].props.value;
         }
     }, {
@@ -472,27 +462,27 @@ var Picker = function (_React$Component) {
                     style = _item$props.style,
                     value = _item$props.value;
 
-                return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { style: __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, itemStyle, style), className: (selectedValue === value ? selectedItemClassName : itemClassName) + ' ' + className, key: value },
+                    { style: _extends({}, itemStyle, style), className: (selectedValue === value ? selectedItemClassName : itemClassName) + ' ' + className, key: value },
                     item.children || item.props.children
                 );
             };
             // compatibility for preact
-            var items = __WEBPACK_IMPORTED_MODULE_6_react___default.a.Children ? __WEBPACK_IMPORTED_MODULE_6_react___default.a.Children.map(children, map) : [].concat(children).map(map);
-            var pickerCls = (_pickerCls = {}, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_pickerCls, props.className, !!props.className), __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()(_pickerCls, prefixCls, true), _pickerCls);
-            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            var items = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.map(children, map) : [].concat(children).map(map);
+            var pickerCls = (_pickerCls = {}, _defineProperty(_pickerCls, props.className, !!props.className), _defineProperty(_pickerCls, prefixCls, true), _pickerCls);
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: __WEBPACK_IMPORTED_MODULE_7_classnames___default()(pickerCls), ref: function ref(el) {
+                { className: __WEBPACK_IMPORTED_MODULE_1_classnames___default()(pickerCls), ref: function ref(el) {
                         return _this5.rootRef = el;
                     }, style: this.props.style },
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { className: prefixCls + '-mask', ref: function ref(el) {
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: prefixCls + '-mask', ref: function ref(el) {
                         return _this5.maskRef = el;
                     } }),
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('div', { className: prefixCls + '-indicator ' + indicatorClassName, ref: function ref(el) {
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: prefixCls + '-indicator ' + indicatorClassName, ref: function ref(el) {
                         return _this5.indicatorRef = el;
                     }, style: indicatorStyle }),
-                __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: prefixCls + '-content', ref: function ref(el) {
                             return _this5.contentRef = el;
@@ -504,12 +494,12 @@ var Picker = function (_React$Component) {
     }]);
 
     return Picker;
-}(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 Picker.defaultProps = {
     prefixCls: 'rmc-picker'
 };
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__PickerMixin__["a" /* default */])(Picker));
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__PickerMixin__["a" /* default */])(Picker));
 
 /***/ }),
 
@@ -517,22 +507,17 @@ Picker.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /* tslint:disable:no-console */
 
@@ -541,15 +526,15 @@ var Item = function Item(_props) {
 };
 /* harmony default export */ __webpack_exports__["a"] = (function (ComposedComponent) {
     return _a = function (_React$Component) {
-        __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(_a, _React$Component);
+        _inherits(_a, _React$Component);
 
         function _a() {
-            __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, _a);
+            _classCallCheck(this, _a);
 
-            var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (_a.__proto__ || Object.getPrototypeOf(_a)).apply(this, arguments));
+            var _this = _possibleConstructorReturn(this, (_a.__proto__ || Object.getPrototypeOf(_a)).apply(this, arguments));
 
             _this.select = function (value, itemHeight, scrollTo) {
-                var children = __WEBPACK_IMPORTED_MODULE_5_react___default.a.Children.toArray(_this.props.children);
+                var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_this.props.children);
                 for (var i = 0, len = children.length; i < len; i++) {
                     if (children[i].props.value === value) {
                         _this.selectByIndex(i, itemHeight, scrollTo);
@@ -559,8 +544,8 @@ var Item = function Item(_props) {
                 _this.selectByIndex(0, itemHeight, scrollTo);
             };
             _this.doScrollingComplete = function (top, itemHeight, fireValueChange) {
-                var children = __WEBPACK_IMPORTED_MODULE_5_react___default.a.Children.toArray(_this.props.children);
-                var index = _this.coumputeChildIndex(top, itemHeight, children.length);
+                var children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.toArray(_this.props.children);
+                var index = _this.computeChildIndex(top, itemHeight, children.length);
                 var child = children[index];
                 if (child) {
                     fireValueChange(child.props.value);
@@ -571,35 +556,29 @@ var Item = function Item(_props) {
             return _this;
         }
 
-        __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(_a, [{
+        _createClass(_a, [{
             key: 'selectByIndex',
             value: function selectByIndex(index, itemHeight, zscrollTo) {
-                if (index < 0 || index >= __WEBPACK_IMPORTED_MODULE_5_react___default.a.Children.count(this.props.children) || !itemHeight) {
+                if (index < 0 || index >= __WEBPACK_IMPORTED_MODULE_0_react___default.a.Children.count(this.props.children) || !itemHeight) {
                     return;
                 }
                 zscrollTo(index * itemHeight);
             }
         }, {
-            key: 'coumputeChildIndex',
-            value: function coumputeChildIndex(top, itemHeight, childrenLength) {
-                var index = top / itemHeight;
-                var floor = Math.floor(index);
-                if (index - floor > 0.5) {
-                    index = floor + 1;
-                } else {
-                    index = floor;
-                }
+            key: 'computeChildIndex',
+            value: function computeChildIndex(top, itemHeight, childrenLength) {
+                var index = Math.round(top / itemHeight);
                 return Math.min(index, childrenLength - 1);
             }
         }, {
             key: 'render',
             value: function render() {
-                return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(ComposedComponent, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props, { doScrollingComplete: this.doScrollingComplete, coumputeChildIndex: this.coumputeChildIndex, select: this.select }));
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(ComposedComponent, _extends({}, this.props, { doScrollingComplete: this.doScrollingComplete, computeChildIndex: this.computeChildIndex, select: this.select }));
             }
         }]);
 
         return _a;
-    }(__WEBPACK_IMPORTED_MODULE_5_react___default.a.Component), _a.Item = Item, _a;
+    }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component), _a.Item = Item, _a;
     var _a;
 });
 
