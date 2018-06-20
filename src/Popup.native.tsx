@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, TouchableHighlight, Text } from 'react-native';
 import PopupMixin from './PopupMixin';
+import { IPopupPickerProps } from './PopupPickerTypes';
 import Modal from 'rmc-dialog/lib/Modal';
 
 const getModal = (props, visible, { getContent, hide, onDismiss, onOk }) => {
