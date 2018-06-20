@@ -2,8 +2,8 @@
 
 import '../assets/index.less';
 import MultiPicker from '../src/MultiPicker';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import Picker from '../src/Picker';
 
 class Test extends React.Component<any, any> {

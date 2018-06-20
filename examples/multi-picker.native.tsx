@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 import MultiPicker from '../src/MultiPicker';
 import Picker from '../src/Picker';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 export class Test extends React.Component<any, any> {

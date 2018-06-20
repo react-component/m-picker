@@ -3,7 +3,6 @@
     "strictNullChecks": true,
     "moduleResolution": "node",
     "jsx": "preserve",
-    "allowSyntheticDefaultImports":true,
     "target": "es6"
   }
 }

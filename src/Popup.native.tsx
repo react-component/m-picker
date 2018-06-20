@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { View, TouchableHighlight, Text } from 'react-native';
 import PopupMixin from './PopupMixin';
 import Modal from 'rmc-dialog/lib/Modal';
