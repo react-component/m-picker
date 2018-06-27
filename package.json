@@ -52,6 +52,7 @@
     "rn-init": "rc-tools run react-native-init"
   },
   "dependencies": {
+    "babel-runtime": "6.x",
     "classnames": "^2.2.0",
     "rmc-feedback": "^2.0.0",
     "rmc-dialog": "^1.0.1"
@@ -63,7 +64,6 @@
     "@types/react-dom": "^16.0.5",
     "@types/react-native": "^0.55.12",
     "array-tree-filter": "1.x",
-    "babel-runtime": "6.x",
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
