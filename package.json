@@ -58,7 +58,7 @@
     "rmc-dialog": "^1.0.1"
   },
   "devDependencies": {
-    "@types/mocha": "~2.2.32",
+    "@types/mocha": "~5.2.5",
     "@types/react": "^15.5.1",
     "@types/react-dom": "^15.5.1",
     "@types/react-native": "^0.46.9",
