@@ -67,7 +67,7 @@
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
     "rc-test": "6.x",
-    "rc-tools": "6.x",
+    "rc-tools": "9.x",
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-native": "~0.42.0",
