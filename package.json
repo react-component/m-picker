@@ -60,7 +60,7 @@
   "devDependencies": {
     "@types/mocha": "~2.2.32",
     "@types/react": "^15.5.1",
-    "@types/react-dom": "^15.5.1",
+    "@types/react-dom": "^16.8.1",
     "@types/react-native": "^0.46.9",
     "array-tree-filter": "1.x",
     "expect.js": "0.3.x",
