@@ -61,7 +61,7 @@
     "@types/mocha": "~2.2.32",
     "@types/react": "^15.5.1",
     "@types/react-dom": "^15.5.1",
-    "@types/react-native": "^0.46.9",
+    "@types/react-native": "^0.57.37",
     "array-tree-filter": "1.x",
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
