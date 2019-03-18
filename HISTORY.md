@@ -1,6 +1,10 @@
 # History
 ----
 
+## 5.0.6 / 2019-03-18
+
+- fix: android screenY initial-scale error https://github.com/react-component/m-picker/pull/101
+
 ## 4.0.1 / 2017-07-17
 
 - remove unused `pickerPrefixCls`/`pickerItemStyle`/`cols`/`pure`/`disabled` props on MultiPicker
