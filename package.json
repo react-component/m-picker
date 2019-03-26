@@ -70,7 +70,7 @@
     "rc-tools": "6.x",
     "react": "15.5.x",
     "react-dom": "15.5.x",
-    "react-native": "~0.42.0",
+    "react-native": "~0.59.2",
     "react-native-index-page": "~0.2.1"
   },
   "typings": "./lib/index.d.ts",
