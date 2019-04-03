@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic classnames 1`] = `"<div class=\\"rmc-picker\\"><div class=\\"rmc-picker-mask\\"></div><div class=\\"rmc-picker-indicator \\"></div><div class=\\"rmc-picker-content\\"><div class=\\"rmc-picker-item rmc-picker-item-selected \\">a</div><div class=\\"rmc-picker-item \\">b</div></div></div>"`;

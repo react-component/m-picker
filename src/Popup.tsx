@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Modal from 'rmc-dialog';
 import PopupMixin from './PopupMixin';
-import { IPopupPickerProps } from './PopupPickerTypes';
 import Touchable from 'rmc-feedback';
+// import { IPopupPickerProps } from './PopupPickerTypes';
 
 const getModal = (props, visible, { getContent, hide, onDismiss, onOk }) => {
   if (!visible) {
@@ -13,7 +13,7 @@ const getModal = (props, visible, { getContent, hide, onDismiss, onOk }) => {
     <Modal
       prefixCls={`${prefixCls}`}
       className={props.className || ''}
-      visible
+      visible={true}
       closable={false}
       transitionName={props.transitionName || props.popupTransitionName}
       maskTransitionName={props.maskTransitionName}

@@ -4,7 +4,7 @@ import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
 
 export interface IMultiPickerProp {
-  getValue: Function;
+  getValue: () => any;
 }
 
 const MultiPicker = (props: IMultiPickerProp & MultiPickerProps) => {

@@ -2,9 +2,10 @@
 import * as React from 'react';
 import { IPickerProps } from './PickerTypes';
 
-type IItemProps = {
+export interface IItemProps {
   className?: string;
   value: any;
+  children?: React.ReactNode;
 };
 
 const Item = (_props: IItemProps) => null;
