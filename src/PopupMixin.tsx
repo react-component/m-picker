@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { IPopupPickerProps } from './PopupPickerTypes';
 
 export default function PopupMixin(getModal, platformProps) {

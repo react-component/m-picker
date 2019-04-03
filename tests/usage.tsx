@@ -1,9 +1,9 @@
 import '../assets/index.less';
 import expect from 'expect.js';
-import TestUtils from 'react-dom/test-utils';
+import * as TestUtils from 'react-dom/test-utils';
 // tslint:disable-next-line
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import Picker from '../src/index';
 
 function offsetTop(el) {
