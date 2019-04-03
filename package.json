@@ -63,7 +63,7 @@
     "@types/react": "^16.0.0",
     "@types/react-dom": "^16.0.5",
     "@types/react-native": "^0.55.12",
-    "array-tree-filter": "1.x",
+    "array-tree-filter": "2.x",
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
