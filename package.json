@@ -70,7 +70,7 @@
     "rc-test": "6.x",
     "rc-tools": "6.x",
     "react": "15.5.x",
-    "react-dom": "15.5.x",
+    "react-dom": "15.4.x",
     "react-native": "~0.42.0",
     "react-native-index-page": "~0.2.1"
   },
