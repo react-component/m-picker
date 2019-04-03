@@ -1,12 +1,12 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { IPickerProps } from './PickerTypes';
 import PickerMixin from './PickerMixin';
 
-type IPickerProp = {
-  select: Function;
-  doScrollingComplete: Function;
-  computeChildIndex: Function;
+export interface IPickerProp {
+  select: (...arg) => void;
+  doScrollingComplete: (...arg) => void;
+  computeChildIndex: (...arg) => number;
 };
 
 class Picker extends React.Component<IPickerProp & IPickerProps, any> {

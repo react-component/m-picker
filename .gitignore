@@ -28,7 +28,7 @@ coverage
 *.js
 *.jsx
 *.map
-!tests/index.js
+!tests/*.js
 !/index*.js
 ios/
 android/

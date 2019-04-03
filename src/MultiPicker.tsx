@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
+import classnames from 'classnames';
 import MultiPickerProps from './MultiPickerProps';
 import MultiPickerMixin from './MultiPickerMixin';
 
 export interface IMultiPickerProp {
-  getValue: Function;
+  getValue: () => any;
 }
 
 const MultiPicker = (props: IMultiPickerProp & MultiPickerProps) => {

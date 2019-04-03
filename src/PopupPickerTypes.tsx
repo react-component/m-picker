@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type IPopupPickerProps = {
+export interface IPopupPickerProps {
   picker?: any;
   value?: any;
   triggerType?: string;

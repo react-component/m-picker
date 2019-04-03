@@ -43,36 +43,54 @@
     "prepublishOnly": "rc-tools run guard",
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint --no-js-lint",
-    "karma": "rc-test run karma",
-    "saucelabs": "rc-test run saucelabs",
-    "test": "rc-test run test",
-    "chrome-test": "rc-test run chrome-test",
-    "coverage": "rc-test run coverage",
+    "test": "jest",
+    "coverage": "npm run test -- --coverage",
     "rn-start": "node node_modules/react-native/local-cli/cli.js start",
-    "rn-init": "rc-tools run react-native-init"
+    "rn-init": "rc-tools run react-native-init",
+    "tsc": "tsc -d"
+  },
+  "jest": {
+    "setupFiles": [
+      "./tests/setup.js"
+    ],
+    "testMatch": [
+      "**/?(*.)(spec|test).ts?(x)"
+    ],
+    "coverageDirectory": "./coverage/",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*"
+    ],
+    "transform": {
+      "\\.tsx?$": "./node_modules/rc-tools/scripts/jestPreprocessor.js",
+      "\\.jsx?$": "./node_modules/rc-tools/scripts/jestPreprocessor.js"
+    }
   },
   "dependencies": {
     "babel-runtime": "6.x",
-    "classnames": "^2.2.0",
+    "classnames": "^2.2.6",
     "rmc-feedback": "^2.0.0",
-    "rmc-dialog": "^1.0.1"
+    "rmc-dialog": "^1.1.1"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.3",
-    "@types/mocha": "~2.2.32",
-    "@types/react": "^16.0.0",
-    "@types/react-dom": "^16.0.5",
-    "@types/react-native": "^0.55.12",
-    "array-tree-filter": "1.x",
-    "expect.js": "0.3.x",
-    "fastclick": "^1.0.6",
+    "@types/classnames": "^2.2.7",
+    "@types/enzyme": "^3.9.1",
+    "@types/react": "^16.8.10",
+    "@types/react-dom": "^16.8.3",
+    "@types/react-native": "^0.57.42",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "jest": "^24.5.0",
     "pre-commit": "1.x",
-    "rc-test": "6.x",
-    "rc-tools": "6.x",
-    "react": "15.5.x",
-    "react-dom": "15.5.x",
-    "react-native": "~0.42.0",
-    "react-native-index-page": "~0.2.1"
+    "rc-tools": "9.x",
+    "react": "16.x",
+    "react-dom": "16.x",
+    "react-native": "~0.59.3",
+    "react-native-index-page": "~2.0.0"
   },
   "typings": "./lib/index.d.ts",
   "pre-commit": [

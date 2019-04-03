@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
 });
 
 export interface IPickerProp {
-  select: Function;
-  doScrollingComplete: Function;
+  select: (...arg) => void;
+  doScrollingComplete: (...arg) => void;
 }
 
 class Picker extends React.Component<IPickerProp & IPickerProps, any> {
