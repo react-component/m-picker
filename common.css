@@ -4,10 +4,8 @@
   /*34*7*/
 }
 .rmc-multi-picker {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
 }
 .rmc-picker-item {
   font-size: 16px;
@@ -27,8 +25,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  -ms-flex: 1;
-      flex: 1;
+  flex: 1;
   text-align: center;
 }
 .rmc-picker-mask {
@@ -62,5 +59,6 @@
   border-top: 1PX solid #ddd;
   border-bottom: 1PX solid #ddd;
 }
+
 
 /*# sourceMappingURL=common.css.map*/
