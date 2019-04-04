@@ -1,5 +1,5 @@
 import { render } from 'enzyme';
-import { html } from 'cheerio'
+import { html } from 'cheerio';
 import * as React from 'react';
 import Picker from '../src';
 
@@ -13,7 +13,7 @@ describe('basic', () => {
     );
 
     expect(html(wrapper)).toMatchSnapshot();
-  
+
     expect(wrapper.hasClass('rmc-picker')).toBeTruthy();
-  })
+  });
 });
