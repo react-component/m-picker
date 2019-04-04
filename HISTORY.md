@@ -1,6 +1,10 @@
 # History
 ----
 
+## 5.0.8 / 2019-04-04
+
+- fix: componentDidCatch type error in @types/react@15 https://github.com/react-component/m-picker/pull/109
+
 ## 5.0.7 / 2019-04-04
 
 - fix: IPopupPickerProps path error https://github.com/react-component/m-picker/pull/108
