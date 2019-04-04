@@ -5108,7 +5108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // import { IPopupPickerProps } from './PopupPickerTypes';
+
 
 var getModal = function getModal(props, visible, _ref) {
   var getContent = _ref.getContent,
