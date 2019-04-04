@@ -1,6 +1,10 @@
 # History
 ----
 
+## 5.0.7 / 2019-04-04
+
+- fix: IPopupPickerProps path error https://github.com/react-component/m-picker/pull/108
+
 ## 5.0.6 / 2019-03-18
 
 - fix: android screenY initial-scale error https://github.com/react-component/m-picker/pull/101
