@@ -51,6 +51,8 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
             setTransition(this.contentRef.style, '');
           }
         }, +time * 1000);
+      } else {
+        this.scrollingComplete();
       }
     };
 
