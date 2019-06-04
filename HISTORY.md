@@ -1,5 +1,10 @@
 # History
-----
+
+---
+
+## 5.0.9 / 2019-06-04
+
+- fix: scrollTo function can't fire callback https://github.com/react-component/m-picker/pull/120
 
 ## 5.0.8 / 2019-04-04
 
