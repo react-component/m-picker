@@ -24876,6 +24876,8 @@ function (_React$Component) {
               setTransition(_this.contentRef.style, '');
             }
           }, +time * 1000);
+        } else {
+          _this.scrollingComplete();
         }
       };
 
