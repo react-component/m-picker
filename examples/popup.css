@@ -36,13 +36,17 @@
 }
 .rmc-picker-popup-header {
   background-image: -webkit-linear-gradient(top, #e7e7e7, #e7e7e7, transparent, transparent);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#e7e7e7), color-stop(#e7e7e7), color-stop(transparent), to(transparent));
   background-image: linear-gradient(to bottom, #e7e7e7, #e7e7e7, transparent, transparent);
   background-position: bottom;
   background-size: 100% 1px;
   background-repeat: no-repeat;
   position: relative;
+  display: -webkit-box;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
 }
 .rmc-picker-popup-header-left,
 .rmc-picker-popup-header-right {
@@ -63,7 +67,8 @@
   background-color: #ddd;
 }
 .rmc-picker-popup-title {
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
   color: #666;
   cursor: default;
 }
