@@ -2,6 +2,10 @@
 
 ---
 
+## 5.0.10 / 2019-07-03
+
+- fix: rollback 5.0.8 for https://github.com/ant-design/ant-design-mobile/issues/3259, https://github.com/react-component/m-picker/pull/125
+
 ## 5.0.9 / 2019-06-04
 
 - fix: scrollTo function can't fire callback https://github.com/react-component/m-picker/pull/120
