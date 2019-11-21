@@ -81,7 +81,7 @@
     "@types/enzyme": "^3.9.1",
     "@types/react": "^15.0.0",
     "@types/react-dom": "^15.0.0",
-    "@types/react-native": "^0.57.42",
+    "@types/react-native": "^0.60.23",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "jest": "^24.5.0",
