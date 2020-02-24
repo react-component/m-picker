@@ -221,7 +221,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   componentWillReceiveProps(nextProps: IPickerProp & IPickerProps) {
-    if ('selectedValue' in nextProps) {
+    if (nextProps.selectedValue !== undefined) {
       if (this.state.selectedValue !== nextProps.selectedValue) {
         this.setState({
           selectedValue: nextProps.selectedValue,
