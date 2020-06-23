@@ -20,6 +20,8 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   indicatorRef: any;
   itemHeight: number;
   scrollValue: any;
+  // 在拖动或者动画滚动过程中，不响应 props 更新
+  isMovingOrScrolling = false;
 
   scrollHanders = (() => {
     let scrollY = -1;
@@ -112,6 +114,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       }
 
       isMoving = true;
+      this.isMovingOrScrolling = true;
       startY = y;
       lastY = scrollY;
     };
@@ -243,7 +246,9 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   componentDidUpdate() {
-    this.props.select(this.state.selectedValue, this.itemHeight, this.scrollToWithoutAnimation);
+    if (!this.isMovingOrScrolling) {
+      this.props.select(this.state.selectedValue, this.itemHeight, this.scrollToWithoutAnimation);
+    }
   }
 
   scrollTo = (top) => {
@@ -285,6 +290,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   scrollingComplete = () => {
+    this.isMovingOrScrolling = false;
     const top = this.scrollHanders.getValue();
     if (top >= 0) {
       this.props.doScrollingComplete(top, this.itemHeight, this.fireValueChange);
