@@ -26,9 +26,19 @@ export default function PopupMixin(getModal, platformProps) {
 
     componentWillReceiveProps(nextProps) {
       if ('value' in nextProps) {
-        this.setState({
-          pickerValue: nextProps.value,
-        });
+        // value 有实际的变化才更新
+        if (!Array.isArray(nextProps.value) || !Array.isArray(this.props.value)) {
+          // 不是数组的话，跟原来的逻辑一样，实际上 Picker 不会走到这个逻辑，因为 Picker 在使用的时候必须传数组
+          this.setState({
+            pickerValue: nextProps.value,
+          });
+        } else if (nextProps.value.length !== this.props.value.length || nextProps.value.some(
+          (item, index) => item !== this.props.value[index]
+        )) {
+          this.setState({
+            pickerValue: nextProps.value,
+          });
+        }
       }
       if ('visible' in nextProps) {
         this.setVisibleState(nextProps.visible);
