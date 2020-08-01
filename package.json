@@ -84,7 +84,7 @@
     "@types/react-native": "^0.57.42",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
-    "jest": "^24.5.0",
+    "jest": "^26.2.2",
     "pre-commit": "1.x",
     "rc-tools": "9.x",
     "react": "16.x",
