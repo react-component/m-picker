@@ -87,7 +87,7 @@
     "jest": "^24.5.0",
     "pre-commit": "1.x",
     "rc-tools": "9.x",
-    "react": "16.x",
+    "react": "17.x",
     "react-dom": "16.x",
     "react-native": "~0.59.3",
     "react-native-index-page": "~2.0.0"
