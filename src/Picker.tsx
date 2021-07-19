@@ -171,10 +171,16 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   }
 
   componentDidMount() {
+    const { props } = this;
+    const { prefixCls } = props;
     const { contentRef, indicatorRef, maskRef, rootRef } = this;
     const rootHeight = rootRef.getBoundingClientRect().height;
     // https://github.com/react-component/m-picker/issues/18
-    const itemHeight = this.itemHeight = indicatorRef.getBoundingClientRect().height;
+
+    const itemClassName = `${prefixCls}-item`;
+    const selectedItemClassName = `${prefixCls}-item-selected`;
+    const item = contentRef.querySelector(`.${itemClassName}:not(.${selectedItemClassName})`) || indicatorRef;
+    const itemHeight = this.itemHeight = item.getBoundingClientRect().height;
     let num = Math.floor(rootHeight / itemHeight);
     if (num % 2 === 0) {
       num--;
