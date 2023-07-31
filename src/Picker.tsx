@@ -7,11 +7,13 @@ export interface IPickerProp {
   select: (...arg) => void;
   doScrollingComplete: (...arg) => void;
   computeChildIndex: (...arg) => number;
+  tabIndex: number;
 };
 
 class Picker extends React.Component<IPickerProp & IPickerProps, any> {
   static defaultProps = {
     prefixCls: 'rmc-picker',
+    tabIndex: 0,
   };
 
   rootRef: any;
@@ -27,6 +29,8 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     let startY = 0;
     let scrollDisabled = false;
     let isMoving = false;
+
+    const getHight = () => ((this.props.children as any).length - 1) * this.itemHeight;
 
     const setTransform = (nodeStyle: CSSStyleDeclaration, value: any) => {
       nodeStyle.transform = value;
@@ -82,7 +86,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       isMoving = false;
       let targetY = scrollY;
 
-      const height = ((this.props.children as any).length - 1) * this.itemHeight;
+      const height = getHight();
 
       let time = .3;
 
@@ -128,6 +132,31 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       setTransform(this.contentRef.style, `translate3d(0,${-scrollY}px,0)`);
     };
 
+    const moveUp = () => {
+      let targetY: number;
+      onStart(scrollY);
+      targetY = scrollY - this.itemHeight;
+      if (targetY < 0) {
+        targetY = 0;
+      };
+      scrollTo(0, targetY);
+      this.onScrollChange();
+      setTransform(this.contentRef.style, `translate3d(0,${-scrollY}px,0)`);
+    };
+
+    const moveDown = () => {
+      let targetY: number;
+      const height = getHight();
+      onStart(scrollY);
+      targetY = this.itemHeight + scrollY;
+      if (targetY > height) {
+        targetY = height;
+      }
+      scrollTo(0, targetY);
+      this.onScrollChange();
+      setTransform(this.contentRef.style, `translate3d(0,${-scrollY}px,0)`);
+    };
+
     return {
       touchstart: (evt: React.TouchEvent<HTMLDivElement>) => onStart(evt.touches[0].pageY),
       mousedown: (evt: React.MouseEvent<HTMLDivElement>) => onStart(evt.pageY),
@@ -142,6 +171,18 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       touchend: () => onFinish(),
       touchcancel: () => onFinish(),
       mouseup: () => onFinish(),
+      keydown: (evt: React.KeyboardEvent<HTMLDivElement>) => {
+        switch (evt.key) {
+          case 'ArrowUp':
+            evt.preventDefault();
+            moveUp();
+            break;
+          case 'ArrowDown':
+            evt.preventDefault();
+            moveDown();
+            break;
+        }
+      },
       getValue: () => {
         return scrollY;
       },
@@ -191,8 +232,8 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
     const willPreventDefault = passiveSupported ? { passive: false } : false;
     const willNotPreventDefault = passiveSupported ? { passive: true } : false;
     Object.keys(this.scrollHanders).forEach(key => {
-      if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
-        const pd = key.indexOf('move') >= 0 ? willPreventDefault : willNotPreventDefault;
+      if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0 || key.indexOf('keydown') === 0) {
+        const pd = key.indexOf('move') >= 0 || key.indexOf('keydown') >= 0 ? willPreventDefault : willNotPreventDefault;
         (rootRef as HTMLDivElement).addEventListener(key, this.scrollHanders[key], pd as any);
       }
     });
@@ -200,7 +241,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
 
   componentWillUnmount() {
     Object.keys(this.scrollHanders).forEach(key => {
-      if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0) {
+      if (key.indexOf('touch') === 0 || key.indexOf('mouse') === 0 || key.indexOf('keydown') === 0) {
         (this.rootRef as HTMLDivElement).removeEventListener(key, this.scrollHanders[key]);
       }
     });
@@ -331,7 +372,7 @@ class Picker extends React.Component<IPickerProp & IPickerProps, any> {
       [prefixCls as string]: true,
     };
     return (
-      <div className={classNames(pickerCls)} ref={el => this.rootRef = el} style={this.props.style}>
+      <div className={classNames(pickerCls)} ref={el => this.rootRef = el} style={this.props.style} tabIndex={this.props.tabIndex}>
         <div className={`${prefixCls}-mask`} ref={el => this.maskRef = el} />
         <div
           className={`${prefixCls}-indicator ${indicatorClassName}`}
